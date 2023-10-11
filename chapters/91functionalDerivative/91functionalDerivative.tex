@@ -1,0 +1,62 @@
+% !TeX root = ../../thesis.tex
+\chapter{Functional derivative}
+The Alen-Cahn equation describing evolution of a non-conserved field $\xi(\mathbf{r})$ in a domain $\Omega\in\mathbb{R}^3$ with boundary $\partial\Omega$ can be written as
+\begin{align}
+	\frac{\partial \xi}{\partial t} = -L\frac{\delta F}{\delta \xi} \quad &\mathrm{in \,\Omega}\\
+	\nabla\xi\cdot\bm{n} = 0 \quad &\mathrm{at \, \partial\Omega}\,,
+\end{align}
+where $L$ is a positive constant and the function $\frac{\delta F}{\delta \xi}$ stands for functional derivative of the free energy functional $F$. The latter expresses how much the energy changes when the function $\xi(\mathbf{r})$ is infinitesimally varied by addition of some test function multiplied by small number, i.e. multiplied by $\varepsilon g(\mathbf{r})$, where $0<\varepsilon<<1$.\\
+The functional is a map from some function space to real numbers and in our case $ F[\xi(\bm{r})] = \int f(\bm{r}, \xi(\bm{r}),\nabla\xi(\bm{r}))\mathrm{d}V $ with the integrand being energy density. The change in functional value depending on $\varepsilon$ is called \textit{functional variation} and is defined $\delta F = F[\xi(\mathbf{r})+\varepsilon g(\mathbf{r})]-F[\xi(\mathbf{r})]$. The term $F[\xi(\mathbf{r})+\varepsilon g(\mathbf{r})]$ can be seen as a function of $\varepsilon$ and the functional derivative is a \textit{functional} defined as 
+\begin{equation} \label{eq_def_functional_Deriv_1}
+	\frac{\delta F}{\delta \xi}[\xi,g] := \left[ \dfrac{\mathrm{d}}{\mathrm{d}\varepsilon}F[\xi + \varepsilon g] \right]_{\varepsilon=0} = \lim_{\varepsilon\rightarrow0} \frac{F[\xi(\mathbf{r})+\varepsilon g(\mathbf{r})] - F[\xi(\mathbf{r})]}{\varepsilon}  
+\end{equation}
+The functional $F$ is \textit{differentiable} when the derivative~\ref{eq_def_functional_Deriv_1} exists and can be written in form of integral
+\begin{equation}\label{eq_def_functional_Deriv_2}
+	\left[ \dfrac{\mathrm{d}}{\mathrm{d}\varepsilon}F[\xi + \varepsilon g] \right]_{\varepsilon=0} = \int_\Omega \frac{\delta F}{\delta \xi}(\mathbf{r})g(\mathbf{r})dV
+\end{equation}
+the kernel of which $\frac{\delta F}{\delta \xi}(\mathbf{r})$ is the \textit{function} appearing in the Allen-Cahn equation. The expression for $\frac{\delta F}{\delta \xi}(\mathbf{r})$ can be obtained using Taylor expansion of $F[\xi(\mathbf{r})+\varepsilon g(\mathbf{r})]$ in $\varepsilon=0$, which will be shown first in the case of an 1D system to illustrate the procedure. \\
+The functional is $ F[\xi(x)] = \int_a^b f(x, \xi,\xi')\mathrm{d}x $, where the integration limits $a,b$ are constant and $\xi = \xi(x),\xi'=\frac{\mathrm{d}\xi}{\mathrm{d}x}(x)$. The functional derivative is then
+\begin{equation}
+	\begin{split}
+		\frac{\delta F}{\delta \xi}[\xi,g] &= \lim_{\varepsilon\rightarrow0}\frac{1}{\varepsilon}\int_a^b [f(x,\xi+\varepsilon g,\xi'+\varepsilon g')-f(x,\xi,\xi') ]\mathrm{d}x = \\
+		&= \lim_{\varepsilon\rightarrow0}\frac{1}{\varepsilon}\int_a^b \left[\frac{\partial f}{\partial \xi}\varepsilon g + \frac{\partial f}{\partial \xi'}\varepsilon g' + \mathcal{O}(\varepsilon^2)\right]\mathrm{d}x = \\
+		&= \int_a^b \left(\frac{\partial f}{\partial \xi} g + \frac{\partial f}{\partial \xi'} g' \right)\mathrm{d}x = \\
+		&= \int_a^b \left(\frac{\partial f}{\partial \xi} - \frac{\partial}{\partial x}\frac{\partial f}{\partial \xi'} \right)g\mathrm{d}x + \left[\frac{\partial f}{\partial \xi'}g\right]_{a}^b
+	\end{split}
+\end{equation}
+In the last equation sign per partes technique was used. \\
+So far there was no assumption on test function $g(x)$, but in the simplest case the end points of $\xi$ are fixed, i.e. $g(a)=g(b)=0$, which removes the second term and allows to write 
+\begin{equation}
+	\frac{\delta F}{\delta \xi}(x) = \frac{\partial f}{\partial \xi} - \frac{\partial}{\partial x}\frac{\partial f}{\partial \xi'} \,.
+\end{equation}
+If the left-hand side is replaced by zero, we obtain \textit{Euler-Lagrange} equation, solution to which minimizes the functional F. \\
+Now, in the case of functional in 3D space $ F[\xi(\bm{r})] = \int_\Omega f(\bm{r}, \xi(\bm{r}),\nabla\xi(\bm{r})\mathrm{d}^3r $ we must realize that dependence of the integrand on a vector variable means dependence on its components, i.e. $f(\bm{r}, \xi(\bm{r}),\nabla\xi(\bm{r})=f(x_1,x_2,x_3,\xi,\partial_1\xi,\partial_2\xi,\partial_3\xi)$, where $\partial_i = \frac{\partial}{\partial x_i}$. The functional derivative is then derived in a way analogous to the previous case, but now there is one term in the Taylor expansion per each gradient component. Before the derivation we define the following vector field
+\begin{equation}
+	\begin{split}
+		\frac{\partial f}{\partial(\nabla \xi)} &= \frac{\partial f}{\partial(\partial_1\xi)}\mathbf{i} + \frac{\partial f}{\partial(\partial_2\xi)}\mathbf{j} +\frac{\partial f}{\partial(\partial_3\xi)}\mathbf{k} = \\
+		&= \frac{\partial f}{\partial(\frac{\partial \xi_p}{\partial x})}\mathbf{i} + \frac{\partial f}{\partial(\frac{\partial \xi_p}{\partial y})}\mathbf{j} +\frac{\partial f}{\partial(\frac{\partial \xi_p}{\partial z})}\mathbf{k}
+	\end{split}
+\end{equation}
+And we proceed to the functional derivative
+\begin{equation}
+	\begin{split}\label{eq_functional_der_3D}
+		\frac{\delta F}{\delta \xi}[\xi,g] &= \lim_{\varepsilon\rightarrow0}\frac{1}{\varepsilon}\int_\Omega [f(x_i,\xi+\varepsilon g,\partial_i(\xi+\varepsilon g))-f(x_i,\xi,\partial_i\xi) ]\mathrm{d}^3r = \\
+		&= \lim_{\varepsilon\rightarrow0}\frac{1}{\varepsilon}\int_\Omega\left[\frac{\partial f}{\partial \xi}\varepsilon g + \sum_{i=1}^3\frac{\partial f}{\partial (\partial_i\xi)}\varepsilon \partial_i g + \mathcal{O}(\varepsilon^2)\right]\mathrm{d}^3r = \\
+		&= \int_\Omega\left[\frac{\partial f}{\partial \xi} g + \frac{\partial f}{\partial (\nabla\xi)}\cdot \nabla g \right]\mathrm{d}^3r \\
+		&= \int_\Omega\left[\frac{\partial f}{\partial \xi}  - \nabla\cdot\frac{\partial f}{\partial (\nabla\xi)}  \right]g\mathrm{d}^3r + \int_{\partial\Omega}g\frac{\partial f}{\partial (\nabla\xi)}\cdot\mathrm{d}\bm{n}
+	\end{split}
+\end{equation}
+In the last equation there was used Stokes' theorem\footnote{with scalar field $f(\bm{r})$ and vector field $\bm{F}(\bm{r})$ the Stokes theorem gives: $\int_\Omega \nabla\cdot(\bm{F}f) = \int_{\partial\Omega} f\bm{F}\cdot\mathrm{d}\bm{n} $, where $\bm{n}$ is a vector normal to the domain boundary} in combination with the rule for divergence of product of vector and scalar field\footnote{ $\nabla\cdot(\bm{F}f) =  (\nabla\cdot\bm{F})f + \bm{F}\cdot(\nabla f)$}. Hence, in order to null the surface integral in equation~\ref{eq_functional_der_3D}, either the boundary values must be fixed (Dirichlet BCs) or the following boundary condition (so called \textit{natural BC}) must be satisfied
+\begin{equation}
+	\frac{\partial f}{\partial(\nabla \xi_p)}\cdot\bm{n}=0 \,.
+\end{equation}
+
+Different choice of the boundary conditions will interfere with minimization of the functional. The safest option is when the interface does not come near the boundary. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Keep the following \cleardoublepage at the end of this file, 
+% otherwise \includeonly includes empty pages.
+\cleardoublepage
+
+% vim: tw=70 nocindent expandtab foldmethod=marker foldmarker={{{}{,}{}}}

@@ -1,4 +1,5 @@
-\documentclass[showinstructions,faculty=firw,department=cws,phddegree=cws]{adsphd}
+%\documentclass[showinstructions,faculty=firw,department=mtk,phddegree=mtk]{adsphd}
+\documentclass[faculty=firw,department=mtk,phddegree=mtk]{adsphd}
 %\documentclass[showinstructions,faculty=firw,department=cws,phddegree=cws,doctoralschool=ads]{adsphd}
 %\documentclass[showinstructions,showlabels,coverfontpercent=100,faculty=firw,department=cws,phddegree=cws]{adsphd}
 %\documentclass[croppedpdf,showinstructions,faculty=firw,department=cws,phddegree=cws]{adsphd}
@@ -16,12 +17,12 @@
 % !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 %%% COVER: Settings %%%
-\title{The Title of Your PhD Dissertation}
+\title{Simulations of polycrystals with anisotropic interfaces}
 %\subtitle{Multiscale computing for Dummies}
 
-\author{Your}{Name}
+\author{Martin}{Minar}
 
-\supervisor{Prof.~dr.~ir.~F.~Leader}{}
+\supervisor{Prof.~dr.~ir.~Nele~Moelans}{}
 \supervisor{Prof.~dr.~ir.~S.~Leader}{}
 \president{Prof.~dr.~ir.~The~Chairman}{}
 \jurymember{Prof.~dr.~ir.~The~One}{}
@@ -30,7 +31,7 @@
 
 % Your research group within the department
 % e.g. iMinds-DistriNet, Scientific Computing Group, ...
-\researchgroup{XXXXX}
+\researchgroup{SolMiCS}
 \website{http://www.XXXXX.cs.kuleuven.be} % Leave empty to hide
 \email{first.last@cs.kuleuven.be} % Leave empty to hide
 
@@ -39,8 +40,8 @@
                               % that 'B-3001 Heverlee' is _incorrect_!!
                               % /[https://www.kuleuven.be/communicatie/marketing/intranet/huisstijl/taalgebruik.html]
 
-\date{January 2016}
-\copyyear{2016}
+\date{January 2024}
+\copyyear{2024}
 %\udc{XXX.XX}            % UDC, deposit number and ISBN are no longer necessary.
 %\depot{XXXX/XXXX/XX}    % Leave out the initial D/ (it is added
                          % automatically)
@@ -87,10 +88,10 @@
 %\usepackage[utf8]{inputenc}
 %\usepackage{csquotes}
 %\usepackage[
-  %hyperref=auto,
-  %mincrossrefs=999,
-  %backend=biber,
-  %style=authoryear-icomp
+%  hyperref=auto,
+%  mincrossrefs=999,
+%  backend=biber,
+%  style=authoryear-icomp
 %]{biblatex}
 %\addbibresource{allpapers.bib}
 
@@ -100,6 +101,7 @@
 \usepackage{booktabs}
 \usepackage{amssymb,amsthm}
 \usepackage{amsmath}
+\usepackage{bm}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -108,59 +110,66 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\makefrontcoverXII
+%\makefrontcoverXII
 
-\maketitle
+%\maketitle
 
-\frontmatter % to get \pagenumbering{roman}
+%\frontmatter % to get \pagenumbering{roman}
 
-\includepreface{preface}
-\includeabstract{abstract}
-\includeabstractnl{abstractnl}
+%\includepreface{preface}
+%\includeabstract{abstract}
+%\includeabstractnl{abstractnl}
 
 % To create a list of abbreviations, there are 2 options
 % 1. manual creation of list of abbreviations and inclusion as a chapter
 %    \includeabbreviations{abbreviations}
 % 2. automatic generation via the glossary package
 %    \glossary{name=MD,description=molecular dynamics}
-\myprintglossary
+%\myprintglossary
 
 % To create a list of symbols, there are 2 options
 % 1. include a manually created nomenclature as a chapter
 %    \includenomenclature{nomenclaturechapter}
 % 2. automatic generation via the nomencl package
 %    \nomenclature[cB]{$c_B(\vec{x})$}{Characteristic function of $B$}
-\myprintnomenclature
+%\myprintnomenclature
 
 \tableofcontents
-\listoffigures
-\listoftables
+%\listoffigures
+%\listoftables
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \mainmatter % to get \pagenumbering{arabic}
 
 % Show instructions on a separate page
-\instructionschapters\cleardoublepage
+%\instructionschapters\cleardoublepage
 
-\includechapter{introduction}
-\includechapter{manual} % Remove this chapter
+\includechapter{01introduction}
+%\includechapter{02anisoIEintro}
+%\includechapter{03PFintro} 
+%\includechapter{04PFMoelans} 
+%\includechapter{05paper1} 
+%\includechapter{65paper2} 
+
 
 % Insert here your own chapters
 % Chapters are expected to be in a tex-file with the given name dot
 % tex and in a directory with the given name in the chapters
 % directory.
 
-\includechapter{conclusion}
+%\includechapter{conclusion}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \appendix
 
-\includeappendix{myappendix}
+%\includeappendix{myappendix}
+%\includeappendix{91functionalDerivative} 
+%\includeappendix{92PFderivations} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\backmatter
+%\backmatter
 
 \includebibliography
 % BibTex
@@ -168,13 +177,13 @@
 \bibliography{allpapers}
 % BibLatex (comment lines above and comment out biblatex lines in preamble)
 %\printbibliography[title=\bibname]
-\instructionsbibliography
+%\instructionsbibliography
 
-\includecv{curriculum}
+%\includecv{curriculum}
 
-\includepublications{publications}
+%\includepublications{publications}
 
-\makebackcoverXII
+%\makebackcoverXII
 
 \end{document}
 

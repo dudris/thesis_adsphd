@@ -1,0 +1,393 @@
+% !TeX root = ../../thesis.tex
+\chapter{Extended multi-phase field model}
+
+\section{Moelans' model}
+The system consists of $n$ non-conserved continuous-field variables (further denoted phase fields) $\eta_1(\mathbf{r},t), \eta_2(\mathbf{r},t),\dots,\eta_n(\mathbf{r},t)$, which are functions of space and time. The total free energy of the system is expressed as functional of the phase fields and their gradients $\nabla\eta_1(\mathbf{r},t), \nabla\eta_2(\mathbf{r},t),\dots,\nabla\eta_n(\mathbf{r},t)$
+\begin{equation} \label{eq_def_totalE_ver1}
+	F = \int_V \Bigg\{ m f_0(\vec{\eta}) + \frac{\kappa}{2}\sum_{i=1}^n(\nabla \eta_i)^2 \Bigg\} \mathrm{d}V \,,
+\end{equation}
+where the homogeneous free energy density $f_0(\vec{\eta}) = f_0(\eta_1, \eta_2,\dots,\eta_n)$ is expressed as 
+\begin{equation}
+	f_0(\vec{\eta}) = \sum_{i=1}^n\left(\frac{\eta_i^4}{4} - \frac{\eta_i^2}{2} \right) +\gamma\sum_{i=1}^n\sum_{i>j}\eta_i^2\eta_j^2 + \frac{1}{4} \,.
+\end{equation}
+The parameters $m,\kappa, \gamma$ are model parameters, which together define interface energy and interface width (see the following section for more details).
+
+The governing equations for each phase field $\eta_p$ are obtained based on the  functional derivative of the free energy functional with respect to $\eta_p$, assuming that the phase-fields are non-conserved, i.e. %(note that phase-field gradient components act as independent variables in the expression when taking the functional derivative), i.e. 
+\begin{equation}
+	\label{eq_ACeq_governing}
+	\frac{\partial \eta_p}{\partial t} = -L\frac{\delta F}{\delta \eta_p} = -L \left[ \frac{\partial f}{\partial \eta_p} - \nabla\cdot\frac{\partial f}{\partial(\nabla \eta_p)} \right] \,,
+\end{equation}
+where $L$ is the kinetic coefficient (also dependent on the model parameters), $f$ is the full integrand in~\eqref{eq_def_totalE_ver1} and $\nabla\cdot\partial f/\partial(\nabla \eta_p)$ is divergence of vector field $\partial f/\partial(\nabla \eta_p)$ defined by relation
+\begin{equation}
+	\frac{\partial f}{\partial(\nabla \eta_p)} = \frac{\partial f}{\partial(\partial_x\eta_p)}\mathbf{n}_x + \frac{\partial f}{\partial(\partial_y \eta_p)}\mathbf{n}_y + \frac{\partial f}{\partial(\partial_z \eta_p)}\mathbf{n}_z
+\end{equation}
+with $\partial_x,\partial_y,\partial_z$ being operators for unidirectional derivatives in the corresponding directions and $\mathbf{n}_x,\mathbf{n}_y,\mathbf{n}_z$ coordinate base vectors. 
+
+\subsection{Isotropic model}
+\label{sec_Models}
+In a system with uniform grain boundary properties, the interface energy is equal for all interfaces and hence the phase-field model parameters $m,\kappa, \gamma$ (and interface width $l$) are constant in the system.
+
+Then, using expression~\eqref{eq_ACeq_governing}, the governing equation for each phase field $\eta_p$ takes the following form % (assuming that none of $m,\kappa,\gamma$ is function of $\eta_p$ or of components of gradient $\nabla\eta_p$)
+\begin{equation}
+	\frac{\partial \eta_p}{\partial t} = -L\left[ m\left( \eta_p^3-\eta_p +  2\gamma\eta_p\sum_{j\neq p}\eta_j^2 \right) - \kappa\nabla^2\eta_p \right] 
+\end{equation}
+
+The interface energy $\sigma$ of the system is related to the model parameters via 
+\begin{equation}\label{eq_IE}
+	\sigma = g(\gamma)\sqrt{m\kappa} \,,
+\end{equation}
+where $g(\gamma)$ is a non-analytic function of parameter $\gamma$. The interface width $l$ is expressed as
+\begin{equation} \label{eq_IW}
+	l = \sqrt{\frac{\kappa}{mf_{0c}(\gamma)}} \,,
+\end{equation}
+where $f_{0c}(\gamma)$ is the value of $f_0(\eta_{i,cross},\eta_{j,cross})$ in the points where the two phase fields $\eta_i,\eta_j$ cross. $f_{0c}(\gamma)$ is a non-analytic function too. Values of both $g(\gamma)$ and $f_{0c}(\gamma)$ were tabulated and are available in~\cite{Ravash2017}. Both functions are positive and monotonously rising.
+
+Usually, the interface energy $\sigma$ is known as material property and $l$ is chosen for computational convenience, together with $\gamma$. Then, the parameter values are assigned from the following formulae
+
+\begin{equation}\label{eq_def_kappa}
+	\kappa = \sigma l\frac{\sqrt{f_{0c}(\gamma)}}{g(\gamma)} \approx \frac{3}{4}\sigma l
+\end{equation}
+\begin{equation} \label{eq_def_m}
+	m = \frac{\sigma}{l}\frac{1}{g(\gamma)\sqrt{f_{0c}(\gamma)}} \approx 6 \frac{\sigma}{l}
+\end{equation}
+\begin{equation}\label{eq_def_L}
+	L = \frac{\mu}{l}\frac{g(\gamma)}{\sqrt{f_{0c}(\gamma)}} \approx \frac{4}{3} \frac{\mu}{l}
+\end{equation}
+The symbol $\mu$ stands for interface mobility. The approximate relations above hold exactly when $\gamma=1.5$ and are well applicable when $0.9 \leq \gamma \leq 2.65$ ~\cite{Moelans2008}. 
+
+\subsection{Anisotropic model and parameters assignment strategies}
+Two cases of interface energy anisotropy may occur, together or separately. Firstly, in the system there may be multiple interfaces with different interface energies (termed \textit{misorientation dependence} in~\cite{Moelans2008}, here \textit{pair-wise isotropy} for greater generality). Secondly, there may be an interface with inclination-dependent interface energy. Additionally, the kinetic coefficient $L$ can be inclination dependent. 
+
+In both cases of anisotropy in interface energy, some of the model parameters $m,\kappa, \gamma$ must become spatially dependent in order to assure correct local representation of the interface energy and width. In other words, the equations~\eqref{eq_IE}~and~\eqref{eq_IW} must hold in every point of the anisotropic system.
+These two equations locally form an undetermined system of three variables, hence one of the model parameters is free and many different parameters assignment strategies are possible.
+
+In this paper, the parameter $m$ is always a constant, because when $m$ was spatially varied~\cite{Moelans2008}, the model behavior in multijunctions was reported to be strongly affected by the interface width. Such model would be non-quantitative and thus will not be further regarded in this paper.
+
+Three different parameters assignment strategies are considered, which differ in value of $m$ and further in which of parameters $\kappa,\gamma$ is constant and which varies in space to keep equation~\eqref{eq_IE} valid. The three strategies are denoted: IWc (variable $\gamma,\kappa$ so that interface width is constant  \cite{Moelans2008}), IWvG (variable interface width and $\gamma$ \cite{Ravash2017}) and IWvK (variable interface width and $\kappa$).   Table~\ref{tab_models_comparison} summarizes, which parameters are kept constant and which vary to capture the anisotropy in the different strategies. The detailed procedure of the parameters assignment and ways to control the width of the narrowest interface are described in~\ref{sec_suppl_param_det} of the Supplemental Material~\cite{Minar2021suppl}. Note that for the IWc model we propose a single-step parameters determination procedure, which is more predictable and simpler than the original iterative one~\cite{Moelans2008}. The two are equivalent, though.\\
+Below follow details about the incorporation of pair-wise isotropy and inclination-dependence in the model. 
+
+\begin{table}[h]
+	\centering
+	\caption{Characterization of the three parameter assignment strategies: the one with constant interface width (IWc), with variable interface width and all anisotropy in $\gamma$ (IWvG) and with variable interface width and all anisotropy in $\kappa$ (IWvK). In the latter, it is inconvenient to choose other value of $\gamma$ than $\gamma=1.5$. IW stands for interface width, other symbols have meaning as in the text.}
+	\label{tab_models_comparison}
+	\begin{tabular}{l|c|c|c|}\footnotesize
+		& IWc & IWvG & IWvK \\ \hline
+		fixed parameters & IW, $m$ & $\kappa, m$ & $\gamma, m$  \\
+		varying parameters & $\gamma, \kappa$ & IW, $\gamma$ & IW, $\kappa$
+	\end{tabular}
+\end{table}
+
+\subsubsection{Systems with pair-wise isotropic IE}
+In the system with $n$ phase fields, there are $n(n-1)/2$ possible pair-wise interfaces, each of which may have different (mean) interface energy $\sigma_{i,j}$. The indices $i,j$ denote interface between phase fields $\eta_i,\eta_j$. A set of parameters $m,\kappa_{i,j},\gamma_{i,j}, L_{i,j}$ (all scalars) is obtained by appropriate procedure  (depending on the strategy, see~\ref{sec_suppl_param_det} in Supplemental Material~\cite{Minar2021suppl}) so that the relations \eqref{eq_IE} and \eqref{eq_IW} are valid for each interface independently (equations~\eqref{eq_def_kappa}-\eqref{eq_def_L} hold for each interface ($i$-$j$)). Then, these are combined together to produce the model parameter fields $\kappa(\bm{r}),\gamma(\bm{r}),L(\bm{r})$:
+\begin{equation}
+	\kappa(\bm{r}) = \frac{\sum_{i=1}^n\sum_{j>i}^n\kappa_{i,j}\eta_i^2\eta_j^2}{\sum_{i=1}^n\sum_{j>i}^n\eta_i^2\eta_j^2}
+\end{equation}
+\begin{equation}
+	\gamma(\bm{r}) = \frac{\sum_{i=1}^n\sum_{j>i}^n\gamma_{i,j}\eta_i^2\eta_j^2}{\sum_{i=1}^n\sum_{j>i}^n\eta_i^2\eta_j^2} \,,
+\end{equation}
+\begin{equation}
+	L(\bm{r})= \frac{\sum_{i=1}^n\sum_{j>i}^nL_{i,j}\eta_i^2\eta_j^2}{\sum_{i=1}^n\sum_{j>i}^n\eta_i^2\eta_j^2}
+\end{equation}
+
+which stand in place of $\kappa,\gamma$ in the functional in equation~\eqref{eq_def_totalE_ver1} and in place of $L$ in the governing equation~\eqref{eq_ACeq_governing}.
+
+Notice that from Table~\ref{tab_models_comparison} stems  that in IWvG is $\kappa(\bm{r})=\mathrm{const}$ by definition (i.e. all the $\kappa_{i,j}$s are equal) and similarly in IWvK $\gamma(\bm{r})=\mathrm{const}=1.5$ (i.e. all $\gamma_{i,j}$s are equal). 
+
+The free energy functional for IWc is then (those for IWvG and IWvK are equal, only with either $\kappa(\bm{r})$ or $\gamma(\bm{r})$ being constants, respectively):
+\begin{equation} \label{eq_def_totalE_ver2}
+	F = \int_V \Bigg\{ m f_0(\vec{\eta}) + \frac{\kappa(\bm{r})}{2}\sum_{i=1}^n(\nabla \eta_i)^2 \Bigg\} \mathrm{d}V \,,
+\end{equation}
+\begin{equation}
+	f_0(\vec{\eta}) = \sum_{i=1}^n\left(\frac{\eta_i^4}{4} - \frac{\eta_i^2}{2} \right) +\sum_{i=1}^n\sum_{i>j}\gamma_{i,j}\eta_i^2\eta_j^2 + \frac{1}{4} \,.
+\end{equation}
+
+Both parameter fields $\kappa(\bm{r}),\gamma(\bm{r})$ are functions of phase fields $\vec{\eta}$. This dependence should produce new terms in the governing equations (from $\partial f/\partial \eta_p$ in equation~\eqref{eq_ACeq_governing}). However, because the denominator of $\gamma(\bm{r})$ cancels out in the functional, the new terms only arise from $\partial \kappa/\partial \eta_p$.\\
+The governing equations then are 
+\begin{equation}
+	\begin{split}
+		\frac{\partial \eta_p}{\partial t} = -L(\bm{r})\left[ m\left( \eta_p^3-\eta_p +  2\eta_p\sum_{j\neq p}\gamma_{p,j}\eta_j^2 \right) \right. \\ \left. +\frac{1}{2}\frac{\partial \kappa}{\partial\eta_p}\sum_{i=1}^n(\nabla\eta_i)^2 - \kappa(\bm{r})\nabla^2\eta_p \right] 
+	\end{split}
+\end{equation}
+
+The above procedure is fully variational, nevertheless inclusion of the term proportional to $\partial \kappa/\partial \eta_p$ enables the model to reduce the total energy of the system by introduction of so called third phase contributions (also ghost or spurious phases) at diffuse interfaces.~\cite{Moelans2008} That is a common problem in multi-phase field models~\cite{Toth2015}, where a third phase field attains non-zero value within an interface of two other phase fields. This mathematical artefact affects triple junction angles and in general is not physically justified. Several ways of elimination or suppression of ghost phases were described in~\cite{Toth2015} and the references therein.
+
+In this work, the ghost phases were eliminated by neglecting the term proportional to $\partial \kappa/\partial \eta_p$. However, because such model is not fully variational, the thermodynamic consistency can no longer be guaranteed in IWc and IWvK. This does not affect IWvG, because there is $\partial \kappa/\partial\eta_p=0$ anyway. That accounts for a clear advantage of the IWvG model, as no ghost phases appear even when fully variational.
+
+\subsubsection{Systems with inclination-dependent interface energy} \label{sec_model_incldepIE}
+\begin{table*}[]
+	\centering
+	\caption{Inclination dependence of the variable parameters in the respective models. The interface energy is $\sigma_{i,j}(\theta_{i,j})=\sigma_{i,j}^0h_{i,j}(\theta_{i,j})$. Symbols $\kappa_{i,j}^0, \gamma_{i,j}^0$ stand for scalar values of the parameters determined from $\sigma_{i,j}^0$ (see~\ref{sec_suppl_param_det} in~\cite{Minar2021suppl}). Expressions for $\gamma_{i,j}(\theta_{i,j})$ follow the so called \textit{weak anisotropy approximation}~\cite{Moelans2008}, i.e. they assume that the values of $\gamma_{i,j}(\theta_{i,j})$ do not diverge far from 1.5, so that the approximation $g^2[\gamma_{i,j}(\theta_{i,j})]\approx16[2\gamma_{i,j}(\theta_{i,j})-1]/9[2\gamma_{i,j}(\theta_{i,j}) +1]$ is applicable (see~\cite{Moelans2008} for details). Second row contains expressions used in equations~\ref{eq_dkppijdGp} and \ref{eq_dgmmijdGp}.}
+	\label{tab_models_comp__par_incldep}
+	\begin{tabular}{p{2cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4.3cm}>{\centering\arraybackslash}p{3.5cm}}
+		model     & IWc & IWvG & IWvK  \\ \hline
+		variable parameter(s)     & $\begin{array}{l}
+			\kappa_{i,j}(\theta_{i,j})= \kappa_{i,j}^0h_{i,j}(\theta_{i,j}) \\
+			\gamma_{i,j}(\theta_{i,j})= -\frac{\frac{9}{4}g^2(\gamma_{i,j}^0)h_{i,j}(\theta_{i,j})+1}{\frac{9}{2}g^2(\gamma_{i,j}^0)h_{i,j}(\theta_{i,j})-2}
+		\end{array}$
+		& $\gamma_{i,j}(\theta_{i,j})= -\frac{\frac{9}{4}[g(\gamma_{i,j}^0)h_{i,j}(\theta_{i,j})]^2+1}{\frac{9}{2}[g(\gamma_{i,j}^0)h_{i,j}(\theta_{i,j})]^2-2}$
+		&
+		$\kappa_{i,j}(\theta_{i,j})= \kappa_{i,j}^0[h_{i,j}(\theta_{i,j})]^2$ \\ \hline
+		$\partial \kappa_{i,j}/\partial h_{i,j}$ and $\partial \gamma_{i,j}/\partial h_{i
+			,j}$ 
+		& $\begin{array}{l}
+			\partial \kappa_{i,j}/\partial h_{i,j} = \kappa_{i,j}^0 \\
+			\partial \gamma_{i,j}/\partial h_{i,j} = \frac{9g^2( \gamma_{i,j}^0)}{\left[\frac{9}{2}g^2(\gamma_{i,j}^0)h_{i,j}(\theta_{i,j}) - 2\right]^2}
+		\end{array}$ 
+		& $\partial \gamma_{i,j}/\partial h_{i,j} = \frac{18g^2(\gamma_{i,j}^0)h_{i,j}(\theta_{i,j})}{\left\{\frac{9}{2}[g(\gamma_{i,j}^0)h_{i,j}(\theta_{i,j})]^2 - 2\right\}^2}$ 
+		& $\partial \kappa_{i,j}/\partial h_{i,j} = 2 \kappa_{i,j}^0h_{i,j}(\theta_{i,j})$
+	\end{tabular}
+\end{table*}
+The orientation of an interface in 2D system is given by interface normal, inclined under the angle $\theta$. Local value of interface energy may be a function of local interface inclination, i.e. $\sigma = \sigma(\theta)$. In Moelans' model~\cite{Moelans2008}, the normal at interface between $\eta_i,\eta_j$, denoted $\hat{\bm{n}}_{i,j}$, is defined as 
+\begin{equation}
+	\hat{\bm{n}}_{i,j} = \frac{\nabla\eta_i-\nabla\eta_j}{|\nabla\eta_i-\nabla\eta_j|} = \left[\begin{array}{c}
+		(\hat{n}_{i,j})_x   \\
+		(\hat{n}_{i,j})_y
+	\end{array} \right]
+\end{equation}
+and the definite inclination of that normal 
+\begin{equation}
+	\theta_{i,j} = \mathrm{atan2}[(\hat{n}_{i,j})_y,(\hat{n}_{i,j})_x] \,,
+\end{equation}
+which is the standard 2-argument arctangent function.\\
+In 2D, the inclination-dependence of interface energy can be expressed as 
+\begin{equation}\label{eq_IE_incldep}
+	\sigma_{i,j}(\theta_{i,j}) = \sigma_{i,j}^0h_{i,j}(\theta_{i,j})
+\end{equation}
+where $\sigma_{i,j}^0$ is a scalar and  $h_{i,j}(\theta_{i,j})$ is anisotropy function. The used anisotropy function was
+\begin{equation}
+	h_{i,j}(\theta_{i,j}) = 1 + \delta\cos(n\theta_{i,j}) \,,
+\end{equation}
+
+with $\delta$ being strength of anisotropy and $n$ the order of symmetry. Some properties of this anisotropy function and the resulting Wulff shapes are given in~\ref{sec_appendix_anisofun_props} of the Supplemental Material~\cite{Minar2021suppl}. 
+
+The inclination dependence of $\sigma_{i,j}$ implies that some of the model parameters $\gamma_{i,j},\kappa_{i,j}$ must be taken inclination-dependent too. Depending on the model used (IWc, IWvG or IWvK), the local validity of equation~\eqref{eq_IE} is achieved using different inclination dependence of the variable parameters (see Table~\ref{tab_models_comp__par_incldep} for details).
+
+Because the inclination-dependent $\kappa_{i,j},\gamma_{i,j}$ are functions of components of gradients $\nabla\eta_i,\nabla\eta_j$, the divergence term in the functional derivative (equation~\eqref{eq_ACeq_governing}) produces additional driving force terms. In the general case with multiple inclination-dependent interfaces, the divergence term equals
+\begin{equation}\label{eq_incldep_divDFterms}
+	\begin{split}
+		\nabla\cdot \frac{\partial f}{\partial(\nabla \eta_p)} &= 2m\eta_p\nabla\eta_p\cdot \left[\sum_{j\neq p}  \eta_j^2\frac{\partial \gamma_{p,j}}{\partial (\nabla\eta_p)}\right]  \\ 
+		&\quad+ 2m\eta_p^2\sum_{j\neq p} \left[\eta_j\nabla\eta_j \cdot \frac{\partial \gamma_{p,j}}{\partial (\nabla\eta_p)}\right] \\
+		&\quad+ m\eta_p^2\sum_{j\neq p}\eta_j^2\left[\nabla\cdot\frac{\partial \gamma_{p,j}}{\partial (\nabla\eta_p)}\right] \\
+		&\quad + \frac{1}{2}\left[\nabla\cdot\frac{\partial \kappa}{\partial (\nabla\eta_p)}\right]\sum_{i=1}^n(\nabla \eta_i)^2 \\
+		&\quad+ \frac{1}{2}\frac{\partial \kappa}{\partial (\nabla\eta_p)}\cdot\left[\nabla\sum_{i=1}^n(\nabla \eta_i)^2\right]  \\
+		&\quad+ \nabla\kappa(\bm{r})\cdot\nabla\eta_p + \kappa(\bm{r})\nabla^2\eta_p \,.
+	\end{split} 
+\end{equation}
+The vector field $\partial \kappa/\partial(\nabla\eta_p)$ is
+\begin{equation} \label{eq_dkppdGp}
+	\frac{\partial \kappa}{\partial(\nabla\eta_p)} =  \frac{\sum\limits_{j\neq p}^n \left(\frac{\partial \kappa_{p,j}}{\partial (\nabla\eta_p)}\right)\eta_p^2\eta_j^2}{\sum\limits_{k=1}^n\sum\limits_{l>k}\eta_k^2\eta_l^2} \,
+\end{equation}
+where the sum in the numerator goes through all pair-wise interfaces of $\eta_p(\bm{r})$. The vector fields $\partial\kappa_{p,j}/\partial (\nabla\eta_p)$ are expressed
+\begin{equation} \label{eq_dkppijdGp}
+	\frac{\partial \kappa_{p,j}}{\partial (\nabla\eta_p)} = \frac{1}{|\nabla\eta_i-\nabla\eta_j|}\frac{\partial \kappa_{p,j}}{\partial h_{p,j}}\frac{\partial h_{p,j}}{\partial \theta_{p,j}} \left[\begin{array}{c}
+		-(\hat{n}_{i,j})_y   \\
+		(\hat{n}_{i,j})_x
+	\end{array} \right].
+\end{equation}
+Note, that the above vector field is nonzero only in IWc and IWvK models at the interfaces ($p$-$j$) with inclination-dependent IE. Likewise, the below vector field is nonzero only in IWc and IWvG
+\begin{equation} \label{eq_dgmmijdGp}
+	\frac{\partial \gamma_{p,j}}{\partial (\nabla\eta_p)} = \frac{1}{|\nabla\eta_i-\nabla\eta_j|}\frac{\partial \gamma_{p,j}}{\partial h_{p,j}}\frac{\partial h_{p,j}}{\partial \theta_{p,j}} \left[\begin{array}{c}
+		-(\hat{n}_{i,j})_y   \\
+		(\hat{n}_{i,j})_x
+	\end{array} \right].
+\end{equation}
+The multipliers $\partial \kappa_{p,j}/\partial h_{p,j}$ and $\partial \gamma_{p,j}/\partial h_{p,j}$ differ in individual models and are also provided in Table~\ref{tab_models_comp__par_incldep}. The term $\partial h_{p,j}/\partial \theta_{p,j}$ is defined by the inclination-dependence at the interface ($p$-$j$).
+
+The governing equation then is
+\begin{equation}
+	\begin{split}
+		\frac{\partial \eta_p}{\partial t} = -L(\bm{r})\left[ m\left( \eta_p^3-\eta_p +  2\eta_p\sum_{j\neq p}\gamma_{p,j}(\theta_{p,j})\eta_j^2 \right) \right. \\ 
+		\left.  -\nabla\cdot \frac{\partial f}{\partial(\nabla \eta_p)} \right] \,.
+	\end{split}
+\end{equation}
+
+Note, that the term proportional to $\partial \kappa/\partial\eta_p$ was neglected here. 
+
+In models with variable interface width (IWvG, IWvK), at the interfaces with inclination-dependent interface energy, the interface width is a function of the inclination, i.e. $l_{i,j}=l_{i,j}(\theta_{i,j})$. Because the kinetic coefficient $L_{i,j}$ is inversely proportional to the interface width $l_{i,j}$ (see equation~\eqref{eq_def_L}), the kinetic coefficient is inclination-dependent as well (even for \textit{constant} grain boundary mobility $\mu_{i,j}$). The inclination dependence of $L_{i,j}(\theta_{i,j})$ due to interface width variation is in the IWvG model
+\begin{equation}\label{eq_Lcorr_IWvG}
+	L_{i,j}(\theta_{i,j}) = L_{i,j}h_{i,j}(\theta_{i,j})
+\end{equation}
+and in the IWvK model
+\begin{equation}\label{eq_Lcorr_IWvK}
+	L_{i,j}(\theta_{i,j}) = L_{i,j}/h_{i,j}(\theta_{i,j}) \,,
+\end{equation}
+where $h_{i,j}(\theta_{i,j})$ is the anisotropy function in interface energy~\eqref{eq_IE_incldep}.% $\sigma_{i,j}(\theta_{i,j})=\sigma_{i,j}^0h_{i,j}(\theta_{i,j})$.
+
+The equations~\eqref{eq_Lcorr_IWvG},\eqref{eq_Lcorr_IWvK} were derived from an alternative expression for the kinetic coefficient $L_{i,j}$
+\begin{equation}
+	L_{i,j} = \frac{\mu_{i,j}\sigma_{i,j}(\theta_{i,j})}{\kappa_{i,j}(\theta_{i,j})} \,,
+\end{equation}
+where the inclination dependencies of the right-hand side were expressed correspondingly to the model (see Table~\ref{tab_models_comp__par_incldep} for $\kappa_{i,j}(\theta_{i,j})$).
+
+Due to varying number of driving force terms in the three parameter assignment strategies, the governing equations are different in each and hence it is justified to call them different models.
+
+\subsubsection{Systems with inclination-dependent mobility}
+Let the interface ($i$-$j$) have isotropic interface energy and inclination-dependent grain boundary mobility with anisotropy function $h_{i,j}^\mu(\theta_{i,j})$, i.e. $\mu_{i,j}=\mu_{i,j}(\theta_{i,j})=\mu_{i,j}^0h_{i,j}^\mu(\theta_{i,j})$. From equation~\eqref{eq_def_L} we can see that the kinetic coefficient must have the same anisotropy, i.e. $L_{i,j}(\theta_{i,j})=L_{i,j}^0h_{i,j}^\mu(\theta_{i,j})$, where $L_{i,j}^0=\mu_{i,j}^0g(\gamma_{i,j})/l_{i,j}f_{0c}(\gamma_{i,j})$. 
+
+If the interface energy is inclination-dependent as well and a model with variable interface width is used (either IWvG or IWvK), the inclination dependence in $L_{i,j}(\theta_{i,j})$ due to the interface width variation must be included similarly like in \eqref{eq_Lcorr_IWvG} and \eqref{eq_Lcorr_IWvK}. The physical inclination-dependence is independent from the one due to interface width variation, implying the following expression for IWvG model
+\begin{equation}     
+	L_{i,j}(\theta_{i,j}) = L_{i,j}^0h_{i,j}(\theta_{i,j})h_{i,j}^\mu(\theta_{i,j})
+\end{equation}
+and for the IWvK model analogically
+\begin{equation}
+	L_{i,j}(\theta_{i,j}) = L_{i,j}^0\frac{h_{i,j}^\mu(\theta_{i,j})}{h_{i,j}(\theta_{i,j})} \,,
+\end{equation}
+where $h_{i,j}(\theta_{i,j})$ is the interface energy anisotropy function.
+
+\subsection{Interface profiles in different models} \label{sec_difference_in_profiles}
+The main difference in the model modifications is how the interface width varies as function of local interface energy. Obviously, in IWc the width is constant. In IWvK (with $\gamma=1.5$) the width of interface $i$-$j$ can be computed as
+\begin{equation}
+	l_{i,j} = 6\frac{\sigma_{i,j}}{m} \,.
+\end{equation}
+Apparently, in IWvK model the interface width is proportional to the interface energy, i.e. the larger the interface energy, the larger the interface width.
+
+In IWvG the width can be expressed from~\eqref{eq_IW} and~\eqref{eq_IE} assuming $\frac{4}{3}\sqrt{f_{0,c}}(\gamma_{i,j})=g(\gamma_{i,j})$ (which holds for small values of $\gamma_{i,j}$). Then, it goes approximately
+\begin{equation}
+	l_{i,j} \approx \frac{\kappa}{\sigma_{i,j}} \,,
+\end{equation}
+and apparently the larger interface energies are associated with lower interface widths in IWvG. 
+
+\section{Model parameters determination - best practices}
+\label{sec_suppl_param_det}
+The best practices in parameters determination described in this section were implemented in MATLAB functions, which were published in dataset~\cite{Minar2022dataset}, distributed under GPLv3 license.
+
+\subsection{Polynomial expressions for determination of $\gamma$} \label{sec_param_det_polynomials}
+Interface energy and width are non-analytic functions of the parameter $\gamma$  (equations~\eqref{eq_IE}~and~\eqref{eq_IW} in the main text). In models IWc and IWvG with non-uniform interface energy, $\gamma$ varies in space and depends on physical input (local interface energy $\sigma$) and chosen interface width. Assuming that $\kappa,m$ and $\sigma$ are known, $g(\gamma)$ is computed using equation~\eqref{eq_IE} and must be inverted in order to obtain $\gamma$. For numeric convenience, functions $g^2\rightarrow 1/\gamma$ and $ 1/\gamma \rightarrow f_{0,c}$ were fitted by polynomials using the tabulated values from~\cite{Ravash2017}. The same approach was taken in~\cite{Moelans2008}. Note that in one of the following subsections an alternative algorithm for determination of parameters in IWc is proposed. \\
+The values of $f_{0,c}(\gamma),g(\gamma)$ were tabulated and published in~\cite{Ravash2017} in the range $0.52\leq\gamma\leq 40$. However, the polynomials used in both~\cite{Moelans2008,Ravash2017} did not describe the functions along the whole tabulated range. For inconvenient input, that resulted in a loss of control over the interface properties (even negative values of $\gamma$ were obtained). \\
+To improve the parameters determination, the functions $g^2\rightarrow 1/\gamma$ and $ 1/\gamma \rightarrow f_{0,c}$ were fitted again so that all $\gamma$ values from the interval $0.52\leq\gamma\leq 40$ were reliably available. The new polynomials show good agreement along the given interval and their coefficients are listed in Table~\ref{tab_param_polynomial_coeff_myfits}. 
+
+\begin{table*}[h]
+	\centering
+	\caption{Coefficients of the new polynomials used in the parameters determination algorithm (IWc and IWvG models). Based on fitting of the numeric values given in \cite{Ravash2017}. The polynomial of order $N$ $p_N(x)$ is defined here together with its coefficients as $p_N(x)=\sum_{i=0}^N a_i x^{N-i}$. See text for details of use in the respective models.}
+	\label{tab_param_polynomial_coeff_myfits}
+	\begin{tabular}{c|c|ccccccc}
+		& order & $a_0$ & $a_1$ & $a_2$ & $a_3$ & $a_4$ & $a_5$ & $a_6$  \\ \hline
+		$g^2 \rightarrow \frac{1}{\gamma}$ & 6 & -5.73008 &  18.8615 & -23.0557 & 7.47952 & 8.33568 & -8.01224 & 2.00013 \\
+		$\frac{1}{\gamma} \rightarrow \sqrt{f_{0,c}}$&   5 & -0.072966 & 0.35784 & -0.68325 & 0.63578  &  -0.48566   & 0.53703 &    \\
+		$g\sqrt{f_{0,c}}\rightarrow \frac{1}{\gamma}$ & 6 & 103.397 & -165.393 &  105.3469 & -44.55661 &  24.7348 & -11.25718 & 1.999642
+	\end{tabular}
+\end{table*}
+
+\subsection{IWvG}
+This parameters determination algorithm~\cite{Ravash2017} requires input of initializing interface energy $\sigma_{init}$, and width $l_{init}$ which are assigned to interface with value $\gamma=1.5$. There, the analytic relations between the model parameters are valid and the (constant) parameters $\kappa,m$ can be computed:
+\begin{equation}\label{eq_anal_kappa_m}
+	\kappa = \frac{3}{4}\sigma_{init}l_{init} \quad ,\quad m = 6\frac{\sigma_{init}}{l_{init}} \,.
+\end{equation}
+These are then used in equation~\eqref{eq_IE} with individual interface energies $\sigma_{i,j}$ to determine $g^2(\gamma_{i,j})$ and further $\gamma_{i,j}$ (using the first polynomial from Table~\ref{tab_param_polynomial_coeff_myfits}).\\
+However, because the said polynomial was only fitted in the interval $0.52\leq\gamma\leq 40$ (values tabulated in~\cite{Ravash2017}), it is important to choose the value of $\sigma_{init}$ such, that none of the interface energies $\sigma_{i,j}$ should be described by $\gamma_{i,j}$ out of the interval. From equation~\eqref{eq_IE} with substituted $\sqrt{\kappa m}$ from \ref{eq_anal_kappa_m} we show that the values do not leave the above interval when $\sigma_{init}$ complies with the following two inequalities
+\begin{equation}
+	\frac{\sigma_{max}}{g(40)}\sqrt{\frac{2}{9}}\leq \sigma_{init}\leq \frac{\sigma_{min}}{g(0.52)}\sqrt{\frac{2}{9}} \,,
+\end{equation}
+where $\sigma_{min},\sigma_{max}$ are minimal and maximal interface energy present in the system. Additionally, in order to fulfill these conditions, it must be satisfied that
+\begin{equation}
+	\frac{\sigma_{min}}{\sigma_{max}} \geq \frac{g(0.52)}{g(40)} = \frac{0.1}{0.76} = 0.129 \,,
+\end{equation}
+which sets the maximal anisotropy in interface energy for which all $\gamma_{i,j}$s may be determined in IWvG based on the values tabulated in~\cite{Ravash2017}.\\
+Control over the width of the narrowest interface (with user-defined width $l_{min}$) is obtained when the parameters are determined in two steps as follows:
+\begin{enumerate}
+	\item values of $\kappa,m$ are calculated from equations~\eqref{eq_anal_kappa_m} using appropriate $\sigma_{init}$ together with $l_{min}$
+	\item values of $\kappa,m$ are recalculated from equations~\eqref{eq_anal_kappa_m} with the same $\sigma_{init}$ and interface width $l_{calib}=l_{min}\sqrt{8f_{0,c}(\gamma_{min})}$,  where $\gamma_{min}$ corresponds to the lowest value of all the $\gamma_{i,j}$ obtained in the previous step, i.e. to the interface with the largest interface energy $\sigma_{max}$. 
+\end{enumerate}
+After the second step, the interface with maximal interface energy will have the width $l_{min}$ and all the other interfaces will have it equal or larger.
+
+The other interface widths can be expressed
+\begin{equation}
+	l_{i,j} = \frac{\sigma_{i,j}}{m}\frac{1}{g(\gamma_{i,j})\sqrt{f_{0,c}}(\gamma_{i,j})}
+\end{equation}
+
+\subsection{IWc}
+The iterative parameters determining procedure assuring the constant interface width is described in~\cite{Moelans2008}. The procedure requires initializing value of interface energy $\sigma_{init}$, which has decisive role for the parameters values. For inconvenient choice of $\sigma_{init}$, some of the parameters $\gamma_{i,j}$ may get out of range of applicability of the polynomials in Table~\ref{tab_param_polynomial_coeff_myfits}. Systematic investigation revealed that the value $\sigma_{init}=(\sigma_{max}+\sigma_{min})/2$ prevents occurrence of such effects for anisotropies $\sigma_{min}/\sigma_{max}\geq 0.03$. \\
+Here we propose a simplified, yet equivalent single-step procedure. We assume constant interface width $l$ and an initializing interface energy $\sigma_{init}$, for which $\gamma=1.5$ and thus the analytic relations between the model parameters hold. As in the original iterative algorithm, the barrier height is computed
+\begin{equation} \label{eq_pardet_IWc_m}
+	m = 6\frac{\sigma_{init}}{l} .
+\end{equation}
+Then, the gradient energy coefficient $\kappa_{i,j}$ can be expressed from both equations~\eqref{eq_IW} and \eqref{eq_def_kappa}, hence we can write
+\begin{equation} \label{eq_pardet_IWc_kappa}
+	\kappa_{i,j}=f_{0,c}(\gamma_{i,j})ml^2 = \sigma_{i,j}l\frac{\sqrt{f_{0,c}(\gamma_{i,j})}}{g(\gamma_{i,j})} \,,
+\end{equation}
+from where we obtain
+\begin{equation}
+	g(\gamma_{i,j})\sqrt{f_{0,c}(\gamma_{i,j})}=\frac{\sigma_{i,j}}{ml} = \frac{\sigma_{i,j}}{6\sigma_{init}} \,.
+\end{equation}
+In the last equation, $m$ was substituted from~\eqref{eq_pardet_IWc_m}. We denote $G(\gamma_{i,j})=g(\gamma_{i,j})\sqrt{f_{0,c}(\gamma_{i,j})}$. This function $\gamma\rightarrow G$ can be evaluated from the data tabulated in~\cite{Ravash2017} and its inverse function $G \rightarrow \frac{1}{\gamma}$ was fitted by 6-th order polynomial producing the coefficients in the last row of Table~\ref{tab_param_polynomial_coeff_myfits}. Apparently, evaluation of this polynomial in points $\sigma_{i,j}/6\sigma_{init}$ produces the searched $1/\gamma_{i,j}$. The gradient energy coefficients are then best computed as in \ref{eq_pardet_IWc_kappa}, where $m$ was substituted from \ref{eq_pardet_IWc_m}:
+\begin{equation}
+	\kappa_{i,j}=6f_{0,c}(\gamma_{i,j})\sigma_{init}l \,.
+\end{equation}
+Here, the fitted polynomial $\frac{1}{\gamma} \rightarrow \sqrt{f_{0,c}}$ is used to obtain the values of $f_{0,c}(\gamma_{i,j})$.
+
+Similarly like in IWcG model, there are conditions limiting suitable values of $\sigma_{init}$
+\begin{equation} \label{eq_paramdet_IWc_siginit_ineq}
+	\frac{\sigma_{max}}{6G(40)} \leq \sigma_{init} \leq \frac{\sigma_{min}}{6G(0.52)} \,,
+\end{equation}
+where $G(0.52)\approx0.0069, G(40)\approx0.4065$. Also must be satisfied
+\begin{equation}
+	\frac{\sigma_{min}}{\sigma_{max}} \geq\frac{G(0.52)}{G(40)} = 0.017 \,. 
+\end{equation}
+The main advantage of the proposed algorithm is that no iterations are needed for parameters determination. In the original algorithm the number of iteration steps is uncertain (tens of repetitions are not exceptional though) and sometimes the results may not converge due to reasons tedious to debug. Obtaining each parameter in a single step thus provides better control over the process and simplifies the implementation. Moreover, the permissible values of $\sigma_{init}$ and the maximal anisotropy $\sigma_{min}/\sigma_{max}$ are clearly defined. \\
+Also, it should be noted that when $\sigma_{init}$ is chosen close to the upper limit in the inequality~\ref{eq_paramdet_IWc_siginit_ineq}, the determined $\gamma_{i,j}$s are rather closer to value 0.52 (corresponding to long-tailed interfaces). When $\sigma_{init}$ is near the bottom limit, the values of $\gamma_{max}$ are close to the value 40 and $\gamma_{min}$ are much larger than in the previous case. Near the limiting anisotropy $\sigma_{min}/\sigma_{max}\approx0.017$, the values always are $\gamma_{max}\approx40$ and $\gamma_{min}\approx0.52$. It is especially near the limits of admissible $\sigma_{init}$, where the original iterative parameters assignment strategy is not always reliable when compared to the proposed one.
+
+\subsection{IWvK}
+When $\gamma=const=1.5$, the analytic relations between the model parameters hold (i.e. equations~\eqref{eq_def_kappa}-\eqref{eq_def_L}). Then, the minimal interface width $l_{min}$ is controlled when
+\begin{equation}
+	m = 6\frac{\sigma_{min}}{l_{min}}
+\end{equation}
+and
+\begin{equation}
+	\kappa_{i,j}=\frac{9}{2}\frac{\sigma_{i,j}^2}{m} \,.
+\end{equation}
+Interface width of an interface $i$-$j$ can then be computed as
+\begin{equation}
+	l_{i,j} = 6\frac{\sigma_{i,j}}{m} \,.
+\end{equation}
+
+\section{General Neumann boundary conditions to control interface inclination at domain boundary}
+%Inspired by \tiny {Granasy2007}. \normalsize
+
+Idea: interface inclination angle $\theta$ at the boundary to be an input parameter. The principle is explained using a single PF $\xi$. 
+First, we remark that Neumann BCs must be a special case of the BC. The Neumann BC is formulated as $\bm{n}\cdot \nabla\xi=0$, which implies perpendicularity of the PF gradient and domain boundary normal. In other words, the interface is perpendicular to the domain boundary. Generally, we can write $\bm{n}\cdot \nabla\xi=|\nabla\xi|\cos(\theta)$. In the model by Granasy the gradient of PF may be expressed using the model parameters, giving rise to expression of the boundary condition as
+\begin{equation}
+	\bm{n}\cdot \nabla\xi=\frac{\cos(\theta)}{\delta\sqrt{2}}\xi(1-\xi)\,,
+\end{equation}
+where $\delta$ is the interface width. At the domain boundary, the gradient $\nabla\xi$ is expressed as a polynomial, which allows straightforward implementation of the condition, especially in rectangular simulation domains.\\
+
+In Moelan's model the interface normal $\phi_{i,j}$ is defined as local difference in neighbouring PF gradients (see equation~\ref{eq_def_inclination}). In the spirit of the introductory example we can write
+\begin{equation}
+	\bm{n}\cdot\phi_{i,j} = \cos(\theta) \quad \implies \quad \bm{n}\cdot(\nabla\xi_i-\nabla\xi_j) = |\nabla\xi_i-\nabla\xi_j|\cos(\theta) \,.
+\end{equation}
+Now we have single BC with the correct physical interpretation (fixed inclination angle at the boundary) but because the governing equations are solved for the phase fields, a set of equivalent boundary conditions (one for each phase field) must be derivable from the above. In these independent BC, it must be possible to express the gradient magnitude (the introductory example finds a polynomial of local PF values equal to the gradient magnitude). \\
+The first problem (coupling in the BC) would be solved if one gradient as function of the other and vice versa was known. However, this dependence is non-analytical for all $\gamma_{i,j}\neq1.5$. For $\gamma_{i,j}=1.5$ it is simply $\xi_i = 1-\xi_j$ and therefore also $\nabla\xi_i=-\nabla\xi_j$.~\cite{Moelans2008_PRB} \\
+The second problem (the expression for gradient magnitude) is also enabled by the choice $\gamma=1.5$, as in such case there were derived analytic expressions for gradients $\nabla\xi_i,\nabla\xi_j$.~\cite{Moelans2008_PRB} In 1D system with 2 phase fields holds
+\begin{equation} \label{eq_PFgradient_analytic}
+	\begin{split}
+		\frac{\mathrm{d}\xi_i}{\mathrm{d}x} &= \sqrt{\frac{2m}{\kappa_{i,j}}}\xi_i(1-\xi_i) \overset{\mathrm{2D}}{=} |\nabla\xi_i| \\
+		\frac{\mathrm{d}\xi_j}{\mathrm{d}x} &= \sqrt{\frac{2m}{\kappa_{i,j}}}\xi_j(1-\xi_j) \overset{\mathrm{2D}}{=} |\nabla\xi_j| \,.
+	\end{split}
+\end{equation}
+Validity of the equations in 2D and 3D (in systems with 2 phase fields) can be easily checked using the expressions in~\cite{Moelans2008_PRB}.\footnote{Write equation 7 from~\cite{Moelans2008_PRB} for 2D. From it one gets 2D equivalents of equations 8a and 8b, where $\frac{\mathrm{d}\xi}{\mathrm{d}x}$ is replaced by $|\nabla\xi|$. Further, because equation 19 does not depend on problem dimensionality, we obtain here the expressions in equation~\ref{eq_PFgradient_analytic}.} In systems with more phase fields the general expression for the gradient magnitude is more complex. However, it is such that locally the same relations are satisfied (locally meaning for particular pairwise interface not close to triple junction).\\
+With the above and assuming that there is no triple junction near the domain boundary, we can write
+\begin{equation}
+	\begin{split}
+		\bm{n}\cdot(\nabla\xi_i-\nabla\xi_j) &= 2\bm{n}\cdot\nabla\xi_i = 2|\nabla\xi_i|\cos(\theta) \\ &= -2\bm{n}\cdot\nabla\xi_j = -2|\nabla\xi_j|\cos(\theta) \,,
+	\end{split}
+\end{equation}
+which provides very similar BC like in the introductory example for each of the two phase fields.\\
+The only way how to use these relations is to have $\gamma_{i,j}=1.5$. In case of inclination-dependent interface energy $\sigma_{i,j}(\chi_{i,j})=\sigma_{i,j}^0h_{i,j}^\sigma(\chi_{i,j})$, it is necessary to express the anisotropy fully by the parameter $\kappa_{i,j}(\chi_{i,j})$. 
+
+% The reason is that the inclination angle of the interface at the domain boundary is controlled when the \textit{difference} of the neighbouring phase field gradients is controlled. 
+% One could reason that with the knowledge of the analytic expression for $\frac{\mathrm{d}\xi_j}{\mathrm{d}\xi_i}$
+
+That has following consequences:
+\begin{enumerate}
+	\item interface width varies with $\kappa_{i,j}$ as $IW = \sqrt{\frac{8\kappa_{i,j}}{m}}$
+	\item the anisotropic driving force terms are different from both the models with a) constant interface width and b) variable interface width and all anisotropy in $\gamma_{i,j}$
+	\begin{itemize}
+		\item especially important is that $\kappa_{i,j}(\chi_{i,j})=\bar{\kappa}_{i,j}[h_{i,j}^\sigma(\chi_{i,j})]^2$ because $\sigma_{i,j}(\chi_{i,j})=\sigma_{i,j}^0h_{i,j}^\sigma(\chi_{i,j}) = \sqrt{\frac{2}{9}}\sqrt{m\kappa_{i,j}(\chi_{i,j})}h_{i,j}^\sigma(\chi_{i,j})$
+	\end{itemize}
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Keep the following \cleardoublepage at the end of this file, 
+% otherwise \includeonly includes empty pages.
+\cleardoublepage
+
+% vim: tw=70 nocindent expandtab foldmethod=marker foldmarker={{{}{,}{}}}
