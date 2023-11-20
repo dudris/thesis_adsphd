@@ -1,0 +1,100 @@
+% !TeX root = ../../thesis.tex
+\chapter{Model parameters determination - best practices}
+\label{sec_suppl_param_det}
+The multi-phase field model by Moelans~\cite{Moelans2008} is sensitive to how exactly the values of the parameters $m, \kappa, \gamma$ are assigned in systems with anisotropic interface energy. In the model variants with variable interface width (IWvG and IWvK), it is important to assure that no interface becomes too narrow, so that grid pinning is prevented. Otherwise, the kinetics is no longer accurately reproduced by the implementation. The best practices in parameters determination described in this section were implemented in MATLAB functions, which were published in dataset~\cite{Minar2022dataset}, distributed under GPLv3 license.
+
+\section{Polynomial expressions for determination of $\gamma$} \label{sec_param_det_polynomials}
+Interface energy and width are non-analytic functions of the parameter $\gamma$  (equations~\eqref{eq_IE}~and~\eqref{eq_IW} in the main text). In models IWc and IWvG with non-uniform interface energy, $\gamma$ varies in space and depends on physical input (local interface energy $\sigma$) and chosen interface width. Assuming that $\kappa,m$ and $\sigma$ are known, $g(\gamma)$ is computed using equation~\eqref{eq_IE} and must be inverted in order to obtain $\gamma$. For numeric convenience, functions $g^2\rightarrow 1/\gamma$ and $ 1/\gamma \rightarrow f_{0,c}$ were fitted by polynomials using the tabulated values from~\cite{Ravash2017}. The same approach was taken in~\cite{Moelans2008}. Note that in one of the following subsections an alternative algorithm for determination of parameters in IWc is proposed. \\
+The values of $f_{0,c}(\gamma),g(\gamma)$ were tabulated and published in~\cite{Ravash2017} in the range $0.52\leq\gamma\leq 40$. However, the polynomials used in both~\cite{Moelans2008,Ravash2017} did not describe the functions along the whole tabulated range. For inconvenient input, that resulted in a loss of control over the interface properties (even negative values of $\gamma$ were obtained). \\
+To improve the parameters determination, the functions $g^2\rightarrow 1/\gamma$ and $ 1/\gamma \rightarrow f_{0,c}$ were fitted again so that all $\gamma$ values from the interval $0.52\leq\gamma\leq 40$ were reliably available. The new polynomials show good agreement along the given interval and their coefficients are listed in Table~\ref{tab_param_polynomial_coeff_myfits}. 
+
+\begin{sidewaystable}[]
+	\centering
+	\caption{Coefficients of the new polynomials used in the parameters determination algorithm (IWc and IWvG models). Based on fitting of the numeric values given in \cite{Ravash2017}. The polynomial of order $N$ $p_N(x)$ is defined here together with its coefficients as $p_N(x)=\sum_{i=0}^N a_i x^{N-i}$. See text for details of use in the respective models.}
+	\label{tab_param_polynomial_coeff_myfits}
+	\begin{tabular}{c|c|ccccccc} 
+		& order & $a_0$ & $a_1$ & $a_2$ & $a_3$ & $a_4$ & $a_5$ & $a_6$  \\ \hline
+		$g^2 \rightarrow \frac{1}{\gamma}$ & 6 & -5.73008 &  18.8615 & -23.0557 & 7.47952 & 8.33568 & -8.01224 & 2.00013 \\
+		$\frac{1}{\gamma} \rightarrow \sqrt{f_{0,c}}$&   5 & -0.072966 & 0.35784 & -0.68325 & 0.63578  &  -0.48566   & 0.53703 &    \\
+		$g\sqrt{f_{0,c}}\rightarrow \frac{1}{\gamma}$ & 6 & 103.397 & -165.393 &  105.3469 & -44.55661 &  24.7348 & -11.25718 & 1.999642 
+	\end{tabular}
+\end{sidewaystable}
+
+\section{IWvG}
+This parameters determination algorithm~\cite{Ravash2017} requires input of initializing interface energy $\sigma_{init}$, and width $l_{init}$ which are assigned to interface with value $\gamma=1.5$. There, the analytic relations between the model parameters are valid and the (constant) parameters $\kappa,m$ can be computed:
+\begin{equation}\label{eq_anal_kappa_m}
+	\kappa = \frac{3}{4}\sigma_{init}l_{init} \quad ,\quad m = 6\frac{\sigma_{init}}{l_{init}} \,.
+\end{equation}
+These are then used in equation~\eqref{eq_IE} with individual interface energies $\sigma_{i,j}$ to determine $g^2(\gamma_{i,j})$ and further $\gamma_{i,j}$ (using the first polynomial from Table~\ref{tab_param_polynomial_coeff_myfits}).\\
+However, because the said polynomial was only fitted in the interval $0.52\leq\gamma\leq 40$ (values tabulated in~\cite{Ravash2017}), it is important to choose the value of $\sigma_{init}$ such, that none of the interface energies $\sigma_{i,j}$ should be described by $\gamma_{i,j}$ out of the interval. From equation~\eqref{eq_IE} with substituted $\sqrt{\kappa m}$ from \ref{eq_anal_kappa_m} we show that the values do not leave the above interval when $\sigma_{init}$ complies with the following two inequalities
+\begin{equation}
+	\frac{\sigma_{max}}{g(40)}\sqrt{\frac{2}{9}}\leq \sigma_{init}\leq \frac{\sigma_{min}}{g(0.52)}\sqrt{\frac{2}{9}} \,,
+\end{equation}
+where $\sigma_{min},\sigma_{max}$ are minimal and maximal interface energy present in the system. Additionally, in order to fulfill these conditions, it must be satisfied that
+\begin{equation}
+	\frac{\sigma_{min}}{\sigma_{max}} \geq \frac{g(0.52)}{g(40)} = \frac{0.1}{0.76} = 0.129 \,,
+\end{equation}
+which sets the maximal anisotropy in interface energy for which all $\gamma_{i,j}$s may be determined in IWvG based on the values tabulated in~\cite{Ravash2017}.\\
+Control over the width of the narrowest interface (with user-defined width $l_{min}$) is obtained when the parameters are determined in two steps as follows:
+\begin{enumerate}
+	\item values of $\kappa,m$ are calculated from equations~\eqref{eq_anal_kappa_m} using appropriate $\sigma_{init}$ together with $l_{min}$
+	\item values of $\kappa,m$ are recalculated from equations~\eqref{eq_anal_kappa_m} with the same $\sigma_{init}$ and interface width $l_{calib}=l_{min}\sqrt{8f_{0,c}(\gamma_{min})}$,  where $\gamma_{min}$ corresponds to the lowest value of all the $\gamma_{i,j}$ obtained in the previous step, i.e. to the interface with the largest interface energy $\sigma_{max}$. 
+\end{enumerate}
+After the second step, the interface with maximal interface energy will have the width $l_{min}$ and all the other interfaces will have it equal or larger.
+
+The other interface widths can be expressed
+\begin{equation}
+	l_{i,j} = \frac{\sigma_{i,j}}{m}\frac{1}{g(\gamma_{i,j})\sqrt{f_{0,c}}(\gamma_{i,j})}
+\end{equation}
+
+\section{IWc}
+The iterative parameters determining procedure assuring the constant interface width is described in~\cite{Moelans2008}. The procedure requires initializing value of interface energy $\sigma_{init}$, which has decisive role for the parameters values. For inconvenient choice of $\sigma_{init}$, some of the parameters $\gamma_{i,j}$ may get out of range of applicability of the polynomials in Table~\ref{tab_param_polynomial_coeff_myfits}. Systematic investigation revealed that the value $\sigma_{init}=(\sigma_{max}+\sigma_{min})/2$ prevents occurrence of such effects for anisotropies $\sigma_{min}/\sigma_{max}\geq 0.03$. \\
+Here we propose a simplified, yet equivalent single-step procedure. We assume constant interface width $l$ and an initializing interface energy $\sigma_{init}$, for which $\gamma=1.5$ and thus the analytic relations between the model parameters hold. As in the original iterative algorithm, the barrier height is computed
+\begin{equation} \label{eq_pardet_IWc_m}
+	m = 6\frac{\sigma_{init}}{l} .
+\end{equation}
+Then, the gradient energy coefficient $\kappa_{i,j}$ can be expressed from both equations~\eqref{eq_IW} and \eqref{eq_def_kappa}, hence we can write
+\begin{equation} \label{eq_pardet_IWc_kappa}
+	\kappa_{i,j}=f_{0,c}(\gamma_{i,j})ml^2 = \sigma_{i,j}l\frac{\sqrt{f_{0,c}(\gamma_{i,j})}}{g(\gamma_{i,j})} \,,
+\end{equation}
+from where we obtain
+\begin{equation}
+	g(\gamma_{i,j})\sqrt{f_{0,c}(\gamma_{i,j})}=\frac{\sigma_{i,j}}{ml} = \frac{\sigma_{i,j}}{6\sigma_{init}} \,.
+\end{equation}
+In the last equation, $m$ was substituted from~\eqref{eq_pardet_IWc_m}. We denote $G(\gamma_{i,j})=g(\gamma_{i,j})\sqrt{f_{0,c}(\gamma_{i,j})}$. This function $\gamma\rightarrow G$ can be evaluated from the data tabulated in~\cite{Ravash2017} and its inverse function $G \rightarrow \frac{1}{\gamma}$ was fitted by 6-th order polynomial producing the coefficients in the last row of Table~\ref{tab_param_polynomial_coeff_myfits}. Apparently, evaluation of this polynomial in points $\sigma_{i,j}/6\sigma_{init}$ produces the searched $1/\gamma_{i,j}$. The gradient energy coefficients are then best computed as in \ref{eq_pardet_IWc_kappa}, where $m$ was substituted from \ref{eq_pardet_IWc_m}:
+\begin{equation}
+	\kappa_{i,j}=6f_{0,c}(\gamma_{i,j})\sigma_{init}l \,.
+\end{equation}
+Here, the fitted polynomial $\frac{1}{\gamma} \rightarrow \sqrt{f_{0,c}}$ is used to obtain the values of $f_{0,c}(\gamma_{i,j})$.
+
+Similarly like in IWcG model, there are conditions limiting suitable values of $\sigma_{init}$
+\begin{equation} \label{eq_paramdet_IWc_siginit_ineq}
+	\frac{\sigma_{max}}{6G(40)} \leq \sigma_{init} \leq \frac{\sigma_{min}}{6G(0.52)} \,,
+\end{equation}
+where $G(0.52)\approx0.0069, G(40)\approx0.4065$. Also must be satisfied
+\begin{equation}
+	\frac{\sigma_{min}}{\sigma_{max}} \geq\frac{G(0.52)}{G(40)} = 0.017 \,. 
+\end{equation}
+The main advantage of the proposed algorithm is that no iterations are needed for parameters determination. In the original algorithm the number of iteration steps is uncertain (tens of repetitions are not exceptional though) and sometimes the results may not converge due to reasons tedious to debug. Obtaining each parameter in a single step thus provides better control over the process and simplifies the implementation. Moreover, the permissible values of $\sigma_{init}$ and the maximal anisotropy $\sigma_{min}/\sigma_{max}$ are clearly defined. \\
+Also, it should be noted that when $\sigma_{init}$ is chosen close to the upper limit in the inequality~\ref{eq_paramdet_IWc_siginit_ineq}, the determined $\gamma_{i,j}$s are rather closer to value 0.52 (corresponding to long-tailed interfaces). When $\sigma_{init}$ is near the bottom limit, the values of $\gamma_{max}$ are close to the value 40 and $\gamma_{min}$ are much larger than in the previous case. Near the limiting anisotropy $\sigma_{min}/\sigma_{max}\approx0.017$, the values always are $\gamma_{max}\approx40$ and $\gamma_{min}\approx0.52$. It is especially near the limits of admissible $\sigma_{init}$, where the original iterative parameters assignment strategy is not always reliable when compared to the proposed one.
+
+\section{IWvK}
+When $\gamma=const=1.5$, the analytic relations between the model parameters hold (i.e. equations~\eqref{eq_def_kappa}-\eqref{eq_def_L}). Then, the minimal interface width $l_{min}$ is controlled when
+\begin{equation}
+	m = 6\frac{\sigma_{min}}{l_{min}}
+\end{equation}
+and
+\begin{equation}
+	\kappa_{i,j}=\frac{9}{2}\frac{\sigma_{i,j}^2}{m} \,.
+\end{equation}
+Interface width of an interface $i$-$j$ can then be computed as
+\begin{equation}
+	l_{i,j} = 6\frac{\sigma_{i,j}}{m} \,.
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Keep the following \cleardoublepage at the end of this file, 
+% otherwise \includeonly includes empty pages.
+\cleardoublepage
+
+% vim: tw=70 nocindent expandtab foldmethod=marker foldmarker={{{}{,}{}}}

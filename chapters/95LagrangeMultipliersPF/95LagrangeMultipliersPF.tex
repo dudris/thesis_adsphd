@@ -1,0 +1,128 @@
+% !TeX root = ../../thesis.tex
+\chapter{Volume conservation using Lagrange multipliers} \label{ch_lagrange_multipliers_PF}
+\section{Phase field equations under equality constraint - Lagrange multipliers} \label{sec_apdx_Lagrmult}
+In multivariate calculus, the method of Lagrange multipliers is used to find extrema of a multivariate function under equality constraint, i.e. on a subset of its domain. For example, the extrema of the function $f(x,y)$ over the subset of the domain defined as $g(x,y)=0$ can be found by analysis of the so-called Lagrange function $\mathcal{L}(x,y,\lambda)=f(x,y)-\lambda g(x,y)$, where $\lambda$ is the Lagrange multiplier. The critical points are found by solving the set of equations
+\begin{equation}
+\frac{\partial \mathcal{L}}{\partial x}=0 \,,\quad \frac{\partial \mathcal{L}}{\partial y}=0 \,,\quad    \frac{\partial \mathcal{L}}{\partial \lambda}=0 \,.
+\end{equation}
+
+Similar principles can be generalized in functional calculus. Let's have a functional of free energy $F[\phi] = \int f(\phi,\nabla\phi) \mathrm{d}V$ with equality constraint $G[\phi]=\int g(\phi)\mathrm{d}V=0$. The Lagrangian now takes the form
+\begin{align}
+\Lambda[\phi,\lambda]&= F[\phi] - \lambda
+G[\phi] \\
+&= \int f(\phi,\nabla\phi) - \lambda g(\phi)\mathrm{d}V \\
+&= \int l(\phi) \mathrm{d}V \,,
+\end{align}
+where $l(\phi)$ is the lagrangian energy density and $\lambda(t)$ is the Lagrange multiplier. It is a function of time, because its value is related to the state of the evolving system. When the phase field $\phi(\bm{r})$ evolves due to governing equations 
+\begin{equation}
+\frac{\partial \phi}{\partial t} = \frac{\delta \Lambda}{\delta \phi}\,,
+\end{equation}
+the equality constraint $G[\phi]=\int g(\phi)\mathrm{d}V=0$ will hold throughout the simulation. The constraint can e.g. impose some conservation law \footnote{typically volume, but e.g. in~\cite{Guyer2004a,Guyer2004b} electric charge and behavior of other physical quantities were controlled by Lagrange multipliers}, or enforce local sum of values of phase fields in a multi-phase field model like in all multi-phase field models in the legacy of~\cite{Steinbach1996}.
+
+The governing equations then read
+\begin{equation}
+\frac{\delta \Lambda}{\delta \phi} = \frac{\delta F}{\delta \phi} - \lambda(t)\frac{\partial g}{\partial \phi}\,, 
+\end{equation}
+where it was assumed that the constraint is only functional of the phase field, not of its gradient. It can be seen that an additional term appeared, originating from the constraint. 
+
+Multiple constraints $G_1[\phi]=0,\,G_2[\phi]=0,\, \dots,\,G_p[\phi]=0$ can be imposed on the system, each of which has its Lagrange multiplier $\lambda_1,\lambda_2,\dots,\lambda_p$. The Lagrangian is then 
+\begin{equation}
+\Lambda[\phi,\lambda_1,\lambda_2,\dots,\lambda_p] = F[\phi] - \sum_i\lambda_i
+G_i[\phi] \,,
+\end{equation}
+which leads to constrained governing equation
+\begin{equation}
+\frac{\delta \Lambda}{\delta \phi} = \frac{\delta F}{\delta \phi} - \sum_i\lambda_i(t)\frac{\partial g_i}{\partial \phi} \,,
+\end{equation}
+where $g_i(\phi)$ is the kernel of $i$-th constraint $G_i[\phi]=\int g_i(\phi)\mathrm{d}V$. 
+
+\section{Lagrange multipliers for volume conservation in multi-phase field models}
+This approach allows to mathematically enforce certain behavior of the evolving fields. Volume conservation in Allen-Cahn equation is a typical application.
+
+Moelans' model is a multi phase field model with non-conserved fields and with curvature-driven interfaces motion. Inspired by \cite{Nestler2008}, an extension of this model is hereby proposed, which allows to conserve volume of selected phase fields.
+
+The model by Nestler et al. \cite{Nestler2008} is an extension of a phase field model which differs from the Moelans' one is several aspects. The main differnce is that the sum of all the phase fields locally is equal to 1, which allows to interpret them as order parameters in the strict mathematical sense. However, this comes with a cost - this model property is imposed using a suitable Lagrange multiplier, which introduces new terms in the governing equation(s). Moreover, every model extension must be such that this property is preserved. Nestler's model also differs in the double obstacle potential and in the choice of the non-local gradient term.  
+
+\subsection{Concept - single conserved phase field}
+The simulated system over the domain $\Omega$ consists of $n$ phase fields $\vec{\eta}=(\eta_1,\dots,\eta_n)$ and is described by the free energy functional $F$ with free energy density $f(\vec{\eta},\nabla\vec{\eta})$ being also function of the phase fields gradients $\nabla\vec{\eta}=(\nabla\eta_1,\dots,\nabla\eta_n)$ as is usual in phase field method
+\begin{equation}
+	F= \int_\Omega f(\vec{\eta},\nabla\vec{\eta}) \mathrm{d}V    
+\end{equation}
+
+The volume $V_i$ occupied by $i$-th grain $\eta_i$ in the domain $\Omega$ can be expressed in Moelans' model as
+\begin{equation}
+	V_i = \int_\Omega \Phi_i(\vec{\eta}) \mathrm{d}V \,,
+\end{equation}
+where $\Phi_i(\vec{\eta})$ is the $i$-th grain expressed using the special interpolation function~\cite{Moelans2011}
+\begin{equation}
+	\Phi_i(\vec{\eta}) = \frac{\eta_i^2}{\sum_k\eta_k^2} \,.
+\end{equation}
+The equality constraint $G=0$ which conserves volume of $\eta_i$ can be formulated as
+\begin{equation}
+	G = \int \Phi_i(\vec{\eta}) \mathrm{d}V - V_i^0 \,,
+\end{equation}
+where $V_i^0$ is the initial volume of the phase field. Because the constant $V_i^0$ plays no role in the governing equation, it will be disregarded. The volume conservation is ensured by deriving the governing equations from Lagrangian 
+\begin{equation}
+	\Lambda[\vec{\eta}]= \int_\Omega f(\vec{\eta},\nabla\vec{\eta}) - \lambda(t)\Phi_i(\vec{\eta}) \mathrm{d}V \,,
+\end{equation}
+leading to equation for any $p$-th phase field
+\begin{align}
+	\frac{\partial \eta_p}{\partial t} &= \frac{\delta \Lambda}{\delta \eta_p} \\
+	&= \frac{\delta F}{\delta \eta_p} - \lambda(t)\frac{\partial \Phi_i}{\partial \eta_p}\,.
+\end{align}
+Expression for the Lagrange multiplier $\lambda(t)$ is obtained from the constraint itself, as the volume conservation of $\eta_i$ implies
+\begin{align}
+	\frac{\mathrm{d} V_i}{\mathrm{d} t} = 0 &= \frac{\partial}{\partial t}\int \Phi_i(\vec{\eta}) \mathrm{d}V \label{eq_PFVC_Lagrm_vol_invarcond}\\
+	&= \int \frac{\partial \Phi_i}{\partial t} \mathrm{d}V \\
+	&= \int \sum_{k=1}^n\frac{\partial \Phi_i}{\partial \eta_k}\frac{\partial \eta_k}{\partial t} \mathrm{d}V \\
+	&= -L\int \sum_{k=1}^n\frac{\partial \Phi_i}{\partial \eta_k}\left[ \frac{\delta F}{\delta \eta_k} - \lambda(t)\frac{\partial \Phi_i}{\partial \eta_k} \right] \mathrm{d}V \,.
+\end{align}
+In the last equation, $\lambda(t)$ can already be taken out of the integral as it is not function of space, allowing to write
+\begin{equation}
+	\lambda(t)=\frac{\int\sum_{k=1}^n \frac{\partial \Phi_i}{\partial \eta_k}\frac{\delta F}{\delta \eta_p} \mathrm{d}V}{\int\sum_{k=1}^n \left(\frac{\partial \Phi_i}{\partial \eta_k}\right)^2 \mathrm{d}V} \,.
+\end{equation}
+As can be seen, the expression is notably more complicated than in the original model by Nestler. One reason is that the interpolation function $\Phi(\vec{\eta})$ is a function of all the phase fields, whereas in Nestler the interpolation function $p_k=p_k(\eta_k)$ only.  The second reason is that in Nestler's model the volume evolution can be expressed as $\mathrm{d}V_i/\mathrm{d}t=\partial \eta_i/\partial t$. In comparison to Nestler's model, the first complication adds the sum over all phase fields to the integrals and the second adds the term $\partial \Phi_i/\partial \eta_k$.
+
+\subsection{Multiple conserved phase fields}
+Hereby the case when all the phase fields are conserved is discussed. With $n$ phase fields that implies $n-1$ constraints $G_{i}=\int \Phi_i(\vec{\eta})\mathrm{d}V=0$ as the $n$-th phase field must be conserved as well when all the others are. Without the loss of generality it is assumed that the $n$-th phase field does not have its constraint. The Lagrangian is 
+\begin{equation}
+	\Lambda[\vec{\eta}]= \int_\Omega f(\vec{\eta},\nabla\vec{\eta}) - \sum_{l=1}^{n-1}\lambda_l(t)\Phi_l(\vec{\eta}) \mathrm{d}V \,,
+\end{equation}
+with $\lambda_l(t)$ being the Lagrange multiplier corresponding to $l$-th phase field.
+
+Each governing equation can then be written in the form
+\begin{align}
+	\frac{\partial \eta_p}{\partial t} &= \frac{\delta \Lambda}{\delta \eta_p} \\
+	&= \frac{\delta F}{\delta \eta_p} - \sum_{l=1}^{n-1}\lambda_l(t)\frac{\partial \Phi_l}{\partial \eta_p}\,.
+\end{align}
+The individual Lagrange multipliers are determined from equation analogical to~\eqref{eq_PFVC_Lagrm_vol_invarcond}, i.e. for arbitrary $i$ 
+\begin{align}
+	\frac{\mathrm{d} V_i}{\mathrm{d} t} = 0 &= \int \sum_{k=1}^n\frac{\partial \Phi_i}{\partial \eta_k}\frac{\partial \eta_k}{\partial t} \mathrm{d}V \\
+	&= -L\int \sum_{k=1}^n\frac{\partial \Phi_i}{\partial \eta_k}\left[ \frac{\delta F}{\delta \eta_k} - \sum_{l=1}^{n-1}\lambda_l(t)\frac{\partial \Phi_l}{\partial \eta_k} \right] \mathrm{d}V \,.
+\end{align}
+This equation can be rearranged to give
+\begin{equation}
+	\int \sum_{k=1}^n\frac{\partial \Phi_i}{\partial \eta_k} \frac{\delta F}{\delta \eta_k} \mathrm{d}V = \sum_{l=1}^{n-1}\lambda_l(t) \int \sum_{k=1}^n\frac{\partial \Phi_i}{\partial \eta_k}\frac{\partial \Phi_l}{\partial \eta_k}  \mathrm{d}V \,,
+\end{equation}
+which is a linear equation for $n-1$ variables $\lambda_l(t)$. Because such equation can be written for every $i$ of the $n-1$ constrained phase fields, it is a system of linear algebraic equations which can be compactly described using the following notation
+\begin{align}
+	b_{i} &= \int \sum_{k=1}^n\frac{\partial \Phi_i}{\partial \eta_k} \frac{\delta F}{\delta \eta_k} \mathrm{d}V \\
+	A_{il} &= \int \sum_{k=1}^n\frac{\partial \Phi_i}{\partial \eta_k}\frac{\partial \Phi_l}{\partial \eta_k}  \mathrm{d}V \,,
+\end{align}
+where $b_{i}$ is a component of a vector $\bm{b}$ and $A_{il}$ is a component of the matrix $\bm{A}$. Denoting the vector with variables $\bm{\lambda}$, the system of $n-1$ equations for $n-1$ variables can be written
+\begin{equation}
+	\bm{A}\bm{\lambda} = \bm{b} \,.
+\end{equation}
+Evaluation of this system is computationally very expensive, because in every component of both $\bm{b}$ and $\bm{A}$ there is the sum over all $n$ phase fields. Moreover, it must be evaluated at every time step and it is expected, that all the components of $\bm{A}$ are non-zero. Even though the matrix is symmetric, the model does not seem to be practical for use in simulations with many conserved grains.
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Keep the following \cleardoublepage at the end of this file, 
+% otherwise \includeonly includes empty pages.
+\cleardoublepage
+
+% vim: tw=70 nocindent expandtab foldmethod=marker foldmarker={{{}{,}{}}}

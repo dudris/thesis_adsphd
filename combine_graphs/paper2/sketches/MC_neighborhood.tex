@@ -1,0 +1,30 @@
+\documentclass[tikz]{standalone}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{xcolor}
+\begin{document}
+
+\begin{tikzpicture}
+    \draw[fill=blue!20] (0,0) rectangle (3,3);
+    \foreach \i/\j in {0/1,1/2,1/1,1/0,2/1}
+        \draw[fill=blue!30] (\i,\j) rectangle (\i+1,\j+1);
+        
+    \draw[fill=blue!40] (1,1) rectangle (2,2);
+    
+    \draw[gray] (0,0) grid (3,3);
+    \draw node at (1.5,1.5) {$n_C$};
+    
+    \def\colfn{black}
+    \draw[\colfn] node at (0.5,1.5) {$m_W$};
+    \draw[\colfn] node at (2.5,1.5) {$m_E$};
+    \draw[\colfn] node at (1.5,2.5) {$m_N$};
+    \draw[\colfn] node at (1.5,0.5) {$m_S$};
+    
+    \def\colsn{black}
+    \draw[\colsn] node at (0.5,0.5) {$m_{SW}$};
+    \draw[\colsn] node at (2.5,2.5) {$m_{NE}$};
+    \draw[\colsn] node at (0.5,2.5) {$m_{NW}$};
+    \draw[\colsn] node at (2.5,0.5) {$m_{SE}$};
+\end{tikzpicture}
+
+\end{document}

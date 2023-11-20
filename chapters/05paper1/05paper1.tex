@@ -1,40 +1,63 @@
 % !TeX root = ../../thesis.tex
 \chapter{Phase filed model benchmarking}
 
-\section{State of the art and summary of model extensions}
-The author extended the multi-phase field model by Moelans~\cite{Moelans2008}. The work~\cite{Moelans2008} promoted usage of the model variant with constant interface width (here denoted IWc) with not-fully-variational formulation and described it in great detail.
-
-At the beginning of the author's work, it was already known that IWc was not reliably reproducing the angles in triple junctions of interfaces with different interface energies~\cite{Moelans2010_thinfilm} (i.e. in pair-wise isotropic systems). The model variant with variable interface width and all anisotropy in the parameter $\gamma$ (here IWvG) was used in one grain growth study~\cite{Ravash2017}, but its better reliability in triple junction angles had not been documented yet.
-
-As provided below with all details, the model extensions included
-\begin{enumerate}
-	\item Description of another model variant with all anisotropy in the parameter $\kappa$ and variable interface width (IWvK)
-	\item Derivation of the governing equation for all the three model variants in 3D for the case of inclination-dependent interface energy
-	\item The model behavior depends heavily on proper parametrization of the equations. Best practices in parameters determination were  developed and described (different in each model variant) in order to assure control over both the local interface width and local interface energy. 
-	\item In the IWvK model variant such boundary conditions were incorporated, which allowed to control the angle under which the interface intersecting the domain boundary will align.
-\end{enumerate}
-
 \section{Introduction}
 \label{sec_P1_Intro}
 
-This paper proposes two benchmarks for quantitative assessment of a) the anisotropic curvature driving force, and b) the anisotropic curvature driving force in combination with anisotropic kinetic coefficient. Both are 2-phase systems, hence could be simulated using a single phase field model. Nevertheless, because the multi-phase field models allow simulations of multiple phases, they have wider application potential than single phase models. For this reason, the validations are demonstrated on a multi-phase field model~\cite{Moelans2008}. However, the nature of these benchmarks is independent on the model formulation. 
+This chapter proposes two benchmarks for quantitative assessment of a) the anisotropic curvature driving force, and b) the anisotropic curvature driving force in combination with anisotropic kinetic coefficient. Both are 2-phase systems, hence could be simulated using a single phase field model. Nevertheless, because the multi-phase field models allow simulations of multiple phases, they have wider application potential than single phase models. For this reason, the validations are demonstrated on a multi-phase field model from chapter~\ref{ch_PFMoelans}. However, the nature of these benchmarks is independent on the model formulation. 
 
-In order to provide more complete comparison of the models, another supplementary benchmark was carried out, which determined equilibrium triple junction angles.
+In order to provide more complete comparison of the model variants, another supplementary benchmark was carried out, which determined equilibrium triple junction angles.
 
-This paper is organized as follows: firstly, the base model and its three variants are introduced, including the inclination dependence in interface energy. Secondly, the methodology is explained in detail, which involves quantitative matching of the shrinking shape to the analytic one and also the determination of shrinkage rate (also known analytically). The approach taken in triple junction angles determination is explained as well. Then, the validations were carried out in the order: shrinking Wulff shape, kinetically compensated anisotropically shrinking circle and triple junction angles. For all simulations the effect of interface width and number of grid points through the interface are investigated by re-running the simulations using different numerical settings.
+Throughout this chapter the term "Wulff shape" is used in place of "Wulff shape of the first order" (see section~\ref{sec_isol_aniso_particle}), i.e. the smallest of the possible equilibrium stable shapes. 
 
-\section{Phase field model}
+This chapter first provides details on the numerical implementation of the model(s) in MATLAB, then the methodology is explained and the models quantitatively compared. The first two benchmarks involve quantitative matching of the shrinking shape to the analytic one and also the determination of shrinkage rate. In the third benchmark, the triple junction angles are determined from the phase field contour using two different approaches. For all simulations the effect of interface width and number of grid points through the interface are investigated by re-running the simulations using different numerical settings.
 
 
 \section{Numerical implementation}
-All models were implemented in a single MATLAB function, where the governing equations were solved by centered finite differences of second order, explicit Euler time stepping and boundary conditions implemented using ghost nodes. The minimal code to run the simulations is available in the dataset~\cite{Minar2022dataset}. \\
-During the parameters assignment in models with variable interface width (IWvG, IWvK), there was assured control over the minimal interface width, i.e. that there would be no interface narrower than the user-specified one. That is to prevent unphysical behavior of the interface due to too small grid resolution. Different strategies had to be adopted in IWvK and IWvG, respectively. They are described in Supplemental Material~\cite{Minar2021suppl} together with other best practices in parameters determination for the respective models. The MATLAB functions which were used for parameters determination were also included in the dataset~\cite{Minar2022dataset}.
-
-The Supplemental Material~\cite{Minar2021suppl} further contains several practical details regarding the implementation such as time step determination as function of the anisotropy, the used finite-difference stencil and the driving force localization on the interface for solver stability.
+All models were implemented in a single MATLAB function, where the governing equations were solved by centered finite differences of second order, explicit Euler time stepping and boundary conditions implemented using ghost nodes. For more details on the used finite difference schemes, refer to the Appendix~\ref{ch_numerical_implementation}. The minimal code to run the simulations is available in the dataset~\cite{Minar2022dataset}. \\
+During the parameters assignment in models with variable interface width (IWvG, IWvK), there was assured control over the minimal interface width, i.e. that there would be no interface narrower than the user-specified one. That is to prevent unphysical behavior of the interface due to too small grid resolution. Different strategies had to be adopted in IWvK and IWvG, respectively. They are described in Appendix~\ref{sec_suppl_param_det} together with other best practices in parameters determination for the respective models. The MATLAB functions which were used for parameters determination were also included in the dataset~\cite{Minar2022dataset}.
 
 In the simulations with inclination-dependent interface energy, the vector field $\partial \kappa/\partial(\nabla\eta_p)$ was computed as in equations~\eqref{eq_dkppdGp} and \eqref{eq_dkppijdGp}, the fields $\partial \gamma_{p,j}/\partial(\nabla\eta_p)$ as in equation~\eqref{eq_dgmmijdGp} and their divergences (see equation~\eqref{eq_incldep_divDFterms}) were computed numerically (by centered differences), as well as the gradient $\nabla\kappa(\bm{r})$. All the above terms were computed in the IWc model, whereas in the models with variable interface width some of them could be omitted (as explained in section~\ref{sec_model_incldepIE}).
 
 When the anisotropy in inclination-dependent interface energy was strong (i.e. $\delta>1/(n^2-1)$ or $\Omega>1$), the anisotropy function had to be regularized as described in~\cite{Eggleston2001} in order to avoid ill-posedness of the governing equations for interfaces with missing inclination.
+
+In finite difference method, the ratio of the time step $\Delta t$ to the grid spacing $\Delta x$ determines the numeric stability of the simulation. Specifically, the so-called Courant number $C$ must be $0<C<0.5$, where in this model
+\begin{equation}\label{eq_Courant_nr}
+	C = \mathrm{min}[\kappa(\bm{r}) L]\Delta t/(\Delta x)^2  \,.
+\end{equation}
+In practice, the time step was computed using equation~\eqref{eq_Courant_nr} assuming the value of $C\leq0.3$. For stronger anisotropies $C$ had to be reduced farther. When $0.129\leq \sigma_{min}/\sigma_{max}\leq0.2$, the value $C=0.12$ was used, when $0.2 < \sigma_{min}/\sigma_{max}\leq0.3$, $C=0.17$ and for $\sigma_{min}/\sigma_{max} > 0.3$ the used Courant number was $C=0.3$. The latter value of Courant number was also applied in simulations with inclination-dependent interface energy and smooth Wulff shapes ($\Omega\leq1$). For cornered Wulff shapes ($\Omega>1$), the following dependence was obtained from visual inspection of the interface normal inclination field $\theta(\bm{r})$ defined in equation~(18) ($\theta(\bm{r})$ was sensitive to the numeric instabilities) during the simulation 
+\begin{equation} \label{eq_Courant_nr_wulff}
+	C(\Omega) = \frac{1}{a\Omega + b} \,.
+\end{equation}
+The Table~\ref{tab_Courant_nr_wulff} contains the values of $a,b$ in the respective model modifications.
+
+\begin{table}[]
+	\centering
+	\caption{Parameters from equation~\eqref{eq_Courant_nr_wulff} describing anisotropic dependence of the Courant number $C$ in simulations with inclination-dependent interface energy and strong anisotropy $\Omega>1$.}
+	\label{tab_Courant_nr_wulff}
+	\begin{tabular}{c|c|c|c}
+		& IWc & IWvG & IWvK \\ \hline
+		a & 1.38 & 1.43 & 0.98\\
+		b& 1.95 & 1.91 & 2.35
+	\end{tabular}
+\end{table}
+The following 9-point stencil was used for computation of the laplacian in grid point $(k,l)$
+\begin{equation}
+	\begin{split}
+		(\nabla^2\eta)_{k,l} &=  \frac{1}{6h^2}[4(\eta_{k-1,l}+ \eta_{k+1,l} \eta_{k,l-1}+ \eta_{k,l+1}) \\
+		&+ \eta_{k+1,l+1} +\eta_{k-1,l-1}+\eta_{k-1,l+1}+\eta_{k+1,l-1} \\
+		&-20\eta_{k,l}]  \,.
+	\end{split}
+\end{equation}
+When the interface energy is inclination-dependent, it can be seen in equations~\eqref{eq_dkppijdGp},~\eqref{eq_dgmmijdGp} that some driving force terms are proportional to $1/|\nabla\eta_i-\nabla\eta_j|$. In fact, some are even proportional to $1/|\nabla\eta_i-\nabla\eta_j|^3$ when worked out analytically. Far enough from the interface, the magnitude $|\nabla\eta_i-\nabla\eta_j|$ inevitably gets smaller than the numeric resolution, which causes severe numeric instabilities due to locally very large driving forces. For this reason, all the driving force terms from equation~\eqref{eq_incldep_divDFterms} were only computed in a region close enough to the interface. Two such regions $\Gamma_{out},\Gamma_{inn}$ (outer and inner) were selected based on local value of $|\nabla\eta_i-\nabla\eta_j|$ (see Figure~\ref{fig_sketch_near_interf_regions}). The region $\Gamma_{inn}$ was a subset of $\Gamma_{out}$. The interface inclination field $\theta_{i,j}$ was computed in $\Gamma_{out}$, where $|\nabla\eta_i-\nabla\eta_j|^3(\Delta x)^3>C_{out}^3$ and the driving force terms $\nabla\cdot\partial f/\partial(\nabla\eta_p)$ were computed in region $\Gamma_{inn}$ where $|\nabla\eta_i-\nabla\eta_j|^3(\Delta x)^3>C_{inn}^3$. The constants $C_{out}=10^{-6}$ and $C_{inn}=0.005$ have the meaning of minimal local change in value of phase field which is acceptable to the respective near-interface region (this is exactly true for $\gamma=1.5$ and approximate otherwise). Note, that the driving force from homogeneous free energy density (i.e. $\partial f/\partial \eta_p$) and the laplacian term $\kappa(\bm{r})\nabla^2\eta_p$ were computed and applied in the whole simulation domain.
+\begin{figure}[]
+	\centering
+	\includegraphics[width=0.345\textwidth]{drawing_near_interf_regions.pdf}
+	\caption{Illustration of the near-interface regions $\Gamma_{out},\Gamma_{inn}$, defined by absolute values of difference in phase fields between neighbouring points.}
+	\label{fig_sketch_near_interf_regions}
+\end{figure}
+
+In the Wulff shape simulations, the accuracy of match to the analytical shape with IWvG phase field contour turned out to be sensitive to alignment of the shape within the numerical grid. For strong anisotorpies $\Omega>1$, when the corner laid exactly on some grid line, the IWvG contours were slightly deformed, making the model perform seemingly worse than IWc and IWvK (which were not affected by this). This problem was solved by shifting the center of the initial shape by half a pixel in both $x$ and $y$ direction. No corner than laid on any grid line and that solved the problem. Rotating the Wulff shape relative to the grid had similar effect. All the results in the main text were simulated with the shifted initial shape. This is not likely to play significant role in grain growth simulations as the corner motion along grid line is very unlikely with arbitrary grain structure and local grain orientation.
 
 \section{Methodology}
 Three different simulation experiments were performed: a shrinking Wulff shape, kinetically compensated anisotropic curvature-driven circle shrinkage and triple junction angles. The initial-state geometries and grid dimensions are in Figure~\ref{fig_IC_sketch}. 
@@ -52,13 +75,14 @@ Except for the shrinking circles simulation, a parametric study was carried out 
 	\centering
 	\caption{Overview of the simulations carried out in every simulation experiment. Note that these were carried out in every model modification (i.e. IWc, IWvG and IWvK) and simulation run (see Table~\ref{tab_IW_settings}). Number of simulations in every experiment is provided in the column Count. See text for more details.}
 	\label{tab_overview_simulations}
-	\begin{tabular}{lc|l|l}
+	\begin{tabular}{lc|p{3.2cm}|l}
+		\toprule
 		Experiment          & Varied par.                   & Values                   & Count \\ \hline
 		Wulff shape         & $\Omega$ (-)                  & 0.2, 0.4, 0.6, 0.8, 1.0, 2.3, 3.6, 4.9, 6.2, 7.5 & 10 \\ \hline
-		Kin.comp.aniso. circle & $\Omega$ (-)                  & 0.1, 
-		0.3, 0.5, 0.7 , 0.9       & 5 \\ \hline
+		Kin.comp.aniso. circle & $\Omega$ (-)                  & 0.1, 0.3, 0.5, 0.7 , 0.9       & 5 \\ \hline
 		% shrinking circles   & $(\sigma_{top},\sigma_{bot})$ & (0.1, 0.3) $\mathrm{J/m^2}$        &1 \\ \hline
-		Triple junction     & $\sigma_1/\sigma_2$ (-)       & \begin{tabular}[c]{@{}l@{}}0.13, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 \\ 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0\end{tabular}  & 20 
+		Triple junction     & $\sigma_1/\sigma_2$ (-)       & 0.13, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0  & 20 \\
+		\bottomrule
 	\end{tabular}
 \end{table*}
 
@@ -73,10 +97,12 @@ Results of four runs are presented in this paper, the basic settings of which ar
 	\caption{Numeric settings of different simulation runs (for each simulation experiment and model). $l_{min}$ is the minimal interface width. $N_x$ and $N_y$ are grid dimensions in the base run as shown in Figure~\ref{fig_IC_sketch}}
 	\label{tab_IW_settings}
 	\begin{tabular}{c|c|c|c|c}
+		\toprule
 		& base run & IW/2 & 14IWpts & 1000IW \\ \hline
 		grid dimensions & $N_x$ x $N_y$ & $2N_x$ x $2N_y$ & $2N_x$ x $2N_y$ & $N_x$ x $N_y$ \\
 		$l_{min}$ (nm) & 1 & 0.5 & 1 & 1000 \\
-		points in $l_{min}$ & 7 & 7 & 14 & 7
+		points in $l_{min}$ & 7 & 7 & 14 & 7 \\
+		\bottomrule
 	\end{tabular}
 \end{table}
 
@@ -85,25 +111,11 @@ In the simulation experiments, position of the interface in the respective geome
 The below subsections describe in detail the analytic solutions of the problems and results processing in the individual simulation experiments. 
 
 \subsection{Used anisotropy function and its Wulff shape}
-The anisotropy function $h(\theta)=1+\delta\cos(n\theta)$ was used, together with the normalized strength of anisotropy $\Omega=\delta(n^2-1)$. $\Omega$ easily distinguishes weak from strong anisotropy, because for $0<\Omega<1$ the Wulff shape is smooth, whereas for $1\leq\Omega<n^2-1$ it has corners. The Supplemental material~\cite{Minar2021suppl} provides more details about this anisotropy function. Fourfold symmetry was assumed (i.e. $n=4$).
-
-The Wulff shape $\bm{w}$ in 2D is a planar curve, which can be parametrized by the interface normal angle $\theta$, i.e.  $\bm{w}(\theta)=[w_x(\theta),w_y(\theta)]^\mathrm{T}$, giving \cite{Burton1951,Kobayashi2001,Eggleston2001}
-
-\begin{align} 
-	w_x(\theta) &= R_W[h(\theta)\cos(\theta) - h'(\theta)\sin(\theta)] \label{eq_wulff_parametrically_x}\\
-	w_y(\theta) &= R_W[h(\theta)\sin(\theta) + h'(\theta)\cos(\theta)] \label{eq_wulff_parametrically_y}\,,
-\end{align}
-where $R_W>0$ is the radius of the Wulff shape and $h(\theta),h'(\theta)$ the anisotropy function and its derivative, respectively.  
+The anisotropy function $h(\theta)=1+\delta\cos(n\theta)$ was used, together with the normalized strength of anisotropy $\Omega=\delta(n^2-1)$. $\Omega$ easily distinguishes weak from strong anisotropy, because for $0<\Omega<1$ the Wulff shape is smooth, whereas for $1\leq\Omega<n^2-1$ it has corners. Section~\ref{sec_appendix_anisofun_props} provides more details about this anisotropy function. Fourfold symmetry was assumed (i.e. $n=4$).
 
 Ill-posedness of the governing equations for forbidden orientations on Wulff shapes for strong anisotropies ($\Omega>1$) was treated by regularization of the anisotropy function as in~\cite{Eggleston2001}.
 
-With $h(\theta)=1+\delta\cos(n\theta)$, the minimal distance $R_{min}$ between the Wulff shape center and the contour can be related to $R_W$ as
-\begin{equation} \label{eq_appdx_wulff_minradius}
-	R_{min} = R_W(1-\delta) \,,
-\end{equation}
-which holds for arbitrarily strong anisotropy because the minimal-radius point normal is always inclined under a non-missing angle. This formula was used to find the radius $R_W$ of the phase field contour. Then, the phase field contour was scaled to unit radius and compared to the analytic Wulff shape (by means of Hausdorff distance, see the next subsection). 
-
-For validation of the kinetics of shrinkage, an analytic expression for Wulff shape shrinkage rate was derived in~\ref{sec_appendix_wulff_shrrate} of Supplemental Material~\cite{Minar2021suppl}. Measurement of area/volume occupied by a grain/phase is trivial in phase field method, hence the rate of its change (i.e. the shrinkage rate) can be easily used for validation or benchmark. The derivation in~\cite{Minar2021suppl} delivers the expression
+For validation of the kinetics of shrinkage, an analytic expression for Wulff shape shrinkage rate was derived in~\ref{sec_appendix_wulff_shrrate}. Measurement of area/volume occupied by a grain/phase is trivial in phase field method, hence the rate of its change (i.e. the shrinkage rate) can be easily used for validation or benchmark. The derivation in~\cite{Minar2021suppl} delivers the expression
 \begin{equation}\label{eq_wulff_shrrate}
 	\frac{\mathrm{d}A_W}{\mathrm{d}t} = -2\pi\mu\sigma_0  \frac{C_W(\Omega,n)}{1-\delta} \,
 \end{equation}
@@ -256,14 +268,13 @@ There was no significant difference between the results of base and 1000IW runs.
 \end{figure*}
 
 
-\subsection{Equilibrium triple junction angles}
+\subsection{Equilibrium triple junction angles}\label{subsec_paper1_results_trijun}
 Figures~\ref{fig_trijunang_results}b-\ref{fig_trijunang_results}d show the simulation results from the triple junction simulations as function of $\sigma_1/\sigma_2$. Neither of IWc or IWvK models show good agreement to Young's law when deviating farther from an isotropic system (which has ratio $\sigma_1/\sigma_2=1$). The model IWvG, on the other hand, always shows very good agreement in at least one of the fitting methods along the whole range of probed ratios of interface energies. With $\sigma_1/\sigma_2$ closer to 2 in IWvG modification, the grains shape was slightly elongated in the vertical direction, resulting in too small radius of the fitted arcs to cross in the triple junction. The angles could not be determined this way then and the linear fit is more reliable. \\
 For the ratios approximately $\sigma_1/\sigma_2\leq0.45$ the IWc model behaves non-physically. The triple junction was observed to move in the opposite than expected direction (i.e. upwards, as if the triple junction angle was larger then 180\textdegree). The overall shape of contours was not as in Figure~\ref{fig_trijunang_results}a because the green arcs curved in the other way. In IWvK this behavior was not observed, but the Young's law is not followed. Qualitative explanation is that the IWc and IWvK models are not fully variational. \\
 No significant change was observed in the results of the triple junction angles in runs IW/2, 14IWpts or 1000IW when compared to the base run. Quality of the results is thus not improved when more points in the interface than 7 are used. Also it implies, that the model behavior (for all parameters assignment strategies) is not affected by reducing the interface-width-to-feature ratio or the interface width scaling. The latter confirms that the model is quantitative.
 
 \section{Conclusions}
-
-This paper presented a quantitative methodology for assessment of the anisotropic curvature driving force in phase field method. It was demonstrated in comparison of three different modifications of a multi-phase field model. The match to the expected shape and the shrinkage rate were quantified in two different benchmark problems. The methodology was sensitive enough to capture differences between the model modifications and is suitable for validation and benchmarking of different models and numerical solvers.
+This chapter presented a quantitative methodology for assessment of the anisotropic curvature driving force in phase field method. It was demonstrated in comparison of three different modifications of a multi-phase field model. The match to the expected shape and the shrinkage rate were quantified in two different benchmark problems. The methodology was sensitive enough to capture differences between the model modifications and is suitable for validation and benchmarking of different models and numerical solvers.
 
 The overall performance of the three model modifications in the benchmarks was comparable. Both match to the steady-state shapes and the shrinkage rates followed the expected results as in the anisotropic mean curvature flow. However, a significant difference was noted in a supplementary benchmark simulation where triple junction angles were measured. It was observed that only the IWvG model modification (with only the parameter $\gamma$ anisotropic) reproduced the triple junction angles in the full interval 0.13-2 of $\sigma_1/\sigma_2$, whereas IWc and IWvK modifications failed for ratios farther from 1. It is noted that these two modifications were not fully variational in order to avoid ghost phases, whereas IWvG is fully variational and yet the ghost phases do not appear.
 
@@ -272,123 +283,17 @@ Even though the triple junction benchmark did not involve interfaces with inclin
 
 No results were significantly affected by the interface width scaling. Also, it was confirmed that 7 points in the interface were sufficient for retaining the expected kinetics in most cases, unless the inclination dependence of the kinetic coefficient was very strong.
 
-The results in this paper are reproducible with codes provided in the data set~\cite{Minar2022dataset}.
+The results in this chapter are reproducible with codes provided in the data set~\cite{Minar2022dataset}.
+	
+	
+	
+	
+%\section{Future prospects of the model development}
+%It was already noted by Moelans in~\cite{Moelans2008}, that inclusion of the driving force term proportional to $\partial \kappa/\partial\eta_p$ in IWc and IWvK models introduces ghost phases in the system, which distort the triple junction angles. Even though neglecting the term prevents ghost phases, the model governing equations are no longer fully variational and the triple junction angles are off for strong anisotropies anyway (see Figure~\ref{fig_trijunang_results}). Even though the ghost phases were not specifically measured in the above study, they seem to not have occurred in IWvG model, because the triple junction angles were consistent with the analytic prediction. For this reason it is recommended to further develop this model. One of the biggest disadvantages remains the variable interface width, which for strongly anisotropic systems forces usage of much finer grids to avoid having comparable interface width to the simulated feature size. 
+%
+%Moelans had already improved the current model with inclination-dependent interface energy by developing such procedure for assignment of values for $\gamma(\theta)$, which does not require to make the "weak anisotoropy approximation" or "strong anisotropy approximation" but uses the tabulated values of $g(\gamma), f_0(\gamma)$ to interpolate the local parameter values during the simulation, which allows more elegant and reliable model formulation.
 
 
-	
-	
-	
-	
-	% |||||||||||||||||||||||||||||||||||||||||||||||||
-	\section{Properties of the used anisotropy function}\label{sec_appendix_anisofun_props}
-	Let $f(\theta)$ be a smooth anisotropy function in 2D (see e.g.~\cite{Kobayashi2001} for more details). The Wulff shape $\bm{w}$ in 2D is a curve minimizing the interface energy of a crystal with constant area. It can be parameterized by the interface normal angle $\theta$, i.e.  $\bm{w}(\theta)=[w_x(\theta),w_y(\theta)]^\mathrm{T}$, giving \cite{Burton1951,Kobayashi2001,Eggleston2001}
-	% The anisotropy function $f(\theta) = 1 + \delta\cos(n\theta)$ with $0\leq\delta<1$ produces Wulff shape as 2D curve $\bm{w}(\theta)=[w_x,w_y]^\mathrm{T}$ parametrized by the interface normal angle $\theta$
-	\begin{align} 
-		w_x(\theta) &= R_W[f(\theta)\cos(\theta) - f'(\theta)\sin(\theta)] \label{eq_wulff_parametrically_x}\\
-		w_y(\theta) &= R_W[f(\theta)\sin(\theta) + f'(\theta)\cos(\theta)] \label{eq_wulff_parametrically_y}\,,
-	\end{align}
-	where $R_W$ is the radius of the Wulff shape (arbitrary). The radius of curvature $\varrho(\theta)$ of this Wulff shape is locally
-	\begin{equation} \label{eq_Wulff_radius_curvature}
-		\varrho(\theta) = R_W[f''(\theta) + f(\theta)] \,,
-	\end{equation}
-	which may technically get negative for some $\theta$. Because that does not have any geometric interpretation, the Wulff shape does not contain such oriented segments and the angles $\theta_m$ fulfilling $\varrho(\theta_m)\leq0$ are called missing or forbidden. \\
-	In the following, we assume the anisotropy function 
-	\begin{equation}
-		f(\theta) = 1 + \delta\cos(n\theta)
-	\end{equation}
-	with strength of anisotropy $0\leq\delta<1$ and $n$ an order of symmetry (integer). The interface energy is $\sigma = \sigma_0f(\theta)$. In this case, the missing angles occur for sufficiently strong anisotropy, i.e. when
-	\begin{equation} \label{eq_cond_stronganiso}
-		\delta\geq\frac{1}{n^2-1} \,,
-	\end{equation}
-	and span over an interval around every maximum of anisotorpy function $f(\theta)$. The stronger the anisotropy, the wider the interval of missing angles. Within $-\frac{\pi}{n}\geq\theta\leq\frac{\pi}{n}$, the border points of that interval are found by solving~\cite{Eggleston2001}
-	\begin{equation}
-		\frac{\mathrm{d}}{\mathrm{d}\theta}\frac{\cos(\theta)}{f(\theta)} = 0 \,.
-	\end{equation}
-	As the authors are unaware of analytic solution to this equation, it was solved numerically. The other (n-1) segments on the Wulff shape are periodic, hence all the missing angles can be obtained by rotation of the above one by multiples of $2\pi/n$.
-	
-	The strong-anisotropy Wulff shape is not smooth, it contains corners (i.e. jumps in local normal orientation). When plotting such Wulff shape, the missing angles $\theta_m$ must be excluded from the $\theta$s parameterizing $\bm{w}(\theta)$, otherwise "ears" behind the corners are plotted as well. 
-	
-	Equation~\eqref{eq_cond_stronganiso} can be used to define normalized strength of anisotropy $\Omega = \delta(n^2-1)$, which straightforwardly distinguishes between weak anisotropy $\Omega<1$ (smooth Wulff shape) and strong anisotropy $\Omega\geq1$ (the cornered one).
-	
-	For a given radius $R_W$, the area of a Wulff shape $A_W$ differs from the area of a circle $A=\pi R_W^2$ by the anisotropy-dependent factor $C_W(\Omega,n) = A_W/A$. For weak anisotropy $\Omega<1$ there is an analytic expression 
-	\begin{equation}
-		C_W = 1-\frac{\Omega^2}{n^2-1} \,,
-	\end{equation}
-	but there is none for strong anisotropy $\Omega>1$. The factor $C_W(\Omega,n)$ was obtained numerically for $n=4$ in the range $0\leq\Omega\leq7.5$ (the Wulff shape was plotted, its area numerically computed and divided by $\pi R^2$). There, the $\Omega$-dependence was fitted very well  by a polynomial of 4-th order $C_W(\Omega,4)= \sum_{i=0}^4a_i\Omega^{N-i}$ with $a_0=-0.00032 ,a_1=0.00639 ,a_2=-0.04219 , a_3=0.00034 , a_4=1.00000$. 
-	
-	% |||||||||||||||||||||||||||||||||||||||||||||||||
-	\section{Shrinkage rate of a Wulff shape} \label{sec_appendix_wulff_shrrate}
-	The normal velocity of anisotropic curvature-driven interface in 2D is~\cite{Abdeljawad2018}
-	\begin{equation}
-		v_n(\theta,t)=-\frac{\mu}{\varrho(\theta,t)}\sigma_0[f''(\theta) + f(\theta)] 
-	\end{equation}
-	where $\mu$ is the interface mobility and $\sigma_0[f''(\theta) + f(\theta)]$ is interface stiffness. When it is the
-	Wulff shape shrinking, the radius of curvature $\varrho(\theta,t)$ can be expressed as in equation~\eqref{eq_Wulff_radius_curvature} and the inclination-dependent part of the interface stiffness is cancelled out. The normal velocity is then constant along the perimeter
-	\begin{equation} \label{eq_wulff_norm_velocity}
-		v_n(t) = - \frac{\mu \sigma_0}{R_W(t)} \,.
-	\end{equation}
-	The sign is such that the interface moves towards the center of curvature.
-	
-	Because the area of a Wulff shape is $A_W=\pi R_W^2C_W(\Omega,n)$, the shrinkage rate of a Wulff shape is
-	\begin{equation}\label{eq_wulff_shrrate_deriv}
-		\begin{split}
-			\frac{\mathrm{d}A_W}{\mathrm{d}t} &= \frac{\mathrm{d}}{\mathrm{d}t}[\pi R_W^2(t)C_W(\Omega,n)]    \\
-			&= 2\pi C_W(\Omega,n) R_W(t) \frac{\mathrm{d}R_W}{\mathrm{d}t} \,.
-		\end{split}
-	\end{equation}
-	Because  the normal velocity is constant along the perimeter, the point $R_{min}$ from equation~\eqref{eq_appdx_wulff_minradius} moves also by $v_n(t)$. Importantly, the normal of interface in $R_{min}$ is aligned with the radial direction of the polar coordinates, hence we can write $v_n=\mathrm{d}R_{min}/\mathrm{d}t$. From equation~\eqref{eq_appdx_wulff_minradius} then must be
-	\begin{equation}
-		\frac{\mathrm{d}R_{W}}{\mathrm{d}t}=\frac{1}{1-\delta}\frac{\mathrm{d}R_{min}}{\mathrm{d}t}=\frac{1}{1-\delta}v_n(t) \,,
-	\end{equation}
-	which together with~\ref{eq_wulff_norm_velocity} implies in \ref{eq_wulff_shrrate_deriv}
-	\begin{equation}
-		\frac{\mathrm{d}A_W}{\mathrm{d}t} = 2\pi\mu\sigma_0  \frac{C_W(\Omega,n)}{1-\delta} 
-	\end{equation}
-	
-	Taylor and Cahn~\cite{Taylor1998} proved that the shrinkage rate for the equilibrium shape must be a constant, which is met by the final expression.
-	
-	% \section{Goodness of match of phase field contours to analytic Wulff shapes}\label{sec_suppl_Wulff_matching}
-	% In order to quantify the match of phase field contours to the analytic Wulff shapes (computed by \eqref{eq_wulff_parametrically_x},\eqref{eq_wulff_parametrically_y} and expressed in polar coordinates), the following procedure was developed. First, the contour where the two phase fields crossed was located and its centroid (geometric center) was found. Then the origin of the cartesian coordinates was shifted to the centroid so that the contour points could be expressed in polar coordinates. From equation~\eqref{eq_appdx_wulff_minradius}, the radius of the phase-field Wulff shape was obtained and used to scale it to unit radius. The phase-field contour was interpolated in equidistant polar angles and an analytic Wulff shape (of unit radius) was interpolated in the same polar angles so that the two could be compared. 
-	
-	% |||||||||||||||||||||||||||||||||||||||||||||||||
-	\section{Additional remarks on numeric implementation} \label{sec_appendix_numerics}
-	In finite difference method, the ratio of the time step to the grid spacing determines the numeric stability of the simulation. Specifically, the so-called Courant number $C$ must be $0<C<0.5$, where in this model
-	\begin{equation}\label{eq_Courant_nr}
-		C = \mathrm{min}[\kappa(\bm{r}) L]\Delta t/(\Delta x)^2  \,.
-	\end{equation}
-	In practice, the time step was computed using equation~\eqref{eq_Courant_nr} assuming the value of $C\leq0.3$. For stronger anisotropies $C$ had to be reduced farther. When $0.129\leq \sigma_{min}/\sigma_{max}\leq0.2$, the value $C=0.12$ was used, when $0.2 < \sigma_{min}/\sigma_{max}\leq0.3$, $C=0.17$ and for $\sigma_{min}/\sigma_{max} > 0.3$ the used Courant number was $C=0.3$. The latter value of Courant number was also applied in simulations with inclination-dependent interface energy and smooth Wulff shapes ($\Omega\leq1$). For cornered Wulff shapes ($\Omega>1$), the following dependence was obtained from visual inspection of the interface normal inclination field $\theta(\bm{r})$ defined in equation~(18) ($\theta(\bm{r})$ was sensitive to the numeric instabilities) during the simulation 
-	\begin{equation} \label{eq_Courant_nr_wulff}
-		C(\Omega) = \frac{1}{a\Omega + b} \,.
-	\end{equation}
-	The Table~\ref{tab_Courant_nr_wulff} contains the values of $a,b$ in the respective model modifications.
-	
-	\begin{table}[]
-		\centering
-		\caption{Parameters from equation~\eqref{eq_Courant_nr_wulff} describing anisotropic dependence of the Courant number $C$ in simulations with inclination-dependent interface energy and strong anisotropy $\Omega>1$.}
-		\label{tab_Courant_nr_wulff}
-		\begin{tabular}{c|c|c|c}
-			& IWc & IWvG & IWvK \\ \hline
-			a & 1.38 & 1.43 & 0.98\\
-			b& 1.95 & 1.91 & 2.35
-		\end{tabular}
-	\end{table}
-	The following 9-point stencil was used for computation of the laplacian in grid point $(k,l)$
-	\begin{equation}
-		\begin{split}
-			(\nabla^2\eta)_{k,l} &=  \frac{1}{6h^2}[4(\eta_{k-1,l}+ \eta_{k+1,l} \eta_{k,l-1}+ \eta_{k,l+1}) \\
-			&+ \eta_{k+1,l+1} +\eta_{k-1,l-1}+\eta_{k-1,l+1}+\eta_{k+1,l-1} \\
-			&-20\eta_{k,l}]  \,.
-		\end{split}
-	\end{equation}
-	When the interface energy is inclination-dependent, it can be seen in equations~\eqref{eq_dkppijdGp},~\eqref{eq_dgmmijdGp} of the main text that some driving force terms are proportional to $1/|\nabla\eta_i-\nabla\eta_j|$. In fact, some are even proportional to $1/|\nabla\eta_i-\nabla\eta_j|^3$ when worked out analytically. Far enough from the interface, the magnitude $|\nabla\eta_i-\nabla\eta_j|$ inevitably gets smaller than the numeric resolution, which causes severe numeric instabilities due to locally very large driving forces. For this reason, all the driving force terms from equation~\eqref{eq_incldep_divDFterms} were only computed in a region close enough to the interface. Two such regions $\Gamma_{out},\Gamma_{inn}$ (outer and inner) were selected based on local value of $|\nabla\eta_i-\nabla\eta_j|$ (see Figure~\ref{fig_sketch_near_interf_regions}). The region $\Gamma_{inn}$ was a subset of $\Gamma_{out}$. The interface inclination field $\theta_{i,j}$ was computed in $\Gamma_{out}$, where $|\nabla\eta_i-\nabla\eta_j|^3(\Delta x)^3>C_{out}^3$ and the driving force terms $\nabla\cdot\partial f/\partial(\nabla\eta_p)$ were computed in region $\Gamma_{inn}$ where $|\nabla\eta_i-\nabla\eta_j|^3(\Delta x)^3>C_{inn}^3$. The constants $C_{out}=10^{-6}$ and $C_{inn}=0.005$ have the meaning of minimal local change in value of phase field which is acceptable to the respective near-interface region (this is exactly true for $\gamma=1.5$ and approximate otherwise). Note, that the driving force from homogeneous free energy density (i.e. $\partial f/\partial \eta_p$) and the laplacian term $\kappa(\bm{r})\nabla^2\eta_p$ were computed and applied in the whole simulation domain.
-	\begin{figure}[]
-		\centering
-		\includegraphics[width=0.345\textwidth]{drawing_near_interf_regions.pdf}
-		\caption{Illustration of the near-interface regions $\Gamma_{out},\Gamma_{inn}$, defined by absolute values of difference in phase fields between neighbouring points.}
-		\label{fig_sketch_near_interf_regions}
-	\end{figure}
-	
-	In the Wulff shape simulations, the accuracy of match to the analytical shape with IWvG phase field contour turned out to be sensitive to alignment of the shape within the numerical grid. For strong anisotorpies $\Omega>1$, when the corner laid exactly on some grid line, the IWvG contours were slightly deformed, making the model perform seemingly worse than IWc and IWvK (which were not affected by this). This problem was solved by shifting the center of the initial shape by half a pixel in both $x$ and $y$ direction. No corner than laid on any grid line and that solved the problem. Rotating the Wulff shape relative to the grid had similar effect. All the results in the main text were simulated with the shifted initial shape. This is not likely to play significant role in grain growth simulations as the corner motion along grid line is very unlikely with arbitrary grain structure and local grain orientation.
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Keep the following \cleardoublepage at the end of this file, 

@@ -1,5 +1,5 @@
 %\documentclass[showinstructions,faculty=firw,department=mtk,phddegree=mtk]{adsphd}
-\documentclass[faculty=firw,department=mtk,phddegree=mtk]{adsphd}
+\documentclass[croppedpdf, faculty=firw,department=mtk,phddegree=mtk]{adsphd}
 %\documentclass[showinstructions,faculty=firw,department=cws,phddegree=cws,doctoralschool=ads]{adsphd}
 %\documentclass[showinstructions,showlabels,coverfontpercent=100,faculty=firw,department=cws,phddegree=cws]{adsphd}
 %\documentclass[croppedpdf,showinstructions,faculty=firw,department=cws,phddegree=cws]{adsphd}
@@ -85,15 +85,15 @@
 
 
 % BibLaTeX
-%\usepackage[utf8]{inputenc}
-%\usepackage{csquotes}
-%\usepackage[
-%  hyperref=auto,
-%  mincrossrefs=999,
-%  backend=biber,
-%  style=authoryear-icomp
-%]{biblatex}
-%\addbibresource{allpapers.bib}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage[
+  hyperref=auto,
+  mincrossrefs=999,
+  backend=biber,
+  style=numeric-comp
+]{biblatex}
+\addbibresource{allpapers.bib}
 
 % Fonts
 \usepackage{textcomp} % nice greek alphabet
@@ -102,7 +102,19 @@
 \usepackage{amssymb,amsthm}
 \usepackage{amsmath}
 \usepackage{bm}
+\usepackage{siunitx}
+\usepackage[version=4]{mhchem}
+\usepackage{easyreview}
+\usepackage{rotate}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{calc,external,arrows}
 
+\def\red{\color{red}}
+\def\gr{\color{green}}
+\def\bl{\color{blue}}
+\def\vio{\color{violet}}
+\def\bk{\color{black}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -145,43 +157,41 @@
 % Show instructions on a separate page
 %\instructionschapters\cleardoublepage
 
-\includechapter{01introduction}
+%\includechapter{01introduction}
 %\includechapter{02anisoIEintro}
 %\includechapter{03PFintro} 
 %\includechapter{04PFMoelans} 
 %\includechapter{05paper1} 
-%\includechapter{65paper2} 
+\includechapter{06PFnucleationBarrier} 
+\includechapter{06paper2} 
+%\includechapter{90conclusion}
 
 
-% Insert here your own chapters
-% Chapters are expected to be in a tex-file with the given name dot
-% tex and in a directory with the given name in the chapters
-% directory.
-
-%\includechapter{conclusion}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \appendix
 
-%\includeappendix{myappendix}
 %\includeappendix{91functionalDerivative} 
 %\includeappendix{92PFderivations} 
+%\includeappendix{93PFparametersDetermination} 
+%\includeappendix{94NumericalImplementation} 
+%\includeappendix{95LagrangeMultipliersPF} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\backmatter
 
-\includebibliography
+%\includebibliography
 % BibTex
-\bibliographystyle{acm}
-\bibliography{allpapers}
+%\bibliographystyle{acm}
+%\bibliography{allpapers}
 % BibLatex (comment lines above and comment out biblatex lines in preamble)
-%\printbibliography[title=\bibname]
+\printbibliography[title=\bibname]
 %\instructionsbibliography
 
 %\includecv{curriculum}
 
-%\includepublications{publications}
+\includepublications{publications}
 
 %\makebackcoverXII
 

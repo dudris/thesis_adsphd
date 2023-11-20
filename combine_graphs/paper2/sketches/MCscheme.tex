@@ -1,0 +1,82 @@
+\documentclass[tikz]{standalone}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{shapes,arrows,positioning}
+\begin{document}
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=yellow!10, 
+    text width=4.5em, text badly centered, node distance=2cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=2.8cm, text centered, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{inout} = [draw, trapezium,
+    trapezium left angle = 65,
+    trapezium right angle = 115,
+    trapezium stretches,fill=green!20, node distance=4cm,
+    minimum height=2em, text width=1.7cm]
+\tikzstyle{startend} = [rounded rectangle, draw, fill=red!20, 
+    text width=2.6cm, text centered, minimum height=4em]
+    
+    
+\begin{tikzpicture}[node distance = 2cm]
+    % Place nodes
+    \node [startend] (startiter) {iteration start};
+    \node [block,below of=startiter] (gs) {select growth site};
+    \node [inout, left of=gs] (randnr1) {random $\xi_1$};
+    % \node [inout, right of=gs] (system) {system};
+    \node [block, below of=gs] (neighbors) {analyze neighbors};
+    \node [block, below left of=neighbors,node distance = 2.5cm] (intfnorm0) {interface normal $\theta_{(1)}$};
+    \node [block, below of=intfnorm0] (EC0) {compute site energy $E^c(0)$};
+    \node [block, below right of=neighbors,node distance = 2.5cm] (intfnormn) {interface normal $\theta_{(2)}$};
+    \node [block, below of=intfnormn] (trialgrowth) {neighbor value $n$ to growth site};
+    \node [block, below of=trialgrowth] (ECn) {compute site energy $E^c(n)$};
+    \node [block, below left of=ECn,node distance = 2.5cm] (DE) {compute \\ \footnotesize{$\Delta E^c=\mathrm{min}(E_n^c)-E_0^c$}};
+    
+    % \node [decision, below of=DE] (DEeval) {$\Delta E^c < 0$};
+    \node [decision, right of=gs,node distance = 9cm] (DEeval) {$\Delta E^c < 0$};
+    \node [right of=gs,node distance = 5cm] (DEeval_null1) {};
+    \node [above of=DEeval] (DEeval_null2) {};
+    
+    \node [block, below right of=DEeval,node distance = 2.5cm] (nucleate) {nucleation};
+    \node [block, below of=nucleate] (selectori) {orientation selection};
+    \node [inout, right of=selectori] (randnr2) {random $\xi_2$ \\ $n_S$ \\ anisotropy \\ DF};
+    \node [block, below of=selectori] (nucleated) {$n'$ to growth site};
+    
+    \node [startend, below left of=nucleated,node distance = 2.5cm] (enditer) {iteration end};
+    \node [block, above left of=enditer,node distance = 2.5cm] (grow) {$n$ to growth site};
+    % \node [block, left of=ECn, node distance=3cm] (update) {update model};
+    % \node [decision, below of=ECn] (decide) {is best candidate better?};
+    % \node [block, below of=decide, node distance=3cm] (stop) {stop};
+    % Draw edges
+    \path [line] (startiter) -- (gs);
+    \path [line] (gs) -- (neighbors);
+    \path [line] (intfnorm0) -- (EC0);
+    \path [line] (neighbors) -- (intfnorm0);
+    \path [line] (neighbors) -- (intfnormn);
+    \path [line] (intfnormn) -- (trialgrowth);
+    \path [line] (trialgrowth) -- (ECn);
+    \path coordinate [right of=trialgrowth] (trialgrowth_R);
+    \path [line] (ECn) -| node [pos=0.75,below, rotate=90] {\footnotesize all neighbors} (trialgrowth_R) -- (trialgrowth) ;
+    
+    \path [line] (ECn) -- (DE);
+    \path [line] (EC0) -- (DE);
+    % \path [line]  (DE) -- (DEeval);
+    \path [line]  (DE) -|  (DEeval_null1)  |- (DEeval_null2) -- (DEeval);
+    \path [line] (DEeval) -| node[above,pos=0.3] {\footnotesize yes} (grow);
+    \path [line] (DEeval) -| node[above,pos=0.3] {\footnotesize no} (nucleate);
+    \path [line] (nucleate) -- (selectori);
+    \path [line] (selectori) -- (nucleated);
+    \path [line] (nucleated) -- (enditer);
+    \path [line] (grow) -- (enditer);
+    % \path [line] (ECn) -- (decide);
+    % \path [line] (decide) -| node [near start] {yes} (update);
+    
+    % \path [line] (decide) -- node {no}(stop);
+    \path [line,dashed] (randnr1) -- (gs);
+    \path [line,dashed] (randnr2) -- (selectori);
+    
+    % \path [line,dashed] (system) -- (gs);
+    % \path [line,dashed] (system) |- (ECn);
+\end{tikzpicture}
+
+\end{document}
