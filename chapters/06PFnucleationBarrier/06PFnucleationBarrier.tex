@@ -1,128 +1,137 @@
 % !TeX root = ../../thesis.tex
 \chapter{Nucleation probability assessment - a phase field methodology}
 \section{Introduction}
-This chapter develops a methodology to obtain insight about the nucleation barrier from the equilibrium shapes of particles with anisotropic interface energy obtained by phase field simulation. The used model represents wetting of a plane by a crystal and combines the features developed by the author: the inclination dependence of interface energy, volume conservation using the fictitious concentration field approach and the general Neumann boundary conditions to control the interface inclination at the domain boundary. 
+This chapter develops a methodology to obtain insight about the nucleation barrier from the stable shapes of particles on a planar support in 2D. The developed multi-phase phase field model is used to obtain the interface-energy-minimizing shapes and the below described domain scaling is then used to find shape factor of the shape. 
 
-Advantage of the method is that it does not a-priori assume any shape, it is thus in principle usable for non-analytic cases, where the solution is not known.
+The used model represents wetting of a plane by a crystal and combines the features developed by the author: volume conservation using the fictitious concentration field approach and the general Neumann boundary conditions to control the interface inclination at the domain boundary. 
 
-The below procedure assumes a 2D particle sitting on top of a line, the contact angles on the left and right are known. It is assumed that the environment surrounding the particle is liquid and the particle-liquid energy is anisotropic. The contact angles are determined using the Young's equation. 
+The method to obtain the shape factors utilizes that the interface in phase field method is implicitly tracked, i.e. it evolves without any assumption on its position. Additionally, it makes use of the fact, that in the simulated geometry, the total energy of the system is in fact the total particle-liquid interface energy. Advantage of the method is that it does not a-priori assume any shape, it is thus in principle usable for non-analytic cases, where the solution is not known, e.g. a particle on a grain boundary.
 
-The following sections describe how the phase field result can be used to bring insight about the nucleation barrier using scaling of simulation domain, which is a kind of post-processing of the results. 
-
-\section{Simulated system}
-Principle of the method is in utilizing the fact, that in the simulated geometry, the total energy of the system is in fact the particle-liquid interface energy. 
-
-\alert{The critical nucleation barrier is total energy change upon insertion of the critical nucleus. That is such nucleus, which just balances the bulk and interface energy contributions. The phase field simulation provides the interface-energy-minimizing shape for the input contact angles}
-
-The simulated system geometry is sketched in Figure~\ref{fig_sketch_domain_scaling_PF}. A two-phase system of aparticle in a liquid was described by two phase field variables in Moelans' model, one representing the liquid parent phase ($\eta_1$) and the second ($\eta_2$) representing the particle (possibly with anisotropic interface energy). The bottom domain boundary then represents the substrate and the interface inclination in the two contact points is controlled by the boundary condition as indicated in the figure.
-\begin{figure}
-	\centering
-	\begin{tikzpicture}[scale=3]
-		\draw[thick] (-0.22,0) rectangle (1.1,.7); 
-		\draw[thick] (1/5,0) arc (210:-30:1/3);
-		\draw[blue] (0.28,0.07) node {$\vartheta_L$};
-		\draw[magenta] (0.7,0.07) node {$\vartheta_R$};
-		\draw[gray] (0.59,0) arc (180:60:0.2);
-		\draw[gray] (0.4,0) arc (0:120:0.2);
-		\draw[gray] (1/5,0) -- ++(120:0.4);
-		\draw[gray] (0.79,0) -- ++(60:0.4);
-		
-		\draw (0.2,0.6) node {$\eta_1$};
-		\draw (0.5,0.3) node {$\eta_2$};
-		
-		\draw[-stealth] (-0.12,0) -- ++(0,0.2) node[above] {$\bm{n_B}$};
-		\draw[blue,stealth-stealth] (-0.22,-0.1) -- node[below,midway]{$\nabla\eta_2\cdot\bm{n_B}= |\nabla\eta_2|\cos(\theta_L)$}  (0.48,-0.1); 
-		\draw[blue,thick] (-0.22,-0.03) -- (0.48,-0.03); 
-		\draw[magenta,thick] (1.1,-0.03) -- (0.52,-0.03); 
-		\draw[magenta, stealth-stealth] (1.1,-0.4) -- node[below,midway]{$\nabla\eta_2\cdot\bm{n_B}= |\nabla\eta_2|\cos(\theta_R)$} (0.52,-0.4);
-	\end{tikzpicture}
-	\caption{Sketch of the geometry in the phase-filed simulations used in the domain scaling methodology for nucleation barrier assessment. The symbols $\vartheta_L,\vartheta_R$ denote tangent angles in the contact points and $\theta_L,\theta_R$ the normal ones. The intervals on the bottom domain boundary with the different interface inclination imposed are indicated (note that $\eta_1$ has analogous boundary conditions which must be consistent).}
-	\label{fig_sketch_domain_scaling_PF}
-\end{figure}
-
-Volume conservation was assured using the fictitious concentration field. 
+%The below procedure assumes a 2D particle sitting on top of a line, the contact angles on the left and right are known. It is assumed that the environment surrounding the particle is liquid and the particle-liquid energy is anisotropic. The contact angles are determined using the Young's equation. 
+%
+%The following sections describe how the phase field result can be used to bring insight about the nucleation barrier using scaling of simulation domain, which is a kind of post-processing of the results. 
 
 \section{Some fundamentals}
-In 2D, the Gibbs free energy difference upon a nucleus insertion in the system is due to competition between area and line energy contributions (see also Figure \ref{fig_DG_2D_sketch}b). Be $A_{hom}$ the nucleus area and its interface be described by a parametric curve $\mathcal{C}$. In the isotropic case, $\mathcal{C}$ is a circle and the interfacial contribution is simply $\sigma L$, where $L=2\pi R$ is the interface length and $\sigma$ the isotropic specific interface energy. The Gibbs free energy difference of a free nucleus is then (with $\Delta G_A$ being supersaturation)
+In 2D, the Gibbs free energy difference upon a nucleus insertion in the system is due to competition between area and line energy contributions (see also Figure \ref{fig_DG_2D_sketch}). Be $A_{hom}$ the nucleus area and its interface be described by a parametric curve $\mathcal{C}$. In the isotropic case, $\mathcal{C}$ is a circle and the interfacial contribution is simply $\sigma L$, where $L=2\pi R$ is the interface length and $\sigma$ the isotropic specific interface energy. The Gibbs free energy difference of a free nucleus is then (with $\Delta G_A$ being supersaturation)
 \begin{align}
 	\Delta G_{hom} &= -\Delta G_A A_{hom} + \sigma L \\
-\label{eq_DG_hom_iso}	&= (-\Delta G_A R^2 + 2R\sigma)\pi \,,
+	\label{eq_DG_hom_iso}	&= (-\Delta G_A R^2 + 2R\sigma)\pi \,,
 \end{align}
 which implies the critical radius
 \begin{equation} \label{eq_crit_radius_2D}
 	R_c = \frac{\sigma}{\Delta G_A}
 \end{equation}
 and critical nucleation barrier
-\begin{equation} 
+\begin{equation} \label{eq_nucl_barr_hom_2D}
 	(\Delta G_c^*)_{hom} = \hat{A}_{hom}\frac{\sigma^2}{\Delta G_A}\,,
 \end{equation}
 where the non-dimensional nucleus area is $\hat{A}_{hom}=A_{hom}/R^2=\pi$.
 
 \begin{figure}
 	\centering
-	\begin{tikzpicture}[scale=1]
-		\newcommand{\sig}{1}
-		\newcommand{\dGv}{\sig}
-		\newcommand{\barr}{0.5*\sig^2/\dGv}
-		\newcommand{\xlim}{2.5}
-		\begin{axis}[
-			small,
-			clip mode=individual,
-			xlabel={radius $R/R_c$},
-			ytick={0},
-			ylabel={$\Delta G$ (a.u.)},
-			ylabel near ticks,
-			ymin=-1.2,
-			ymax=1.7,
-			legend entries={$\approx- R^2$,$\approx R$,$\Delta G$},
-			legend pos = north east,
-			ymajorgrids = true
-			]
-			
-			\addplot[blue,domain=0:\xlim,samples=50] {-\dGv*x^2/2};
-			\addplot[red,domain=0:\xlim,samples=50] {\sig*x};
-			\addplot[black,domain=0:\xlim,samples=50] {-\dGv*x^2/2+\sig*x};
-			
-			\draw[stealth-stealth] (axis cs:1,0) -- (axis cs:1,\barr/2)  node [left] {$\Delta G_c^*$} -- (axis cs:1,\barr);
-			
-			\draw (rel axis cs: -0.15,1) node [left,inner sep=0] {a)};
-			%			\draw (rel axis cs: -0.15,1) node [left,inner sep=0] {a)};
-		\end{axis}
-	\end{tikzpicture}
+%	\begin{tikzpicture}[scale=1]
+%		\newcommand{\sig}{1}
+%		\newcommand{\dGv}{\sig}
+%		\newcommand{\barr}{0.5*\sig^2/\dGv}
+%		\newcommand{\xlim}{2.5}
+%		\begin{axis}[
+%			small,
+%			clip mode=individual,
+%			xlabel={radius $R/R_c$},
+%			ytick={0},
+%			ylabel={$\Delta G$ (a.u.)},
+%			ylabel near ticks,
+%			ymin=-1.2,
+%			ymax=1.7,
+%			legend entries={$\approx- R^2$,$\approx R$,$\Delta G$},
+%			legend pos = north east,
+%			ymajorgrids = true
+%			]
+%			
+%			\addplot[blue,domain=0:\xlim,samples=50] {-\dGv*x^2/2};
+%			\addplot[red,domain=0:\xlim,samples=50] {\sig*x};
+%			\addplot[black,domain=0:\xlim,samples=50] {-\dGv*x^2/2+\sig*x};
+%			
+%			\draw[stealth-stealth] (axis cs:1,0) -- (axis cs:1,\barr/2)  node [left] {$\Delta G_c^*$} -- (axis cs:1,\barr);
+%			
+%			\draw (rel axis cs: -0.15,1) node [left,inner sep=0] {a)};
+%			%			\draw (rel axis cs: -0.15,1) node [left,inner sep=0] {a)};
+%		\end{axis}
+%	\end{tikzpicture}
+	\includegraphics[width=0.5\textwidth]{DG_vs_radius_2D.pdf}
 	\caption{Schematic dependence of the total energy change on the radius of the inserted nucleus in 2D.}
 	\label{fig_DG_2D_sketch}
 \end{figure}
 
-In heterogeneous nucleation, the shape factor $S(\theta)=A_{het}/A_{hom}$ has equal role as in the 3D space, implying
+In heterogeneous nucleation, the shape factor $S(\theta)=A_{het}/A_{hom}$ scales the homogeneous total energy change upon nucleus insertion $\Delta G_{hom}$ as
 \begin{equation}\label{eq_DG_het_2D}
-	\Delta G_{het} = S(\theta)\Delta G_{hom}
+	\Delta G_{het} = S(\theta)\Delta G_{hom} \,,
 \end{equation}
-similarly as for the nucleation barrier
+which for the heterogeneous nucleation barrier implies
 \begin{equation}\label{eq_nucl_barr_het_2D}
 	(\Delta G_c^*)_{het} = S(\theta)(\Delta G_c^*)_{hom}\,.
 \end{equation}
+The nucleus radius is equal in both homogeneous and heterogeneous nucleation.
 
-When the interface energy is inclination-dependent $\sigma(\theta)=\sigma_0 f(\theta)$, the interface energy contribution is a line integral $\int_\mathcal{C} \sigma(\theta) \mathrm{d}l$, which can be expressed in analogy with the 3D case~[Mariaux2010] as ($X_0$ being the generalized radius of the Wulff shape with area $A_{hom}^{ani}$)
-\begin{equation}
-	\int_\mathcal{C} \sigma(\theta) \mathrm{d}l = \frac{2\sigma_0}{X_0}A_{hom}^{ani} \,,    
-\end{equation}
-which eventually allows to write the Gibbs free energy difference of a free nucleus
-\begin{equation}\label{eq_DG_hom_aniso}
-	\Delta G_{hom}^{ani} = (-\Delta G_A X_0^2 + 2\sigma_0 X_0)\hat{A}_{hom}^{ani} 
-\end{equation}
-and further its nucleation barrier
-\begin{equation} 
-	(\Delta G_c^*)_{hom} = \hat{A}_{hom}^{ani}\frac{2\sigma^2}{\Delta G_A}\,.
-\end{equation}
-In the heterogeneous anisotropic nucleation the difference in Gibbs free energy is like in equation~\eqref{eq_DG_het_2D}, having $\Delta G_{hom}^{ani}$ as in~\eqref{eq_DG_hom_aniso} and the nucleation barrier like in~\eqref{eq_nucl_barr_het_2D}, only with modified shape factor $S$ correspondingly to the Wulff shape.
-\begin{equation} \label{eq_DGcrit_het_aniso}
-	(\Delta G_c^*)_{het} = S\hat{A}_{hom}^{ani}\frac{2\sigma^2}{\Delta G_A}\,.
-\end{equation}
-For nucleation with both isotropic and anisotropic energy, the dependence of the total energy change on the particle radius has the same form~\eqref{eq_DG_hom_iso} and~\eqref{eq_DG_hom_aniso}, which is sketched in Figure~\ref{fig_DG_2D_sketch}.
+%When the interface energy is inclination-dependent $\sigma(\theta)=\sigma_0 f(\theta)$, the interface energy contribution is a line integral $\int_\mathcal{C} \sigma(\theta) \mathrm{d}l$, which can be expressed in analogy with the 3D case~[Mariaux2010] as ($X_0$ being the generalized radius of the Wulff shape with area $A_{hom}^{ani}$)
+%\begin{equation}
+%	\int_\mathcal{C} \sigma(\theta) \mathrm{d}l = \frac{2\sigma_0}{X_0}A_{hom}^{ani} \,,    
+%\end{equation}
+%which eventually allows to write the Gibbs free energy difference of a free nucleus
+%\begin{equation}\label{eq_DG_hom_aniso}
+%	\Delta G_{hom}^{ani} = (-\Delta G_A X_0^2 + 2\sigma_0 X_0)\hat{A}_{hom}^{ani} 
+%\end{equation}
+%and further its nucleation barrier
+%\begin{equation} 
+%	(\Delta G_c^*)_{hom} = \hat{A}_{hom}^{ani}\frac{2\sigma^2}{\Delta G_A}\,.
+%\end{equation}
+%In the heterogeneous anisotropic nucleation the difference in Gibbs free energy is like in equation~\eqref{eq_DG_het_2D}, having $\Delta G_{hom}^{ani}$ as in~\eqref{eq_DG_hom_aniso} and the nucleation barrier like in~\eqref{eq_nucl_barr_het_2D}, only with modified shape factor $S$ correspondingly to the Wulff shape.
+%\begin{equation} \label{eq_DGcrit_het_aniso}
+%	(\Delta G_c^*)_{het} = S\hat{A}_{hom}^{ani}\frac{2\sigma^2}{\Delta G_A}\,.
+%\end{equation}
+%For nucleation with both isotropic and anisotropic energy, the dependence of the total energy change on the particle radius has the same form~\eqref{eq_DG_hom_iso} and~\eqref{eq_DG_hom_aniso}, which is sketched in Figure~\ref{fig_DG_2D_sketch}.
 
-\section{Methodology - domain scaling}
+
+\section{Methodology}
 %\subsection{Principle}
 %The critical nucleation barrier is the maximal possible energy change attributed to insertion a nucleus of a particular shape, interface energy and in the present supersaturation (bulk driving force in general). 
+The simulated system geometry is sketched in Figure~\ref{fig_sketch_domain_scaling_PF}. A two-phase system of a particle in a liquid was described by two phase field variables in Moelans' model, one representing the liquid parent phase ($\eta_1$) and the second ($\eta_2$) representing the particle (possibly with anisotropic interface energy). The bottom domain boundary then represents the substrate and the interface inclination $\vartheta_L,\vartheta_R$ in the two contact points is controlled by the boundary condition as indicated in the figure.
+\begin{figure}
+	\centering
+%	\begin{tikzpicture}[scale=3]
+%		\draw[thick] (-0.22,0) rectangle (1.1,.7); 
+%		\draw[thick] (1/5,0) arc (210:-30:1/3);
+%		\draw[blue] (0.28,0.07) node {$\vartheta_L$};
+%		\draw[magenta] (0.7,0.07) node {$\vartheta_R$};
+%		\draw[gray] (0.59,0) arc (180:60:0.2);
+%		\draw[gray] (0.4,0) arc (0:120:0.2);
+%		\draw[gray] (1/5,0) -- ++(120:0.4);
+%		\draw[gray] (0.79,0) -- ++(60:0.4);
+%		
+%		\draw[stealth-stealth] (0.79,-0.06) -- node[below,midway]{$l_{GB}$} (0.2,-0.06);
+%		
+%		\draw (0.2,0.6) node {$\eta_1$};
+%		\draw (0.5,0.3) node {$\eta_2$};
+%		\draw (0.7,0.55) node {$\sigma_P$};
+%		
+%		\def\vshift{-0.25}
+%		\draw[-stealth] (-0.12,0) -- ++(0,0.2) node[above] {$\bm{n_B}$};
+%		\draw[blue,stealth-stealth] (-0.22,\vshift) -- (0.48,\vshift) node[below left]{$\nabla\eta_2\cdot\bm{n_B}= |\nabla\eta_2|\cos(\theta_L)$}; 
+%		%		\draw[blue,stealth-stealth] (-0.22,-0.1) -- node[below,midway]{$\nabla\eta_2\cdot\bm{n_B}= |\nabla\eta_2|\cos(\theta_L)$}  (0.48,-0.1); 
+%		\draw[blue,thick] (-0.22,-0.03) -- (0.48,-0.03); 
+%		\draw[magenta,thick] (1.1,-0.03) -- (0.52,-0.03); 
+%		%		\draw[magenta, stealth-stealth] (1.1,-0.4) -- node[below,midway]{$\nabla\eta_2\cdot\bm{n_B}= |\nabla\eta_2|\cos(\theta_R)$} (0.52,-0.4);
+%		\draw[magenta, stealth-stealth] (1.1,\vshift) -- (0.52,\vshift) node[below right]{$\nabla\eta_2\cdot\bm{n_B}= |\nabla\eta_2|\cos(\theta_R)$};
+%	\end{tikzpicture}
+	\includegraphics[width=0.8\textwidth]{sketch_geometry_PF_NPA.pdf}
+	\caption{Sketch of the geometry in the phase-filed simulations used in the domain scaling methodology for nucleation barrier assessment. The symbols $\vartheta_L,\vartheta_R$ denote tangent angles in the contact points and $\theta_L,\theta_R$ the normal ones. The intervals on the bottom domain boundary with the different interface inclination imposed are indicated (note that $\eta_1$ has analogous boundary conditions which must be consistent). $l_{GB}$ is the length of the grain boundary interval between the contact points. $\sigma_P$ is the particle-liquid interface energy.}
+	\label{fig_sketch_domain_scaling_PF}
+\end{figure}
+
+Volume conservation was assured using the fictitious concentration field. 
+
+The particle-liquid interface energy $\sigma_P$ was assumed, together with the contact angles $\vartheta_L, \vartheta_R$. 
+
 The domain scaling methodology is in fact a post-processing of the result of phase field simulation. By the result, it is meant the phase fields corresponding to the liquid and to the particle within the simulation grid. Then, the grid spacing is scaled and the model parameters are re-computed accordingly. The particle area fraction $\xi=A_P/A_D$ in the scaled system remains the same, but its area $A_P$ and perimeter are scaled accordingly. Using the (unchanged) phase fields and re-computed parameters, the total interface energy is re-evaluated by the free energy functional for the new scale. The domain scaling is sketched in Figure~\ref{fig_domain_scaling}a. 
 
 \begin{figure}
@@ -172,9 +181,13 @@ The domain scaling methodology is in fact a post-processing of the result of pha
 	\label{fig_domain_scaling}
 \end{figure}	
 
-Note that the free energy functional only accounts for the solid-liquid interface energy, but in the total energy change, there must be included also the term representing the replacement of the former planar substrate-liquid interface by the grain boundary $l_{GB}(\sigma_{GB}-\sigma)$. In the phase field simulation, the distance between the contact points is interpreted as $l_{GB}$ and the above term is added to the total interface energy change upon the nucleus insertion $\Delta G_\sigma$, hence denoting the free energy functional as $F(\eta,\nabla\eta)$ it can be written
+Note that the free energy functional only accounts for the solid-liquid interface energy, but in the total energy change, there must be included also the term representing the replacement of the former planar substrate-liquid interface with specific energy $\sigma_S$ by the grain boundary: $l_{GB}(\sigma_{GB}-\sigma_S)$. Because the Young's equation for triple junctions of isotropic interfaces reads
+\begin{equation}\label{eq_young_iso}
+	\sigma_S = \sigma_{GB}+\sigma_P\cos(\vartheta) \,,
+\end{equation}
+the grain-boundary-energy term can be thus re-written as $-l_{GB}\sigma_P\cos(\vartheta)$, which allows us to disregard the values of the substrate and grain boundary energy. In the phase field simulation, the distance between the contact points is interpreted as $l_{GB}$ (see Figure~\ref{fig_sketch_domain_scaling_PF}) and the above term is added to the total interface energy change upon the nucleus insertion $\Delta G_\sigma$, hence when denoting the free energy functional as $F(\eta,\nabla\eta)$ it can be written
 \begin{equation}
-	\Delta G_\sigma = F(\eta,\nabla\eta) + l_{GB}(\sigma_{GB}-\sigma) \,.
+	\Delta G_\sigma = F(\eta,\nabla\eta) - l_{GB}\sigma_P\cos(\vartheta) \,.
 \end{equation}
 Note that $l_{GB}$ must be scaled as well.
 
@@ -182,40 +195,44 @@ The above procedure provided the total interface energy change upon the particle
 
 When the driving force $\Delta G_A$ is explicitly assumed, the bulk energy contribution can be computed using each of the absolute values of the scaled particle area $A_P$. Because the interface energy contribution was already computed for each scaled system, it is possible to subtract the two to obtain the total energy change in insertion of those particles, as is shown in Figure~\ref{fig_domain_scaling}b. For illustration, multiple scaling steps were taken here, but with the simple parabolic dependence of $\Delta G$ in 2D, only 3 points would suffice to unambiguously determine its parameters. Finding the position of the maximum is then trivial. 
 
-The maximum parabola value is the critical nucleation barrier $\Delta G_c^*$ for the investigated equilibrium shape. However, more practical quantity is the corresponding shape factor $S$, which can be then obtained from equation~\eqref{eq_DGcrit_het_aniso} as
+The maximum parabola value is the critical nucleation barrier $\Delta G_c^*$ for the investigated equilibrium shape. However, more practical quantity is the corresponding shape factor $S$, which can be then obtained from equations~\eqref{eq_nucl_barr_hom_2D} and~\eqref{eq_nucl_barr_het_2D} as
 \begin{equation} \label{eq_NPA_PF_formula}
-	S = \Delta G_c^*\frac{\Delta G_A}{\hat{A}_{hom}\sigma_0^2} \,.
+	S = (\Delta G_c^*)_{hom}\frac{\Delta G_A}{\hat{A}_{hom}\sigma_0^2} \,.
 \end{equation}
 Note, that one needs to know the non-dimensional area of the isolated equilibrium shape $\hat{A}_{hom}$.
 
 Recall, that the contact angles of the particle with the substrate were the input to the phase field simulation, hence the obtained shape factor $S$ is a function of the particular assumed conditions. 
 
-The domain scaling procedure does not depend on whether the interface energy was isotropic or anisotropic, because the used formulas are equal in the two cases.
+The domain scaling procedure does not depend on whether the interface energy was isotropic or anisotropic, because the used formulas are equal in the two cases~\cite{Mariaux2011}. Only in the case with inclination-dependent interface energy more steps are required in evaluation of the free energy functional $F(\eta,\nabla\eta)$.
 
 \section{Numerical implementation}
 The simulations were carried out using the same MATLAB programme, which was used in the previous chapter~\ref{ch_paper1}, hence only some extra considerations are commented here.
 
-It is assumed, that the obtained shape is the equilibrium one, which is assured by conditional stopping of the simulation, when the total interface energy converged (i.e. its change in the new time step is below threshold). 
-
 The Appendix~\ref{ch_numerical_implementation} contains the necessary modifications to the finite-difference algorithm when implementing the general Neumann boundary conditions. Eventually, the changes affected all the finite difference operators (standing in place of unidirectional or mixed derivatives and laplacian), but only in the parts of the matrices, which interact with the domain boundary.
 
-The parameters which assured the volume conservation via the diffusion equation within the fictitious concentration field approach are in Table~\ref{tab_VC_cc_parameters}. It was validated that with these parameters, the area of the conserved field would change no more than about 1~\% from its initial value in practical simulations, which is sufficient for the equilibrium shape simulations and subsequent barrier determination.
+The parameters of the phase field simulations needed to reproduce the results are in Table~\ref{tab_parameters_PF_NPA}. Regarding the volume conservation, it was validated that with the listed parameters, the area of the conserved field would change no more than about 1~\% from its initial value in practical simulations, which is sufficient for the equilibrium shape simulations and subsequent barrier determination.
 
 \begin{table}[]
 	\centering
-	\caption{Parameters in the diffusion equation used in the fictitious concentration field approach to conserve volume of the simulated particle. Symbols~$\Delta x,\Delta t$ denote the grid spacing (\unit{\m}) and time step length (\unit{\s}), which were determined using the empirical Courant number as described in~\eqref{eq_Courant_nr} and in Table~\ref{tab_Courant_nr_wulff}.}
+	\caption{Parameters in the phase field simulation (unless stated otherwise). The parameters in the top part correspond to the Moelans' model, in the bottom one to the diffusion equation used in the fictitious concentration field approach to conserve volume of the simulated particle. The not mentioned parameters $m,\kappa, L$ in Moelans' model can be determined using the dedicated published MATLAB functions~\cite{Minar2022dataset}.}
 	\begin{tabular}{c|c|c|c}
 		symbol & parameter & units & values  \\ \hline
-		$A$ & steepness of parabolas & $\mathrm{J/m^3}$ & $10^{10.5}$ \\
-		$D$ & diffusion coefficient & $\mathrm{m^2/s}$ & $0.3\Delta x^2/\Delta t$ \\
+		$l_{IW}$ & interface width & \unit{\m} & \qty{1e-9}{}\\ 
+		$\sigma_P$ & particle-liquid isotropic interface energy & \unit{\J/\m^2} & 1 \\
+		$\Delta x$ & grid spacing & \unit{\m} & $l_{IW}/7$\\
+		$C$	& Courant number	&	- & 0.18 \\
+		$\mu_{P}$	& particle-liquid interface mobility	&	\unit{\m^4/\J\s} & \qty{7.5e-16}{} \\
+		$\Delta t$	& time step	&	\unit{\s} & using~\eqref{eq_Courant_nr} \\
+\hline	$A$ & steepness of parabolas & \unit{\J/\m^3} & \qty{3.1623e-11}{} \\
+		$D$ & diffusion coefficient & \unit{\m^2/\s} & $0.3\Delta x^2/\Delta t$ \\
 		$c_{L,eq}$ & equilibrium molar fraction in liquid & - & 0.02 \\
 		$c_{S,eq}$ & equilibrium molar fraction in solid & - & 0.98 \\
-		$M$ & diffusion coefficient in C-H equation & $\mathrm{m^5/Js}$ & $M=D/A$
+		$M$ & diffusion coefficient in C-H equation & \unit{\m^5/\J\s} & $M=D/A$
 	\end{tabular}
-	\label{tab_VC_cc_parameters}
+	\label{tab_parameters_PF_NPA}
 \end{table}
 
-The re-comupation of the model parameters during the domain scaling was carried out using the same MATLAB functions~\cite{Minar2022dataset} as used in chapter~\ref{ch_paper1} and~\cite{Minar2022}.
+The re-computation of the model parameters during the domain scaling was carried out using the same MATLAB functions~\cite{Minar2022dataset} as used in chapter~\ref{ch_paper1} and~\cite{Minar2022}.
 
 
 \section{Validations}
@@ -272,11 +289,29 @@ In heterogeneous nucleation with isotropic interface energy in 2D, the equilibri
 \begin{equation}
 	S(\vartheta) = \frac{2\vartheta - \sin(2\vartheta)}{2\pi} \,.
 \end{equation}
-The specific grain boundary energy for the calculation of the total grain boundary energy was computed using the Young's equation
-\begin{equation}
-	\sigma_{GB} = \sigma[1-\cos(\vartheta)] \,.
-\end{equation}
-A series of phase field simulations was run in the geometry as in Figure~\ref{fig_sketch_domain_scaling_PF} with $\vartheta_L=\vartheta_R$ to assess the above dependence of shape factor on the wetting angle.  \alert{See Table~!!!! for details on the simulation} The contact angles were the same as in the tilted plane validation, i.e. from $\vartheta=15$\textdegree~to $\vartheta=165$\textdegree~with a 15\textdegree~step. The initial condition corresponded to the target circle segments. Using the equation~\eqref{eq_NPA_PF_formula} and taking into account that the non-dimensional area for a circle is $\hat{A}_{circle}=\pi$, the results in Figure~\ref{fig_result_NPA_PF_S_iso} were obtained.
+A series of phase field simulations was run in the geometry as in Figure~\ref{fig_sketch_domain_scaling_PF} with $\vartheta_L=\vartheta_R$ to assess the above dependence of shape factor on the wetting angle. See Table~\ref{tab_PF_NPA_param_particle_onplane} for details on the simulation grid in the respective simulations.
+\begin{table}
+	\centering
+	\caption{Simulation grid dimensions in individual simulations of a particle with isotropic interface energy on a plane in 2D. The grid aspect ratio was determined based on the expected shape aspect ratio.}
+	\label{tab_PF_NPA_param_particle_onplane}
+	\begin{tabular}{c|c}
+		$\vartheta$ & $N_x\times N_y$ \\ \hline
+	 	15	&	$546\times 42$	\\
+	 	30	&	$382\times 51$	\\
+	 	45	&	$308\times 64$	\\
+	 	60	&	$261\times 75$	\\
+	 	75	&	$226\times 87$	\\
+	 	90	&	$198\times 99$	\\
+	 	105	&	$176\times 111$	\\
+	 	120	&	$162\times 121$	\\
+	 	135	&	$152\times 129$	\\
+	 	150	&	$145\times 135$	\\
+	 	165	&	$141\times 139$	
+	\end{tabular}
+\end{table}
+It is assumed, that the obtained shape is the equilibrium one, which is assured by conditional stopping of the simulation, when the total interface energy converged (i.e. its change in the new time step is below threshold). 
+
+The contact angles were the same as in the tilted plane validation, i.e. from $\vartheta=15$\textdegree~to $\vartheta=165$\textdegree~with a 15\textdegree~step. The initial condition corresponded to the target circle segments to reduce the computation time. Using the equation~\eqref{eq_NPA_PF_formula} and taking into account that the non-dimensional area for a circle is $\hat{A}_{circle}=\pi$, the results in Figure~\ref{fig_result_NPA_PF_S_iso} were obtained.
 \begin{figure}
 	\centering
 	\begin{tikzpicture}
@@ -289,31 +324,33 @@ A series of phase field simulations was run in the geometry as in Figure~\ref{fi
 	\label{fig_result_NPA_PF_S_iso}
 \end{figure}
 
-Firstly, it is interesting that the observed contact angles $\vartheta_{obs}$ differed from those imposed by the boundary conditions $\vartheta$ significantly more than in the tilted line validation. This can be seen in the Figure~\ref{fig_result_NPA_PF_S_iso}a, where the difference $\vartheta_{obs}-\vartheta$ was plotted. The angle difference was larger than 5\textdegree~for 3 rather inclined angles (i.e. near 0\textdegree~or 180\textdegree). However, the shape factor determination was not affected heavily, because it turned out that there actually were very little points which deviated from the expected circular shape and these were near the boundary. This is confirmed also by the obtained values of shape factor, which follow closely the analytic prediction. 
+Firstly, it is interesting that the observed contact angles $\vartheta_{obs}$ differed from those imposed by the boundary conditions $\vartheta$ significantly more than in the tilted line validation. This can be seen in the Figure~\ref{fig_result_NPA_PF_S_iso}a, where the difference $\vartheta_{obs}-\vartheta$ was plotted. The angle difference was larger than 5\textdegree~for 3 rather inclined angles (i.e. near 0\textdegree~or 180\textdegree). The deviation $\vartheta_{obs}-\vartheta$ did not depend on the phase field interface parameterization. In the base run, the interface width was $l_{IW}=$\qty{1e-9}{\m}, with 7 points through the interface. The compared simulations probed the effect of a) increasing the domain area, while keeping the $l_{IW}$ equal (effectively narrowing the physical interface width relative to the simulation initial condition) and of adding points to the interface (both actions refined the grid below the simulated initial condition) and both might improve phase field simulation accuracy in different regards. That did not happen in terms of the contact angles, though.
+
+However, the shape factor determination was not affected heavily, because it turned out that there actually were very few points deviating from the expected circular shape and those were near the boundary. This is confirmed also by the obtained values of shape factor, which follow closely the analytic prediction. The different interface parametrization yielded slight improvement in the shape factor values, but not relevant in the current application.
 
 \subsection{Particle on a grain boundary (isotropic interface energy)}
 %Here, the equilibrium stable shape is reached in a dynamic simulation. However, in the classical nucleation theory, it is in fact assumed that it stochastically appears due to local energy fluctuations in the nucleation spot. Among all the possible shapes with equal volume, those with lower total interface energy have higher nucleation probability. 
 The present section investigates the theoretical case when the nucleus extends over the grain boundary and thus its wetting condition is unequal on the two sides. 
 
-The geometry of the problem is sketched in~Figure~\ref{fig_sketch_particle_onGB}. When the two sides are wetted differently, it implies different contact angles and thus radii of the equilibrium shapes. Necessarily that implies also different curvatures $K$. The chemical potential $\mu$ (the driving force, see~\eqref{eq_chempot_constant}) 
+The geometry of the problem is sketched in~Figure~\ref{fig_sketch_particle_onGB}. When the two sides are wetted differently, it implies different contact angles and thus radii of the equilibrium shapes. That necessarily implies also different curvatures $K_{L/R}$. The chemical potential $\mu$ (the driving force, see~\eqref{eq_chempot_constant}) 
 \begin{equation}
 	\mu = \sigma K \,,
 \end{equation}
-over the whole stable shape must be a constant in order to have it in equilibrium.
+over the whole stable shape must be a constant in order to have it in equilibrium. But for a constant $\sigma$ that cannot be achieved.
 
-Nevertheless, it is known that nucleation may happen on top of grain boundaries. Additionally, the nuclei in classical nucleation theory do not necessarily have the interface-energy minimizing shape, even though that one is the most likely. \alert{??????} Statistically, this is accounted for by so-called Zeldovich factor~\cite{Milchev2002}. Hence, even if the shape is not in equilibrium, we assume that it could nucleate. Supposedly, it could survive by sliding to the lower-energy side of the grain boundary. Using the domain scaling procedure, the shape factor of the unknown compound shape can be quantified.
+Nevertheless, it is known that nucleation may happen on top of grain boundaries. Additionally, the nuclei in classical nucleation theory do not necessarily have the interface-energy minimizing shape, even though that one is the most likely. Hence, even if the shape is not in equilibrium, we assume that it could nucleate. Supposedly, it could survive by sliding to the lower-energy side of the grain boundary. Using the domain scaling procedure, the shape factor of the unknown compound shape can be quantified.
 
-To reduce the simulation time, the initial condition was a shape combined from parts of the equilibrium shapes from both sides, connected by a tangent line to prevent dents in the initial shape. The initial condition can be seen in Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_contours}, it is the one with steps (due to discretization in the simulation grid).
+To reduce the simulation time, the initial condition was a shape combined from parts of the equilibrium shapes from both sides, connected by a tangent line to prevent dents in the initial shape (the initial condition was very similar to the problem sketch in Figure~\ref{fig_sketch_particle_onGB}, only with the tangent line). The initial condition can be seen in Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_contours}, it is the one with steps (due to discretization in the simulation grid).
 \begin{figure}
 	\centering
-	\begin{tikzpicture}[scale=2.5]
+	\begin{tikzpicture}[scale=2.7]
 		\def\thl{120}
 		\def\thr{-60}
 		\tikzmath{ \RL = 0.4/sin(\thl) ; \RR = 0.7/sin(-\thr) ; }
 		\path (-1,0) coordinate (al);
 		\path (1,0) coordinate (ar);
 		\path (0,0) coordinate (c);
-		\path (0,-0.5) coordinate (cb);
+		\path (0,-0.4) coordinate (cb);
 		\path (-0.4,0) coordinate (cpl);
 		\path (0.7,0) coordinate (cpr);
 
@@ -329,10 +366,14 @@ To reduce the simulation time, the initial condition was a shape combined from p
 		\draw[gray] ($(cpr)+(-0.3,0)$) arc (180:180+\thr:0.3);
 		\draw node[above] at (al) {$\sigma_{S}^L$};
 		\draw node[above] at (ar) {$\sigma_{S}^R$};
-		\draw (-1.2,-0.55) rectangle (1.2,0.8);
-%		\draw node at ($(toppoint)+(-1,0)$) {(a)};
+		\draw (-1.2,-0.8) rectangle (1.2,0.8);
+		
+		\def\vshift{-0.3}
+		\draw[stealth-stealth] ($(cpr)+(0,\vshift)$) -- node[midway,below] {$l_{GB}^R$} ($(c)+(0.02,\vshift)$);	
+		\draw[stealth-stealth] ($(cpl)+(0,\vshift)$) -- node[midway,below] {$l_{GB}^L$} ($(c)+(-0.02,\vshift)$);	
+		\draw[stealth-stealth] ($(cpl)+(0,-0.55)$) -- node[midway,below] {$l_{GB}$} ($(cpr)+(0,-0.55)$);	
 	\end{tikzpicture}
-	\caption{A particle on a grain boundary. The specific interface energies $\sigma_S^{L/R}$ belong to the substrate-solution interfaces and $\sigma_{GB}^{L/R}$ to the respective grain boundaries. \alert{??? add $l_{gb}$?}}
+	\caption{A particle on a grain boundary. The specific interface energies $\sigma_S^{L/R}$ belong to the substrate-solution interfaces and $\sigma_{GB}^{L/R}$ to the respective grain boundaries. The grain boundary lengths $l_{GB}^{L/R}$ and $l_{GB}$ are indicated.}
 	\label{fig_sketch_particle_onGB}
 \end{figure}
 
@@ -394,6 +435,7 @@ The computed shape factors of the compound shapes were plotted in Figure~\ref{fi
 	\label{fig_PF_nuclbarrier_ISO_onGB_results}
 \end{figure}
 
+\section{TODO Conclusion}
  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
