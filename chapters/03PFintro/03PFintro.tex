@@ -22,7 +22,7 @@ A phase (or phases) in an inhomogeneous system is described by a continuous func
 The governing equations for the phase fields are typically either conservative (Cahn-Hilliard type of equation, conserving volume) or non-conservative (Allen-Cahn type of equation). The latter is more relevant for this work. In the following, no coupling to other physical fields is assumed.
 
 \section{Allen-Cahn equation for two-phase system}
-It was shown that the Alen-Cahn equation is a diffuse-interface approximation of a curvature-driven system. It represents evolution of a non-conserved field $\eta(\mathbf{r})$ in a domain $\Omega\in\mathbb{R}^3$ with boundary $\partial\Omega$ and can be written as
+It was shown that the Allen-Cahn equation is a diffuse-interface approximation of a curvature-driven system (even for anisotropic interface energy~\cite{Elliott1996}). It represents evolution of a non-conserved field $\eta(\mathbf{r})$ in a domain $\Omega\in\mathbb{R}^3$ with boundary $\partial\Omega$ and can be written as
 \begin{align}
 	\frac{\partial \eta}{\partial t} = -L\frac{\delta F}{\delta \eta} \quad &\mathrm{in \,\Omega}\\
 	\nabla\eta\cdot\bm{n} = 0 \quad &\mathrm{at \, \partial\Omega}\,,
@@ -125,7 +125,7 @@ where the equation~\eqref{eq_def_kappa_fund_formula} was used.
 	
 	Recall that $\theta=\theta(\bm{n}(\nabla\eta))$, hence the $\theta$ dependence in (any) model parameter implies that in the governing equations new terms arise from the divergence part of the functional derivative $\nabla\cdot\partial f/\partial(\nabla \eta_p)$, where the free energy density is taken derivative of with respect to the gradient components.
 	
-	This anisotropy implementation implies that the interface width $l_{int}$ varies proportionally to the interface energy (see~\eqref{eq_def_IW_fund_formula}) and this in turn introduces nonphysical anisotropy in the kinetic coefficient $L$ (see~\eqref{eq_def_L_fund_formula}). The latter is should be compensated, the first must be taken into account im practical simulations so that there are no excessively large or narrow interfaces in the domain.
+	This anisotropy implementation implies that the interface width $l_{int}$ varies proportionally to the interface energy (see~\eqref{eq_def_IW_fund_formula}), which must be taken into account in practice so that there are no excessively large or narrow interfaces in the domain. Additionally, the interface width variation introduces nonphysical anisotropy in the kinetic coefficient $L$ (see~\eqref{eq_def_L_fund_formula}), which should be compensated in the formula for $L$.
 	
 	In strongly anisotropic systems, the variable interface width poses a practical problem. However, it can be prevented by including the anisotropy also in the parameter $m$. When the anisotropy is assigned in the natural model formulation as
 	\begin{align}
@@ -152,14 +152,14 @@ where the equation~\eqref{eq_def_kappa_fund_formula} was used.
 	
 	The easiest solution to the non-differentiability is to replace the anisotropy function by such one, in which the cusps are a smooth tips. These functions are typically formulated in such a way, that the sharpness of the tip is scalable, but formally the function is always smooth. This allows to approximate the former anisotropy close enough while assuring validity of the formulas relying on the differentiability. This was employed for example in~\cite{Debierre2003,Loginova2004,Miura2013}.
 	
-	The non-convexity of the Frank's plot does not have so easy solution. It causes the governing equations to be ill-posed, which means that the solution to is either not existing, unique or does not depend continuously on the initial/boundary conditions. In this case the uniqueness is the problem, because it is not clear, whether a certain segment on the surface should align with the "ear" orientation or some on the Wulff plot of the first order. In practice, it causes corrugations of the phase field contour near the corners, see e.g.~\cite{Tschukin2017}. The the ill-posedness can be removed by regularization (and thus the match in corners improved), the following approaches are known to the author
+	The non-convexity of the Frank's plot does not have so easy solution. It causes the governing equations to be ill-posed, which means that the solution to is either not existing, unique or does not depend continuously on the initial/boundary conditions. In this case the uniqueness is the problem, because it is not clear, whether a certain segment on the surface should align with the "ear" orientation or some on the Wulff plot of the first order. In practice, it causes corrugations of the phase field contour near the corners, see e.g.~\cite{Tschukin2017}. The ill-posedness can be removed by regularization (and thus the match in corners improved), the following approaches are known to the author
 	\begin{enumerate}
 		\item regularization of the anisotropy function~\cite{Taylor1998,Eggleston2001,Kobayashi2001},
 		\item inclusion of higher order terms in expansion of interface energy in the free energy functional~\cite{Wheeler2006, Torabi2009, Tschukin2017},
 		\item models incorporating the Finsler geometry do not need regularization~\cite{Bellettini1996,Benes2003},
 		\item one study reports numerical regularization which occurred after using spectral solver~\cite{Toth2015}.
 	\end{enumerate}
-	All of the above approaches were successful in delivering cornered or faceted Wulff shapes of the first order and anisotropic crystals grown in either temperature or concentration field. These were the main applications of these models so far. Very likely, each of these will have its own limitations in the future applications, but currently the author is unaware of any systematic comparison of these in the literature and himself only implemented the first approach.
+	All of the above approaches were successful in delivering cornered or faceted Wulff shapes of the first order and anisotropic crystals grown in either temperature or concentration field. These were the main applications of these models so far. Very likely, each of these will have its own limitations in the future applications, but currently the author is unaware of any systematic comparison of these in the literature and himself only implemented the approach 1. from the list, i.e. the regularization of anisotropy function.
 
 \section{Allen-Cahn equations for multi-phase systems}
 	\subsection{Historical context}

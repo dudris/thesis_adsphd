@@ -1,6 +1,6 @@
 % !TeX root = ../../thesis.tex
 \chapter{Volume conservation using Lagrange multipliers} \label{ch_lagrange_multipliers_PF}
-\section{Phase field equations under equality constraint - Lagrange multipliers} \label{sec_apdx_Lagrmult}
+\section*{Phase field equations under equality constraint - Lagrange multipliers} \label{sec_apdx_Lagrmult}
 In multivariate calculus, the method of Lagrange multipliers is used to find extrema of a multivariate function under equality constraint, i.e. on a subset of its domain. For example, the extrema of the function $f(x,y)$ over the subset of the domain defined as $g(x,y)=0$ can be found by analysis of the so-called Lagrange function $\mathcal{L}(x,y,\lambda)=f(x,y)-\lambda g(x,y)$, where $\lambda$ is the Lagrange multiplier. The critical points are found by solving the set of equations
 \begin{equation}
 \frac{\partial \mathcal{L}}{\partial x}=0 \,,\quad \frac{\partial \mathcal{L}}{\partial y}=0 \,,\quad    \frac{\partial \mathcal{L}}{\partial \lambda}=0 \,.
@@ -36,14 +36,14 @@ which leads to constrained governing equation
 \end{equation}
 where $g_i(\phi)$ is the kernel of $i$-th constraint $G_i[\phi]=\int g_i(\phi)\mathrm{d}V$. 
 
-\section{Lagrange multipliers for volume conservation in multi-phase field models}
+\section*{Lagrange multipliers for volume conservation in multi-phase field models}
 This approach allows to mathematically enforce certain behavior of the evolving fields. Volume conservation in Allen-Cahn equation is a typical application.
 
 Moelans' model is a multi phase field model with non-conserved fields and with curvature-driven interfaces motion. Inspired by \cite{Nestler2008}, an extension of this model is hereby proposed, which allows to conserve volume of selected phase fields.
 
 The model by Nestler et al. \cite{Nestler2008} is an extension of a phase field model which differs from the Moelans' one is several aspects. The main differnce is that the sum of all the phase fields locally is equal to 1, which allows to interpret them as order parameters in the strict mathematical sense. However, this comes with a cost - this model property is imposed using a suitable Lagrange multiplier, which introduces new terms in the governing equation(s). Moreover, every model extension must be such that this property is preserved. Nestler's model also differs in the double obstacle potential and in the choice of the non-local gradient term.  
 
-\subsection{Concept - single conserved phase field}
+\subsection*{Concept - single conserved phase field}
 The simulated system over the domain $\Omega$ consists of $n$ phase fields $\vec{\eta}=(\eta_1,\dots,\eta_n)$ and is described by the free energy functional $F$ with free energy density $f(\vec{\eta},\nabla\vec{\eta})$ being also function of the phase fields gradients $\nabla\vec{\eta}=(\nabla\eta_1,\dots,\nabla\eta_n)$ as is usual in phase field method
 \begin{equation}
 	F= \int_\Omega f(\vec{\eta},\nabla\vec{\eta}) \mathrm{d}V    
@@ -83,7 +83,7 @@ In the last equation, $\lambda(t)$ can already be taken out of the integral as i
 \end{equation}
 As can be seen, the expression is notably more complicated than in the original model by Nestler. One reason is that the interpolation function $\Phi(\vec{\eta})$ is a function of all the phase fields, whereas in Nestler the interpolation function $p_k=p_k(\eta_k)$ only.  The second reason is that in Nestler's model the volume evolution can be expressed as $\mathrm{d}V_i/\mathrm{d}t=\partial \eta_i/\partial t$. In comparison to Nestler's model, the first complication adds the sum over all phase fields to the integrals and the second adds the term $\partial \Phi_i/\partial \eta_k$.
 
-\subsection{Multiple conserved phase fields}
+\subsection*{Multiple conserved phase fields}
 Hereby the case when all the phase fields are conserved is discussed. With $n$ phase fields that implies $n-1$ constraints $G_{i}=\int \Phi_i(\vec{\eta})\mathrm{d}V=0$ as the $n$-th phase field must be conserved as well when all the others are. Without the loss of generality it is assumed that the $n$-th phase field does not have its constraint. The Lagrangian is 
 \begin{equation}
 	\Lambda[\vec{\eta}]= \int_\Omega f(\vec{\eta},\nabla\vec{\eta}) - \sum_{l=1}^{n-1}\lambda_l(t)\Phi_l(\vec{\eta}) \mathrm{d}V \,,

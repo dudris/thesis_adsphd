@@ -1,0 +1,59 @@
+% !TeX root = ../../thesis.tex
+\chapter{Selected Wulff shape properties} \label{ch_appendix_wulff_properties}
+\section{Selected geometric properties of Wulff shape}\label{sec_appendix_anisofun_props}
+With $h(\theta)=1+\delta\cos(n\theta)$, the minimal distance $R_{min}$ between the Wulff shape center and the contour can be related to $R_W$ as
+\begin{equation} \label{eq_appdx_wulff_minradius}
+	R_{min} = R_W(1-\delta) \,,
+\end{equation}
+which holds for arbitrarily strong anisotropy because the minimal-radius point normal is always inclined under a non-missing angle. This formula was used to find the radius $R_W$ of the phase field contour. Then, the phase field contour was scaled to unit radius and compared to the analytic Wulff shape (by means of Hausdorff distance, see the next subsection). 
+
+The radius of curvature $\varrho(\theta)$ of Wulff shape is locally
+\begin{equation} \label{eq_Wulff_radius_curvature}
+	\varrho(\theta) = R_W[h''(\theta) + h(\theta)] \,,
+\end{equation}
+which may technically get negative for some $\theta$. Because that does not have any geometric interpretation, the Wulff shape does not contain such oriented segments and the angles $\theta_m$ fulfilling $\varrho(\theta_m)\leq0$ are called missing or forbidden. \\
+
+For a given radius $R_W$, the area of a Wulff shape $A_W$ differs from the area of a circle $A=\pi R_W^2$ by the anisotropy-dependent factor $C_W(\Omega,n) = A_W/A$. For weak anisotropy $\Omega<1$ there is an analytic expression 
+\begin{equation}
+	C_W = 1-\frac{\Omega^2}{n^2-1} \,,
+\end{equation}
+but there is none for strong anisotropy $\Omega>1$. The factor $C_W(\Omega,n)$ was obtained numerically for $n=4$ in the range $0\leq\Omega\leq7.5$ (the Wulff shape was plotted, its area numerically computed and divided by $\pi R^2$). There, the $\Omega$-dependence was fitted very well  by a polynomial of 4-th order $C_W(\Omega,4)= \sum_{i=0}^4a_i\Omega^{N-i}$ with $a_0=-0.00032 ,a_1=0.00639 ,a_2=-0.04219 , a_3=0.00034 , a_4=1.00000$. 
+
+\section{Shrinkage rate of a Wulff shape} \label{sec_appendix_wulff_shrrate}
+The normal velocity of anisotropic curvature-driven interface in 2D is~\cite{Abdeljawad2018}
+\begin{equation}
+	v_n(\theta,t)=-\frac{\mu}{\varrho(\theta,t)}\sigma_0[h''(\theta) + h(\theta)] 
+\end{equation}
+where $\mu$ is the interface mobility and $\sigma_0[h''(\theta) + h(\theta)]$ is interface stiffness. When it is the
+Wulff shape shrinking, the radius of curvature $\varrho(\theta,t)$ can be expressed as in equation~\eqref{eq_Wulff_radius_curvature} and the inclination-dependent part of the interface stiffness is cancelled out. The normal velocity is then constant along the perimeter
+\begin{equation} \label{eq_wulff_norm_velocity}
+	v_n(t) = - \frac{\mu \sigma_0}{R_W(t)} \,.
+\end{equation}
+The sign is such that the interface moves towards the center of curvature.
+
+Because the area of a Wulff shape is $A_W=\pi R_W^2C_W(\Omega,n)$, the shrinkage rate of a Wulff shape is
+\begin{equation}\label{eq_wulff_shrrate_deriv}
+	\begin{split}
+		\frac{\mathrm{d}A_W}{\mathrm{d}t} &= \frac{\mathrm{d}}{\mathrm{d}t}[\pi R_W^2(t)C_W(\Omega,n)]    \\
+		&= 2\pi C_W(\Omega,n) R_W(t) \frac{\mathrm{d}R_W}{\mathrm{d}t} \,.
+	\end{split}
+\end{equation}
+Because  the normal velocity is constant along the perimeter, the point $R_{min}$ from equation~\eqref{eq_appdx_wulff_minradius} moves also by $v_n(t)$. Importantly, the normal of interface in $R_{min}$ is aligned with the radial direction of the polar coordinates, hence we can write $v_n=\mathrm{d}R_{min}/\mathrm{d}t$. From equation~\eqref{eq_appdx_wulff_minradius} then must be
+\begin{equation}
+	\frac{\mathrm{d}R_{W}}{\mathrm{d}t}=\frac{1}{1-\delta}\frac{\mathrm{d}R_{min}}{\mathrm{d}t}=\frac{1}{1-\delta}v_n(t) \,,
+\end{equation}
+which together with~\ref{eq_wulff_norm_velocity} implies in \ref{eq_wulff_shrrate_deriv}
+\begin{equation}
+	\frac{\mathrm{d}A_W}{\mathrm{d}t} = 2\pi\mu\sigma_0  \frac{C_W(\Omega,n)}{1-\delta} 
+\end{equation}
+
+Taylor and Cahn~\cite{Taylor1998} proved that the shrinkage rate for the equilibrium shape must be a constant, which is met by the final expression.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Keep the following \cleardoublepage at the end of this file, 
+% otherwise \includeonly includes empty pages.
+\cleardoublepage
+
+% vim: tw=70 nocindent expandtab foldmethod=marker foldmarker={{{}{,}{}}}

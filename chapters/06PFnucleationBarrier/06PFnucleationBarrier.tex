@@ -1,15 +1,21 @@
 % !TeX root = ../../thesis.tex
 \chapter{Nucleation probability assessment - a phase field methodology}
-\section{Introduction}
-This chapter develops a methodology to obtain insight about the nucleation barrier from the stable shapes of particles on a planar support in 2D. The developed multi-phase phase field model is used to obtain the interface-energy-minimizing shapes and the below described domain scaling is then used to find shape factor of the shape. 
 
-The used model represents wetting of a plane by a crystal and combines the features developed by the author: volume conservation using the fictitious concentration field approach and the general Neumann boundary conditions to control the interface inclination at the domain boundary. 
+\section{Introduction}
+This chapter develops a methodology to obtain insight about the nucleation barrier from the stable shapes of particles on a planar support in 2D. The developed multi-phase phase field model is used to obtain the interface-energy-minimizing shapes and the below described \textit{domain scaling} is then used to find the shape factor of the shape. 
+
+In order to find the equilibrium stable shape for arbitrary orientation and wetting conditions using the Moelans' multi-phase field model~\cite{Moelans2008} described also in chapter~\ref{ch_paper1}, it was necessary to implement two model extensions: volume conservation and such boundary conditions, which allow control of the interface inclination at the domain boundary. That way, the shape could be simulated in a two-phase system as long as the contact angles were known.
+
+%The used model represents wetting of a plane by a crystal and extends the Moelans' multi-phase field model described in chapter~\ref{ch_paper1} by the following: volume conservation using the fictitious concentration field approach and the general Neumann boundary conditions to control the interface inclination at the domain boundary. 
 
 The method to obtain the shape factors utilizes that the interface in phase field method is implicitly tracked, i.e. it evolves without any assumption on its position. Additionally, it makes use of the fact, that in the simulated geometry, the total energy of the system is in fact the total particle-liquid interface energy. Advantage of the method is that it does not a-priori assume any shape, it is thus in principle usable for non-analytic cases, where the solution is not known, e.g. a particle on a grain boundary.
+
+The below sections first recall some fundamentals relevant for the subsequently described \textit{domain scaling} methodology. Then follows technical description of how the phase field model was extended to conserve volume and to have control over the inclination of interfaces at the domain boundary.
 
 %The below procedure assumes a 2D particle sitting on top of a line, the contact angles on the left and right are known. It is assumed that the environment surrounding the particle is liquid and the particle-liquid energy is anisotropic. The contact angles are determined using the Young's equation. 
 %
 %The following sections describe how the phase field result can be used to bring insight about the nucleation barrier using scaling of simulation domain, which is a kind of post-processing of the results. 
+
 
 \section{Some fundamentals}
 In 2D, the Gibbs free energy difference upon a nucleus insertion in the system is due to competition between area and line energy contributions (see also Figure \ref{fig_DG_2D_sketch}). Be $A_{hom}$ the nucleus area and its interface be described by a parametric curve $\mathcal{C}$. In the isotropic case, $\mathcal{C}$ is a circle and the interfacial contribution is simply $\sigma L$, where $L=2\pi R$ is the interface length and $\sigma$ the isotropic specific interface energy. The Gibbs free energy difference of a free nucleus is then (with $\Delta G_A$ being supersaturation)
@@ -189,26 +195,116 @@ the grain-boundary-energy term can be thus re-written as $-l_{GB}\sigma_P\cos(\v
 \begin{equation}
 	\Delta G_\sigma = F(\eta,\nabla\eta) - l_{GB}\sigma_P\cos(\vartheta) \,.
 \end{equation}
-Note that $l_{GB}$ must be scaled as well.
+Note that $l_{GB}$ is necessarily scaled as well during the domain scaling procedure.
 
 The above procedure provided the total interface energy change upon the particle insertion as function of the length scale ($\Delta x_i$ in Figure~\ref{fig_domain_scaling}a). Even though it is not the particle radius as in~\eqref{eq_DG_hom_iso}, the same physical dimension (length) of the grid spacing assures that the order of the polynomial $\Delta G(\Delta x) = a(\Delta x) - b(\Delta x)^2$ is the same as in~\eqref{eq_DG_hom_iso}.
 
 When the driving force $\Delta G_A$ is explicitly assumed, the bulk energy contribution can be computed using each of the absolute values of the scaled particle area $A_P$. Because the interface energy contribution was already computed for each scaled system, it is possible to subtract the two to obtain the total energy change in insertion of those particles, as is shown in Figure~\ref{fig_domain_scaling}b. For illustration, multiple scaling steps were taken here, but with the simple parabolic dependence of $\Delta G$ in 2D, only 3 points would suffice to unambiguously determine its parameters. Finding the position of the maximum is then trivial. 
 
-The maximum parabola value is the critical nucleation barrier $\Delta G_c^*$ for the investigated equilibrium shape. However, more practical quantity is the corresponding shape factor $S$, which can be then obtained from equations~\eqref{eq_nucl_barr_hom_2D} and~\eqref{eq_nucl_barr_het_2D} as
+The maximum parabola value is the critical nucleation barrier $(\Delta G^*)_{het}$ for the investigated heterogeneous equilibrium shape. However, a more practical quantity is the corresponding shape factor $S$, which can be then obtained from equations~\eqref{eq_nucl_barr_hom_2D} and~\eqref{eq_nucl_barr_het_2D} as
 \begin{equation} \label{eq_NPA_PF_formula}
-	S = (\Delta G_c^*)_{hom}\frac{\Delta G_A}{\hat{A}_{hom}\sigma_0^2} \,.
+	S = (\Delta G_c^*)_{het}\frac{\Delta G_A}{\hat{A}_{hom}\sigma_0^2} \,.
 \end{equation}
-Note, that one needs to know the non-dimensional area of the isolated equilibrium shape $\hat{A}_{hom}$.
+Note, that one needs to know the non-dimensional area of the isolated equilibrium shape $\hat{A}_{hom}=A_{hom}/R^2$. Essentially, that is an area of the isolated Wulff shape of unit radius (in this study it was obtained numerically from Wulff shapes plotted with fine resolution).
 
 Recall, that the contact angles of the particle with the substrate were the input to the phase field simulation, hence the obtained shape factor $S$ is a function of the particular assumed conditions. 
 
-The domain scaling procedure does not depend on whether the interface energy was isotropic or anisotropic, because the used formulas are equal in the two cases~\cite{Mariaux2011}. Only in the case with inclination-dependent interface energy more steps are required in evaluation of the free energy functional $F(\eta,\nabla\eta)$.
+The domain scaling procedure does not depend on whether the interface energy was isotropic or anisotropic, because the used formulas are equal in the two cases~\cite{Mariaux2011}. Only in the case with inclination-dependent interface energy more steps are required in evaluation of the free energy functional $F(\eta,\nabla\eta)$ because the formulas for model parameters are more complicated than in the isotropic case.
+
+\section{Model}
+Because the Moelans' model with anisotropic interfaces was already extensively introduced in section~\ref{sec_Models}, this section covers only the necessary extensions to simulate the system as sketched in Figure~\ref{fig_sketch_domain_scaling_PF}, 
+
+	\subsection{General Neumann boundary conditions to control interface inclination at domain boundary}
+	This model extension was inspired by~\cite{Granasy2007}. It allows to control the interface inclination angle $\phi$ at the boundary, which thus becomes an input parameter. The principle is explained using a single phase field $\eta(\bm{r})$. 
+	First, we remark that the Neumann BCs $\nabla\eta\cdot\bm{n_D}=0$ must be a special case of the general BC ($\bm{n_D}$ is the domain boundary normal). This Neumann BC implies perpendicularity of the phase field gradient to the domain boundary normal. In other words, the interface is perpendicular to the domain boundary. Generally, we can write $\bm{n_D}\cdot \nabla\eta=|\nabla\eta|\cos(\phi)$. In the model by Granasy~\cite{Granasy2007}, the local magnitude of phase field gradient may be expressed using the local phase field value, giving rise to expression of the boundary condition as
+	\begin{equation}
+		\bm{n_D}\cdot \nabla\eta=\frac{\cos(\phi)}{\delta\sqrt{2}}\eta(1-\eta)\,,
+	\end{equation}
+	where $\delta$ is the interface width. At the domain boundary, the gradient $\nabla\eta$ is expressed as a polynomial, which allows straightforward implementation of the condition, especially in rectangular simulation domains.\\
+	
+	In Moelan's model, the interface normal between the phase fields $\eta_i,\,\eta_j$ denoted $\bm{n}_{i,j}$ is defined as local difference in neighboring PF gradients (see equation~\ref{eq_def_inclination}). In the spirit of the introductory example we can write
+	\begin{equation}
+		\bm{n_D}\cdot\bm{n}_{i,j} = \cos(\phi) \quad \implies \quad \bm{n}\cdot(\nabla\eta_i-\nabla\eta_j) = |\nabla\eta_i-\nabla\eta_j|\cos(\phi) \,.
+	\end{equation}
+	Now we have single BC with the correct physical interpretation (fixed inclination angle at the boundary) but because the governing equations are solved for the phase fields, a set of equivalent boundary conditions (one for each phase field) must be derivable from the above. In these independent BC, it must be possible to express the gradient magnitude (the introductory example finds a polynomial of local PF values equal to the gradient magnitude). \\
+	The first problem (coupling in the BC) would be solved if one gradient could be written as a function of the other and vice versa. However, this dependence is non-analytical for all $\gamma_{i,j}\neq1.5$. For $\gamma_{i,j}=1.5$ it is simply $\eta_i = 1-\eta_j$ and therefore also $\nabla\eta_i=-\nabla\eta_j$.~\cite{Moelans2008} \\
+	The second problem (the expression for gradient magnitude) is also enabled by the choice $\gamma=1.5$, as in such case there were derived analytic expressions for the gradients $\nabla\eta_i,\nabla\eta_j$.~\cite{Moelans2008} In 1D system with 2 phase fields holds
+	\begin{equation} \label{eq_PFgradient_analytic}
+		\begin{split}
+			\frac{\mathrm{d}\eta_i}{\mathrm{d}x} &= \sqrt{\frac{2m}{\kappa_{i,j}}}\eta_i(1-\eta_i) \overset{\mathrm{2D, 3D}}{=} |\nabla\eta_i| \\
+			\frac{\mathrm{d}\eta_j}{\mathrm{d}x} &= \sqrt{\frac{2m}{\kappa_{i,j}}}\eta_j(1-\eta_j) \overset{\mathrm{2D, 3D}}{=} |\nabla\eta_j| \,.
+		\end{split}
+	\end{equation}
+	Validity of the last equation sign in 2D and 3D (in systems with 2 phase fields) can be checked using the expressions in~\cite{Moelans2008} as follows. Write the equation 7 from~\cite{Moelans2008} for 2D. From it one gets 2D equivalents of equations 8a and 8b, where $\frac{\mathrm{d}\eta}{\mathrm{d}x}$ is replaced by $|\nabla\eta|$. Further, because the equation 19 does not depend on problem dimensionality, we obtain here the expressions in equation~\ref{eq_PFgradient_analytic}. In systems with more than two phase fields the general expression for the gradient magnitude is more complex. However, the same relations are satisfied at a pair-wise interface not close to the triple junction. \\
+	With the above and assuming that there is no triple junction near the domain boundary, we can thus write
+	\begin{equation}
+		\begin{split}
+			\bm{n}\cdot(\nabla\eta_i-\nabla\eta_j) &= 2\bm{n}\cdot\nabla\eta_i = 2|\nabla\eta_i|\cos(\phi) \\ &= -2\bm{n}\cdot\nabla\eta_j = -2|\nabla\eta_j|\cos(\phi) \,,
+		\end{split}
+	\end{equation}
+	which provides very similar BC like in the introductory example for each of the two phase fields.\\
+	The only way how to use these relations is to have $\gamma_{i,j}=1.5$. In the case of inclination-dependent interface energy $\sigma_{i,j}(\theta_{i,j})=\sigma_{i,j}^0h_{i,j}^\sigma(\theta_{i,j})$, it is necessary to express the anisotropy fully by the parameter $\kappa_{i,j}(\theta_{i,j})$, i.e. to use the IWvK model.
+	
+	\subsection{Volume conserving multi phase field models}
+	There are several approaches which accomplish the volume conservation of some species or phases. Each has its drawbacks though. It was not clear which of the possible approaches was the most convenient for coupling with inclination-dependent interface energy in curvature-driven systems.
+	
+	Three conceptually different solutions can be used in a multi-phase field model, which are known to the author: Cahn-Hilliard equation, Lagrange multipliers and fictitious concentrations field. 
+	
+	Given the intended application with anisotropic interface energy and the complicated driving force, a less computationally demanding option than the Cahn-Hilliard equation was seeked, because that one is a partial differential equation of 4-th order in space. 
+	
+	The approach using Lagrange multipliers to conserve volume was thoroughly considered, but eventually it was found out that in Moelan's model is not a suitable solution. The reason is that the volume of a single phase/grain is defined using all other phase fields, which introduces excessive computational complexity in application of the principles leading to volume conservation. All related details and explanations can be found in Appendix~\ref{ch_lagrange_multipliers_PF}.
+	
+	The approach using fictitious concentration field was eventually assessed as the most convenient one. It is not new in combination with Moelans' multi-phase field model (see e.g.~\cite{Yadav2016,Yadav2018vol_cons}). It is briefly reviewed in the following subsection. 
+		
+		\subsubsection{Fictitious concentration field}
+		The idea in the fictitious concentration field approach to conserve volume of a phase field is to couple the Allen-Cahn equation to a conserved concentration field in such a way, that the change in phase fraction is only possible with exchange of species between phases. If the concentration of the independent species is set to equilibrium value and the energy valley is steep enough, no phase transformation occurs and the volume of the phase fraction should be conserved through the system. 
+		
+		In the description below, it is assumed that there are two phases, one solid and the other liquid.
+		
+		The free energy functional is then
+		\begin{equation}
+			F_{cons} = \int_V \left[ f_{hom}(\vec{\eta},\nabla\vec{\eta},c) + f_{grad}(\vec{\eta},\nabla\vec{\eta}) \right] \mathrm{d}V \,,
+		\end{equation}
+		with   
+		\begin{align}
+			f_{hom}(\vec{\eta},\nabla\vec{\eta},c)  &= f_0(\vec{\eta},\nabla\vec{\eta}) + f_{chem}(\vec{\eta},c) \\
+			f_{chem}(\vec{\eta},c) &= h_S(\vec{\eta})f_S(c) + h_L(\vec{\eta})f_L(c)
+		\end{align}
+		$h_S(\vec{\eta}), h_L(\vec{\eta})$ are solid and liquid interpolation functions. Assuming that the solid phase is composed of $s$ phase fields $\eta_{S1},\eta_{S2},\dots,\eta_{Ss}$ and the liquid phase of $l$ phase fields $\eta_{L1},\eta_{L2},\dots,\eta_{Ll}$ we can write
+		\begin{align}
+			h_S(\vec{\eta}) &= \frac{\sum_i^s \eta_{Si}^2}{\sum_i^s \eta_{Si}^2 + \sum_j^l \eta_{Lj}^2}   \\
+			h_L(\vec{\eta}) &= \frac{\sum_j^l \eta_{Lj}^2}{\sum_i^s \eta_{Si}^2 + \sum_j^l \eta_{Lj}^2} \quad .
+		\end{align}
+		Parabolic energy approximation will be used for the concentration dependence of the homogeneous phase free energy densities $f_S(c), f_L(c)$ as
+		\begin{align}
+			f_S(c_S) &= A(c_S-c_{S,eq})^2 \\
+			f_L(c_L) &= B(c_L-c_{L,eq})^2 \,.
+		\end{align}
+		An ideal solution approximation is adopted.
+		
+		The governing equations for two phase fields are then
+		\begin{align}
+			\frac{\partial \eta_1}{\partial t} &= -L\left[\frac{\partial f_0}{\partial \eta_1} - \nabla\cdot \frac{\partial F}{\partial (\nabla\eta_1)} + \frac{\partial h_S}{\partial \eta_1}[f_S(c_S) - f_L(c_L) - (c_S-c_L)\mu] \right] \\
+			\frac{\partial \eta_2}{\partial t} &= -L\left[\frac{\partial f_0}{\partial \eta_2} - \nabla\cdot \frac{\partial F}{\partial (\nabla\eta_2)} + \frac{\partial h_S}{\partial \eta_2}[f_S(c_S) - f_L(c_L) - (c_S-c_L)\mu] \right] \\
+			\mu &= 2A(c_L-c_{L,eq})\\
+			\frac{\partial c}{\partial t} &= \frac{D}{A}\Delta\mu  = 2D\Delta(c_L-c_{L,eq})
+		\end{align}
+		where the diffusion coefficient $D$ is a constant.
+		
+		The interpolation functions have the following property
+		\begin{equation}
+			\frac{\partial h_S}{\partial \eta_p} = -\frac{\partial h_L}{\partial \eta_p}
+		\end{equation}
+		
+		%The difference in grand potential in the solid and liquid phase is the driving force for change of the phase fraction. It is assumed that $A=B$ and thus
+		%\begin{equation}
+		%	f_S(c_S) - f_L(c_L) - (c_S-c_L)\mu = 
+		%\end{equation}
 
 \section{Numerical implementation}
 The simulations were carried out using the same MATLAB programme, which was used in the previous chapter~\ref{ch_paper1}, hence only some extra considerations are commented here.
 
-The Appendix~\ref{ch_numerical_implementation} contains the necessary modifications to the finite-difference algorithm when implementing the general Neumann boundary conditions. Eventually, the changes affected all the finite difference operators (standing in place of unidirectional or mixed derivatives and laplacian), but only in the parts of the matrices, which interact with the domain boundary.
+The Appendix~\ref{ch_numerical_implementation} contains the necessary modifications to the finite-difference algorithm when implementing the general Neumann boundary conditions. Eventually, the changes affected all the finite difference operators (standing in place of unidirectional or mixed derivatives and laplacian), but only in the parts of the matrices, which involve the nodes at the domain boundary.
 
 The parameters of the phase field simulations needed to reproduce the results are in Table~\ref{tab_parameters_PF_NPA}. Regarding the volume conservation, it was validated that with the listed parameters, the area of the conserved field would change no more than about 1~\% from its initial value in practical simulations, which is sufficient for the equilibrium shape simulations and subsequent barrier determination.
 
@@ -309,7 +405,7 @@ A series of phase field simulations was run in the geometry as in Figure~\ref{fi
 	 	165	&	$141\times 139$	
 	\end{tabular}
 \end{table}
-It is assumed, that the obtained shape is the equilibrium one, which is assured by conditional stopping of the simulation, when the total interface energy converged (i.e. its change in the new time step is below threshold). 
+It is assumed, that the obtained shape is the equilibrium one, which is assured by conditional stopping of the simulation, when the total interface energy converged (i.e. its change in the new time step was below threshold). 
 
 The contact angles were the same as in the tilted plane validation, i.e. from $\vartheta=15$\textdegree~to $\vartheta=165$\textdegree~with a 15\textdegree~step. The initial condition corresponded to the target circle segments to reduce the computation time. Using the equation~\eqref{eq_NPA_PF_formula} and taking into account that the non-dimensional area for a circle is $\hat{A}_{circle}=\pi$, the results in Figure~\ref{fig_result_NPA_PF_S_iso} were obtained.
 \begin{figure}
@@ -326,7 +422,7 @@ The contact angles were the same as in the tilted plane validation, i.e. from $\
 
 Firstly, it is interesting that the observed contact angles $\vartheta_{obs}$ differed from those imposed by the boundary conditions $\vartheta$ significantly more than in the tilted line validation. This can be seen in the Figure~\ref{fig_result_NPA_PF_S_iso}a, where the difference $\vartheta_{obs}-\vartheta$ was plotted. The angle difference was larger than 5\textdegree~for 3 rather inclined angles (i.e. near 0\textdegree~or 180\textdegree). The deviation $\vartheta_{obs}-\vartheta$ did not depend on the phase field interface parameterization. In the base run, the interface width was $l_{IW}=$\qty{1e-9}{\m}, with 7 points through the interface. The compared simulations probed the effect of a) increasing the domain area, while keeping the $l_{IW}$ equal (effectively narrowing the physical interface width relative to the simulation initial condition) and of adding points to the interface (both actions refined the grid below the simulated initial condition) and both might improve phase field simulation accuracy in different regards. That did not happen in terms of the contact angles, though.
 
-However, the shape factor determination was not affected heavily, because it turned out that there actually were very few points deviating from the expected circular shape and those were near the boundary. This is confirmed also by the obtained values of shape factor, which follow closely the analytic prediction. The different interface parametrization yielded slight improvement in the shape factor values, but not relevant in the current application.
+However, the shape factor determination was not affected heavily, because it turned out that there actually were very few points deviating from the expected circular shape and those were near the boundary. This is confirmed also by the obtained values of shape factor plotted in Figure~\ref{fig_result_NPA_PF_S_iso}, which follow closely the analytic prediction. The different interface parametrization yielded slight improvement in the shape factor values, but not relevant in the current application.
 
 \subsection{Particle on a grain boundary (isotropic interface energy)}
 %Here, the equilibrium stable shape is reached in a dynamic simulation. However, in the classical nucleation theory, it is in fact assumed that it stochastically appears due to local energy fluctuations in the nucleation spot. Among all the possible shapes with equal volume, those with lower total interface energy have higher nucleation probability. 
@@ -336,7 +432,7 @@ The geometry of the problem is sketched in~Figure~\ref{fig_sketch_particle_onGB}
 \begin{equation}
 	\mu = \sigma K \,,
 \end{equation}
-over the whole stable shape must be a constant in order to have it in equilibrium. But for a constant $\sigma$ that cannot be achieved.
+over the whole stable shape must be a constant in order to have it in equilibrium. But for a constant $\sigma$ that cannot be achieved when there is a different curvature $K_{L/R}$ imposed on the left and right side.
 
 Nevertheless, it is known that nucleation may happen on top of grain boundaries. Additionally, the nuclei in classical nucleation theory do not necessarily have the interface-energy minimizing shape, even though that one is the most likely. Hence, even if the shape is not in equilibrium, we assume that it could nucleate. Supposedly, it could survive by sliding to the lower-energy side of the grain boundary. Using the domain scaling procedure, the shape factor of the unknown compound shape can be quantified.
 
@@ -377,15 +473,15 @@ To reduce the simulation time, the initial condition was a shape combined from p
 	\label{fig_sketch_particle_onGB}
 \end{figure}
 
-In the computation of the total grain boundary energy (meaning the substrate-particle interface), there will be two contributions now, $\sigma_{GB}^L=\sigma_{S}^L-\sigma_P\cos(\vartheta_L)$ and $\sigma_{GB}^R=\sigma_{S}^L-\sigma_P\cos(\vartheta_R)$. It turns out, that it is sufficient to assume only $\sigma_P,\vartheta_L,\vartheta_R$, because in the total free energy the above Young's equation can be applied as follows
+In the computation of the total grain boundary energy (meaning the energy of the substrate-particle interface), there will be two segments now, one on the left and one on the right side from the grain boundary (see Figure~\ref{fig_sketch_particle_onGB}). These have lengths $l_{GB}^{L}, l_{GB}^{R}$ and specific grain boundary energies $\sigma_{GB}^L=\sigma_{S}^L-\sigma_P\cos(\vartheta_L)$ and $\sigma_{GB}^R=\sigma_{S}^L-\sigma_P\cos(\vartheta_R)$. The symbols $\sigma_{S}^L,\sigma_{S}^R$ stand for the substrate surface energy on either side of the grain boundary and $\sigma_{P}$ is the particle-liquid interface energy. It turns out, that to express the total interface energy change (upon the insertion of the particle on top of the grain boundary) $\Delta G_\sigma$, it is sufficient to assume only $\sigma_P,\vartheta_L,\vartheta_R$, as can be seen below
 \begin{align}
-	\Delta G_\sigma &= F(\eta,\nabla\eta) + l_L(\sigma_{GB}^L-\sigma_{S}^L) + l_R(\sigma_{GB}^R+\sigma_{S}^R) \\
-	&= F(\eta,\nabla\eta) - \sigma_P[l_L\cos(\vartheta_L) - l_R\cos(\vartheta_R)] \,.
+	\Delta G_\sigma &= F(\eta,\nabla\eta) + l_{GB}^{L}(\sigma_{GB}^L-\sigma_{S}^L) + l_{GB}^{R}(\sigma_{GB}^R-\sigma_{S}^R) \\
+	&= F(\eta,\nabla\eta) - \sigma_P[l_{GB}^{L}\cos(\vartheta_L) + l_{GB}^{R}\cos(\vartheta_R)] \,.
 \end{align}
 
-Depending on where exactly the grain boundary (between the grains in the substrate) is placed below the particle, the individual segments will have different length, i.e. it is not clear how to divide $l_{GB}$ into the left and right segments $l_{L},l_{R}$.
+The symbol $F(\eta,\nabla\eta)$ again stands for the total particle-parent phase interface energy. In the general case, the individual segments $l_{GB}^{L}, l_{GB}^{R}$ will have different length, depending on where the grain boundary is positioned below the particle. 
 
-For this reason, three shape factors were determined for each single shape, which corresponded to the cases when 
+Because the position of the grain boundary below the particle is chosen here, three shape factors were determined for each single shape, which corresponded to the cases when 
 \begin{enumerate}
 	\item $l_L = l_{GB}, l_R = 0$, then $\Delta G_\sigma = F(\eta,\nabla\eta)- \sigma_Pl_{GB}\cos(\vartheta_L)$,
 	\item $l_L = 0, l_R = l_{GB}$, then $\Delta G_\sigma = F(\eta,\nabla\eta)- \sigma_Pl_{GB}\cos(\vartheta_R)$ and
@@ -395,7 +491,7 @@ The first two are limiting cases, when the contact point is infinitesimally just
 
 \alert{See Table~!!!! for details on the simulation} The contact angles $\vartheta_L,\vartheta_R$ were input to the simulation. In the presented results, it was assumed that $\vartheta_L=120$\textdegree and $\vartheta_R$ was varied between 30\textdegree-90\textdegree.
 
-The first observation from the simulations is that the shape evolves, but even when it stops evolving, it moves as a block towards the side which has lower grain boundary energy. For the time evolution of the phase field contours in different cases see Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_contours}. The intuitively correct direction of motion is reproduced by the model, even though the system energy does not account for the grain boundary explicitly. The reason is that the curvature driving force acts towards the center of curvature. As can be seen in Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_contours}, the side with greater contact angle is more curved. The flatter is the opposite side, the less is the curvature driving force balanced. 
+The first observation from the simulations is that the shape evolves, but even when it stops evolving, it moves as a block towards the side which has lower grain boundary energy. For the time evolution of the phase field contours in different cases see Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_contours}. The intuitively correct direction of motion (i.e.e such which lowers the total grain boundary energy) is reproduced by the model, even though the system energy minimized in te phase field simulation does not account for the grain boundary explicitly. The reason is that the curvature driving force acts towards the center of curvature. As can be seen in Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_contours}, the side with greater contact angle (and thus higher grain boundary energy) is more curved. The flatter is the opposite side, the less is the curvature driving force balanced. 
 
 The velocity of the shape centroid in the x direction was obtained from linear fit through the x centroid coordinate in time, see Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_results}a. The result quantifies the above reasoning, as it can be seen that lower $\vartheta_R$ (i.e. flatter right side) were associated with faster translation to the right.
 
@@ -434,6 +530,21 @@ The computed shape factors of the compound shapes were plotted in Figure~\ref{fi
 	\caption{Results from the simulation of a particle on a grain boundary. In (a) the x-direction velocity of the shape centroid as function of the right contact angle $\vartheta_R$ and in (b) the shape factor corresponding to the shape at the end of the simulation (i.e. red contours from Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_contours}).}
 	\label{fig_PF_nuclbarrier_ISO_onGB_results}
 \end{figure}
+
+\section{Summary and the author's contribution}
+The author extended the multi-phase field model by Moelans~\cite{Moelans2008}. The work~\cite{Moelans2008} promoted usage of the model variant with constant interface width (here denoted IWc) with not-fully-variational formulation and described it in great detail.
+
+At the beginning of the author's work, it was already known that IWc was not reliably reproducing the angles in triple junctions of interfaces with different interface energies~\cite{Moelans2010_thinfilm} (i.e. in pair-wise isotropic systems). The model variant with variable interface width and all anisotropy in the parameter $\gamma$ (here IWvG) was used in one grain growth study~\cite{Ravash2017}, but its better reliability in triple junction angles had not been documented yet.
+
+As provided below with all details, the model extensions included
+\begin{enumerate}
+	\item Description of another model variant with all anisotropy in the parameter $\kappa$ and variable interface width (IWvK)
+	\item Derivation of the governing equation for all the three model variants in both 2D and 3D for the case of inclination-dependent interface energy
+	\item The model behavior depends heavily on proper parametrization of the equations. Best practices in parameters determination were  developed and described (different in each model variant) in order to assure control over both the local interface width and local interface energy. 
+	\item In the IWvK model variant such boundary conditions were incorporated, which allowed to control the angle under which the interface intersecting the domain boundary will align.
+\end{enumerate}
+
+Besides the listed model extensions, the author also implemented two approaches adding the volume conservation to the system based on Allen-Cahn type of equations, namely one using Lagrange multipliers to conserve the volume and pne using fictitious concentration field. Volume conservation would be necessary in simulations, where the nucleus interacted dynamically with its surroundings, but these simulations were not needed eventually. Regardless, the model modifications including volume conservation were described in Appendix.
 
 \section{TODO Conclusion}
  

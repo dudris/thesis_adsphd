@@ -1,6 +1,6 @@
 % !TeX root = ../../thesis.tex
 \chapter{Implementation of finite difference method} \label{ch_numerical_implementation}
-\section{General information}
+\section*{General information}
 The 2D system was discretized into a rectangular equidistant grid and rearranged into a single column vector as indicated in figure~\ref{fig_sketch_2D_to_column}. The differential operators were represented by finite-difference matrices left-multiplying the column vectors standing for field variables present on the grid. The finite-difference matrices are block matrices, where each block is a square matrix acting on a single column in the rearranged system.\\
 Let the system be a matrix with $n$ rows and $m$ columns. All blocks are matrices with dimensions $n\times n$ and they are ordered in $m\times m$ grid giving rise to an $mn\times mn$ sparse finite-difference matrix .\\
 The finite-difference matrix can perform linear combination of arbitrary points in the system in each grid point. It takes various form depending on the boundary conditions. However, it is always a toeplitz block matrix.
@@ -35,9 +35,9 @@ In the following sections, the symbol $\mathbb{O}$ stands for $n\times n$ block 
 	\label{fig_sketch_2D_to_column}
 \end{figure}
 
-\section{Ghost nodes in Neumann boundary condition}
+\section*{Ghost nodes in Neumann boundary condition}
 
-\subsection{Zero Neumann BCs}
+\subsection*{Zero Neumann BCs}
 Neumann boundary conditions were implemented using ghost nodes. Ghost nodes are hypothetical nodes adjacent to the boundary nodes, in which the values can be specified using the given boundary condition. In order to have the derivatives in the boundary nodes second-order-accurate, centered difference can be used using the known values at ghost nodes. In the case $\nabla\eta\cdot\bm{n}=0$ we can write at the left boundary edge (i.e. $x=0$), where $(i,j)=(0,j)$
 \begin{equation} \label{eq_neumanBC_ghost_pts_value}
 	\begin{split}
@@ -48,7 +48,7 @@ Neumann boundary conditions were implemented using ghost nodes. Ghost nodes are 
 
 The first equation provides the value at the ghost node. In order to have the centered difference in the respective direction zero at the boundary, apparently the value must be equal to the value in the neighbour on the opposite side.
 
-\subsection{General Neumann BCs}
+\subsection*{General Neumann BCs}
 The boundary condition defining the inclination angle $\theta$ at the boundary is $\nabla\eta\cdot\bm{n}=|\nabla\eta|\cos(\theta)$. This expression implies at the left boundary $(i,j)=(0,j)$  that $\frac{\partial \eta}{\partial x}=|\nabla\eta|\cos(\theta)$ and $\frac{\partial \eta}{\partial y}=|\nabla\eta|\sin(\theta)$. By replacing the partial derivatives $\frac{\partial}{\partial x},\frac{\partial}{\partial y}$ with finite differences $\Delta_x, \Delta_y$ the values in ghost node $(-1,j)$ can be expressed as 
 \begin{align}
 	\forall j\in m+1 \quad (\Delta_x \eta)_{0j} = \frac{\eta_{1j}-\eta_{-1j}}{2h} = |\nabla\eta|_{0,j}\cos(\theta) \\
@@ -67,7 +67,7 @@ And at the bottom and top, respectively, using the same principles we obtain
 \end{align}
 Important observation is that the general Neumann BC indeed reduces to the zero condition for $\theta=90$\textdegree and that the values at the ghost nodes are always derived from the neighbour on the opposite side. 
 
-\section{First-order derivatives in FD}
+\section*{First-order derivatives in FD}
 The centered finite difference was used with stencil  \begin{tabular}{|c|c|c|}
 	\hline -1&0&1  \\\hline
 \end{tabular} 
@@ -78,7 +78,7 @@ for x-direction derivative and
 	-1 \\\hline
 \end{tabular} 
 for y-direction derivative. 
-\subsection{Periodic boundary conditions}
+\subsection*{Periodic boundary conditions}
 For the y-direction derivative the FD matrix is
 \begin{equation} \label{eq_FDmatrix_der1_y}
 	\frac{\partial }{\partial y} \approx \Delta_y= \frac{1}{2h}\left(\begin{array}{cccccc}
@@ -115,7 +115,7 @@ In the x-direction, the finite difference matrix is
 \end{equation}
 
 
-\subsection{Neumann boundary conditions}
+\subsection*{Neumann boundary conditions}
 The FD matrices are equal in both cases of the zero and general NBC, but in the case of the gerneral NBC the following vector must be added at the left and right boundary $|\nabla\eta|\left[\begin{array}{c}
 	\cos(\theta)  \\
 	\sin(\theta) 
@@ -148,10 +148,10 @@ For the x-direction with Neoumann boundary conditions
 	\end{array}\right)
 \end{equation}
 
-\subsection{Mixed boundary conditions}
+\subsection*{Mixed boundary conditions}
 In 2D system there are only two options when combining periodic and Neumann BCs: the periodic boundary is either parallel to x or y axis. The periodic boundary must always lay opposite to another periodic boundary. In a system with mixed boundaries the finite difference matrices in the x and y direction are combined from the above options so that the BCs are met at the corresponding boundary. 
 
-\section{Laplacian in 2D}
+\section*{Laplacian in 2D}
 5-point stencil 
 \begin{tabular}{c|c|c}
 	0&1&0  \\\hline
@@ -195,7 +195,7 @@ The above formulas are derived from Taylor expansions of the values of function 
 
 The above formulas are represented by matrix, which carries the weighted summation of the function values for each point similarly to the first-order derivatives. Below, the matrices are shown in detail depending on the BCs. 
 
-\subsection{Periodic boundary conditions}
+\subsection*{Periodic boundary conditions}
 For 5p stencil the blocks are unit matrix $\mathbb{I}$, zero matrix $\mathbb{O}$ and the following matrix $\mathbb{D}^{\mathrm{5p}}$ (the red elements are the top-bottom periodic condition) 
 \begin{equation}
 	\begin{split}
@@ -253,7 +253,7 @@ and arranged
 	\end{array}\right)
 \end{equation}
 
-\subsection{Neuman boundary conditions}
+\subsection*{Neuman boundary conditions}
 For both zero and general NBCs the FD matrices are equal. Because the value at ghost nodes is either equal or derived from value of neighbour on the opposite side, the laplacian stencil behaves at the Neumann boundary as in Figure~\ref{fig_laplacian_NBC}.
 \begin{figure}
 	\centering
@@ -409,7 +409,7 @@ or e.g. at the top boundary
 	\end{array} + 2h\cos(\theta)(|\nabla\eta|_{i+1,M} + |\nabla\eta|_{i-1,M} + 4|\nabla\eta|_{i,M}) \right]
 \end{equation}
 
-\subsection{Mixed boundary conditions}
+\subsection*{Mixed boundary conditions}
 Imagine the system with BCs as indicated in figure~\ref{fig_scheme_mixedBC}.
 \begin{figure}
 	\centering
@@ -444,7 +444,7 @@ In the 9p20 scheme the finite difference matrix is
 	\end{array}\right)
 \end{equation}
 
-\section{Anisotropic driving force terms}
+\section*{Anisotropic driving force terms}
 In phase field method, usually it is better to keep the interface away from the domain boundary as the boundary conditions often impose specific, non-physical behavior of the interface.  In the case of general NBC and the intended use for the energy assessment, the proximity of interface to the domain boundary is deliberate.\\
 In the implementation of the inclination-dependent model, the anisotropic driving force terms are calculated from numeric derivatives of various fields. Care must be taken to each of the numerical derivative in order to assure the control over the interface inclination at the domain boundary. \\
 When the interface inclination is fixed, the anisotropic driving force terms have fixed value (Dirichlet BC). Some of these fields are numerically differentiated again. However, their values at the ghost nodes are unknown (to be used in centered finite difference), hence one-sided FD scheme must be used at the boundaries. In order to keep second-order accuracy at the boundaries, the following backward $\begin{array}{|c|}

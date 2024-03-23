@@ -2,168 +2,338 @@
 \chapter{Analytic nucleation probability assessment and Monte Carlo simulations}
 \section{Introduction}
 \label{sec_Intro}
+Irrespective of the deposition method, it is known that the process parameters often have pronounced effect on crystallographic texture and microstructure of polycrystalline deposits. Evaporation, sputtering, chemical vapour deposition or electrodeposition are just examples of these methods. Each is tied with a unique combination of physical and chemical interactions at the interface between the deposit and parent phase. The as-deposited texture is the result of synergy of many factors. However, the anisotropy on the deposit/parent phase interface during the film growth certainly plays an important role. 
 
+Typically, nucleation in film deposition is studied as a phenomenon occurring on substrates, rather than on the deposit itself. However, there seems to be no obvious reason to neglect such an option, given the complicated anisotropy of grain boundary energy and local deposition conditions, varying possibly in both space and time. 
+
+A widely accepted theory by Thompson~\cite{Thompson1993} suggests that the texture in deposits is controlled by two main factors: minimization of interface energy and minimization of strain energy. The first favors growth of grains with low-energy interfaces facing the parent phase and the second aligns the grains in the deposit to accommodate the stress. The energy densities are explicitly expressed for an abstracted columnar microstructure and compared as functions of the film thickness. He concluded that thin enough deposits have the texture controlled by minimization of interface energy. Above certain thickness, the strain energy overtakes. Later, additional factors contributing to the strain energy were included in the theory~\cite{Consonni2008}, allowing sensible interpretation of textures observed in sputter-deposited CdTe and electrodeposited Cu, but the results of some others are in agreement with the theory as well~\cite{SonnweberRibic2006, Sanchez1992}. 
+
+A more phenomenological work by Rasmussen et al.~\cite{Rasmussen2001} studied Cu electrodeposits on crystalline and amorphous substrates and proposed that in electrodeposition, the two competing texture-forming factors are the influence of the substrate and that of deposition conditions. Through the film thickness, three zones are defined: A (substrate-controlled texture), B (mixed) and C (deposition-conditions-controlled texture). The effect of the substrate in zone A can be e.g. epitaxy or chemical reactions, in zone C the anisotropy modifications are believed to be due to specific adsorption of different species \cite{Amblard1979,BergenstofNielsen1997}. A more recent study of Ni electrodeposition~\cite{Alimadadi2016} investigated the texture evolution through thickness with microscopic detail and showed, that the transition zone B does not seem to always occur as a simple mixture of A and C.
+
+Despite the fact, that the anisotropy in interface energy is widely accepted to be one of the fundamental texture-forming factors, its effect on the orientation selection in nucleation remains fundamentally unclear. Two different theories by Pangarov~\cite{Pangarov1962,Pangarov1964} and Kozlov~\cite{Kozlov2003} suggested that the textures of the electrodeposits are originated in the anisotropy of the nucleation barrier (\textit{work of formation}), but each used a different reasoning. Pangarov treated 2D nuclei only and made the work of formation depending exclusively on overpotential and lattice parameters. This theory was inconsistent with experimental observation of nuclei character as function of overpotential~\cite{Bulatov2014}. Kozlov studied the formation of initial texture on amorphous substrates in fcc metals by means of atomistic nucleation theory. Specifically, he computed the nucleation barriers and sizes of nuclei with three significant orientations. His prediction of initial $\langle111\rangle$ texture is in agreement with Thompson. It can thus be deduced, that in the initial stages of growth in fcc metals on amorphous substrates, both the nucleation and growth may lead to the same fiber texture by means of interface energy minimization. 
+
+In practice, the interface energy anisotropy or deposition rate anisotropy cannot be measured directly during the deposition, which complicates the interpretation of the observed textures and microstructures. Additionally, the effect of the two above physical quantities on the polycrystalline deposit growth was shown to be equivalent in phase-field simulations to some extent~\cite{Wendler2011}. It seems analogical to equilibrium Wulff shapes and kinetic Wulff shapes, which are geometrically similar~\cite{Kobayashi2001}. However, this makes the fundamental discussion about how the growth is affected by interface anisotropy in general even more challenging, because the growth rate and interface energy are very different quantities, taking part in different processes. 
 
 The method developed in this paper obtains anisotropy in nucleation barrier (and, eventually, the nucleation probability) as function of the interface energy anisotropy, bottom grain orientation and the nucleus orientation. The method is based on principles of classical nucleation theory. Then, in order to demonstrate the effect of the anisotropic barrier on the film texture, a Monte Carlo algorithm was developed and used to simulate growth and nucleation in a polycrystalline film. The aim of this paper is to qualitatively explore the implications of the anisotropic interface energy for the orientation selection during repeated nucleation in the polycrystalline growth. 
 
-The paper is organized in five main parts. Firstly, the necessary fundamentals are described in Section~\ref{sec_Fundamentals} and some theoretical novelties regarding the Winterbottom construction are introduced. In Section~\ref{sec_NPA}, the problem specification defines all parameters in the orientation-dependent Winterbottom construction to be solved and successively the shape factor-orientation maps are presented and explained. These are used as input in the Monte Carlo simulations described in Section~\ref{sec_MC}, together with their results. The Section~\ref{sec_MC_to_experiment} applies the obtained insights to a peculiar case of texture evolution in experiment~\cite{Alimadadi2016} (electrodeposited nickel). There, a sudden change in texture occurred after thickness of \qty{2}{\um}, supposedly due to nucleation. The nucleation brought in new orientations, which succeeded in the growth competition. Interestingly, the said film was deposited very slowly, hence the high nucleation rate is rather unexpected when viewed in the perspective of classical nucleation theory with isotropic interface energy. However, with the anisotropic interface energy included as worked out here, a qualitative explanation was found. 
+The paper is organized in five main parts. Firstly, the necessary fundamentals are described in Section~\ref{sec_NPA_Fundamentals} and some theoretical novelties regarding the Winterbottom construction are introduced. In Section~\ref{sec_NPA}, the problem specification defines all parameters in the orientation-dependent Winterbottom construction to be solved and successively the shape factor-orientation maps are presented and explained. These are used as input in the Monte Carlo simulations described in Section~\ref{sec_MC}, together with their results. The Section~\ref{sec_MC_to_experiment} applies the obtained insights to a peculiar case of texture evolution in experiment~\cite{Alimadadi2016} (electrodeposited nickel). There, a sudden change in texture occurred after thickness of \qty{2}{\um}, supposedly due to nucleation. The nucleation brought in new orientations, which succeeded in the growth competition. Interestingly, the said film was deposited very slowly, hence the high nucleation rate is rather unexpected when viewed in the perspective of classical nucleation theory with isotropic interface energy. However, with the anisotropic interface energy included as worked out here, a qualitative explanation was found. 
 
-\subsection{Terminology in heterogeneous nucleation}
-3D nucleation and 2D nucleation are terms used in classical nucleation theory to describe two different nucleation mechanisms on a plane in 3D space. 
+\section{Fundamentals}\label{sec_NPA_Fundamentals}
+	\subsection{Isolated particle with anisotropic interface energy} \label{sec_isol_aniso_particle}
+	It was already discovered in 1901, how to determine the stable equilibrium shape of a particle with crystalline anisotropy~\cite{Wulff1901}. The chemical potential $\mu(\theta)$ must be constant along the surface of equilibrium shape~\cite{Bao2017}. Assuming that the surface is only under the influence of anisotropic capillary force, the chemical potential on the curved surface in 3D space depends on the local principal curvatures and interface energy anisotropy as follows from the Herring equation~\cite{Herring1951, Johnson1965}. In 2D the surfaces become curves and the expression for the chemical potential is simplified to
+	\begin{equation}\label{eq_chempot_constant}
+		\mu(\theta) = \tilde{\sigma}(\theta)K \,,
+	\end{equation}
+	with local interface normal angle $\theta$ and local curvature $K$. The interface stiffness $\tilde{\sigma}(\theta)$ is the thermodynamic driving force for the capillary motion and the local curvature $\kappa$ is the thermodynamic coordinate. The interface stiffness is 
+	\begin{equation} \label{eq_def_interface_siffness}
+		\tilde{\sigma}(\theta)=\sigma_0[h(\theta)+h''(\theta)] \,,
+	\end{equation}
+	where $h(\theta)$ and $h(\theta)''$ stand for the anisotropy function and its second derivative, respectively. The anisotropy function defines the interface energy $\sigma(\theta)$
+	\begin{equation} \label{eq_anisoIE}
+		\sigma(\theta) = \sigma_0  h(\theta) \,,
+	\end{equation}
+	where $\sigma_0$ is a constant with physical dimensions of interface energy (i.e. $\mathrm{J/m^2}$). In this chapter it is assumed, that the anisotropy function takes the following form 
+	\begin{equation} \label{eq_anisofun}
+		f(\theta -\alpha) = 1+\delta\cos(n(\theta-\alpha)) \,,
+	\end{equation}
+	where $0\leq\delta<1$ is the strength of anisotropy, $n$ the order of symmetry and $\alpha$ the angle rotating the anisotropy function, representing the 2D crystal orientation. A normalized strength of anisotropy $0\leq \Omega < (n^2-1)$ can be defined as $\Omega=\delta(n^2-1)$. In this paper, weak anisotropy will specifically refer to $\Omega<1$ and strong anisotropy to $\Omega\geq1$.
+	
+	The interface stiffness then reads
+	\begin{equation}\label{eq_interface_stiffness}
+		\tilde{\sigma}(\theta) = \sigma_0\{1
+		-\Omega\cos[n(\theta-\alpha)]\} \,.
+	\end{equation}
+	
+	The isolated particle with anisotropic interface energy takes on the well-known Wulff shape, which in 2D can be described as a parametric curve $\bm{w}(\theta)=[w_x(\theta),w_y(\theta)]^\mathrm{T}$\cite{Burton1951,Kobayashi2001,Eggleston2001}
+	\begin{align} 
+		w_x(\theta) &= R_W[h(\theta)\cos(\theta) - h'(\theta)\sin(\theta)] \label{eq_wulff_parametrically_x}\\
+		w_y(\theta) &= R_W[h(\theta)\sin(\theta) + h'(\theta)\cos(\theta)] \label{eq_wulff_parametrically_y}\,.
+	\end{align}
+	See Figure~\ref{fig_wulff_intro} for examples of 4-fold symmetry at various strengths of anisotropy $\delta$. 
+	\begin{figure}[t]
+		\centering
+		\includegraphics[page=1]{combine_graphs.pdf}
+		\caption{Examples of full Wulff plots (i.e. $-\pi\leq\theta\leq\pi$) of 4-fold symmetry with indicated strengths of anisotropy. The dotted segments are the forbidden orientations, solid lines are the allowed ones. The "ears" in b) do not contribute to the isolated particle shape. However, at even stronger anisotropy in c) another intersection occurs among the branches, which introduces new solutions to the equilibrium shape.}
+		\label{fig_wulff_intro}
+	\end{figure}
+	
+	From equation~\eqref{eq_interface_stiffness}, it is easily seen that for $\Omega>1$, there are such $\theta$s, for which the interface stiffness is negative. These normal angles are unstable~\cite{Eggleston2001, Kobayashi2001,Bao2017}, hence they do not occur on the stable equilibrium Wulff shape (see the dotted segments in Figure~\ref{fig_wulff_intro}) and are called missing or forbidden. Closer inspection of the anisotropy function~\eqref{eq_anisofun} and its derivatives reveals that the forbidden angles correspond to interface energies near maxima of the anisotropy function. In fact, the latter is a general observation, independent on the particular anisotropy function~\eqref{eq_anisofun}.
+	
+	For $\Omega>1$, the equations~\eqref{eq_wulff_parametrically_x}-\eqref{eq_wulff_parametrically_y} must be understood in a piece-wise fashion for the intervals of allowed $\theta$s. Each of these allowed-angles interval produces a single branch in the Wulff curve. The discontinuity in allowed angles causes that the Wulff shape is no longer a smooth and continuous closed curve (like in Figure~\ref{fig_wulff_intro}a). Instead, it is a piece-wise continuous and self-intersecting curve (Figure~\ref{fig_wulff_intro}b-c), where the individual branches enclose a polygon-like closed curve with corners. In the case of Figure~\ref{fig_wulff_intro}b, the outer parts of the shape (so-called ears) cannot contribute to the (isolated) crystal shape, but for strong enough anisotropy (like in Figure~\ref{fig_wulff_intro}c) the ears cross again, giving rise to a multitude of other stable equilibrium solutions. That is because every single of the four spikes can be part of the solution but does not need to be. This repeated crossing of the ears and its implications for the equilibrium shapes have not been reported in any work known to the author, hence it will be elaborated on in detail. 
+	
+	\begin{figure*}[h]
+		\centering
+		\includegraphics[width=\textwidth, page=2]{combine_graphs.pdf}
+		\caption{Orders of corners, defined by the branches intersections, shown for 6-fold anisotropy and $\delta=0.7$. In a) there are all the allowed angles, in b)-d) are the stable equilibrium shapes defined by the b) first order, c) second order and d) third order of the corners. Any closed curve is a stable equilibrium shape, which connects these corners along the allowed-angles branches and has the interface normals pointing outwards in every point.}
+		\label{fig_wulff_cross_orders}
+	\end{figure*}
+	
+	To emphasize the general features of this "crossed-ears" type of solutions, the Figure~\ref{fig_wulff_cross_orders}a provides another example of very strong, but 6-fold anisotropy, where the ears cross even twice behind the polygon-like isolated Wulff shape. Then, Figures~\ref{fig_wulff_cross_orders}b-d show the different possible shapes, where the outer corners always correspond to branch intersection of the same type. The type of intersection can be characterized by the radial distance from the center, based on which they can be ordered. Practically, the corner of the first order is a corner on the polygon-like shape, where two branches forming adjacent sides of the polygon-like shape cross (Figure~\ref{fig_wulff_cross_orders}b). A corner of the second order is farther from the center and is the intersection of two branches forming two polygon sides separated by a single side (Figure~\ref{fig_wulff_cross_orders}c). A corner of the third order (Figure~\ref{fig_wulff_cross_orders}d) is the intersection of two branches separated by two sides etc.
+	
+	\begin{table}[b]
+		\centering
+		\begin{tabular}{c|c|c|c}
+			\hline
+			& \multicolumn{3}{c}{order of corner}      \\ 
+			$n$ & 1                 & 2                 & 3                  \\ \hline
+			4   & 0.06667  & 0.60000  & x                  \\
+			& (1.00000) & (9.00000) & \\
+			6   & 0.02857  & 0.16422  & 0.62136  \\
+			& (1.00000) & (5.74773) & (21.74773)\\
+			\hline
+		\end{tabular}
+		\caption{The approximate minimal strengths of anisotropy at which the corners of indicated order appear on the Wulff shapes in 4-fold and 6-fold anisotropy. The first number is the strength of anisotropy $\delta$ and in parenthesis is the corresponding normalized strength of anisotropy $\Omega=\delta(n^2-1)$.}
+		\label{tab_soa_ears_crossing}
+	\end{table}
+	
+	For convenience, the shapes in Figures~\ref{fig_wulff_cross_orders}b-d will be called isolated Wulff shapes of first, second and third order, respectively.
+	
+	Below, a summary of some key points is given:
+	\begin{itemize}
+		\item for $n\geq2$ and $\delta\geq 1/(n^2-1)$ the Wulff shape comprises of $n$ mutually crossing branches and the isolated shape (of first order) exhibits corners,
+		\item for $n\geq4$ multiple branches intersections occur for sufficiently large $\delta$,
+		\item the branches intersections (corners) can be characterized by their radial distance from the center,
+		\item the upper limit on the number of intersections of a single branch with others depends on the total number of branches, i.e. on the order of symmetry $n$,
+		\item as long as the orientation of the curve is respected (i.e. interface normal of all segments on the shape points outwards), any closed curve connecting the above mentioned corners along the branches is a stable equilibrium shape,
+		\item the shape of higher order contains all the lower-order shapes and has larger area than any of them. The first-order shape thus has the smallest area and, consequently the least total interface energy. 
+	\end{itemize}
+	
+	In Table~\ref{tab_soa_ears_crossing}, there are provided the minimal strengths of anisotropy at which the corners of indicated order appear on the Wulff shape in 4-fold and 6-fold anisotropy. Of these, only the first-order corners have an analytic expression, the higher-order corners were obtained numerically and thus are only approximate.
+	
+	\subsection{Particle with anisotropic interface energy on a plane (Winterbottom construction)}
+	\begin{figure*}[h]
+		\centering
+		\includegraphics[width=\textwidth]{Wulff_on_plane_stronganiso.pdf}
+		\caption{Complete list of non-trivial equilibrium shapes of a particle with anisotropic interface energy on a plane (right part of the sketches) as derived from full Wulff shapes (left part of the sketches) using generalized Winterbottom construction. In a) for strength of anisotropy $\delta=0.3$, in b) with $\delta=0.7$. The horizontal dotted lines indicate different truncating lines for the Wulff shape and at the same time the substrate for the equilibrium shapes. The scale of the equilibrium shapes relative to the full Wulff shapes on the left is provided on the right on every respective line. Inverted shape solutions of first order are indicated by asterisk *, of the second order by **. The dashed lines within some of the the equilibrium shapes show the segments on the Wulff shape which were enclosed by the equilibrium shape. The dotted lines above the equilibrium shapes in b) indicate the crossed-ears solutions, which either may be present both, separately or both be absent. The new solutions can be seen in b).}
+		\label{fig_wulffonplane_solutions_sketches}
+	\end{figure*}
+	The problem of equilibrium shape of a particle with anisotropic interface energy on a planar substrate was treated in various works. It can either be derived from variational principles by total interface energy minimization~\cite{Winterbottom1967, Mariaux2011} or by the Cahn-Hoffman vector formalism~\cite{Cahn1974}. 
+	
+	The shape is strongly determined by the force balance of the three meeting interfaces: substrate-parent phase ($\sigma_1$), particle-parent phase ($\sigma_2$) and particle-substrate ($\sigma_3$). There are two such contact points in 2D (in 3D it is a triple line) and both must be in force balance in order to sustain a stable equilibrium shape. 
+	
+	Winterbottom construction identifies which segments on the full Wulff shape are (or can be) part of the equilibrium shape of a particle with anisotropic interface energy on a plane. 
+	
+	For tractability of the general solution (of the particle shape), it is essential to assume co-planarity of the particle-substrate and substrate-parent phase interfaces~\cite{Winterbottom1967, Cahn1974, Bao2017}. 
+	
+	In 2D, the stability of the shape derives from the stability of the two contact points. In this geometry, all interface energies are known and the orientations of two of the interfaces are known (the former substrate plane). The orientation of the last interface (the particle) in the left and right contact points are expressed by normal angles $\theta_c^L,\theta_c^R$, respectively. These are found using the Young's equation with inclination dependence, solved in every contact point 
+	\begin{equation}\label{eq_Young_anisotropic}
+		\sigma_1 - \sigma_{3} = \sigma_2(\theta_2)\sin(\theta_2) + \sigma_2'(\theta_2)\cos(\theta_2) \,,
+	\end{equation}
+	which can be written in a non-dimensional form
+	\begin{equation} \label{eq_nondim_aniso_young}
+		\Gamma = h(\theta_2)\sin(\theta_2) + h'(\theta_2)\cos(\theta_2) \,,
+	\end{equation}
+	where $\Gamma = [\sigma_{1}-\sigma_3 ]/\sigma_2^0$ will be denoted \textit{wetting parameter} in this paper. It can be both positive or negative. 
+	
+	The solutions are from the ranges $3\pi/2>\theta_c^L>\pi/2$ and $\pi/2>\theta_c^R\geq-\pi/2$ and must be allowed angles. When~\eqref{eq_nondim_aniso_young} is compared to~\eqref{eq_wulff_parametrically_y}, it is obvious that the solutions $\theta_c^L,\theta_c^R$ are found as normal angles in points with y coordinate equal to $\Gamma$ on an unit-radius Wulff shape.  Thus, the resulting particle shape is a segment of the isolated shape, where the position of the sectioning plane $\Gamma$ is determined by the force balance. That is the Winterbottom construction. Originally, it served to find the shape of the least interface energy, but Bao~\cite{Bao2017} generalized it for any stable equilibrium shape. For illustration of the generalized Winterbottom construction depending on the position of the truncating line see Figure~\ref{fig_wulffonplane_solutions_sketches}.
+	
+	When the anisotropy is strong, multiple stable equilibrium shapes may exist even when the isolated shape has only a single equilibrium stable shape. All these solutions are illustrated in Figure~\ref{fig_wulffonplane_solutions_sketches}a for 4-fold anisotropy, moderately strong~\cite{Bao2017}. In  Figure~\ref{fig_wulffonplane_solutions_sketches}b all possible solutions are presented for very strong 4-fold anisotropy, which involves the new solutions derived from the second-order corners.
+	
+	If multiple solutions existed in the isolated particle in the above-truncating-line part, this multiplicity is present in the possible solutions on the plane too (Figure~\ref{fig_wulffonplane_solutions_sketches}b). Compared to the isolated case, additional solutions are present, when the truncating line passes below the center of the isolated shape, with the shape being defined also by the "ears" extending behind the corners (in both Figure~\ref{fig_wulffonplane_solutions_sketches}a and~\ref{fig_wulffonplane_solutions_sketches}b).
+	
+	An exceptional class of the solutions is the \textit{inverted shape solution} (indicated by asterisk in Figure~\ref{fig_wulffonplane_solutions_sketches}), which is found \textit{below} the sectioning plane, as described by Bao~\cite{Bao2017} on a shape like in Figure~\ref{fig_wulffonplane_solutions_sketches}a. However, due to the inverted shape symmetry, it is not clear, what operation(s) of symmetry the "inversion" refers to according to Bao and how to construct the solution in a general case. More detailed characterization of this solution type was given in the following section \ref{sec_inverted_Winterbottom}. It should be noted that in systems with corners of higher order, multiple orders of the inversion shape are possible (also indicated in Figure~\ref{fig_wulffonplane_solutions_sketches} by asterisk * and described in more detail in~\ref{sec_inverted_Winterbottom}).
+	
+	\subsection{Inverted solution in Winterbottom construction} \label{sec_inverted_Winterbottom}
+	The inverted shape in a Winterbottom construction with single plane was described by~\cite{Bao2017} in a highly symmetric case. The same idea was used much sooner in the Winterbottom construction in a corner (meaning Wulff shape resting on two lines at once, intersecting in a corner) by Zia et al.~\cite{Zia1988} ("Summertop construction"). Below, the inverted shape construction is described, taking into account the higher-order intersection solutions and arbitrary rotations.
+	
+	Let the Wulff shape exhibit strong anisotropy, i.e. be there at least corners of first order. Further, let the wetting parameter $\Gamma$ be such, that the truncating line passes at least above the isolated shape of the first order, i.e. the first-order shape is submerged below the substrate plane. 
+	\begin{figure}[]
+	\centering
+		\includegraphics[width=0.6\textwidth]{fig_inverted_sol.pdf}
+		\caption{Illustration of the inverted Winterbottom construction. In (a) explained in 4 steps and in (b) illustration of inverted solutions of higher orders. In (a) the plane normal points from the substrate to the parent phase, the solid lines of the Wulff plot are thus above the substrate plane and the dashed ones are below. Interface normals in the contact points are indicated as well. In 1 is the initial state, in 2 after center inversion, in 3 after the curve orientation flip and in 4 is the resulting shape next to the original part of the Wulff plot. In (b) the dashed black line indicates inverted shape of the first order, the solid line that of second order.}
+		\label{fig_inverted_explained}
+	\end{figure}
+	
+	Then it may happen, that the truncating line intersects two branches, which crossed below it (see Figure~\ref{fig_inverted_explained}a1). Such situation allows a solution, where the equilibrium shape is the part \textit{below} the substrate plane, but \textit{above} the corner where the two branches intersect. Two steps must be followed to obtain the inverted equilibrium shape:
+	\begin{enumerate}
+		\item point inversion of the whole system (Wulff plot + truncating line) about the center of the Wulff shape (see Figure~\ref{fig_inverted_explained}a2)
+		\item flip orientation of both the inverted Wulff plot and inverted truncating line, i.e. flip the inverted inward and outwards  directions (see Figure~\ref{fig_inverted_explained}a3)
+	\end{enumerate}
+	
+	
+	The first operation places the truncating line below the said corner, where the two branches intersect. At the same time, the whole shape is inverted. The second operation turns the outside of the Wulff plot to be inside - i.e. instead of having a a crystal in the shape of inverted Wulff plot in some medium, we have a medium in the shape of Wulff plot surrounded by the crystal. 
+	
+	Then, the resulting inverted shape as in Figure~\ref{fig_inverted_explained}a4 is obtained as an enclosed intersection of the anisotropic Wulff plot and a half-space above the line. All the interface normal orientations on the surface of the inverted shape are the same as on the non-inverted part of the Wulff plot. Importantly, this includes the normal angles in the contact points, as can be seen in Figure~\ref{fig_inverted_explained}a4.
+	
+	The order of the intersection in which the two Wulff branches intersect, determines the order of the inverted shape. Figure~\ref{fig_inverted_explained}b shows an example of strong 6-fold anisotropy with such truncation, that it allows two orders of inverted shapes at once.
+	
+	
+	\subsection{Contact point stability}
+	The contact points mentioned above are essentially triple junctions. The Young's equation with inclination dependence~\eqref{eq_Young_anisotropic} represents equilibrium of the tractions due to the interfaces on the junction in the $x$ direction. It concerns
+	a special case, where the position of two of the three interfaces are fixed to lay on the x axis and the third has inclination-dependent interface energy. However, the \textit{stability} of the triple junction configuration is not guranteed by Young's equation alone~\cite{Marks2012}. In the present case, the configuration means a solution $\theta_2$ to~\eqref{eq_Young_anisotropic}. Technically, the solutions to~\eqref{eq_Young_anisotropic} are stationary points of the triple junction energy as function of virtual translations, but not necessarily its minimum (i.e. the stable configuration). Stability of the found solutions should be thus tested using additional conditions derived from second-order derivatives of the triple junction energy with respect to the virtual translations~\cite{Marks2012}:
+	\begin{align} 
+		0 &< \tilde{\sigma}_1 s_1 + \tilde{\sigma}_2 s_2 + \tilde{\sigma}_3 s_3 \\
+		0 &< \tilde{\sigma}_1\tilde{\sigma}_2 S_{12} + \tilde{\sigma}_2\tilde{\sigma}_3 S_{23} + \tilde{\sigma}_1\tilde{\sigma}_3 S_{13} \,,
+	\end{align}
+	where $\tilde{\sigma}_i$ are the respective interface stiffnesses, $s_i = \cos^2(\theta_i)/d_i$, $S_{ij} = \sin^2(\theta_i-\theta_j)/d_i d_j$. In the present geometry, interfaces 1 and 3 are fixed with $\theta_1=\pm\pi/2$ and $\theta_3=\mp\pi/2$, hence it follows that $s_1=s_3=0$ and also that $S_{13}=0$. Note also that $s_2>0$ and $S_{12}=S_{23}=S>0$. By the geometry alone, the conditions are thus simplified to
+	\begin{align}
+		0 &< \tilde{\sigma}_2  \label{eq_3jun_stabcond_onplane1}\\
+		0 &< \tilde{\sigma}_1\tilde{\sigma}_2 + \tilde{\sigma}_2\tilde{\sigma}_3 \,,  
+	\end{align}
+	where only the interface stiffnesses matter. Using the first equation, the second one may further be simplified
+	\begin{equation}
+		0< \tilde{\sigma}_1 + \tilde{\sigma}_3 \,. \label{eq_3jun_stabcond_onplane2}
+	\end{equation}
+	The condition~\eqref{eq_3jun_stabcond_onplane1} implies, that the particle-parent phase interface must be oriented under allowed angle in the contact point. That is fulfilled automatically by the truncated Wulff shape solution, because it contains only the allowed angles. 
+	
+	Note that the interfaces 1 and 3 have fixed orientations and are assumed to be planar. The condition~\eqref{eq_3jun_stabcond_onplane2} is surely fulfilled when both interfaces 1 and 3 have positive interface stiffness in their orientations. That holds automatically in weak or no anisotropies. When either or both of the two interfaces exhibit strong anisotropy, it means that there are normal angles where the interface stiffness is negative, hence the condition~\eqref{eq_3jun_stabcond_onplane2} may be violated and must be verified in the given configuration.
 
-In 3D nucleation, the nuclei form as 3D clusters on the flat substrate and their interface energy is derived mostly from their curved surface. The possible edge and vortex energies are usually neglected. The clusters grow and coalesce.
-
-In 2D nucleation, the nucleus is a mono-atomic step (usually assumed in a shape of a disc) on the (theoretically) atomically smooth surface. In the total nucleus interface energy, the edge energy cannot be neglected. The nuclei grow along the surface layer by layer. 
-
-These concepts can be reduced to 2D space, where the 3D nucleation is equivalent to 2D nucleation and the 2D nucleation to 1D nucleation. In order to simplify the terminology when describing the results from 2D space, the terms spatial and interfacial nucleation are introduced, which indicate the difference in the mechanism irrespective of the used dimension.
-
-This paper only deals with the anisotropy in nucleation barriers of nuclei created in \textit{spatial} nucleation. That is because it is not expected that the grain orientation could change during the \textit{interfacial} nucleation, which is essentially a locallized epitaxial growth. In the following, the \textit{spatial nucleus} denotes a nucleus created in spatial nucleation.
-
-\subsection{Heterogeneous spatial nucleation and shape factor}    
-Note that the formulas and their description in this section are given for 2D space, but they could easily be generalized to 3D. 
-
-Because nucleation is a thermally activated process, the probability $P$ of finding the critical nucleus at a certain spot follows the Arrhenius relation
-\begin{equation}
-	P \approx \exp\left(-\frac{\Delta G_c^*}{kT}\right) \,,
-\end{equation}
-where $k$ is the Boltzmann constant, $T$ absolute temperature and $\Delta G_c^*$ is the \textit{critical nucleation barrier} (in J), which is to be overcome by the thermal fluctuations in order to form a critical nucleus. A nucleus with the critical area $A_c$ is metastable. The nucleation barrier $\Delta G_c^*$ is the \textit{nucleation work}~\cite{Milchev2002} to be done in order to insert a critical nucleus. Subcritical nuclei dissolve, the supercritical ones grow.
-
-In heterogeneous nucleation (i.e. nucleation on a wall), a shape factor $S\geq0$ is the ratio of the heterogeneous nucleus area $A_{het}$ to the area of the isolated particle $A_{hom}$ (homogenous nucleus) generated at equivalent conditions. It can thus be written as a proportionality factor
-\begin{equation}
-	A_{het} = SA_{hom} \,.
-\end{equation}
-The force balance of the meeting interfaces determines the wetting, which decides the value of $S$. When $S=0$, no spatial nucleus (here 2D nucleus) is inserted, because complete wetting occurs and only interfacial (1D) nucleation is possible.
-
-Because it was shown in~\cite{Mariaux2011}, that the nucleation barrier is proportional to the actual area of the nucleus, the shape factor relates the nucleation barriers too, hence
-\begin{equation}
-	\Delta G^*_{het} = S\Delta G^*_{hom} \,.
-\end{equation}
-
-The above implies, that knowing the homogeneous nucleation barrier and the shape factor for a particular heterogeneous nucleus allows to determine the heterogeneous nucleation barrier and also the relative difference in nucleation probability. This reduces the problem of heterogeneous nucleation probability to the determination of a shape factor, obtained as ratio of areas of heterogeneous and homogeneous nucleus. 
-
-It should be emphasized, that in the case of multiple possible shape solutions (like e.g. in Figure~\ref{fig_wulff_cross_orders}a), the Wulff shape of the first order (Figure~\ref{fig_wulff_cross_orders}b) was always assumed as the homogeneous nucleus in the shape factor determination. That choice was made because the nucleation barrier is proportional to the inserted nucleus area (see \eqref{eq_def_nucl_barrier_2D}), which implies that smaller nuclei have larger nucleation probability. The Wulff shape of the first order is the smallest one, hence the most likely to occur.
-
-In 2D, the critical homogeneous nucleation barrier $(\Delta G_c^*)_{hom}$ depends on the scalar interface energy $\sigma_0$ from $\sigma(\theta)=\sigma_0 h(\theta)$ (i.e. as in~\eqref{eq_anisoIE}) and the bulk driving force for the phase transformation $\Delta G_V$ as
-\begin{equation} \label{eq_def_nucl_barrier_2D}
-	(\Delta G_c^*)_{hom} = \hat{A}_{hom}\frac{\sigma_0^2}{\Delta G_V}\,.
-\end{equation}
-where $\hat{A}_{hom}=A_{hom}/R^2$ is a non-dimensional area of the nucleus, $R$ being a radius of the nucleus. If the nucleus is a particle with anisotropic interface energy, then $R$ is a generalized radius, a scalar factor scaling the area of the particle. In classical nucleation theory in 2D (with both isotropic and anisotropic interface energy~\cite{Mariaux2011}) it is simply
-\begin{equation}
-	R = \frac{\sigma_0}{\Delta G_V}
-\end{equation}
-
-In order to get a reasonable nucleation rate of 1~$\mathrm{cm^{-3}s^{-1}}$ and larger, the homogeneous nucleation barrier ought to be $(\Delta G_c^*)_{hom}\leq78\,kT$, but at the same time it should be $(\Delta G_c^*)_{hom}\geq10\,kT$, because the nucleus radius then gets so small, that the applicability of the continuous approach of classical nucleation theory becomes questionable~\cite[pp.195]{Porter2009}. 
-
-Let the symbol 
-\begin{equation}\label{eq_def_beta_nondim_barrier}
-	\beta = \hat{A}_{hom}\frac{\sigma_0^2}{\Delta G_V}\frac{1}{kT}\,
-\end{equation}
-stand for the non-dimensional nucleation barrier, i.e. the nucleation barrier expressed in multiples of $kT$. Apparently, $10\leq\beta\leq78$, in order to observe a reasonable amount of nucleation describable by classical nucleation theory. Then, the homogeneous nucleation probability can be written as
-\begin{equation}
-	P_{hom} = \omega\exp(-\beta)
-\end{equation}
-and the heterogeneous one
-\begin{equation}
-	P_{het} = \omega\exp(-\beta S) \,.
-\end{equation}
-The vibration frequency $\omega$ represents the number of nucleation attempts per unit of time (assumed to be a constant in this paper).
-
-Note that $\beta$ aggregates information about temperature, the driving force and the interface energy. In this paper, the temperature $T$ and $\sigma_0$ are assumed to be constant. Consequently, when $\beta$ varies, the bulk driving force $\Delta G_V$ is varied inversely, as can be seen from the equation~\eqref{eq_def_beta_nondim_barrier}. This way, the variations in $\beta$ are also related to the deposition rate, because the higher the driving force, the higher the deposition rate.    
+	\subsection{Terminology in heterogeneous nucleation}
+	3D nucleation and 2D nucleation are terms used in classical nucleation theory to describe two different nucleation mechanisms on a plane in 3D space. 
+	
+	In 3D nucleation, the nuclei form as 3D clusters on the flat substrate and their interface energy is derived mostly from their curved surface. The possible edge and vortex energies are usually neglected. The clusters grow and coalesce.
+	
+	In 2D nucleation, the nucleus is a mono-atomic step (usually assumed in a shape of a disc) on the (theoretically) atomically smooth surface. In the total nucleus interface energy, the edge energy cannot be neglected. The nuclei grow along the surface layer by layer. 
+	
+	These concepts can be reduced to 2D space, where the 3D nucleation is equivalent to 2D nucleation and the 2D nucleation to 1D nucleation. In order to simplify the terminology when describing the results from 2D space, the terms spatial and interfacial nucleation are introduced, which indicate the difference in the mechanism irrespective of the used dimension.
+	
+	This paper only deals with the anisotropy in nucleation barriers of nuclei created in \textit{spatial} nucleation. That is because it is not expected that the grain orientation could change during the \textit{interfacial} nucleation, which is essentially a locallized epitaxial growth. In the following, the \textit{spatial nucleus} denotes a nucleus created in spatial nucleation.
+	
+	\subsection{Heterogeneous spatial nucleation and shape factor}    
+	Note that the formulas and their description in this section are given for 2D space, but they could easily be generalized to 3D. 
+	
+	Because nucleation is a thermally activated process, the probability $P$ of finding the critical nucleus at a certain spot follows the Arrhenius relation
+	\begin{equation}
+		P \approx \exp\left(-\frac{\Delta G_c^*}{kT}\right) \,,
+	\end{equation}
+	where $k$ is the Boltzmann constant, $T$ absolute temperature and $\Delta G_c^*$ is the \textit{critical nucleation barrier} (in J), which is to be overcome by the thermal fluctuations in order to form a critical nucleus. A nucleus with the critical area $A_c$ is metastable. The nucleation barrier $\Delta G_c^*$ is the \textit{nucleation work}~\cite{Milchev2002} to be done in order to insert a critical nucleus. Subcritical nuclei dissolve, the supercritical ones grow.
+	
+	In heterogeneous nucleation (i.e. nucleation on a wall), a shape factor $S\geq0$ is the ratio of the heterogeneous nucleus area $A_{het}$ to the area of the isolated particle $A_{hom}$ (homogenous nucleus) generated at equivalent conditions. It can thus be written as a proportionality factor
+	\begin{equation}
+		A_{het} = SA_{hom} \,.
+	\end{equation}
+	The force balance of the meeting interfaces determines the wetting, which decides the value of $S$. When $S=0$, no spatial nucleus (here 2D nucleus) is inserted, because complete wetting occurs and only interfacial (1D) nucleation is possible.
+	
+	Because it was shown in~\cite{Mariaux2011}, that the nucleation barrier is proportional to the actual area of the nucleus, the shape factor relates the nucleation barriers too, hence
+	\begin{equation}
+		\Delta G^*_{het} = S\Delta G^*_{hom} \,.
+	\end{equation}
+	
+	The above implies, that knowing the homogeneous nucleation barrier and the shape factor for a particular heterogeneous nucleus allows to determine the heterogeneous nucleation barrier and also the relative difference in nucleation probability. This reduces the problem of heterogeneous nucleation probability to the determination of a shape factor, obtained as ratio of areas of heterogeneous and homogeneous nucleus. 
+	
+	It should be emphasized, that in the case of multiple possible shape solutions (like e.g. in Figure~\ref{fig_wulff_cross_orders}a), the Wulff shape of the first order (Figure~\ref{fig_wulff_cross_orders}b) was always assumed as the homogeneous nucleus in the shape factor determination. That choice was made because the nucleation barrier is proportional to the inserted nucleus area (see \eqref{eq_def_nucl_barrier_2D}), which implies that smaller nuclei have larger nucleation probability. The Wulff shape of the first order is the smallest one, hence the most likely to occur.
+	
+	In 2D, the critical homogeneous nucleation barrier $(\Delta G_c^*)_{hom}$ depends on the scalar interface energy $\sigma_0$ from $\sigma(\theta)=\sigma_0 h(\theta)$ (i.e. as in~\eqref{eq_anisoIE}) and the bulk driving force for the phase transformation $\Delta G_V$ as
+	\begin{equation} \label{eq_def_nucl_barrier_2D}
+		(\Delta G_c^*)_{hom} = \hat{A}_{hom}\frac{\sigma_0^2}{\Delta G_V}\,.
+	\end{equation}
+	where $\hat{A}_{hom}=A_{hom}/R^2$ is a non-dimensional area of the nucleus, $R$ being a radius of the nucleus. If the nucleus is a particle with anisotropic interface energy, then $R$ is a generalized radius, a scalar factor scaling the area of the particle. In classical nucleation theory in 2D (with both isotropic and anisotropic interface energy~\cite{Mariaux2011}) it is simply
+	\begin{equation}
+		R = \frac{\sigma_0}{\Delta G_V}
+	\end{equation}
+	
+	In order to get a reasonable nucleation rate of 1~$\mathrm{cm^{-3}s^{-1}}$ and larger, the homogeneous nucleation barrier ought to be $(\Delta G_c^*)_{hom}\leq78\,kT$, but at the same time it should be $(\Delta G_c^*)_{hom}\geq10\,kT$, because the nucleus radius then gets so small, that the applicability of the continuous approach of classical nucleation theory becomes questionable~\cite[pp.195]{Porter2009}. 
+	
+	Let the symbol 
+	\begin{equation}\label{eq_def_beta_nondim_barrier}
+		\beta = \hat{A}_{hom}\frac{\sigma_0^2}{\Delta G_V}\frac{1}{kT}\,
+	\end{equation}
+	stand for the non-dimensional nucleation barrier, i.e. the nucleation barrier expressed in multiples of $kT$. Apparently, $10\leq\beta\leq78$, in order to observe a reasonable amount of nucleation describable by classical nucleation theory. Then, the homogeneous nucleation probability can be written as
+	\begin{equation}
+		P_{hom} = \omega\exp(-\beta)
+	\end{equation}
+	and the heterogeneous one
+	\begin{equation}
+		P_{het} = \omega\exp(-\beta S) \,.
+	\end{equation}
+	The vibration frequency $\omega$ represents the number of nucleation attempts per unit of time (assumed to be a constant in this paper).
+	
+	Note that $\beta$ aggregates information about temperature, the driving force and the interface energy. In this paper, the temperature $T$ and $\sigma_0$ are assumed to be constant. Consequently, when $\beta$ varies, the bulk driving force $\Delta G_V$ is varied inversely, as can be seen from the equation~\eqref{eq_def_beta_nondim_barrier}. This way, the variations in $\beta$ are also related to the deposition rate, because the higher the driving force, the higher the deposition rate.    
 
 \section{Nucleation probability assessment} \label{sec_NPA}
-\subsection{Problem statement}
-\begin{figure}
-	\centering
-	\includegraphics[page=4]{combine_graphs.pdf}
-	\caption{Winterbottom construction on a weak-anisotropy Wulff shape with indication of the distinct types of interfaces: red and dash-dotted line is the anisotropic solid-liquid interface and the blue and dotted line is the Read-Shockley grain boundary (independent on interface inclination). }
-	\label{fig_NPA_sketch_of_problem}
-\end{figure}
-A polycrystalline film grows from a liquid parent phase. Nucleation during the film growth is expected, which then occurs on the same material, as is being deposited. In this system there are two distinct types of interfaces: the solid-liquid interface with inclination-dependent interface energy; and the grain boundary following the Read-Shockley dependence on misorientation (inclination-independent, though). Every grain has a particular crystallographic orientation (in 2D characterized by a single angle $\alpha$). The grain orientation $\alpha$ coincides with the rotation of the solid-liquid interface energy anisotropy function~\eqref{eq_anisofun}.
-
-A single nucleation event is always assumed to take place on a straight solid-liquid interface. The nucleus is assumed to take on an energy-minimizing equilibrium shape. Hence, in the case of multiple possible solutions, the one with the smallest area is selected. 
-
-A sketch of a single nucleation event is in Figure~\ref{fig_NPA_sketch_of_problem}. The substrate is a plane, hence the orientation of its normal and the interface energy are equal on both sides of the particle. However, due to the problem geometry it is seen differently in the polar coordinate systems associated with the left and right contact angle - the normal is $+\pi/2$ on the left and $-\pi/2$ on the right, hence $\sigma_{1}^L\left(\frac{\pi}{2}\right)=\sigma_{1}^R\left(-\frac{\pi}{2}\right)$. 
-
-Specifically, the solid-liquid interface energy is
-\begin{equation}
-	\sigma_{SL}(\theta)=\sigma_{SL}^0h(\theta) \,,
-\end{equation}
-where $h(\theta)$ is the anisotropy function~\eqref{eq_anisofun}. The Read-Shockley grain boundary energy dependence is a function of disorientation $\Delta\alpha(\alpha_1,\alpha_2)$
-\begin{equation}\label{eq_GBE_read_shockley}
-	\sigma_{GB}(\alpha_1,\alpha_2) = \left\{ \begin{array}{ll}
-		\sigma_{GB}^0\frac{\Delta\alpha(\alpha_1,\alpha_2)}{\Delta_{lim}}\mathrm{ln}\left(\frac{\Delta\alpha(\alpha_1,\alpha_2)}{\Delta_{lim}}\right) & \quad \Delta\alpha\leq \Delta_{lim} \\
-		\sigma_{GB}^0 & \quad\Delta\alpha> \Delta_{lim}
-	\end{array} \right. \,,
-\end{equation}
-with $\Delta_{lim}=15$\textdegree~used here. Note that due to the problem symmetry of order $n$, the Read-Shockley dependence must be periodic too, hence the common disorientation definition $\Delta\alpha=|\alpha_1-\alpha_2|$ cannot be used. The periodicity can be achieved using \textit{modulo with rounded division convention}~\cite{wiki_modulo}
-\begin{equation}
-	\Delta\alpha(\alpha_1,\alpha_2) = \mathrm{mod}(\alpha_1-\alpha_2,2\pi/n) \,, 
-\end{equation}
-where $\mathrm{mod}(x,y)=x-y\mathrm{round}(x/y)$. This way, the disorientation is always within $-\pi/n\leq \Delta\alpha \leq \pi/n$ and the minimum of Read-Shockley appears at  $k\pi/n $, where $k=-1,0,1$.
-
-The bottom grain orientation is $\alpha_1$ and the nucleus orientation is $\alpha_2$. The respective interface energies are expressed as
-\begin{align}
-	\label{eq_problemspec_sig1} \textstyle  \sigma_{1}^L\left(\frac{\pi}{2}\right)= \sigma_{1}^R\left(-\frac{\pi}{2}\right) &= \textstyle\sigma_{SL}^0h\left(\frac{\pi}{2}-\alpha_1\right) \\
-	\label{eq_problemspec_sig2} \sigma_{2}(\theta_{2})&=\sigma_{SL}^0h(\theta_{2}-\alpha_2) \\
-	\label{eq_problemspec_sig3} \sigma_{3} &= \sigma_{GB}(\alpha_1,\alpha_2) \,.
-\end{align}
-Then, the wetting parameter $\Gamma$ can be expressed as a function of the bottom grain and nucleus orientations
-\begin{align}
-	\Gamma(\alpha_1,\alpha_2) &= \frac{\sigma_{1}^L(\frac{\pi}{2})-\sigma_{3}(\alpha_1,\alpha_2)}{\sigma_{SL}^0} \\
-	&= h(\textstyle\frac{\pi}{2}-\alpha_1) -\displaystyle\frac{\sigma_{GB}(\alpha_1,\alpha_2)}{\sigma_{SL}^0} \,. \label{eq_wetting_param_Gamma}
-\end{align}
-
-It was assumed that $\sigma_{GB}^0=\sigma_{SL}^0=0.3\,\mathrm{J/m^2}$.
-
-With all above, the geometric problem is fully specified by the pair of orientations $(\alpha_1,\alpha_2)$, both of which are from the interval $0 \leq \alpha < 2\pi/n$. The top grain orientation $\alpha_2$ specifies the rotation of the equilibrium shape and the wetting parameter~\eqref{eq_wetting_param_Gamma} specifies where the truncating line passes.    
-
-\subsection{Stability as function of the bottom grain orientation}
-If the stability conditions~\eqref{eq_3jun_stabcond_onplane1} and~\eqref{eq_3jun_stabcond_onplane2} do not hold for either of the two contact angles, the shape is not stable. The condition~\eqref{eq_3jun_stabcond_onplane1} is fulfilled by default in the (generalized) Winterbottom construction. The condition~\eqref{eq_3jun_stabcond_onplane2} is simplified by the assumption of the grain boundary being inclination independent, because then $\tilde{\sigma}_3=\sigma_3$. Using the interface stiffness definition~\eqref{eq_def_interface_siffness} and the interface energies~\eqref{eq_problemspec_sig1},~\eqref{eq_problemspec_sig3}, the condition~\eqref{eq_3jun_stabcond_onplane2} can be written
-\begin{equation} \label{eq_stabcond_general_explicit}
-	\textstyle h(\frac{\pi}{2}-\alpha_1) + h''(\frac{\pi}{2}-\alpha_1) > \displaystyle -\frac{\sigma_{GB}(\alpha_1,\alpha_2)}{\sigma_{SL}^0} \,,
-\end{equation}
-which holds for any twice-differentiable anisotropy function $h(\theta)$. Apparently, the right-hand side is always negative and it is the term $h''(\frac{\pi}{2}-\alpha_1)$, which decides the stability. As stated before, the interface stiffness is only negative for forbidden angles, around maxima of the anisotropy function. Hence, the above condition may be violated only when the substrate normal is aligned with a forbidden angle. This conclusion stems from the problem geometry and energetics, it is independent of the form of anisotropy function $h(\theta)$.
-
-After substitution of \eqref{eq_interface_stiffness} into \eqref{eq_3jun_stabcond_onplane2} and rearrangement, the second condition becomes
-\begin{align}
-	\textstyle\cos\left[n(\frac{\pi}{2}-\alpha_1)\right]&<\frac{1}{\Omega}\left(\frac{\sigma_{GB}(\alpha_1,\alpha_2)}{\sigma_{SL}^0}+1\right) \,. \label{eq_3jun_stabcond_applied}
-\end{align}
-
-The right-hand side is always positive. Apparently, when the right-hand side is greater than 1, the triple junction configuration is stable for any bottom grain orientation $\alpha_1$. That certainly holds for weak anisotropies, i.e. when $\Omega\leq 1$. For stronger anisotropies $\Omega>1$, the right-hand side may get smaller than 1 and some orientations $\alpha_1$ then do not meet the stability condition. The stronger the anisotropy, the closer is the right-hand side to zero and the interval of unstable $\alpha_1$ orientations is wider.  
-
-Effectively, the (3D) nucleation is blocked on high-energy crystal facets due to the strong anisotropy. 
-
-\subsection{Shape factor-orientation maps}
-Here, the shape factor-orientation map is the 2D plot of the shape factor as function of the top and bottom grain orientation, i.e. $S(\alpha_1,\alpha_2)$. For isotropic nucleation, the solid-liquid interface had constant interface energy $\sigma_{SL}^0$ and the grain boundary followed the Read-Shockley dependence~\eqref{eq_GBE_read_shockley}. In anisotropic nucleation, the shape factor $S(\alpha_1,\alpha_2)$ was obtained from the generalized Winterbottom construction, with the wetting parameter $\Gamma(\alpha_1,\alpha_2)$ from~\eqref{eq_wetting_param_Gamma}. A solver was programmed in MATLAB, which found the possible solutions in the generalized Winterbottom construction and selected the one with the minimal area. It included all types of solutions discussed in this paper and it is available in Mendeley Data repository~\cite{Minar2023dataset}. This solver was used to find $S(\alpha_1,\alpha_2)$ for all intended pairs of bottom and top grain orientations $(\alpha_1,\alpha_2)$.
-
-\begin{figure*}
-	\centering        
-	\includegraphics[width=0.8\textwidth, page=5]{combine_graphs.pdf}
-	\caption{Shape factor-orientation maps for four different strengths of anisotropy in 4-fold symmetry (180x180 points). In (a) is the isotropic case, in (b)-(c) the anisotropic ones, the strength of anisotropy $\delta$ is indicated above. The white regions indicate the unstable orientations as by the condition~\eqref{eq_3jun_stabcond_applied}. The levels are drawn with the increment of 0.25, like the colorbar spacing.}
-	\label{fig_SFori_maps}
-\end{figure*}
-
-Examples of the shape factor-orientation maps $S(\alpha_1,\alpha_2)$ for four different strengths of anisotropy in 4-fold symmetry are shown in Figure~\ref{fig_SFori_maps}.
-
-In Figure~\ref{fig_SFori_maps}a, there is the map for the case of a particle with isotropic solid-liquid interface energy. There, the shape factor can be analytically determined, because the isolated equilibrium shape is a circle. Hence, the heterogeneous nucleus shape is a circular segment and from the basic geometric relations one can write
-\begin{equation}
-	S = \frac{\phi-\sin(\phi)}{2\pi} \,,
-\end{equation}
-where $\phi$ is the central angle of the circular segment, which relates to the wetting parameter $\Gamma$ \eqref{eq_wetting_param_Gamma} simply as
-\begin{equation}
-	\phi = 2\mathrm{acos}(\Gamma) \,.
-\end{equation}
-Except for the regions of close orientations $\Delta\alpha\leq \Delta_{lim}$ (i.e. the diagonal and the corners of the map), there is constant $\Gamma=0$, hence $\phi = \pi$ and $S = 0.5$ (i.e. the shape is a semicircle). For close orientations $\Delta\alpha\leq \Delta_{lim}$, the Read-Shockley grain boundary energy dependence implies smaller grain boundary energies (approaching 0 when the orientations are the same), which propagates through the equations for $\Gamma,\phi$ and eventually causes the drop of $S$ to zero. That corresponds to wetting behavior (and larger nucleation probability).
-
-The diagonal valley due to the misorientation dependence of the grain boundary energy is a feature common to all the maps. 
-
-Another common feature of the anisotropic maps in Figure~\ref{fig_NPA_sketch_of_problem}b-d is that the low-energy bottom grain orientations (in the 4-fold case around $\alpha_1\approx 45$\textdegree, see Figure~\ref{fig_NPA_sketch_of_problem}b) are associated with larger values of the shape factor, i.e. with a rather de-wetting behavior, where the equilibrium shapes are rather emerged than submerged. As a result, the nucleation probability is lower on the low-energy planes. That is understandable, because such planes are in an energetically convenient configuration and the nucleation event would disturb that. Nevertheless, together with the nuclei instability on high-energy planes, it implies that there is no simple rule to foresee, where the nucleation is most likely.
-
-Apparently, the landscape in the shape factor-orientation map is more hilly with stronger anisotropy. For $\delta=0.7$ in Figure~\ref{fig_SFori_maps}d there even are regions $S(\alpha_1,\alpha_2)>1$. 
-
-In~Figure~\ref{fig_SFori_maps}b and c, all points in the map correspond to the basic solution of truncated isolated Wulff shape, but in~Figure~\ref{fig_SFori_maps}d there are also inverted shape and emerged Wulff solutions. This variability in solutions determines the more complex landscape.
-
-These shape factor-orientations maps were used as input to the Monte Carlo simulation of growing polycrystalline film, described in the following section.
+	\subsection{Problem statement}
+	\begin{figure}
+		\centering
+		\includegraphics[page=4]{combine_graphs.pdf}
+		\caption{Winterbottom construction on a weak-anisotropy Wulff shape with indication of the distinct types of interfaces: red and dash-dotted line is the anisotropic solid-liquid interface and the blue and dotted line is the Read-Shockley grain boundary (independent on interface inclination). }
+		\label{fig_NPA_sketch_of_problem}
+	\end{figure}
+	A polycrystalline film grows from a liquid parent phase. Nucleation during the film growth is expected, which then occurs on the same material, as is being deposited. In this system there are two distinct types of interfaces: the solid-liquid interface with inclination-dependent interface energy; and the grain boundary following the Read-Shockley dependence on misorientation (inclination-independent, though). Every grain has a particular crystallographic orientation (in 2D characterized by a single angle $\alpha$). The grain orientation $\alpha$ coincides with the rotation of the solid-liquid interface energy anisotropy function~\eqref{eq_anisofun}.
+	
+	A single nucleation event is always assumed to take place on a straight solid-liquid interface. The nucleus is assumed to take on an energy-minimizing equilibrium shape. Hence, in the case of multiple possible solutions, the one with the smallest area is selected. 
+	
+	A sketch of a single nucleation event is in Figure~\ref{fig_NPA_sketch_of_problem}. The substrate is a plane, hence the orientation of its normal and the interface energy are equal on both sides of the particle. However, due to the problem geometry it is seen differently in the polar coordinate systems associated with the left and right contact angle - the normal is $+\pi/2$ on the left and $-\pi/2$ on the right, hence $\sigma_{1}^L\left(\frac{\pi}{2}\right)=\sigma_{1}^R\left(-\frac{\pi}{2}\right)$. 
+	
+	Specifically, the solid-liquid interface energy is
+	\begin{equation}
+		\sigma_{SL}(\theta)=\sigma_{SL}^0h(\theta) \,,
+	\end{equation}
+	where $h(\theta)$ is the anisotropy function~\eqref{eq_anisofun}. The Read-Shockley grain boundary energy dependence is a function of disorientation $\Delta\alpha(\alpha_1,\alpha_2)$
+	\begin{equation}\label{eq_GBE_read_shockley}
+		\sigma_{GB}(\alpha_1,\alpha_2) = \left\{ \begin{array}{ll}
+			\sigma_{GB}^0\frac{\Delta\alpha(\alpha_1,\alpha_2)}{\Delta_{lim}}\mathrm{ln}\left(\frac{\Delta\alpha(\alpha_1,\alpha_2)}{\Delta_{lim}}\right) & \quad \Delta\alpha\leq \Delta_{lim} \\
+			\sigma_{GB}^0 & \quad\Delta\alpha> \Delta_{lim}
+		\end{array} \right. \,,
+	\end{equation}
+	with $\Delta_{lim}=15$\textdegree~used here. Note that due to the problem symmetry of order $n$, the Read-Shockley dependence must be periodic too, hence the common disorientation definition $\Delta\alpha=|\alpha_1-\alpha_2|$ cannot be used. The periodicity can be achieved using \textit{modulo with rounded division convention}~\cite{wiki_modulo}
+	\begin{equation}
+		\Delta\alpha(\alpha_1,\alpha_2) = \mathrm{mod}(\alpha_1-\alpha_2,2\pi/n) \,, 
+	\end{equation}
+	where $\mathrm{mod}(x,y)=x-y\mathrm{round}(x/y)$. This way, the disorientation is always within $-\pi/n\leq \Delta\alpha \leq \pi/n$ and the minimum of Read-Shockley appears at  $k\pi/n $, where $k=-1,0,1$.
+	
+	The bottom grain orientation is $\alpha_1$ and the nucleus orientation is $\alpha_2$. The respective interface energies are expressed as
+	\begin{align}
+		\label{eq_problemspec_sig1} \textstyle  \sigma_{1}^L\left(\frac{\pi}{2}\right)= \sigma_{1}^R\left(-\frac{\pi}{2}\right) &= \textstyle\sigma_{SL}^0h\left(\frac{\pi}{2}-\alpha_1\right) \\
+		\label{eq_problemspec_sig2} \sigma_{2}(\theta_{2})&=\sigma_{SL}^0h(\theta_{2}-\alpha_2) \\
+		\label{eq_problemspec_sig3} \sigma_{3} &= \sigma_{GB}(\alpha_1,\alpha_2) \,.
+	\end{align}
+	Then, the wetting parameter $\Gamma$ can be expressed as a function of the bottom grain and nucleus orientations
+	\begin{align}
+		\Gamma(\alpha_1,\alpha_2) &= \frac{\sigma_{1}^L(\frac{\pi}{2})-\sigma_{3}(\alpha_1,\alpha_2)}{\sigma_{SL}^0} \\
+		&= h(\textstyle\frac{\pi}{2}-\alpha_1) -\displaystyle\frac{\sigma_{GB}(\alpha_1,\alpha_2)}{\sigma_{SL}^0} \,. \label{eq_wetting_param_Gamma}
+	\end{align}
+	
+	It was assumed that $\sigma_{GB}^0=\sigma_{SL}^0=0.3\,\mathrm{J/m^2}$.
+	
+	With all above, the geometric problem is fully specified by the pair of orientations $(\alpha_1,\alpha_2)$, both of which are from the interval $0 \leq \alpha < 2\pi/n$. The top grain orientation $\alpha_2$ specifies the rotation of the equilibrium shape and the wetting parameter~\eqref{eq_wetting_param_Gamma} specifies where the truncating line passes.    
+	
+	\subsection{Stability as function of the bottom grain orientation}
+	If the stability conditions~\eqref{eq_3jun_stabcond_onplane1} and~\eqref{eq_3jun_stabcond_onplane2} do not hold for either of the two contact angles, the shape is not stable. The condition~\eqref{eq_3jun_stabcond_onplane1} is fulfilled by default in the (generalized) Winterbottom construction. The condition~\eqref{eq_3jun_stabcond_onplane2} is simplified by the assumption of the grain boundary being inclination independent, because then $\tilde{\sigma}_3=\sigma_3$. Using the interface stiffness definition~\eqref{eq_def_interface_siffness} and the interface energies~\eqref{eq_problemspec_sig1},~\eqref{eq_problemspec_sig3}, the condition~\eqref{eq_3jun_stabcond_onplane2} can be written
+	\begin{equation} \label{eq_stabcond_general_explicit}
+		\textstyle h(\frac{\pi}{2}-\alpha_1) + h''(\frac{\pi}{2}-\alpha_1) > \displaystyle -\frac{\sigma_{GB}(\alpha_1,\alpha_2)}{\sigma_{SL}^0} \,,
+	\end{equation}
+	which holds for any twice-differentiable anisotropy function $h(\theta)$. Apparently, the right-hand side is always negative and it is the term $h''(\frac{\pi}{2}-\alpha_1)$, which decides the stability. As stated before, the interface stiffness is only negative for forbidden angles, around maxima of the anisotropy function. Hence, the above condition may be violated only when the substrate normal is aligned with a forbidden angle. This conclusion stems from the problem geometry and energetics, it is independent of the form of anisotropy function $h(\theta)$.
+	
+	After substitution of \eqref{eq_interface_stiffness} into \eqref{eq_3jun_stabcond_onplane2} and rearrangement, the second condition becomes
+	\begin{align}
+		\textstyle\cos\left[n(\frac{\pi}{2}-\alpha_1)\right]&<\frac{1}{\Omega}\left(\frac{\sigma_{GB}(\alpha_1,\alpha_2)}{\sigma_{SL}^0}+1\right) \,. \label{eq_3jun_stabcond_applied}
+	\end{align}
+	
+	The right-hand side is always positive. Apparently, when the right-hand side is greater than 1, the triple junction configuration is stable for any bottom grain orientation $\alpha_1$. That certainly holds for weak anisotropies, i.e. when $\Omega\leq 1$. For stronger anisotropies $\Omega>1$, the right-hand side may get smaller than 1 and some orientations $\alpha_1$ then do not meet the stability condition. The stronger the anisotropy, the closer is the right-hand side to zero and the interval of unstable $\alpha_1$ orientations is wider.  
+	
+	Effectively, the (3D) nucleation is blocked on high-energy crystal facets due to the strong anisotropy. 
+	
+	\subsection{Shape factor-orientation maps}
+	Here, the shape factor-orientation map is the 2D plot of the shape factor as function of the top and bottom grain orientation, i.e. $S(\alpha_1,\alpha_2)$. For isotropic nucleation, the solid-liquid interface had constant interface energy $\sigma_{SL}^0$ and the grain boundary followed the Read-Shockley dependence~\eqref{eq_GBE_read_shockley}. In anisotropic nucleation, the shape factor $S(\alpha_1,\alpha_2)$ was obtained from the generalized Winterbottom construction, with the wetting parameter $\Gamma(\alpha_1,\alpha_2)$ from~\eqref{eq_wetting_param_Gamma}. A solver was programmed in MATLAB, which found the possible solutions in the generalized Winterbottom construction and selected the one with the minimal area. It included all types of solutions discussed in this paper and it is available in Mendeley Data repository~\cite{Minar2023dataset}. This solver was used to find $S(\alpha_1,\alpha_2)$ for all intended pairs of bottom and top grain orientations $(\alpha_1,\alpha_2)$.
+	
+	\begin{figure*}
+		\centering        
+		\includegraphics[width=0.8\textwidth, page=5]{combine_graphs.pdf}
+		\caption{Shape factor-orientation maps for four different strengths of anisotropy in 4-fold symmetry (180x180 points). In (a) is the isotropic case, in (b)-(c) the anisotropic ones, the strength of anisotropy $\delta$ is indicated above. The white regions indicate the unstable orientations as by the condition~\eqref{eq_3jun_stabcond_applied}. The levels are drawn with the increment of 0.25, like the colorbar spacing.}
+		\label{fig_SFori_maps}
+	\end{figure*}
+	
+	Examples of the shape factor-orientation maps $S(\alpha_1,\alpha_2)$ for four different strengths of anisotropy in 4-fold symmetry are shown in Figure~\ref{fig_SFori_maps}.
+	
+	In Figure~\ref{fig_SFori_maps}a, there is the map for the case of a particle with isotropic solid-liquid interface energy. There, the shape factor can be analytically determined, because the isolated equilibrium shape is a circle. Hence, the heterogeneous nucleus shape is a circular segment and from the basic geometric relations one can write
+	\begin{equation}
+		S = \frac{\phi-\sin(\phi)}{2\pi} \,,
+	\end{equation}
+	where $\phi$ is the central angle of the circular segment, which relates to the wetting parameter $\Gamma$ \eqref{eq_wetting_param_Gamma} simply as
+	\begin{equation}
+		\phi = 2\mathrm{acos}(\Gamma) \,.
+	\end{equation}
+	Except for the regions of close orientations $\Delta\alpha\leq \Delta_{lim}$ (i.e. the diagonal and the corners of the map), there is constant $\Gamma=0$, hence $\phi = \pi$ and $S = 0.5$ (i.e. the shape is a semicircle). For close orientations $\Delta\alpha\leq \Delta_{lim}$, the Read-Shockley grain boundary energy dependence implies smaller grain boundary energies (approaching 0 when the orientations are the same), which propagates through the equations for $\Gamma,\phi$ and eventually causes the drop of $S$ to zero. That corresponds to wetting behavior (and larger nucleation probability).
+	
+	The diagonal valley due to the misorientation dependence of the grain boundary energy is a feature common to all the maps. 
+	
+	Another common feature of the anisotropic maps in Figure~\ref{fig_NPA_sketch_of_problem}b-d is that the low-energy bottom grain orientations (in the 4-fold case around $\alpha_1\approx 45$\textdegree, see Figure~\ref{fig_NPA_sketch_of_problem}b) are associated with larger values of the shape factor, i.e. with a rather de-wetting behavior, where the equilibrium shapes are rather emerged than submerged. As a result, the nucleation probability is lower on the low-energy planes. That is understandable, because such planes are in an energetically convenient configuration and the nucleation event would disturb that. Nevertheless, together with the nuclei instability on high-energy planes, it implies that there is no simple rule to foresee, where the nucleation is most likely.
+	
+	Apparently, the landscape in the shape factor-orientation map is more hilly with stronger anisotropy. For $\delta=0.7$ in Figure~\ref{fig_SFori_maps}d there even are regions $S(\alpha_1,\alpha_2)>1$. 
+	
+	In~Figure~\ref{fig_SFori_maps}b and c, all points in the map correspond to the basic solution of truncated isolated Wulff shape, but in~Figure~\ref{fig_SFori_maps}d there are also inverted shape and emerged Wulff solutions. This variability in solutions determines the more complex landscape.
+	
+	These shape factor-orientations maps were used as input to the Monte Carlo simulation of growing polycrystalline film, described in the following section.
 
 \section{Monte Carlo simulations}\label{sec_MC}
 The purpose of this section is to qualitatively demonstrate the possible impact of anisotropy in nucleation barrier due to anisotropic solid-liquid interface energy on the texture evolution during film growth and compare it to the case with isotropic solid-liquid interface energy. The shape factor-orientation maps were used together with a Monte Carlo simulation of growing 2D polycrystalline film.
@@ -328,34 +498,33 @@ The anisotropic nature of nucleation thus imposed a different than interface ene
 
 Figure~\ref{fig_MC_deposits_ori_ev_3} presents the case of very high nucleation barrier $\beta=90$, again in the initial condition IC\_H (and $\delta=0.5,\,n=4$). There occurs nearly no nucleation in the isotropic nucleation scenario (on average less than 1 event per simulation), so it is identical to the no-nucleation scenario (shown in Figure~\ref{fig_MC_deposits_ori_ev_3}a-b). As can be seen, the lowest-available-energy grains overtake as before, but there is no mechanism to introduce orientations absent in the seed layer. In the anisotropic nucleation scenario (Figure~\ref{fig_MC_deposits_ori_ev_3}c-d), still about $10^3$ of nucleation events took place despite the very high nucleation barrier $\beta$. That was possible because of she shape factor anisotropy - the local nucleation barrier $S(\alpha_1,\alpha_2)\beta$ was small enough for some orientations. However, the introduction of low-energy orientations did not take place, so the nucleation only supported the grains with initially-present lowest interface energy in the growth competition, 
 
-\section{Comparison to experiment and discussion}\label{sec_MC_to_experiment}
-
-The presented theory can be used to qualitatively explain some recent experimental results by Alimadadi et al.~\cite{Alimadadi2016}. They studied the through-thickness texture evolution in Ni electrodeposited on amorphous substrate in four samples, each of which exhibited different dominant fiber texture. The only variables in the deposition were pH and deposition rate, the resulting thickness was different in every sample, but around \qty{20}{\um}. 
-
-The sample deposited at the smallest rate of \qty{0.533}{\nano\meter/\second} (i.e. an order of magnitude smaller than the others, the current density being \qty{0.2}{\A/\deci\meter^2}) exhibited sudden change of texture in the low thickness of 0-4~\unit{\um}, as can be seen in Figure~\ref{fig_Alimadadi_results}. The $\langle100\rangle$ texture in the nanocrystalline zone A below the 2~\unit{\um} of thickness is gone in the pole figure of 2-4~\unit{\um}, where the $\langle110\rangle$ component starts developing and later strenghtens with increasing thickness. Very few grains reaching the surface could be traced back to the nanocrystalline zone A, which means that nucleation had to take place~\cite{Alimadadi2016}. The nucleation was apparently anisotropic (with a bias towards $\langle110\rangle$). The combination of nuclei density and their advantage in growth was able to set a completely new course to the texture evolution within a rather thin layer of the deposit. 
-
-In the other samples of Alimadadi, the initial texture contained the resulting dominant component, which gradually reinforced with thickness (similarly to how the sample in Figure~\ref{fig_Alimadadi_results} evolved from \qty{2}{\um} on). 
-
-Interestingly, the nucleation in the discussed sample happened at very low growth rate, which in general implies high nucleation barriers. The nucleation barrier for the emerging nuclei had to be very small, though, because the nucleation took place regardless of the small driving force. The possibility of low nucleation barrier even with low driving force (given a convenient bottom grain orientation) was shown to be one of possible manifestations of anisotropic nucleation barrier (see Figure~\ref{fig_MC_deposits_ori_ev_3}).
-
-Detailed analysis of the possible competition between the interface-energy-minimization and strain-energy-minimization mechanisms of texture formation in this case is out of the scope of this paper. The sole fact that significant amount of anisotropic, growth-successful nuclei appeared at very low driving force is a peculiarity, which can be qualitatively explained by the presented results, though. 
-
-\begin{figure}[]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Alimadadi.jpg}
-	\caption{Experimental results of Ni electrodeposited on an amorphous substrate, adapted from~\cite{Alimadadi2016}. On the right, an EBSD map of the deposit cross-section is shown, the inverse pole figure is in the top-right inset. The axis indicates the deposit thickness in \unit{\um}. The pole figures on the left correspond to the indicated regions, their colorbar of MRD (Multiples of Random Distribution) is provided.}
-	\label{fig_Alimadadi_results}
-\end{figure}
-
-Possibly one mechanism sustained the texture by setting the rules for growth competition up to certain thickness. With the overtake of the other mechanism then, possibly the nuclei would suddenly have more chances in the growth competition. At the same time, the initial favourable-for-nucleation texture would still be in place, before overgrown by the nuclei.
-
-An attempt to estimate the non-dimensional nucleation barrier $\beta$ in the discussed experiment was made. 
-% From~\cite{Schlesinger2010}, pp. 102 was read from graph of anodic dissolution that the anodic exchange current density $i_0$ for Watts solution of pH=4.5 is about $i_0=0.14445$~\unit{\A/\deci\meter^2} and the linear potential-current region extended to \qty{0.8}{\A/\deci\meter^2}. That means that in the experiment, the current was linearly proportional to the overpotential as $i=i_0(F/RT)\eta$, $F$  being the Faraday constant. Assuming the same rate for cathodic $i_0$ allowed to express the mean overpotential to be $\eta=0.0385$~V from the latter equation. Then, the bulk driving force was expressed as $\Delta G_V=2F\eta/v_m$, with $v_m$ the molar volume of Ni. A formula for isotropic homogeneous nucleation barrier in 3D was used, i.e. $(\Delta G)^*=16\pi\sigma_0^3/3(\Delta G_v)^2$. 
-However, with so small driving force, the effect of the (unknown) scaling interface energy $\sigma_0$ on the nucleation barrier is very large. The non-dimensional nucleation barrier $\beta$ in multiples of $kT$ then varied between 3 and 2950 for $\sigma_0$ equal to 0.1 and \qty{1}{\J/\m^2}, respectively. The actual value of $\sigma_0$ cannot be reached, but if the nucleation barrier was so small due to the low $\sigma_0$, a very high nucleation rate would be expected during the whole experiment. It would not explain the observed sudden change in the texture (supposedly due to nucleation) and the long columnar grains seen in this sample (see Figure~\ref{fig_Alimadadi_results}) should not occur at all.
-
-Alimadadi et. al~\cite{Alimadadi2016} did not investigate in depth what mechanisms were responsible for the texture change in this sample. The hereby presented interpretation is extending their discussion and there are no points of disagreement.
-
-Should the anisotropy function produce Wulff shape with facets, there would be no self-intersection of the Wulff plot, because that one is formed essentially by single orientation per facet. However, in such shapes, nearly all orientations are forbidden, i.e. with negative interface stiffness. We remind that not all the forbidden orientations are to fail the stability condition~\eqref{eq_stabcond_general_explicit}, but they are the candidates for doing so. The stability condition thus has possibly large implications for anisotropic nucleation in 2D space in general.  
+	\subsection{Comparison to experiment and discussion}\label{sec_MC_to_experiment}
+	The presented theory can be used to qualitatively explain some recent experimental results by Alimadadi et al.~\cite{Alimadadi2016}. They studied the through-thickness texture evolution in Ni electrodeposited on amorphous substrate in four samples, each of which exhibited different dominant fiber texture. The only variables in the deposition were pH and deposition rate, the resulting thickness was different in every sample, but around \qty{20}{\um}. 
+	
+	The sample deposited at the smallest rate of \qty{0.533}{\nano\meter/\second} (i.e. an order of magnitude smaller than the others, the current density being \qty{0.2}{\A/\deci\meter^2}) exhibited sudden change of texture in the low thickness of 0-4~\unit{\um}, as can be seen in Figure~\ref{fig_Alimadadi_results}. The $\langle100\rangle$ texture in the nanocrystalline zone A below the 2~\unit{\um} of thickness is gone in the pole figure of 2-4~\unit{\um}, where the $\langle110\rangle$ component starts developing and later strenghtens with increasing thickness. Very few grains reaching the surface could be traced back to the nanocrystalline zone A, which means that nucleation had to take place~\cite{Alimadadi2016}. The nucleation was apparently anisotropic (with a bias towards $\langle110\rangle$). The combination of nuclei density and their advantage in growth was able to set a completely new course to the texture evolution within a rather thin layer of the deposit. 
+	
+	In the other samples of Alimadadi, the initial texture contained the resulting dominant component, which gradually reinforced with thickness (similarly to how the sample in Figure~\ref{fig_Alimadadi_results} evolved from \qty{2}{\um} on). 
+	
+	Interestingly, the nucleation in the discussed sample happened at very low growth rate, which in general implies high nucleation barriers. The nucleation barrier for the emerging nuclei had to be very small, though, because the nucleation took place regardless of the small driving force. The possibility of low nucleation barrier even with low driving force (given a convenient bottom grain orientation) was shown to be one of possible manifestations of anisotropic nucleation barrier (see Figure~\ref{fig_MC_deposits_ori_ev_3}).
+	
+	Detailed analysis of the possible competition between the interface-energy-minimization and strain-energy-minimization mechanisms of texture formation in this case is out of the scope of this paper. The sole fact that significant amount of anisotropic, growth-successful nuclei appeared at very low driving force is a peculiarity, which can be qualitatively explained by the presented results, though. 
+	
+	\begin{figure}[]
+		\centering
+		\includegraphics[width=0.8\textwidth]{Alimadadi.jpg}
+		\caption{Experimental results of Ni electrodeposited on an amorphous substrate, adapted from~\cite{Alimadadi2016}. On the right, an EBSD map of the deposit cross-section is shown, the inverse pole figure is in the top-right inset. The axis indicates the deposit thickness in \unit{\um}. The pole figures on the left correspond to the indicated regions, their colorbar of MRD (Multiples of Random Distribution) is provided.}
+		\label{fig_Alimadadi_results}
+	\end{figure}
+	
+	Possibly one mechanism sustained the texture by setting the rules for growth competition up to certain thickness. With the overtake of the other mechanism then, possibly the nuclei would suddenly have more chances in the growth competition. At the same time, the initial favourable-for-nucleation texture would still be in place, before overgrown by the nuclei.
+	
+	An attempt to estimate the non-dimensional nucleation barrier $\beta$ in the discussed experiment was made. 
+	% From~\cite{Schlesinger2010}, pp. 102 was read from graph of anodic dissolution that the anodic exchange current density $i_0$ for Watts solution of pH=4.5 is about $i_0=0.14445$~\unit{\A/\deci\meter^2} and the linear potential-current region extended to \qty{0.8}{\A/\deci\meter^2}. That means that in the experiment, the current was linearly proportional to the overpotential as $i=i_0(F/RT)\eta$, $F$  being the Faraday constant. Assuming the same rate for cathodic $i_0$ allowed to express the mean overpotential to be $\eta=0.0385$~V from the latter equation. Then, the bulk driving force was expressed as $\Delta G_V=2F\eta/v_m$, with $v_m$ the molar volume of Ni. A formula for isotropic homogeneous nucleation barrier in 3D was used, i.e. $(\Delta G)^*=16\pi\sigma_0^3/3(\Delta G_v)^2$. 
+	However, with so small driving force, the effect of the (unknown) scaling interface energy $\sigma_0$ on the nucleation barrier is very large. The non-dimensional nucleation barrier $\beta$ in multiples of $kT$ then varied between 3 and 2950 for $\sigma_0$ equal to 0.1 and \qty{1}{\J/\m^2}, respectively. The actual value of $\sigma_0$ cannot be reached, but if the nucleation barrier was so small due to the low $\sigma_0$, a very high nucleation rate would be expected during the whole experiment. It would not explain the observed sudden change in the texture (supposedly due to nucleation) and the long columnar grains seen in this sample (see Figure~\ref{fig_Alimadadi_results}) should not occur at all.
+	
+	Alimadadi et. al~\cite{Alimadadi2016} did not investigate in depth what mechanisms were responsible for the texture change in this sample. The hereby presented interpretation is extending their discussion and there are no points of disagreement.
+	
+	Should the anisotropy function produce Wulff shape with facets, there would be no self-intersection of the Wulff plot, because that one is formed essentially by single orientation per facet. However, in such shapes, nearly all orientations are forbidden, i.e. with negative interface stiffness. We remind that not all the forbidden orientations are to fail the stability condition~\eqref{eq_stabcond_general_explicit}, but they are the candidates for doing so. The stability condition thus has possibly large implications for anisotropic nucleation in 2D space in general.  
 
 \section{Conclusion}
 This chapter investigated implications of the anisotropy in interface energy for orientation selection in repeated nucleation during polycrystal deposition. 

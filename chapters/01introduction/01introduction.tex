@@ -8,20 +8,35 @@
 \newglossaryentry{md}{name={MD},description={molecular dynamics}}
 
 \section{General introduction}
-Irrespective of the deposition method, it is known that the process parameters often have pronounced effect on crystallographic texture and microstructure of polycrystalline deposits. Evaporation, sputtering, chemical vapour deposition or electrodeposition are just examples of these methods. Each is tied with a unique combination of physical and chemical interactions at the interface between the deposit and parent phase. The as-deposited texture is the result of synergy of many factors. However, the anisotropy on the deposit/parent phase interface during the film growth certainly plays an important role. 
+Electrodeposition is a highly industrially relevant process used for many applications like metal deposition for the fabrication of integrated circuits, deposition for magnetic recording devices (heads, disks), and deposition
+of multilayer structures~\cite{Schlesinger2006}, to name a few. Usually, the electrodeposits are polycrystalline and exhibit pronounced crystallographic texture, which is affected by many factors. 
 
-Typically, nucleation in film deposition is studied as a phenomenon occurring on substrates, rather than on the deposit itself. However, there seems to be no obvious reason to neglect such an option, given the complicated anisotropy of grain boundary energy and local deposition conditions, varying possibly in both space and time. 
+Texture has a marked influence on the properties of a given deposit. Seemingly unrelated parameters (properties) such as corrosion resistance, hardness, magnetic properties, porosity, and contact resistance are all texture dependent~\cite{Schlesinger2010}. Some properties such as macroscopic magnetic anisotropy do not even exist if the sample is not textured~\cite{Dinnebier2008}.
 
-Despite the fact, that the anisotropy in interface energy is widely accepted to be one of the fundamental texture-forming factors, its effect on the orientation selection in nucleation remains fundamentally unclear. 
+Every deposition method has its specific parameters used to control the process. These are used to optimize the resulting textures, but the relation to the fundamental texture-forming quantities (i.e. the local conditions on the deposited material surface) is usually missing. The problem is that they are inaccessibile after the deposition and it is not clear how they could be measured during the deposition. 
 
-\section{Textures in coatings and interface energy anisotropy}
-A widely accepted theory by Thompson~\cite{Thompson1993} suggests that the texture in deposits is controlled by two main factors: minimization of interface energy and minimization of strain energy. The first favors growth of grains with low-energy interfaces facing the parent phase and the second aligns the grains in the deposit to accommodate the stress. The energy densities are explicitly expressed for an abstracted columnar microstructure and compared as functions of the film thickness. He concluded that thin enough deposits have the texture controlled by minimization of interface energy. Above certain thickness, the strain energy overtakes. Later, additional factors contributing to the strain energy were included in the theory~\cite{Consonni2008}, allowing sensible interpretation of textures observed in sputter-deposited CdTe and electrodeposited Cu, but the results of some others are in agreement with the theory as well~\cite{SonnweberRibic2006, Sanchez1992}. 
+Irrespective of which type of deposition technique is used, texture formation is controlled by interfacial energy, surface diffusivity of adatoms, grain boundary mobility and grain boundary and lattice diffusion~\cite{Szpunar1997, Suwas2014}. These properties together then affect the fundamental processes: nucleation, crystal growth and grain boundary motion~\cite{Barna1998}. Understanding how the texture in films is formed and how it can be controlled during the deposition process, is beneficial for the development of methods of texture optimization~\cite{Szpunar1997}. 
 
-A more phenomenological work by Rasmussen et al.~\cite{Rasmussen2001} studied Cu electrodeposits on crystalline and amorphous substrates and proposed that in electrodeposition, the two competing texture-forming factors are the influence of the substrate and that of deposition conditions. Through the film thickness, three zones are defined: A (substrate-controlled texture), B (mixed) and C (deposition-conditions-controlled texture). The effect of the substrate in zone A can be e.g. epitaxy or chemical reactions, in zone C the anisotropy modifications are believed to be due to specific adsorption of different species \cite{Amblard1979,BergenstofNielsen1997}. A more recent study of Ni electrodeposition~\cite{Alimadadi2016} investigated the texture evolution through thickness with microscopic detail and showed, that the transition zone B does not seem to always occur as a simple mixture of A and C.
+The anisotropy in crystal growth in general must originate from the anisotropy on the interfaces of the growing crystal with its surroundings - the substrate and the parent phase. In electrodeposition, the surface conditions may dynamically change due to local concentration evolution of the many present thermodynamic species in the solutions and their interactions with the deposit surface. 
 
-Two different theories by Pangarov~\cite{Pangarov1962,Pangarov1964} and Kozlov~\cite{Kozlov2003} suggested that the textures of the electrodeposits are originated in the anisotropy of the nucleation barrier (\textit{work of formation}), but each used a different reasoning. Pangarov treated 2D nuclei only and made the work of formation depending exclusively on overpotential and lattice parameters. This theory was inconsistent with experimental observation of nuclei character as function of overpotential~\cite{Bulatov2014}. Kozlov studied the formation of initial texture on amorphous substrates in fcc metals by means of atomistic nucleation theory. Specifically, he computed the nucleation barriers and sizes of nuclei with three significant orientations. His prediction of initial $\langle111\rangle$ texture is in agreement with Thompson. It can thus be deduced, that in the initial stages of growth in fcc metals on amorphous substrates, both the nucleation and growth may lead to the same fiber texture by means of interface energy minimization. 
+In such situations, mathematical models of the process are useful to suggest some interpretation to the observed behaviors to gain better insight. This thesis elaborates on the possible impact of anisotropy in interface energy on the orientation selection during repeated nucleation on the course of the film growth. 
 
-In practice, the interface energy anisotropy or deposition rate anisotropy cannot be measured directly during the deposition, which complicates the interpretation of the observed textures and microstructures. Additionally, the effect of the two above physical quantities on the polycrystalline deposit growth was shown to be equivalent in phase-field simulations to some extent~\cite{Wendler2011}. It seems analogical to equilibrium Wulff shapes and kinetic Wulff shapes, which are geometrically similar~\cite{Kobayashi2001}. However, this makes the fundamental discussion about how the growth is affected by interface anisotropy in general even more challenging, because the growth rate and interface energy are very different quantities, taking part in different processes. This highlights the utility of simulation tools, which allow to set the anisotropy in interface energy and kinetic coefficient independently, because in practice the individual effects may be hard or impossible to distinguish. Among such tools is (multi-)phase field method.
+%This highlights the utility of simulation tools, which allow to set the anisotropy in interface energy and kinetic coefficient independently, because in practice the individual effects may be hard or impossible to distinguish. Among such tools is (multi-)phase field method.
+
+The interface energy is particularly important for the nucleation, which is in turn the main process of how grains with new orientations are introduced during the film growth. To the best of author's knowledge, the relation between the interface energy anisotropy and the anisotropy in nucleation barrier as function of local crystallographic orientation has not been fundamentally investigated. This work intends to bring more insight into this relation using different simulation approaches.
+
+%The following sections provide some fundamental information about the deposition process and as-deposited mictrostructures - Structure-Zone model, Winand diagrams and how the calssical nucleation theory is modified by the presence of anisotropy in interface energy.
+
+Of the deposition methods, the electrodeposition is particularly interesting, because
+\begin{itemize}
+	\item the (anisotropic) surface conditions are highly adjustable by additives and deposition conditions,
+	\item the current or voltage transients provide valuable integral feedback on the surface processes in-situ, so there is more information available than in other methods,
+%	\item it can be carried out in a highly localized way (e.g. during electrochemical scanning microscopy), which allows higher control ???!,
+%	\item the direction of the deposition reaction is controlled by the sign of applied voltage, which allows pulsed regime, where deposition and stripping are repeated in rather short cycles. This adds completely new dynamics to the deposition process and provides additional perspective to tune the deposit properties, 
+	\item it is industrially relevant.
+\end{itemize}
+For these reasons, this thesis focuses more on electrodeposition than on other deposition methods. However, the interface energy is also relevant for all the others, hence the implications of its anisotropy are in principle applicable to any other deposition method as well. 
+
 
 \section{TODO Goals of the thesis}
 This thesis explores the effect of anisotropic interface energy on nucleation and growth of polycrystalline deposits in various simulation concepts. It is known that the anisotropy in interface energy affects the equilibrium stable shape of a particle (on a plane). Also, it is known that the nucleation probability is proportional to the particle area (in 3d to its volume).
@@ -38,13 +53,26 @@ The goals of the thesis are:
 \end{enumerate}
 
 
+\section{INTRO}
 
 
-A perspective approach for simulation of a growing film including nucleation is multi-phase field method, which allows inclusion of anisotropic interface energy, but also anisotropy of the kinetic coefficient (deposition rate).
 
-The goal 
 
-An established multi-phase field method was extended so that the equilibrium stable shapes could be obtained.
+
+
+The anisotropic nature of monocrystals implies anisotropy of the interfaces they have with their surroundings. This translates into anisotropy of both thermodynamic and kinetic properties which are tied with the interface, especially the specific interface energy and the kinetic coefficient of the deposition/dissolution reaction. Even though it is natural to expect that both are manifestations of a single surface condition, because both quantities are used 
+
+
+
+\section{TODO Thesis overview}
+This thesis explores how anisotropy in surface energy affects the course of crystallographic texture evolution in polycrystalline coatings, with emphasis on orientation selection in repeated nucleation. The textures in as-deposited coatings are always affected by the deposition conditions, especially by the deposition method and further the temperature, deposition rate, materials of the deposit and substrate and other method-specific conditions. 
+
+%
+%A perspective approach for simulation of a growing film including nucleation is multi-phase field method, which allows inclusion of anisotropic interface energy, but also anisotropy of the kinetic coefficient (deposition rate).
+%
+%The goal 
+%
+%An established multi-phase field method was extended so that the equilibrium stable shapes could be obtained.
 
 
 
@@ -61,163 +89,7 @@ An established multi-phase field method was extended so that the equilibrium sta
 
 
 
-%\section{Motivation}
 
-
-
-%\section{Anisotropic interface energy}
-%    \subsection{Capillary vector formalism}
-%    Let the interface energy $\sigma$ depend on the local orientation of the interface described by its unit normal $\bm{n}$, i.e. $\sigma=\sigma(\bm{n})=\sigma_0 f(\bm{n})$. The function $f(\bm{n})$ is called anisotropy function and $\sigma_0$  is a scaling parameter with dimensions of interface energy. Formal requirements on the anisotropy function can be found e.g. in~\cite{Kobayashi2001}. A very useful formalism for thermodynamic description of these anisotropic interfaces is so-called capillary vector $\bm{\xi}$ (a.k.a. Cahn-Hoffmann vector or $\xi$-vector), defined as 
-%    \begin{equation}
-%        \bm{\xi} = \mathrm{grad}(r\sigma(\bm{n}))\,,
-%    \end{equation}
-%    where $r$ is radial distance from origin, which can be also seen as magnitude of scaled normal vector $\bm{r}=r\bm{n}$. Level sets of the scalar function $r\sigma(\bm{n})$ are geometrically similar to the anisotropy function $f(\bm{n})$, which is continuously scaled by the radius $r$.
-%    
-%    Capillary vector was introduced and investigated by Hoffman and Cahn in~\cite{Hoffman1972,Cahn1974}, who showed that this formalism is consistent with major laws governing behavior of (anisotropic) interfaces like Gibbs-Thompson equation (relating chemical potential and isotropic surface curvature), Herring's equation (chemical potential on anisotropic curved surface), Wulff shape construction, force balance at multi-junctions and others. 
-%    
-%    A defining property of capillary vector is that its component normal to the surface $\xi_\perp$ is in magnitude equal to the local value of the interface energy and the surface-tangent component points in the direction of steepest change in interface energy and is proportional to the change. More specifically  
-%    \begin{align}
-%        \xi_\perp &= \bm{\xi}\cdot\bm{n}=\sigma(\bm{n}) \\
-%        \xi_\| &= \left(\frac{\partial \sigma}{\partial \theta}\right)_{max} \,,
-%    \end{align}
-%    where $\theta$ is the angle representing change in orientation of $\bm{n}$ in the direction of maximal angular rate change. The vector can thus be written
-%    \begin{equation}
-%        \bm{\xi}(\bm{n}) = \sigma(\bm{n})\bm{n} + \left(\frac{\partial \sigma}{\partial \theta}\right)_{max} \bm{t} \,,
-%    \end{equation}
-%    with $\bm{t}$ being unit vector tangent to the surface pointing in the described direction. Useful is expression of capillary vector in spherical coordinates 
-%    \begin{equation}
-%        \bm{\xi}(\theta,\phi) = \sigma(\theta,\phi)\bm{\hat{r}} + \left(\frac{\partial \sigma}{\partial \theta}\right)\bm{\hat{\theta}} + \frac{1}{\sin(\theta)}\left(\frac{\partial \sigma}{\partial \phi}\right)\bm{\hat{\phi}} \,,
-%    \end{equation}
-%    which is only function of the polar and azimuthal angle $\theta,\phi$, respectively. In 2D in polar coordinates the normal and tangent vector can be written as functions of the interface normal angle $\theta$ as
-%    \begin{equation} \label{eq_xivec_2D}
-%        \bm{\xi}(\theta) = \sigma(\theta)\begin{bmatrix}
-%             \cos(\theta)  \\
-%             \sin(\theta) 
-%        \end{bmatrix} + \left(\frac{\partial \sigma}{\partial \theta}\right)\begin{bmatrix}
-%             -\sin(\theta) \\
-%             \cos(\theta)  
-%        \end{bmatrix} \,.
-%    \end{equation}
-%
-%    \subsection{Interface stiffness}
-%    
-%    \subsection{Wulff shape}
-%    Wulff shape is such shape, which minimizes the interface energy given a constant volume. In 2D it can be obtained as the inner convex hull of all tangent straight lines to the anisotropy function $f(\theta)$. This can be used to define the Wulff shape $W$ as a set of points $\bm{x}$
-%    \begin{equation}
-%        W = \{ \bm{x}\in\mathbb{R}| \bm{x}\cdot\bm{n}\leq \sigma(\bm{n})\} \,,
-%    \end{equation}
-%    which is a geometrical representation of what was said above - projection of the position vector $\bm{x}$ of a point within the Wulff shape to the interface normal vector $\bm{n}$ must be smaller than the anisotropic interface energy. This defines the inner hull of the tangent lines.
-%    
-%    When the heads of capillary vectors for all interface normal angles $\theta$ are connected (having a common starting point in the origin), so-called $\xi$-plot is obtained. It turns out, that the $\xi$-plot coincides with the Wulff shape~\cite{Hoffman1972}. Hence, the expression~\eqref{eq_xivec_2D} can be used to plot the 2D Wulff shape in cartesian coordinates. This is entirely true as long as there are no corners or facets on the Wulff shape, in which cases the use of capillary vecor for Wulff shape plotting must be appropriately modified (see below for details).
-%    
-%    In~\cite{Cahn1974} the authors re-state he problem of finding equilibrium shapes of crystals with anisotropic interfaces under general conditions. The shape is found as a solution to equation
-%    \begin{equation} \label{eq_xivec_equilibrium_shape}
-%        \Delta\Omega_v + \nabla_S\cdot \bm{\xi} = 0 \,,
-%    \end{equation}
-%    where $\Delta\Omega_v$ is the bulk driving force, specifically the difference in grand-canonical potential of the two phases, and $\nabla_S\cdot$ is surface divergence. The surface $\bm{r}$ is seeked, complying with the above equation. A simple trick is used to find the shape of an isolated particle. Surface divergence over the surface itself is simply $\nabla_S\cdot\bm{r}=2$, hence we can write
-%    \begin{align}
-%        1 = \nabla_S\cdot\bm{r}/2 &= -\nabla_S\cdot\bm{\xi}/\Delta\Omega_v \\
-%         \nabla_S\cdot(\bm{r} +2\bm{\xi}/\Delta\Omega_v) &=0 \,,
-%    \end{align}
-%    leading to the result
-%    \begin{equation}
-%        \bm{r} = -\frac{2}{\Delta\Omega_v}\bm{\xi} \,.
-%    \end{equation}
-%    
-%    Two different types of singularities may occur in Wulff shapes, which must be treated in a specific way: corners and facets. 
-%    
-%    Corners represent a discontinuity of normal angle along the Wulff shape perimeter. They occur when the anisotropy of the interface energy is such, that interface stiffness gets negative for some normal angles $\theta_f$. These angles are called forbidden and they are thermodynamically unstable. For this reason, they are not present on the Wulff shape. Additionally, there are normal angles $\theta$ which are thermmodynamically stable but are not present on the Wulff shape. The latter ones correspond to angles, where the inverse interface energy $1/\sigma(\theta)$ is non-convex but still have positive interface stiffness. All forbidden angles fall into this non-convex region. By replacing the non-convex part of this function by straight lines a regularized inverse anisotropy function $1/\bar{\sigma}(\theta)$ is obtained. Wulff shape corresponding to the regularized anisotropy function $\bar{\sigma}(\theta)$ does not contain the "ears" behind the corners. The interface stiffness of both the allowed and forbidden angles which form the "ears" were thus set to zero.
-%    
-%    The facets were not treated in this work, hence they are not further discussed.
-%    
-%    \subsection{Force balance in triple junction and stability of its configuration} \label{sec_intro_trijun_forcebalance_stability}
-%    A triple junction in 2D is simply a point and force balance is achieved if the capillary vectors of the three interfaces sum to zero, i.e. 
-%    \begin{equation} \label{eq_trijun_forcebalance_sum_xivec}
-%        \bm{\xi}_{12}+\bm{\xi}_{23}+\bm{\xi}_{13}=0
-%    \end{equation}
-%    The problem of force balance in triple junctions was treated in detail in~\cite{Marks2012}. Even though the capillary vector formalism was not used, a condition equivalent to~\eqref{eq_trijun_forcebalance_sum_xivec} was obtained from geometrical arguments (note that the 90-degree rotation does not change meaning of the equation)
-%    \begin{equation} \label{eq_force_balance_3jun_aniso}
-%        \sum_{i=1}^3 \left[ \sigma_i(\vartheta_i)\hat{\bm{t}}_i +\frac{\mathrm{d} \sigma_i}{\mathrm{d} \vartheta_i}\hat{\bm{n}}_i \right] = 0 \,,
-%    \end{equation}
-%    where the subscripts now denote interfaces numbered from 1 to 3. $\vartheta_1,\vartheta_2,\vartheta_3$ are angles under which the tangent of each interface is oriented (all w.r.t.\ x axis),  the anisotorpic interface energies are $\sigma_i(\vartheta_i)$. The triple junction configuration is defined by the triplet of the angles $\vartheta_i$. However, it was pointed out, that the above condition is only necessary for the triple junction configuration to be stable, i.e. it does not guarantee the configuration stability. Validity of~\eqref{eq_force_balance_3jun_aniso} assures a stationary point in Gibbs free energy, but in order to have a stable configuration, the energy must be in local minimum. To confirm that, second derivatives of Gibbs free energy with respect to angles $\vartheta_1,\vartheta_2,\vartheta_3$ must be assessed, giving rise to the following two conditions (both of which must hold in stable configuration)
-%    \begin{align} \label{eq_3jun_aniso_stabcond1}
-%        0 <& \sum_{i=1}^3 \left[ \frac{\mathrm{d}^2 \sigma_i}{\mathrm{d} \vartheta_i^2} + \sigma_i(\vartheta_i) \right]\frac{\sin^2(\vartheta_i)}{d_i} \\  \label{eq_3jun_aniso_stabcond2}
-%        0 <& \left[ \frac{\mathrm{d}^2 \sigma_1}{\mathrm{d} \vartheta_1^2} + \sigma_1(\vartheta_1) \right]\left[ \frac{\mathrm{d}^2 \sigma_2}{\mathrm{d} \vartheta_2^2} + \sigma_2(\vartheta_2) \right] \frac{\sin^2(\vartheta_1-\vartheta_2)}{d_1d_2} +    \\
-%         &\quad +\left[ \frac{\mathrm{d}^2 \sigma_2}{\mathrm{d} \vartheta_2^2} + \sigma_2(\vartheta_2) \right]\left[ \frac{\mathrm{d}^2 \sigma_3}{\mathrm{d} \vartheta_3^2} +  \sigma_3(\vartheta_3) \right] \frac{\sin^2(\vartheta_2-\vartheta_3)}{d_2d_3} + \nonumber \\
-%         &\quad + \left[ \frac{\mathrm{d}^2 \sigma_1}{\mathrm{d} \vartheta_1^2} + \sigma_1(\vartheta_1) \right]\left[ \frac{\mathrm{d}^2 \sigma_3}{\mathrm{d} \vartheta_3^2} + \sigma_3(\vartheta_3) \right]  \frac{\sin^2(\vartheta_3-\vartheta_1)}{d_3d_1} \nonumber \,,
-%    \end{align}
-%    where $d_i$ are lengths from the triple junctions to anchor points, which are not relevant for the current work. Each term in the brackets is interface stiffness of the respective interface.
-%    
-%    If the second condition is equal to 0, these conditions are not conclusive, i.e. it is not possible to assess the nature of the stationary point (higher-order derivatives are needed then). 
-%    
-%    The assessment of stability of triple junction configuration is an important part of discussion of an equilibrium shape of anisotropic particle  on a substrate plane.
-%
-%    \subsection{Equilibrium shapes of anisotorpic particle on planar substrate}
-%    This problem has attracted considerable attention since it is of high practical importance, especially in applications like nucleation, preparation of functional deposits for electrochemical catalysis or in solid-state dewetting. The classical solution to the problem is by Kaischew for crystalline anisotropy with faceted chape\textit{(ref 1.50 in Milchev), year 1951} and Winterbottom1967 (interface energy as continuous function). Here it is demonstrated using the capillary vector formalism. 
-%    
-%    In the following only 2D cross section is discussed. It is assumed that the particle-substrate interface (denoted here with index 1) is linear with the substrate-parent phase (index 3), but with anti-parallel normal vector. Let the substrate plane be parallel with x axis. The particle-parent phase interface is denoted by index 2. The normal vectors of the respective interfaces in the contact point are $\hat{\bm{n}}_1=(0,-1)^{\mathrm{T}}$, $\hat{\bm{n}}_3=(0,1)^{\mathrm{T}}$ and $\hat{\bm{n}}_2$ is to be found from~\eqref{eq_trijun_forcebalance_sum_xivec}. Apparently, with the interfaces 1 and 3 fixed at orientations $\theta_1=-\pi/2$ and $\theta_3=\pi/2$, the force balance can be reduced to single equation, when the particle-parent phase capillary vector $\bm{\xi}_2$ is projected to the surface normal $\hat{\bm{n}}_S=\hat{\bm{n}}_3$. But that is merely the y-component of the capillary vector. The force balance can thus be written as
-%    \begin{equation}\label{eq_youngs_eq_aniso}
-%        \sigma_{3}(\pi/2)-\sigma_1(-\pi/2)  
-%          = \sigma_2(\theta_2)\sin(\theta_2) + \sigma_2'(\theta_2)\cos(\theta_2) \,.
-%    \end{equation}
-%    
-%    Geometric interpretation of this equation is that the force equilibrium in the triple junction is achieved when normal angle $\theta_2$ of the particle-parent phase interface in the triple junction is that one, which has the y coordinate of the Wulff shape equal to the difference $\sigma_{3}(\pi/2)-\sigma_1(-\pi/2) $. The equilibrium shape of anisotropic particle on a substrate is thus that of an isolated particle but truncated at a position, which derives from the force balance in the triple junction. The truncated part of isolated particle counts, which is above the truncating line.
-%    
-%    When all the three interfaces are isotropic, the well known Young's equation is obtained
-%    \begin{align}
-%        \sigma_3-\sigma_1 &= \sigma_2\sin(\theta_2) \\
-%            &= \sigma_2\cos(\vartheta_2)
-%        \,,
-%    \end{align}
-%    where in the second equation it was used that $\vartheta_2=\theta_2-\pi/2$.
-%    
-%    Let's assume the anisotropy of the particle-parent phase interface $\sigma_2(\theta_2)=\sigma_2^0f(\theta_2)$. Then the wetting parameter $\Gamma$ is defined
-%    \begin{equation}
-%        \Gamma = \frac{\sigma_{3}(\pi/2)-\sigma_1(-\pi/2) }{\sigma_2^0} \,,
-%    \end{equation}
-%    which is the vertical offset of the horizontal truncating line relative to center of the equilibrium shape of unit radius. Apparently, when $\Gamma > 0$, the line is above the Wulff shape center (the shape is submerged below the line) and there is such value of $\Gamma$, when the line is merely a tangent. That corresponds to the case of complete wetting and the contact angle is 0. For isotropic interface energy that occurs for $\Gamma=1$.
-%    
-%    On the other hand, when $\Gamma < 0$, the truncating line goes below the center (the shape is emerged above the line). There is such value of $\Gamma$ corresponding to complete non-wetting (with isotropic interface energy that is $\Gamma=-1$).
-%    
-%    \subsection{Stability of the equilibrium shape}\label{sec_fund_anisoIE_trijun_stability}
-%    Previous section showed derivation of the 2D equilibrium shape of anisotropic particle on a substrate from the triple junction force balance. However, as explained in~\ref{sec_intro_trijun_forcebalance_stability}, the stability of the solution should be assessed as well. The additional conditions~\eqref{eq_3jun_aniso_stabcond1}, \eqref{eq_3jun_aniso_stabcond2} can be re-written as
-%    \begin{align}
-%        0 &< \Sigma_1 s_1 + \Sigma_2 s_2 + \Sigma_3 s_3 \\
-%        0 &< \Sigma_1\Sigma_2 S_{12} + \Sigma_2\Sigma_3 S_{23} + \Sigma_1\Sigma_3 S_{13} \,,
-%    \end{align}
-%    where $\Sigma_i = \mathrm{d}^2 \sigma_i/\mathrm{d} \vartheta_i^2 + \sigma_i(\vartheta_i)$ are the respective interface stiffnesses, $s_i = \sin^2(\vartheta_i)/d_i$, $S_{ij} = \sin^2(\vartheta_i-\vartheta_j)/d_i d_j$. Given $\vartheta_1=0$ and $\vartheta_3=\pi$, it follows that $s_1=s_3=0$ and also that $S_{13}=0$. Note also that $s_2>0$ and $S_{12}=S_{23}=S=\sin^2(\vartheta_2)/d^2>0$ (assuming that $d_1=d_2=d_3$). The conditions are thus simplified to
-%    \begin{align}
-%        0 &< \Sigma_2  \label{eq_3jun_stabcond_onplane1}\\
-%        0 &< \Sigma_1\Sigma_2 + \Sigma_2\Sigma_3 \,,  
-%    \end{align}
-%    where only the interface stiffnesses matter. Using the first equation, the second may further be simplified
-%    \begin{equation}
-%        0< \Sigma_1 + \Sigma_3 \,. \label{eq_3jun_stabcond_onplane2}
-%    \end{equation}
-%    The condition~\eqref{eq_3jun_stabcond_onplane1} implies, that the particle-parent phase interface must be oriented under allowed angle in the contact point. That is fulfilled automatically by the truncated Wulff shape solution, because it contains only the allowed angles. 
-%    
-%    The condition~\eqref{eq_3jun_stabcond_onplane2} is surely fulfilled when both interfaces 1 and 3 have positive interface stiffness in their orientations. That holds automatically, when the Wulff shapes of the interfaces 1 and 3 do not contain any corners. When both of them do contain corners, it means that there are normal angles where the interface stiffness is negative. Apparently, in such situation, the condition~~\eqref{eq_3jun_stabcond_onplane2} may be violated.
-%
-%    \subsection{The anisotropy function $1+\delta\cos(n\theta)$}
-%    Wulff shape properties
-%    
-%    In this work, one of the three interfaces is not inclination-dependent (the particle-parent phase interface), hence its interface stiffness is always positive . is always of a constant interface energy as giv
-%
-%    
-%    
-%    Young's equation gives the equilibrium angles even in anisotropic case. - only it must be generalized as in Bao2017. Additionally, there it is shown that there may be multiple solutions to the nucleus and in which conditions. However, it should be noted that the shape as give nby the original Winterbottom construction is thwe one yielding the smallest area/volume, hence it is the most relevant in the context of nucleation, where the nucleation barrier is proportional to thwe nondim volume\\
-%    - energy of adhesion\\
-%    - note on the 3D vs 2D nucleation and the transition as in electrocrystallization
-%
-%\begin{itemize}
-%    \item Cahn-Hoffmann vector
-%    \begin{itemize}
-%        \item relation to Wulff shape 
-%        \item force balance along triple junction lines
-%    \end{itemize}
-%    \item conditions on stability of triple junction configuration
-%    \item[?] properties of Wulff of $1+\delta\cos(n\theta)$
-%\end{itemize}
 %
 %\section{Classical nucleation theory}
 %\begin{itemize}
@@ -268,17 +140,17 @@ An established multi-phase field method was extended so that the equilibrium sta
 %        \end{align}
 %        where in the second line there was introduced a non-dimensional volume of homogeneous nucleus $\hat{V}_{hom}=V/R^3$.
 %        
-%        \begin{figure}
-%            \centering
-%            \includegraphics[page=5]{thesis_figures.pdf}
-%            %
-%            \includegraphics[page=4]{thesis_figures.pdf}
-%            % \input{sketches/nucleation_barrier_3D}
-%            % %
-%            % \input{sketches/nucleation_barrier_2D}
-%            \caption{Bulk (blue) and interface (red) energy contributions to the Gibbs free energy change $\Delta G$ (black) upon nucleus insertion as function of nucleus radius $R/R_c$. Nucleation barrier $\Delta G_c^*$ indicated. In a) as applicable to 3D geometry, in b) as to 2D geometry (see text for details).}
-%            \label{fig_nucl_barrier}
-%        \end{figure}
+%%        \begin{figure}
+%%            \centering
+%%            \includegraphics[page=5]{thesis_figures.pdf}
+%%            %
+%%            \includegraphics[page=4]{thesis_figures.pdf}
+%%            % \input{sketches/nucleation_barrier_3D}
+%%            % %
+%%            % \input{sketches/nucleation_barrier_2D}
+%%            \caption{Bulk (blue) and interface (red) energy contributions to the Gibbs free energy change $\Delta G$ (black) upon nucleus insertion as function of nucleus radius $R/R_c$. Nucleation barrier $\Delta G_c^*$ indicated. In a) as applicable to 3D geometry, in b) as to 2D geometry (see text for details).}
+%%            \label{fig_nucl_barrier}
+%%        \end{figure}
 %        
 %        \subsubsection{Heterogeneous nucleation}
 %        In Figure~\ref{fig_isotropic_wetting} there is illustrated a 2D section through a hemispherical cap on a plane. The three different phases or grains are $\mathit{1}$, $\mathit{2}$ and $\mathit{3}$. Interfaces $\mathit{1}$-$\mathit{3}$ and $\mathit{2}$-$\mathit{3}$ form the substrate plane and are assumed to be immobile. The equilibrium angle $\alpha$ must establish a balance of the tractions due to surface energies of the three distinct interfaces. When the three tractions are projected to the substrate plane, the Young's equation is obtained
@@ -295,13 +167,13 @@ An established multi-phase field method was extended so that the equilibrium sta
 %            \Gamma = \cos(\alpha) = \frac{\sigma_{2,3}-\sigma_{1,3}}{\sigma_{1,2}} \,.
 %        \end{equation}
 %        
-%        \begin{figure}
-%            \centering
-%            \includegraphics[page=3]{thesis_figures.pdf}
-%            % \input{sketches/isotropic_wetting}
-%            \caption{Heterogeneous nucleation with isotropic interface energy. Force balance in the contact point during surface of $\mathit{3}$ wetting by a nucleus of $\mathit{2}$ emerging from $\mathit{1}$. Nucleus radius $R$ and equilibrium shape center indicated.}
-%            \label{fig_isotropic_wetting}
-%        \end{figure}
+%%        \begin{figure}
+%%            \centering
+%%            \includegraphics[page=3]{thesis_figures.pdf}
+%%            % \input{sketches/isotropic_wetting}
+%%            \caption{Heterogeneous nucleation with isotropic interface energy. Force balance in the contact point during surface of $\mathit{3}$ wetting by a nucleus of $\mathit{2}$ emerging from $\mathit{1}$. Nucleus radius $R$ and equilibrium shape center indicated.}
+%%            \label{fig_isotropic_wetting}
+%%        \end{figure}
 %        
 %        Upon the nucleus $\mathit{2}$ insertion, the change in Gibbs free energy is
 %        \begin{align}
@@ -341,13 +213,13 @@ An established multi-phase field method was extended so that the equilibrium sta
 %    
 %    Also the anisotropic heterogeneous nucleation shows many similarities to the isotropic case. Already Cahn [Cahn,1974] showed, that when the contact line of the substrate and particle is a closed planar curve, the equilibrium heterogeneous nucleus is obtained by truncation of the Wulff shape (in the isotropic case a sphere was truncated). The wetting conditions develop from the force balance along the contact line. That decides how the Wulff shape should be truncated. The force balance includes some extra terms compared to the isotropic case, which will be discussed in the next section. Sketch of the problem is in 
 %    
-%    \begin{figure}
-%        \centering
-%        \includegraphics[page=6]{thesis_figures.pdf}
-%        % \include{sketches/wulff_on_plane}
-%        \caption{Anisotorpic nucleus of phase $\mathit{2}$ oriented under direction $\bm{n}_\mathit{2}$ wetting the supporting plane $\mathit{3}$. Generalized radius $X_0$ and center shift indicated.}
-%        \label{fig:my_label}
-%    \end{figure}
+%%    \begin{figure}
+%%        \centering
+%%        \includegraphics[page=6]{thesis_figures.pdf}
+%%        % \include{sketches/wulff_on_plane}
+%%        \caption{Anisotorpic nucleus of phase $\mathit{2}$ oriented under direction $\bm{n}_\mathit{2}$ wetting the supporting plane $\mathit{3}$. Generalized radius $X_0$ and center shift indicated.}
+%%        \label{fig:my_label}
+%%    \end{figure}
 %    
 %    The shape factor $S(\Gamma,\bm{n}_\beta)=V_{het}^{ani}/V_{hom}^{ani}$ represents the ratio of volume of the truncated portion of the Wulff shape relative to volume of the untruncated one. It depends on the wetting condition, described by parameter
 %    \begin{equation}
@@ -410,12 +282,12 @@ An established multi-phase field method was extended so that the equilibrium sta
 %    
 %    \subsection{Heterogeneous nucleation on a grain boundary in 2D}
 %    
-%    \begin{figure}
-%        \centering
-%        \includegraphics[page=7]{thesis_figures.pdf}
-%        \caption{Caption}
-%        \label{fig:my_label}
-%    \end{figure}
+%%    \begin{figure}
+%%        \centering
+%%        \includegraphics[page=7]{thesis_figures.pdf}
+%%        \caption{Caption}
+%%        \label{fig:my_label}
+%%    \end{figure}
 %    
 %    Center of sphere center shift with isotropic interface energy during wetting
 %    \begin{equation}
