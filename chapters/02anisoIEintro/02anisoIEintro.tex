@@ -28,7 +28,7 @@ The same group later proposed~\cite{Rasmussen2001}, that the texture of an elect
 \section{Specific surface and interface energy}
 Be there an isothermic isolated thermodynamic system consisting of a block of solid material in a vacuum. When the block is reversibly cleaved, two equal areas $A$ are created on each side of the cleavage, newly facing the vacuum. The total energy change upon cleavage is equal to the reversible work $W$ done on the system. The reversible work thus transforms into \textit{surface energy} (unit \unit{J}) of the cleavage areas $W=2A\sigma$, where the symbol $\sigma$ stands for the \textit{specific surface energy} (unit \unit{J/m^2})~\cite{Milchev2002}. 
 
-Should the system consist of the solid block within a liquid, the specific surface energy would be lower due to interactions between the liquid and solid (e.g. specific interactions of the molecules within the liquid with the surface or double layer formation in case of electrified surface). The same in fact holds for blocks of two different materials joined together by an \textit{interface}, meaning that the interface energy will be lower than the sum of the individual surface energies (by \textit{adhesion energy}). The interface is then characterized by \textit{specific interface energy}. Even though some sources strictly distinguish the \textit{interface} to occur between two solid phases and use the word \textit{surface} for the solid in both vacuum or liquid~\cite{Milchev2002}, it as valid to see the \textit{interface} between two dissimilar phases (e.g. solid and liquid) and reserve the term surface energy strictly for the solid in vacuum. This thesis rather sees what separates the liquid from solid as \textit{interface}, but care was taken to be always explicit enough to make it clear what is the particular quantity in question.
+Should the system consist of the solid block within a liquid, the specific surface energy would be lower due to interactions between the liquid and solid (e.g. specific interactions of the molecules within the liquid with the surface or double layer formation in case of electrified surface). The same in fact holds for blocks of two different materials joined together by an \textit{interface}, meaning that the \textit{interface energy} will be lower than the sum of the individual surface energies (by \textit{adhesion energy}). The interface is then characterized by \textit{specific interface energy}. Even though some sources strictly distinguish the \textit{interface} to occur between two solid phases and use the word \textit{surface} for the solid in both vacuum or liquid~\cite{Milchev2002}, it as valid to see the \textit{interface} between two dissimilar phases (e.g. solid and liquid) and reserve the term surface energy strictly for the solid in vacuum. This thesis rather sees what separates the liquid from solid as \textit{interface}, but care was taken to be always explicit enough to make it clear what is the particular quantity in question.
 
 The word \textit{specific} in the \textit{specific surface energy} indicates that the quantity is intensive, i.e. relative to the area in this case. However, especially in phase field literature it is rather common to denote the intensive quantity simply by \textit{surface energy} or \textit{interface energy}. These two are often used interchangeably in this thesis.
 
@@ -67,9 +67,25 @@ which is only function of the polar and azimuthal angle $\theta,\phi$, respectiv
 \end{equation}
 
 \section{Interface stiffness}
+The interface stiﬀness is the coeﬃcient of the interface curvature in the description of the capillarity contribution to the chemical potential. In curvature-driven interface migration, the interface velocity is proportional to the interface stiﬀness, mobility and curvature.~\cite{Du2007} The so-called Herring's equation originally published in 1951 and reprinted in~\cite{Herring1999} states the chemical potential of atoms on a curved surface $\mu_{surf}$ due to the capillarity in a point
+\begin{equation}
+	\mu_{surf} = V_m\left(\gamma + \frac{\partial^2 \gamma}{\partial n_1} \right)\frac{1}{R_1} + V_m\left( \gamma +\frac{\partial^2 \gamma}{\partial n_2}\right)\kappa_2
+\end{equation}
+where $n_1, n_2$ are the orthogonal projections of the variable unit vector $\bm{n}$, on which the surface energy $\sigma(\bm{n})$ depends, onto a plane tangent to the surface at the point in question, the direction axis $1$ being chosen in the direction of the principal curvature $1/R_1$, the y axis in that of $1/R2$
+where $\kappa_1,\kappa_2$ are principal curvatures and $n_1,n_2$ are directions normal to the principal curves in point P. Isotropic interface energy gives rise to
+\begin{equation}
+	\Delta\mu_{surf} = V_m\gamma(\kappa_1+\kappa_2)
+\end{equation}
+which means the chemical potential is proportional to mean curvature in point P.\\
+This is the way the \textit{capillary driving forces} act on the surface (ad)atoms.\\
+
+
+ As a result, the interface stiﬀness is the key material property that relates interface curvature to interface thermodynamics and kinetics.
+
+
 
 \section{Wulff shape}
-Wulff shape is such shape, which minimizes the interface energy given a constant volume. In 2D it can be obtained as the inner convex hull of all tangent straight lines to the anisotropy function $h(\theta)$. This can be used to define the Wulff shape $W$ as a set of points $\bm{x}$
+Wulff shape is such a shape, which minimizes the interface energy given a constant volume. In 2D it can be obtained as the inner convex hull of all tangent straight lines to the anisotropy function $h(\theta)$. This can be used to define the Wulff shape $W$ as a set of points $\bm{x}$
 \begin{equation}
     W = \{ \bm{x}\in\mathbb{R}| \bm{x}\cdot\bm{n}\leq \sigma(\bm{n})\} \,,
 \end{equation}
@@ -91,9 +107,11 @@ leading to the result
     \bm{r} = -\frac{2}{\Delta\Omega_v}\bm{\xi} \,.
 \end{equation}
 
+This is why the $\xi$-plot coincides with the Wulff shape.
+
 Two different types of singularities may occur in Wulff shapes, which must be treated in a specific way: corners and facets. 
 
-Corners represent a discontinuity of normal angle along the Wulff shape perimeter. They occur when the anisotropy of the interface energy is such, that interface stiffness gets negative for some normal angles $\theta_f$. These angles are called forbidden and they are thermodynamically unstable. For this reason, they are not present on the Wulff shape. Additionally, there are normal angles $\theta$ which are thermmodynamically stable but are not present on the Wulff shape. The latter ones correspond to angles, where the inverse interface energy $1/\sigma(\theta)$ is non-convex but still have positive interface stiffness. All forbidden angles fall into this non-convex region. By replacing the non-convex part of this function by straight lines a regularized inverse anisotropy function $1/\bar{\sigma}(\theta)$ is obtained. Wulff shape corresponding to the regularized anisotropy function $\bar{\sigma}(\theta)$ does not contain the "ears" behind the corners. The interface stiffness of both the allowed and forbidden angles which form the "ears" were thus set to zero.
+Corners represent a discontinuity of normal angle along the Wulff shape perimeter. They occur when the anisotropy of the interface energy is such, that interface stiffness gets negative for some normal angles $\theta_f$. These angles are called forbidden, because they are thermodynamically unstable. For this reason, they are not present on the Wulff shape. Additionally, there are normal angles $\theta$ which are thermmodynamically stable but are not present on the Wulff shape. The latter ones correspond to angles, where the inverse interface energy $1/\sigma(\theta)$ is non-convex but still have positive interface stiffness. All forbidden angles fall into this non-convex region. By replacing the non-convex part of this function by straight lines a regularized inverse anisotropy function $1/\bar{\sigma}(\theta)$ is obtained. Wulff shape corresponding to the regularized anisotropy function $\bar{\sigma}(\theta)$ does not contain the "ears" behind the corners. The interface stiffness of both the allowed and forbidden angles which form the "ears" were thus set to zero.
 
 The facets were not treated in this work, hence they are not further discussed.
 
