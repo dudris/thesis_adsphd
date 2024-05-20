@@ -138,7 +138,7 @@ This is equivalent to so-called Herring relations which were published in 1951~\
 where the subscripts now denote interfaces numbered from 1 to 3. $\vartheta_1,\vartheta_2,\vartheta_3$ are angles under which the tangent of each interface is oriented (all with respect to x axis, see the Figure~\ref{fig_Marks2012_sketch_trijun}), the anisotropic interface energies are $\sigma_i(\vartheta_i)$. The triple junction configuration is defined by the triplet of the angles $\vartheta_i$.
 \begin{figure}
 	\centering
-	\includegraphics[width=0.4\textwidth]{Marks2021_sketch_trijunction_stability.png}
+	\includegraphics[width=0.6\textwidth]{Marks2021_sketch_trijunction_stability.png}
 	\caption{Illustration of a triple junction in 2D taken from~\cite{Marks2012}. Infinitesimal translation in x direction and the corresponding change in the triple junction configuration is illustrated. In the figure the tangent angles of  the individual interfaces are denoted $\theta_i$, whereas in the text they are written as $\vartheta_i$.}
 	\label{fig_Marks2012_sketch_trijun}
 \end{figure}
@@ -158,7 +158,14 @@ The assessment of stability of triple junction configuration is an important par
 \section{Equilibrium shapes of a particle with anisotropic interface energy on a planar substrate}
 This problem has attracted considerable attention since it is of high practical importance, especially in applications like nucleation~\cite{Bormashenko2021}, preparation of functional deposits for electrochemical catalysis~\cite{Tian2007} or in solid-state dewetting~\cite{PierreLuis2016, Bao2017}. The classical solution to the problem is by Kaischew for crystalline anisotropy with faceted shape~\cite{Kaischew1951} (cited by Milchev in~\cite{Milchev2002} but the original paper was not found) and by Winterbottom \cite{Winterbottom1967} (interface energy as continuous function). Here it is demonstrated using the capillary vector formalism. 
 
-In the following, only 2D cross section is discussed. It is assumed that the particle-substrate interface (denoted here with index 1) is linear with the substrate-parent phase (index 3), but with anti-parallel normal vector. Let the substrate plane be parallel with x axis. The particle-parent phase interface is denoted by index 2. The normal vectors of the respective interfaces in the contact point are $\hat{\bm{n}}_1=(0,-1)^{\mathrm{T}}$, $\hat{\bm{n}}_3=(0,1)^{\mathrm{T}}$ and $\hat{\bm{n}}_2$ is to be found from~\eqref{eq_trijun_forcebalance_sum_xivec}. Apparently, with the interfaces 1 and 3 fixed at orientations $\theta_1=-\pi/2$ and $\theta_3=\pi/2$, the force balance can be reduced to single equation, when the particle-parent phase capillary vector $\bm{\xi}_2$ is projected to the surface normal $\hat{\bm{n}}_S=\hat{\bm{n}}_3$. But that is merely the y-component of the capillary vector. The force balance can thus be written as
+In the following, only 2D cross section is discussed. See the Figure~\ref{REF} for illustration.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\textwidth]{mariaux2011_Winterbottom_construction.png}
+\end{figure}
+
+ It is assumed that the particle-substrate interface (denoted here with index 1) is linear with the substrate-parent phase (index 3), but with anti-parallel normal vector. Let the substrate plane be parallel with x axis. The particle-parent phase interface is denoted by index 2. The normal vectors of the respective interfaces in the contact point are $\hat{\bm{n}}_1=(0,-1)^{\mathrm{T}}$, $\hat{\bm{n}}_3=(0,1)^{\mathrm{T}}$ and $\hat{\bm{n}}_2$ is to be found from~\eqref{eq_trijun_forcebalance_sum_xivec}. Apparently, with the interfaces 1 and 3 fixed at orientations $\theta_1=-\pi/2$ and $\theta_3=\pi/2$, the force balance can be reduced to single equation, when the particle-parent phase capillary vector $\bm{\xi}_2$ is projected to the surface normal $\hat{\bm{n}}_S=\hat{\bm{n}}_3$. But that is merely the y-component of the capillary vector. The force balance can thus be written as
 \begin{equation}\label{eq_youngs_eq_aniso}
     \sigma_{3}(\pi/2)-\sigma_1(-\pi/2)  
       = \sigma_2(\theta_2)\sin(\theta_2) + \sigma_2'(\theta_2)\cos(\theta_2) \,.
