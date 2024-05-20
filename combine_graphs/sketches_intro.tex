@@ -258,5 +258,83 @@
         \end{axis}
 \end{tikzpicture}
 
+% CIRCLE_on_GB
+\begin{tikzpicture}
+	\begin{axis}[
+		axis equal,
+		axis line style={draw=none},
+		xtick=\empty,
+		ytick=\empty,
+		declare function={
+			yshift1=0.2;
+			yshift2=-0.6;
+			n=4;
+			nsoa=0;
+			rot1 = 30;
+			rot2 = rot1;
+			d=nsoa/(n^2-1);
+			aniso1(\t)=1+d*cos(n*(\t-rot1));
+			daniso1(\t)=-n*d*sin(n*(\t-rot1));
+			Wulffx1(\t) = aniso1(\t)*cos(\t) - daniso1(\t)*sin(\t);
+			Wulffy1(\t) = aniso1(\t)*sin(\t) + daniso1(\t)*cos(\t);
+			aniso2(\t)=1+d*cos(n*(\t-rot2));
+			daniso2(\t)=-n*d*sin(n*(\t-rot2));
+			Wulffx2(\t) = aniso2(\t)*cos(\t) - daniso2(\t)*sin(\t);
+			Wulffy2(\t) = aniso2(\t)*sin(\t) + daniso2(\t)*cos(\t);
+		},
+		]
+		\begin{scope}
+			\clip (axis cs: -2,5) rectangle (axis cs:0,0);
+			\addplot[domain=-pi:pi, samples=150, smooth, thick,red] ({Wulffx1(deg(x))},{Wulffy1(deg(x))+yshift1});
+		\end{scope}
+		
+		\begin{scope}
+			% \clip (axis cs: -2,-5) rectangle (axis cs:0,0);
+			\clip (axis cs: 0,0) -- (axis cs: 0,2) -- (axis cs: 2,2) -- (axis cs: 2,-2) -- (axis cs: -2,-2) -- (axis cs: -2,0) -- cycle (axis cs: 0,0) ;
+			\addplot[domain=-pi:pi, samples=150, smooth,red,dashed] ({Wulffx1(deg(x))},{Wulffy1(deg(x))+yshift1});
+		\end{scope}
+		
+		\begin{scope}
+			\clip (axis cs: 0,5) rectangle (axis cs:2,0);
+			\addplot[domain=-pi:pi, samples=150, smooth,thick,blue] ({Wulffx2(deg(x))},{Wulffy2(deg(x))+yshift2});    
+		\end{scope}
+		
+		\begin{scope}
+			% \clip (axis cs: 0,-5) rectangle (axis cs:2,0);
+			\clip (axis cs: 0,0) -- (axis cs: 2,0) -- (axis cs: 2,-2) -- (axis cs: -2,-2) -- (axis cs: -2,2) -- (axis cs: 0,2) -- cycle (axis cs: 0,0) ;
+			\addplot[domain=-pi:pi, samples=150, smooth,blue,dashed] ({Wulffx2(deg(x))},{Wulffy2(deg(x))+yshift2});    
+		\end{scope}
+		
+		\path coordinate (C1) at (axis cs:0,yshift1);
+		\path coordinate (C2) at (axis cs:0,yshift2);
+		\path coordinate (B1) at (axis cs:-2,0);
+		\path coordinate (B2) at (axis cs:2,0);
+		\path coordinate (B3) at  (axis cs:0,-2);
+		\path coordinate (zz) at  (axis cs:0,0);
+		% \draw[red] (B1) -- (zz);
+		% \draw[blue] (B2) -- (zz);
+		\draw (B1) -- (B2);
+		\draw[dashed] (zz) -- (B3);
+		\draw[<->,thick,red] (axis cs:-0.2,0) -- (axis cs:-0.2,yshift1);
+		\draw[<->,thick,blue] (axis cs:0.2,0) -- (axis cs:0.2,yshift2);
+		
+		\draw[fill,red] (C1) circle (3pt);
+		\draw[fill,blue] (C2) circle (3pt);
+		
+		\draw (axis cs:-1.5,0.5) node [circle,draw,minimum size=6] {$\mathit{1}$};
+		\draw (axis cs:-0.5,0.6) node [circle,draw,minimum size=6] {$\mathit{2}$};
+		\draw (axis cs:-1.5,-0.5) node [circle,draw,minimum size=6]  {$\mathit{3}$};
+		\draw (axis cs:1.5,-0.5) node [circle,draw,minimum size=6] {$\mathit{4}$};
+		
+		% \def\dh{0.1};
+		% \def\dw{0.05};
+		% \foreach \i in {1,2,...20}{
+			%     \draw (\i*\dw,0) -- ((i+1)*\dw,-\dh);
+			%     }
+		
+	\end{axis}
+\end{tikzpicture}
+
+
 
 \end{document}
