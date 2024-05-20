@@ -335,6 +335,61 @@
 	\end{axis}
 \end{tikzpicture}
 
-
+\begin{tikzpicture}
+	\begin{axis}[
+		axis equal,
+		axis line style={draw=none},
+		xtick=\empty,
+		ytick=\empty,
+		declare function={
+			% yshift1=0;
+			yshift1=-0.6;
+			n=4;
+			nsoa=0.9;
+			rot1 = 30;
+			RW = 0.7*3;
+			d=nsoa/(n^2-1);
+			aniso1(\t)=1+d*cos(n*(\t-rot1));
+			daniso1(\t)=-n*d*sin(n*(\t-rot1));
+			Wulffx1(\t) = RW*( aniso1(\t)*cos(\t) - daniso1(\t)*sin(\t) );
+			Wulffy1(\t) = RW*( aniso1(\t)*sin(\t) + daniso1(\t)*cos(\t) );
+		},
+		]
+		\begin{scope}
+			\clip (axis cs: -3,5) rectangle (axis cs:3,0);
+			\addplot[domain=-pi:pi, samples=150, smooth, thick] ({Wulffx1(deg(x))},{Wulffy1(deg(x))+yshift1});
+		\end{scope}
+		
+		\begin{scope}
+			\clip (axis cs: -3,-5) rectangle (axis cs:3,0);
+			\addplot[domain=-pi:pi, samples=150, smooth,dashed] ({Wulffx1(deg(x))},{Wulffy1(deg(x))+yshift1});
+		\end{scope}
+		
+		
+		\path coordinate (C1) at (axis cs:0,yshift1);
+		\path coordinate (B1) at (axis cs:-3,0);
+		\path coordinate (B2) at (axis cs:3,0);
+		\path coordinate (zz) at  (axis cs:0,0);
+		
+		\draw (B1) -- (B2);
+		\draw[stealth-stealth] (axis cs:-0.4,0) -- (axis cs:-0.4,yshift1/2) node [right] {$X_0 \Gamma$} -- (axis cs:-0.4,yshift1);
+		
+		\draw[fill] (C1) circle (2pt);
+		\draw[-stealth] (C1) -- (axis cs:-1.055,yshift1) node [below] {$X_0$} -- (axis cs:-2.1,yshift1);
+		
+		\draw[dashed] (C1) -- (axis cs:2.7,1.5588+yshift1);
+		\begin{scope}
+			\clip (axis cs: 2.3,0) rectangle (axis cs:3,3);
+			\draw[-stealth,thick] (C1) -- (axis cs:2.7,1.5588+yshift1)  node [above] {$\bm{n}_\mathit{2}$};
+		\end{scope}
+		
+		
+		
+		\draw (axis cs:-2.5,1.5) node [circle,draw,minimum size=6] {$\mathit{1}$};
+		\draw (axis cs:-1,0.8) node [circle,draw,minimum size=6] {$\mathit{2}$};
+		\draw (axis cs:-2.5,-1.5) node [circle,draw,minimum size=6]  {$\mathit{3}$};
+		
+	\end{axis}
+\end{tikzpicture}
 
 \end{document}
