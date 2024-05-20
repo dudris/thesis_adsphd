@@ -83,14 +83,17 @@ In 2D, the Herring equation simplifies to
 \end{equation}
 where a prime indicates differentiation and $\theta$ is angle of the normal to the surface.
 
-The interface stiffness $\hat{\sigma}$ in 2D is the scalar quantity $\hat{\sigma} = \sigma + \sigma''(\theta)$, whereas in 3D it is a 2nd rank tensor (i.e. 2x2 matrix), the diagonal terms of which in principal coordinates are $\left(\sigma + \frac{\partial^2 \sigma}{\partial n_1^2} \right), \left( \sigma +\frac{\partial^2 \sigma}{\partial n_2^2}\right)$~\cite{Trautt2005, Du2007, Abdeljawad2018}.
+The interface stiffness $\hat{\sigma}$ in 2D is the scalar quantity $\hat{\sigma} = \sigma + \sigma''(\theta)$, whereas in 3D it is a 2nd rank tensor (i.e. 2x2 matrix), the diagonal terms of which in principal coordinates are $\left(\sigma + \frac{\partial^2 \sigma}{\partial n_1^2} \right), \left( \sigma +\frac{\partial^2 \sigma}{\partial n_2^2}\right)$~\cite{Trautt2005, Du2007, Abdeljawad2018, Moore2021}.
  
-The interface velocity due to capillary forces alone $v_\sigma$ is proportional to the chemical potential and the interface mobility $M$ ~\cite{Trautt2005, Du2007, Abdeljawad2018}
+The interface velocity due to capillary forces alone $v_\sigma$ is proportional to the chemical potential and the interface mobility $M$~\cite{Herring1999, Trautt2005, Du2007, Abdeljawad2018, Moore2021}
 \begin{equation}
-	v_\sigma = M\mu_{surf} \,.
+	v_\sigma = M\mu_{surf} \,,
 \end{equation}
-This is the way the capillary driving force moves the surface. As a result, the interface stiﬀness is the key material property that relates interface curvature to interface thermodynamics and kinetics.~\cite{Du2007}
+which is valid in this form for both 2D and 3D. This is the way the capillary driving force moves the surface. As a result, the interface stiﬀness is the key material property that relates interface curvature to interface thermodynamics and kinetics.~\cite{Du2007}
 
+Interface stiffness tensor in 3D is very difficult to measure~\cite{Du2007}. Efforts were made to determine it from models of the interfaces, like e.g. in~\cite{Du2007}, using molecular dynamics simulations~\cite{Trautt2005,Abdeljawad2018} or phase-field crystal method~\cite{Blixt2022}. An attempt to measure part of the anisotropy in grain boundary in the Pb-Sn system experimentally was carried out in~\cite{Rowenhorst2005}. 
+
+Once the values of the anisotropic interface energy are known in the different directions, the interface stiffness can be computed. In the work~\cite{Olmsted2009}, Olmsted carried out a large number of atomistic calculations to provide the grain boundary energy in Al and Ni (face centered cubic metals) and his results were also used to bring insight in the interface stiffness~\cite{Moore2021}. The results of Olmsted were generalized to a model with two material-specific grain boundary energies (for two distinct grain boundary configurations) allowing to compute the anisotropy in the grain boundary energy for any fcc metal using a MATLAB programme GB5DOF~\cite{Bulatov2014}.
 
 
 \section{Wulff shape}
