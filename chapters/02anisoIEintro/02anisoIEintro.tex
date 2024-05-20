@@ -156,7 +156,7 @@ If the second condition is equal to 0, these conditions are not conclusive, i.e.
 The assessment of stability of triple junction configuration is an important part of discussion of an equilibrium shape of a particle with anisotropic interface energy on a substrate plane, as will be shown in Chapter~\ref{ch_paper2}.
 
 \section{Equilibrium shapes of a particle with anisotropic interface energy on a planar substrate}
-This problem has attracted considerable attention since it is of high practical importance, especially in applications like nucleation~\cite{Bormashenko2021}, preparation of functional deposits for electrochemical catalysis~\cite{Tian2007} or in solid-state dewetting~\cite{PierreLuis2016, Bao2017}. The classical solution to the problem is by Kaischew for crystalline anisotropy with faceted shape~\cite{Kaischew1951} (cited by Milchev in~\cite{Milchev2002} but the original paper was not found) and \cite{Winterbottom1967} (interface energy as continuous function). Here it is demonstrated using the capillary vector formalism. 
+This problem has attracted considerable attention since it is of high practical importance, especially in applications like nucleation~\cite{Bormashenko2021}, preparation of functional deposits for electrochemical catalysis~\cite{Tian2007} or in solid-state dewetting~\cite{PierreLuis2016, Bao2017}. The classical solution to the problem is by Kaischew for crystalline anisotropy with faceted shape~\cite{Kaischew1951} (cited by Milchev in~\cite{Milchev2002} but the original paper was not found) and by Winterbottom \cite{Winterbottom1967} (interface energy as continuous function). Here it is demonstrated using the capillary vector formalism. 
 
 In the following, only 2D cross section is discussed. It is assumed that the particle-substrate interface (denoted here with index 1) is linear with the substrate-parent phase (index 3), but with anti-parallel normal vector. Let the substrate plane be parallel with x axis. The particle-parent phase interface is denoted by index 2. The normal vectors of the respective interfaces in the contact point are $\hat{\bm{n}}_1=(0,-1)^{\mathrm{T}}$, $\hat{\bm{n}}_3=(0,1)^{\mathrm{T}}$ and $\hat{\bm{n}}_2$ is to be found from~\eqref{eq_trijun_forcebalance_sum_xivec}. Apparently, with the interfaces 1 and 3 fixed at orientations $\theta_1=-\pi/2$ and $\theta_3=\pi/2$, the force balance can be reduced to single equation, when the particle-parent phase capillary vector $\bm{\xi}_2$ is projected to the surface normal $\hat{\bm{n}}_S=\hat{\bm{n}}_3$. But that is merely the y-component of the capillary vector. The force balance can thus be written as
 \begin{equation}\label{eq_youngs_eq_aniso}
@@ -182,24 +182,24 @@ which is the vertical offset of the horizontal truncating line relative to cente
 
 On the other hand, when $\Gamma < 0$, the truncating line goes below the center (the shape is emerged above the line). There is such value of $\Gamma$ corresponding to complete non-wetting (with isotropic interface energy that is $\Gamma=-1$).
 
-\section{Stability of the equilibrium shape}\label{sec_fund_anisoIE_trijun_stability}
-Previous section showed derivation of the 2D equilibrium shape of anisotropic particle on a substrate from the triple junction force balance. However, as explained in~\ref{sec_intro_trijun_forcebalance_stability}, the stability of the solution should be assessed as well. The additional conditions~\eqref{eq_3jun_aniso_stabcond1}, \eqref{eq_3jun_aniso_stabcond2} can be re-written as
-\begin{align}
-    0 &< \Sigma_1 s_1 + \Sigma_2 s_2 + \Sigma_3 s_3 \\
-    0 &< \Sigma_1\Sigma_2 S_{12} + \Sigma_2\Sigma_3 S_{23} + \Sigma_1\Sigma_3 S_{13} \,,
-\end{align}
-where $\Sigma_i = \mathrm{d}^2 \sigma_i/\mathrm{d} \vartheta_i^2 + \sigma_i(\vartheta_i)$ are the respective interface stiffnesses, $s_i = \sin^2(\vartheta_i)/d_i$, $S_{ij} = \sin^2(\vartheta_i-\vartheta_j)/d_i d_j$. Given $\vartheta_1=0$ and $\vartheta_3=\pi$, it follows that $s_1=s_3=0$ and also that $S_{13}=0$. Note also that $s_2>0$ and $S_{12}=S_{23}=S=\sin^2(\vartheta_2)/d^2>0$ (assuming that $d_1=d_2=d_3$). The conditions are thus simplified to
-\begin{align}
-    0 &< \Sigma_2  \label{eq_3jun_stabcond_onplane1}\\
-    0 &< \Sigma_1\Sigma_2 + \Sigma_2\Sigma_3 \,,  
-\end{align}
-where only the interface stiffnesses matter. Using the first equation, the second may further be simplified
-\begin{equation}
-    0< \Sigma_1 + \Sigma_3 \,. \label{eq_3jun_stabcond_onplane2}
-\end{equation}
-The condition~\eqref{eq_3jun_stabcond_onplane1} implies, that the particle-parent phase interface must be oriented under allowed angle in the contact point. That is fulfilled automatically by the truncated Wulff shape solution, because it contains only the allowed angles. 
-
-The condition~\eqref{eq_3jun_stabcond_onplane2} is surely fulfilled when both interfaces 1 and 3 have positive interface stiffness in their orientations. That holds automatically, when the Wulff shapes of the interfaces 1 and 3 do not contain any corners. When both of them do contain corners, it means that there are normal angles where the interface stiffness is negative. Apparently, in such situation, the condition~~\eqref{eq_3jun_stabcond_onplane2} may be violated.
+%\section{Stability of the equilibrium shape}\label{sec_fund_anisoIE_trijun_stability}
+%Previous section showed derivation of the 2D equilibrium shape of anisotropic particle on a substrate from the triple junction force balance. However, as explained in~\ref{sec_intro_trijun_forcebalance_stability}, the stability of the solution should be assessed as well. The additional conditions~\eqref{eq_3jun_aniso_stabcond1}, \eqref{eq_3jun_aniso_stabcond2} can be re-written as
+%\begin{align}
+%    0 &< \Sigma_1 s_1 + \Sigma_2 s_2 + \Sigma_3 s_3 \\
+%    0 &< \Sigma_1\Sigma_2 S_{12} + \Sigma_2\Sigma_3 S_{23} + \Sigma_1\Sigma_3 S_{13} \,,
+%\end{align}
+%where $\Sigma_i = \mathrm{d}^2 \sigma_i/\mathrm{d} \vartheta_i^2 + \sigma_i(\vartheta_i)$ are the respective interface stiffnesses, $s_i = \sin^2(\vartheta_i)/d_i$, $S_{ij} = \sin^2(\vartheta_i-\vartheta_j)/d_i d_j$. Given $\vartheta_1=0$ and $\vartheta_3=\pi$, it follows that $s_1=s_3=0$ and also that $S_{13}=0$. Note also that $s_2>0$ and $S_{12}=S_{23}=S=\sin^2(\vartheta_2)/d^2>0$ (assuming that $d_1=d_2=d_3$). The conditions are thus simplified to
+%\begin{align}
+%    0 &< \Sigma_2  \label{eq_3jun_stabcond_onplane1}\\
+%    0 &< \Sigma_1\Sigma_2 + \Sigma_2\Sigma_3 \,,  
+%\end{align}
+%where only the interface stiffnesses matter. Using the first equation, the second may further be simplified
+%\begin{equation}
+%    0< \Sigma_1 + \Sigma_3 \,. \label{eq_3jun_stabcond_onplane2}
+%\end{equation}
+%The condition~\eqref{eq_3jun_stabcond_onplane1} implies, that the particle-parent phase interface must be oriented under allowed angle in the contact point. That is fulfilled automatically by the truncated Wulff shape solution, because it contains only the allowed angles. 
+%
+%The condition~\eqref{eq_3jun_stabcond_onplane2} is surely fulfilled when both interfaces 1 and 3 have positive interface stiffness in their orientations. That holds automatically, when the Wulff shapes of the interfaces 1 and 3 do not contain any corners. When both of them do contain corners, it means that there are normal angles where the interface stiffness is negative. Apparently, in such situation, the condition~~\eqref{eq_3jun_stabcond_onplane2} may be violated.
 
 \section{Nucleation fundamentals}
 {\color{red}{CNT assumes that the nuclei are large enough to have defined volume and surface. With nuclei consisting of only a few atoms, these and the derived quantities (specific surface energy) may not be defined.} }
