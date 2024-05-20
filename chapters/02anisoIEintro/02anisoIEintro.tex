@@ -25,35 +25,6 @@ Specifically in electrodeposition, the inhibition in relation to the morphology 
 
 The same group later proposed~\cite{Rasmussen2001}, that the texture of an electrodeposit could develop from a zone mainly affected by the substrate (epitaxy, chemical reactions), through a zone of mixed control to a zone affected solely by the deposition conditions (selective inhibition, deposition rate). However, in a more recent study~\cite{Alimadadi2016} involving microtexture measurement through thickness of the nickel electrodeposits obtained at different pH and current density, the authors could not confirm the existence of the transition zone as a simple mixture of the substrate- and conditions-affected zones. 
 
-\section{Anisotropy in interface energy vs. kinetic coefficient}
-A fundamental work by Damjanovic~\cite{Damjanovic1966} reports the morphology of copper depositions on different Cu monocrystalline substrates. It also states, that the exchange current densities $i_0$ for Cu electrodeposition on the different crystallographic planes (i.e. kinetic coefficient in the deposition/dissolution reaction) are in the following sequence of magnitude:
-\begin{equation}
-	i_0^{(111)}<i_0^{(001)}<i_0^{(011)} \,.
-\end{equation}
-Interestingly, the same order comes for the \textit{inteface energies} of the respective planes in vacuum for both Cu and Ag based both on broken bond model by Wang~\cite{Wang2000} and DFT calculations by Tran~\cite{Tran2016}. 
-
-In addition to that, it is known that the fundamental crystal forms obtained assuming a single anisotropy in both interface energy and kinetic coefficient (i.e. growth rate) are geometrically similar~\cite{Kobayashi2001,Salvalaglio2015}. More specifically, if the total interface energy of an isolated crystal is minimized with a constant volume, the resulting so-called Wulff shape depends on the interface energy anisotropy. This Wulff shape is geometrically similar to the shape obtained by growth of a spherical crystal under the effect of anisotropic growth rate with the same anisotropy as the interface energy had. This idea is illustrated in Figure~\ref{fig_ECS_vs_KCS_wulff_construction}.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.6\textwidth]{ECS_vs_KCS_wulff_construction.png}
-	\caption{Illustration of geometric similarity between Equilibrium Crystal Shape (ECS) driven by anisotropy in interface energy and Kinetic Crystal Shape (KCS) obtained by growth with growth rate having the same anisotropy. The top polar plot is the anisotropy function $h(\theta)$. Source:~\cite{Salvalaglio2015}.}
-	\label{fig_ECS_vs_KCS_wulff_construction}
-\end{figure}
-
-It is not surprising to have the anisotropies in the interface energy and kinetic coefficients somehow related, because they both must derive from the state of the same interface. However, it is certainly interesting to realize that despite them being substantially different physical quantities, used for description of different processes, their anisotropy may manifest in similar ways. 
-
-This was supported also by simulations of 2D growth of polycrystalline zeolite film using multi-phase field method~\cite{Wendler2011}. Reportedly, the same microstructures were obtained when assuming the same anisotropy in either interface energy or in the kinetic coefficient. 
-
-While in crystal growth, the anisotropy in interface energy and kinetic coefficient may be interchangeable to some extent in terms of effect on the resulting shape (not on the shape evolution, though), there are necessarily processes where there is no overlap due to different nature of the quantities. For example, in nucleation, the nucleation barrier depends on the interface energy but does not depend on the kinetics. 
-
-This interchangeability makes the experimental determination of these properties in-situ during deposition very complicated. However, in models of the deposition and in simulations, it is in fact necessary to distinguish the two quantities and then it is possible to distinguish also their impact of their anisotropy on the process. The mentioned phase-field method is one of methods capable to implement these quantities independently.
-
-In the light of previous paragraphs, it is clear that while in some simulations it may not be a big problem to neglect anisotropy in either kinetic coefficient or interface energy as long as it is preserved in the other quantity. However, in the processes where these quantities are not interchangeable (e.g. anisotropic interface energy in nucleation barrier), neglecting the implications of anisotropy results in incomplete representation of the process.
-
-\section{Nucleation with anisotropic interface energy}
-
-
 \section{Capillary vector formalism}
 Let the interface energy $\sigma$ depend on the local orientation of the interface described by its unit normal $\bm{n}$, i.e. $\sigma=\sigma(\bm{n})=\sigma_0 f(\bm{n})$. The function $f(\bm{n})$ is called anisotropy function and $\sigma_0$  is a scaling parameter with dimensions of interface energy. Formal requirements on the anisotropy function can be found e.g. in~\cite{Kobayashi2001}. A very useful formalism for thermodynamic description of these anisotropic interfaces is so-called capillary vector $\bm{\xi}$ (a.k.a. Cahn-Hoffmann vector or $\xi$-vector), defined as 
 \begin{equation}
@@ -372,6 +343,32 @@ Shape of the nucleus is strongly determined by the interface energy anisotropy. 
         (\Delta G_c^*)_{hom} = \hat{A}_{hom}^{ani}\frac{2\sigma^2}{\Delta G_A}\,.
     \end{equation}
     In the heterogeneous anisotropic nucleation the difference in Gibbs free energy is like in equation~\eqref{eq_DG_het_2D}, having $\Delta G_{hom}^{ani}$ as in~\eqref{eq_DG_hom_aniso} and the nucleation barrier like in~\eqref{eq_nucl_barr_het_2D}, only with modified shape factor correspondingly to the Wulff shape.
+    
+\section{Anisotropy in interface energy vs. kinetic coefficient}
+A fundamental work by Damjanovic~\cite{Damjanovic1966} reports the morphology of copper depositions on different Cu monocrystalline substrates. It also states, that the exchange current densities $i_0$ for Cu electrodeposition on the different crystallographic planes (i.e. kinetic coefficient in the deposition/dissolution reaction) are in the following sequence of magnitude:
+\begin{equation}
+	i_0^{(111)}<i_0^{(001)}<i_0^{(011)} \,.
+\end{equation}
+Interestingly, the same order comes for the \textit{inteface energies} of the respective planes in vacuum for both Cu and Ag based both on broken bond model by Wang~\cite{Wang2000} and DFT calculations by Tran~\cite{Tran2016}. 
+
+In addition to that, it is known that the fundamental crystal forms obtained assuming a single anisotropy in both interface energy and kinetic coefficient (i.e. growth rate) are geometrically similar~\cite{Kobayashi2001,Salvalaglio2015}. More specifically, if the total interface energy of an isolated crystal is minimized with a constant volume, the resulting so-called Wulff shape depends on the interface energy anisotropy. This Wulff shape is geometrically similar to the shape obtained by growth of a spherical crystal under the effect of anisotropic growth rate with the same anisotropy as the interface energy had. This idea is illustrated in Figure~\ref{fig_ECS_vs_KCS_wulff_construction}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\textwidth]{ECS_vs_KCS_wulff_construction.png}
+	\caption{Illustration of geometric similarity between Equilibrium Crystal Shape (ECS) driven by anisotropy in interface energy and Kinetic Crystal Shape (KCS) obtained by growth with growth rate having the same anisotropy. The top polar plot is the anisotropy function $h(\theta)$. Source:~\cite{Salvalaglio2015}.}
+	\label{fig_ECS_vs_KCS_wulff_construction}
+\end{figure}
+
+It is not surprising to have the anisotropies in the interface energy and kinetic coefficients somehow related, because they both must derive from the state of the same interface. However, it is certainly interesting to realize that despite them being substantially different physical quantities, used for description of different processes, their anisotropy may manifest in similar ways. 
+
+This was supported also by simulations of 2D growth of polycrystalline zeolite film using multi-phase field method~\cite{Wendler2011}. Reportedly, the same microstructures were obtained when assuming the same anisotropy in either interface energy or in the kinetic coefficient. 
+
+While in crystal growth, the anisotropy in interface energy and kinetic coefficient may be interchangeable to some extent in terms of effect on the resulting shape (not on the shape evolution, though), there are necessarily processes where there is no overlap due to different nature of the quantities. For example, in nucleation, the nucleation barrier depends on the interface energy but does not depend on the kinetics. 
+
+This interchangeability makes the experimental determination of these properties in-situ during deposition very complicated. However, in models of the deposition and in simulations, it is in fact necessary to distinguish the two quantities and then it is possible to distinguish also their impact of their anisotropy on the process. The mentioned phase-field method is one of methods capable to implement these quantities independently.
+
+In the light of previous paragraphs, it is clear that while in some simulations it may not be a big problem to neglect anisotropy in either kinetic coefficient or interface energy as long as it is preserved in the other quantity. However, in the processes where these quantities are not interchangeable (e.g. anisotropic interface energy in nucleation barrier), neglecting the implications of anisotropy results in incomplete representation of the process.
 
 %
 %\section{Summary}
