@@ -34,11 +34,11 @@ The word \textit{specific} in the \textit{specific surface energy} indicates tha
 
 
 \section{Anisotropic interface energy}
-Let the interface energy $\sigma$ depend on the local orientation of the interface described by its unit normal $\bm{n}$, i.e. $\sigma=\sigma(\bm{n})=\sigma_0 f(\bm{n})$. The function $f(\bm{n})$ is called anisotropy function and $\sigma_0$  is a scaling parameter with dimensions of interface energy. Formal requirements on the anisotropy function can be found e.g. in~\cite{Kobayashi2001}. A very useful formalism for thermodynamic description of these anisotropic interfaces is so-called capillary vector $\bm{\xi}$ (a.k.a. Cahn-Hoffmann vector or $\xi$-vector), defined as~\cite{Hoffman1972,Cahn1974}
+Let the interface energy $\sigma$ depend on the local orientation of the interface described by its unit normal $\bm{n}$, i.e. $\sigma=\sigma(\bm{n})=\sigma_0 h(\bm{n})$. The function $h(\bm{n})$ is called anisotropy function and $\sigma_0$  is a scaling parameter with dimensions of interface energy. Formal requirements on the anisotropy function can be found e.g. in~\cite{Kobayashi2001}. A very useful formalism for thermodynamic description of these anisotropic interfaces is so-called capillary vector $\bm{\xi}$ (a.k.a. Cahn-Hoffmann vector or $\xi$-vector), defined as~\cite{Hoffman1972,Cahn1974}
 \begin{equation}
     \bm{\xi} = \mathrm{grad}(r\sigma(\bm{n}))\,,
 \end{equation}
-where $r$ is radial distance from origin, which can be also seen as magnitude of scaled normal vector $\bm{r}=r\bm{n}$. Level sets of the scalar function $r\sigma(\bm{n})$ are geometrically similar to the anisotropy function $f(\bm{n})$, which is continuously scaled by the radius $r$.
+where $r$ is radial distance from origin, which can be also seen as magnitude of scaled normal vector $\bm{r}=r\bm{n}$. Level sets of the scalar function $r\sigma(\bm{n})$ are geometrically similar to the anisotropy function $h(\bm{n})$, which is continuously scaled by the radius $r$.
 
 Capillary vector was introduced and investigated by Hoffman and Cahn in~\cite{Hoffman1972,Cahn1974}, who showed that this formalism is consistent with major laws governing behavior of (anisotropic) interfaces like Gibbs-Thompson equation (relating chemical potential and isotropic surface curvature), Herring's equation (chemical potential on anisotropic curved surface), Wulff shape construction, force balance at multi-junctions and others. 
 
@@ -93,16 +93,16 @@ which is valid in this form for both 2D and 3D. This is the way the capillary dr
 
 Interface stiffness tensor in 3D is very difficult to measure~\cite{Du2007}. Efforts were made to determine it from models of the interfaces, like e.g. in~\cite{Du2007}, using molecular dynamics simulations~\cite{Trautt2005,Abdeljawad2018} or phase-field crystal method~\cite{Blixt2022}. An attempt to measure part of the anisotropy in grain boundary in the Pb-Sn system experimentally was carried out in~\cite{Rowenhorst2005}. 
 
-Once the values of the anisotropic interface energy are known in the different directions, the interface stiffness can be computed. In the work~\cite{Olmsted2009}, Olmsted carried out a large number of atomistic calculations to provide the grain boundary energy in Al and Ni (face centered cubic metals). These results Olmsted were generalized to a model with only two input material-specific parameters allowing to compute the anisotropy in the grain boundary energy for any fcc metal using a MATLAB programme GB5DOF~\cite{Bulatov2014}. This was also used to bring insight in the interface stiffness~\cite{Moore2021}
+Once the values of the anisotropic interface energy are known in the different directions, the interface stiffness can be computed. In the work~\cite{Olmsted2009}, Olmsted carried out a large number of atomistic calculations to provide the grain boundary energy in Al and Ni (face centered cubic metals). These results were later generalized to any fcc metal using a model with only two input material-specific parameters using MATLAB programme GB5DOF~\cite{Bulatov2014}. This was also used to bring insight in the interface stiffness~\cite{Moore2021}
 
 \section{Wulff shape}
-Wulff shape is such a shape, which minimizes the interface energy given a constant volume. In 2D it can be obtained as the inner convex hull of all tangent straight lines to the anisotropy function $h(\theta)$. This can be used to define the Wulff shape $W$ as a set of points $\bm{x}$
+Wulff shape is such a shape, which minimizes the interface energy given a constant volume. In 2D it can be obtained as the inner convex hull of all tangent straight lines to the anisotropy function $h(\theta)$. This can be used to define the Wulff shape $W$ as a set of points $\bm{x}$~\cite{Kobayashi2001, Eggleston2001, Salvalaglio2015}
 \begin{equation}
     W = \{ \bm{x}\in\mathbb{R}| \bm{x}\cdot\bm{n}\leq \sigma(\bm{n})\} \,,
 \end{equation}
 which is a geometrical representation of what was said above - projection of the position vector $\bm{x}$ of a point within the Wulff shape to the interface normal vector $\bm{n}$ must be smaller than the anisotropic interface energy. This defines the inner hull of the tangent lines.
 
-When the heads of capillary vectors for all interface normal angles $\theta$ are connected (having a common starting point in the origin), so-called $\xi$-plot is obtained. It turns out, that the $\xi$-plot coincides with the Wulff shape~\cite{Hoffman1972}. Hence, the expression~\eqref{eq_xivec_2D} can be used to plot the 2D Wulff shape in cartesian coordinates. This is entirely true as long as there are no corners or facets on the Wulff shape, in which cases the use of capillary vecor for Wulff shape plotting must be appropriately modified (see below for details).
+When the heads of capillary vectors for all interface normal angles $\theta$ are connected (having a common starting point in the origin), so-called $\xi$-plot is obtained. It turns out, that the $\xi$-plot coincides with the Wulff shape~\cite{Hoffman1972, Kobayashi2001}. Hence, the expression~\eqref{eq_xivec_2D} can be used to plot the 2D Wulff shape in cartesian coordinates. This is entirely true as long as there are no corners or facets on the Wulff shape, in which cases the use of capillary vecor for Wulff shape plotting must be appropriately modified (see below for details).
 
 In~\cite{Cahn1974} the authors re-state he problem of finding equilibrium shapes of crystals with anisotropic interfaces under general conditions. The shape is found as a solution to equation
 \begin{equation} \label{eq_xivec_equilibrium_shape}
@@ -120,7 +120,7 @@ leading to the result
 
 This is why the $\xi$-plot coincides with the Wulff shape.
 
-Two different types of singularities may occur in Wulff shapes, which must be treated in a specific way: corners and facets. 
+Two different types of singularities may occur in Wulff shapes, which must be treated in a specific way: corners and facets~\cite{Kobyashi2001, Fleck2011}. 
 
 Corners represent a discontinuity of normal angle along the Wulff shape perimeter. They occur when the anisotropy of the interface energy is such, that interface stiffness gets negative for some normal angles $\theta_f$. These angles are called forbidden, because they are thermodynamically unstable. For this reason, they are not present on the Wulff shape. Additionally, there are normal angles $\theta$ which are thermmodynamically stable but are not present on the Wulff shape. The latter ones correspond to angles, where the inverse interface energy $1/\sigma(\theta)$ is non-convex but still have positive interface stiffness. All forbidden angles fall into this non-convex region. By replacing the non-convex part of this function by straight lines a regularized inverse anisotropy function $1/\bar{\sigma}(\theta)$ is obtained. Wulff shape corresponding to the regularized anisotropy function $\bar{\sigma}(\theta)$ does not contain the "ears" behind the corners. The interface stiffness of both the allowed and forbidden angles which form the "ears" were thus set to zero.
 
