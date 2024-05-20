@@ -208,10 +208,11 @@ In the following, only 2D cross section is discussed. See the Figure~\ref{fig_wi
 			\draw[green, dash dot, thick] (axis cs:\figxwidth,0.05) -- node[midway, above] {$\sigma_{1}$} (axis cs:2.1,0.05);
 			\draw[blue, densely dotted, thick] (axis cs:-1.83,0.05) -- node [midway, above] {$\sigma_{3}$} (axis cs:2.0,0.05);
 			
-			\draw[-stealth] (axis cs:-3.4,0) -- (axis cs:-3.4,0.5) node [left] {$\bm{\hat{n}}_1$};
+			\draw[-stealth] (axis cs:-3.4,0) -- (axis cs:-3.4,0.5) node [above] {$\bm{\hat{n}}_1$};
+			\draw[-stealth] (axis cs:-1.8,0) -- (axis cs:-1.8,-0.5) node [below] {$\bm{\hat{n}}_3$};
 			
 			
-			\draw[stealth-stealth] (axis cs:0.2,0) -- (axis cs:-0.4,yshift1/2) node [right] {$\sigma_1-\sigma_3$} -- (axis cs:-0.4,yshift1);
+			\draw[stealth-stealth] (axis cs:0.2,0) -- (axis cs:0.2,yshift1/2) node [right] {$\sigma_1-\sigma_3$} -- (axis cs:-0.4,yshift1);
 			
 			
 			\draw[fill] (C1) circle (1.5pt);
@@ -219,8 +220,8 @@ In the following, only 2D cross section is discussed. See the Figure~\ref{fig_wi
 			\draw (0.3,1.2) -- ++(-150:0.7) -- ++(0:0.3) node [right] {$\alpha_2$} arc (0:30:0.3) ;
 			\draw (0.1,-1.1) -- ++(65-180:0.7) -- ++(0:0.3) node [right] {$\alpha_1$} arc (0:65:0.3) ;
 			
-			\draw (-2,1.5) node {liquid};
-			\draw (-2,-2) node {substrate};
+			\draw (-2.5,1.5) node [right] {liquid};
+			\draw (-2.5,-2.5) node [right] {substrate};
 		\end{axis}
 	\end{tikzpicture}
 	\caption{Illustration of the Winterbottom construction. The symbol $\Gamma = (\sigma_1-\sigma_3)/\sigma_0$ is called the wetting parameter in this work, $X_0$ is a scaling parameter. Above the particle is a liquid, below is the substrate. $\sigma_i$ correspond to the individual interfaces as indicated. $\alpha_1$ is the orientation of the particle.}
