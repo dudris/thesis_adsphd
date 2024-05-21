@@ -238,112 +238,112 @@
 %	\end{tikzpicture}
 	
 % NUCLEUS_ON_GB_ANNOTATED
-\begin{tikzpicture}[scale=2.7]
-	\def\thl{130}
-	\def\thr{-80}
-	\def\R{0.8}
-%	\tikzmath{ \RL = 0.4/sin(\thl) ; \RR = 0.7/sin(-\thr) ; }
-	\tikzmath{ \cplX = -sin(\thl)*\R ; \cprX = -sin(\thr)*\R ; }
-	\path (-1,0) coordinate (al);
-	\path (1,0) coordinate (ar);
-	\path (0,0) coordinate (c);
-	\path (0,-0.4) coordinate (cb);
-	\path (\cplX,0) coordinate (cpl);
-	\path (\cprX,0) coordinate (cpr);
-	
-	\draw[very thick, blue] ($(cpl)+(0,-0.04)$) -- node[midway,below] {$\sigma_{GB}^L$} ($(c)+(0,-0.04)$);
-	\draw[very thick, magenta] ($(cpr)+(0,-0.04)$) -- node[midway,below] {$\sigma_{GB}^R$} ($(c)+(0,-0.04)$);		
-	\draw[very thick] (al) -| (cb) |- (ar);
-	\draw (cpl) arc (\thl+90:90:\R) node (toppoint) {};
-	\draw[dashed] (toppoint) -- (c) ;
-%	\draw[dashed] (0,1.3) -- (c) ;
-	\draw (cpr) arc (90+\thr:90:\R);
-	\draw[gray] (cpl) node[above right] {$\vartheta_L$} -- ++(\thl:0.5);
-	\draw[gray] (cpr) node[above left] {$\vartheta_R$}-- ++(180+\thr:0.5);
-	\draw[gray,-stealth] ($(cpl)+(0.3,0)$) arc (0:\thl:0.3);
-	\draw[gray,-stealth] ($(cpr)+(-0.3,0)$) arc (180:180+\thr:0.3);
-	\draw node[above] at (al) {$\sigma_{S}^L$};
-	\draw node[above] at (ar) {$\sigma_{S}^R$};
-	\draw (-1.2,-0.8) rectangle (1.2,1.4);
-	
-	\def\vshift{-0.3}
-	\draw[stealth-stealth] ($(cpr)+(0,\vshift)$) -- node[midway,below] {$l_{GB}^R$} ($(c)+(0.02,\vshift)$);	
-	\draw[stealth-stealth] ($(cpl)+(0,\vshift)$) -- node[midway,below] {$l_{GB}^L$} ($(c)+(-0.02,\vshift)$);	
-	\draw[stealth-stealth] ($(cpl)+(0,-0.55)$) -- node[midway,below] {$l_{GB}$} ($(cpr)+(0,-0.55)$);	
-\end{tikzpicture}
+%\begin{tikzpicture}[scale=2.7]
+%	\def\thl{130}
+%	\def\thr{-80}
+%	\def\R{0.8}
+%%	\tikzmath{ \RL = 0.4/sin(\thl) ; \RR = 0.7/sin(-\thr) ; }
+%	\tikzmath{ \cplX = -sin(\thl)*\R ; \cprX = -sin(\thr)*\R ; }
+%	\path (-1,0) coordinate (al);
+%	\path (1,0) coordinate (ar);
+%	\path (0,0) coordinate (c);
+%	\path (0,-0.4) coordinate (cb);
+%	\path (\cplX,0) coordinate (cpl);
+%	\path (\cprX,0) coordinate (cpr);
+%	
+%	\draw[very thick, blue] ($(cpl)+(0,-0.04)$) -- node[midway,below] {$\sigma_{GB}^L$} ($(c)+(0,-0.04)$);
+%	\draw[very thick, magenta] ($(cpr)+(0,-0.04)$) -- node[midway,below] {$\sigma_{GB}^R$} ($(c)+(0,-0.04)$);		
+%	\draw[very thick] (al) -| (cb) |- (ar);
+%	\draw (cpl) arc (\thl+90:90:\R) node (toppoint) {};
+%	\draw[dashed] (toppoint) -- (c) ;
+%%	\draw[dashed] (0,1.3) -- (c) ;
+%	\draw (cpr) arc (90+\thr:90:\R);
+%	\draw[gray] (cpl) node[above right] {$\vartheta_L$} -- ++(\thl:0.5);
+%	\draw[gray] (cpr) node[above left] {$\vartheta_R$}-- ++(180+\thr:0.5);
+%	\draw[gray,-stealth] ($(cpl)+(0.3,0)$) arc (0:\thl:0.3);
+%	\draw[gray,-stealth] ($(cpr)+(-0.3,0)$) arc (180:180+\thr:0.3);
+%	\draw node[above] at (al) {$\sigma_{S}^L$};
+%	\draw node[above] at (ar) {$\sigma_{S}^R$};
+%	\draw (-1.2,-0.8) rectangle (1.2,1.4);
+%	
+%	\def\vshift{-0.3}
+%	\draw[stealth-stealth] ($(cpr)+(0,\vshift)$) -- node[midway,below] {$l_{GB}^R$} ($(c)+(0.02,\vshift)$);	
+%	\draw[stealth-stealth] ($(cpl)+(0,\vshift)$) -- node[midway,below] {$l_{GB}^L$} ($(c)+(-0.02,\vshift)$);	
+%	\draw[stealth-stealth] ($(cpl)+(0,-0.55)$) -- node[midway,below] {$l_{GB}$} ($(cpr)+(0,-0.55)$);	
+%\end{tikzpicture}
 	
 
 %% CIRCLE_on_GB
-%\begin{tikzpicture}
-%	\begin{axis}[
-%		axis equal,
-%		axis line style={draw=none},
-%		xtick=\empty,
-%		ytick=\empty,
-%		declare function={
-%			yshift1=0.2;
-%			yshift2=-0.6;
-%			n=4;
-%			nsoa=0;
-%			rot1 = 30;
-%			rot2 = rot1;
-%			d=nsoa/(n^2-1);
-%			aniso1(\t)=1+d*cos(n*(\t-rot1));
-%			daniso1(\t)=-n*d*sin(n*(\t-rot1));
-%			Wulffx1(\t) = aniso1(\t)*cos(\t) - daniso1(\t)*sin(\t);
-%			Wulffy1(\t) = aniso1(\t)*sin(\t) + daniso1(\t)*cos(\t);
-%			aniso2(\t)=1+d*cos(n*(\t-rot2));
-%			daniso2(\t)=-n*d*sin(n*(\t-rot2));
-%			Wulffx2(\t) = aniso2(\t)*cos(\t) - daniso2(\t)*sin(\t);
-%			Wulffy2(\t) = aniso2(\t)*sin(\t) + daniso2(\t)*cos(\t);
-%		},
-%		]
-%		\begin{scope}
-%			\clip (axis cs: -2,5) rectangle (axis cs:0,0);
-%			\addplot[domain=-pi:pi, samples=150, smooth, thick,red] ({Wulffx1(deg(x))},{Wulffy1(deg(x))+yshift1});
-%		\end{scope}
-%		
-%		\begin{scope}
-%			% \clip (axis cs: -2,-5) rectangle (axis cs:0,0);
-%			\clip (axis cs: 0,0) -- (axis cs: 0,2) -- (axis cs: 2,2) -- (axis cs: 2,-2) -- (axis cs: -2,-2) -- (axis cs: -2,0) -- cycle (axis cs: 0,0) ;
-%			\addplot[domain=-pi:pi, samples=150, smooth,red,dashed,thin] ({Wulffx1(deg(x))},{Wulffy1(deg(x))+yshift1});
-%		\end{scope}
-%		
-%		\begin{scope}
-%			\clip (axis cs: 0,5) rectangle (axis cs:2,0);
-%			\addplot[domain=-pi:pi, samples=150, smooth,thick,blue] ({Wulffx2(deg(x))},{Wulffy2(deg(x))+yshift2});    
-%		\end{scope}
-%		
-%		\begin{scope}
-%			% \clip (axis cs: 0,-5) rectangle (axis cs:2,0);
-%			\clip (axis cs: 0,0) -- (axis cs: 2,0) -- (axis cs: 2,-2) -- (axis cs: -2,-2) -- (axis cs: -2,2) -- (axis cs: 0,2) -- cycle (axis cs: 0,0) ;
-%			\addplot[domain=-pi:pi, samples=150, smooth,blue,dashed, thin] ({Wulffx2(deg(x))},{Wulffy2(deg(x))+yshift2});    
-%		\end{scope}
-%		
-%		\path coordinate (C1) at (axis cs:0,yshift1);
-%		\path coordinate (C2) at (axis cs:0,yshift2);
-%		\path coordinate (B1) at (axis cs:-2,0);
-%		\path coordinate (B2) at (axis cs:2,0);
-%		\path coordinate (B3) at  (axis cs:0,-2);
-%		\path coordinate (zz) at  (axis cs:0,0);
-%		% \draw[red] (B1) -- (zz);
-%		% \draw[blue] (B2) -- (zz);
-%		\draw[<->,thick,red] (axis cs:-0.2,0) -- (axis cs:-0.2,yshift1);
-%		\draw[<->,thick,blue] (axis cs:0.2,0) -- (axis cs:0.2,yshift2);
-%		
-%		\draw[fill,red] (C1) circle (3pt);
-%		\draw[fill,blue] (C2) circle (3pt);
-%		
-%		\draw (axis cs:-1.5,0.5) node [circle,draw,minimum size=6] {$\mathit{1}$};
-%		\draw (axis cs:-0.5,0.6) node [circle,draw,minimum size=6] {$\mathit{2}$};
-%		\draw (axis cs:-1.5,-0.5) node [circle,draw,minimum size=6]  {$\mathit{3}$};
-%		\draw (axis cs:1.5,-0.5) node [circle,draw,minimum size=6] {$\mathit{4}$};
-%		
-%		\draw[thick] (B1) -- (B2);
-%		\draw[thick] (zz) -- (B3);
-%		\draw[dashed] (zz) -- (axis cs:0,2);
-%
-%	\end{axis}
-%\end{tikzpicture}
+\begin{tikzpicture}
+	\begin{axis}[
+		axis equal,
+		axis line style={draw=none},
+		xtick=\empty,
+		ytick=\empty,
+		declare function={
+			yshift1=0.2;
+			yshift2=-0.6;
+			n=4;
+			nsoa=0;
+			rot1 = 30;
+			rot2 = rot1;
+			d=nsoa/(n^2-1);
+			aniso1(\t)=1+d*cos(n*(\t-rot1));
+			daniso1(\t)=-n*d*sin(n*(\t-rot1));
+			Wulffx1(\t) = aniso1(\t)*cos(\t) - daniso1(\t)*sin(\t);
+			Wulffy1(\t) = aniso1(\t)*sin(\t) + daniso1(\t)*cos(\t);
+			aniso2(\t)=1+d*cos(n*(\t-rot2));
+			daniso2(\t)=-n*d*sin(n*(\t-rot2));
+			Wulffx2(\t) = aniso2(\t)*cos(\t) - daniso2(\t)*sin(\t);
+			Wulffy2(\t) = aniso2(\t)*sin(\t) + daniso2(\t)*cos(\t);
+		},
+		]
+		\begin{scope}
+			\clip (axis cs: -2,5) rectangle (axis cs:0,0);
+			\addplot[domain=-pi:pi, samples=150, smooth, thick,blue] ({Wulffx1(deg(x))},{Wulffy1(deg(x))+yshift1});
+		\end{scope}
+		
+		\begin{scope}
+			% \clip (axis cs: -2,-5) rectangle (axis cs:0,0);
+			\clip (axis cs: 0,0) -- (axis cs: 0,2) -- (axis cs: 2,2) -- (axis cs: 2,-2) -- (axis cs: -2,-2) -- (axis cs: -2,0) -- cycle (axis cs: 0,0) ;
+			\addplot[domain=-pi:pi, samples=150, smooth,blue,dashed,thin] ({Wulffx1(deg(x))},{Wulffy1(deg(x))+yshift1});
+		\end{scope}
+		
+		\begin{scope}
+			\clip (axis cs: 0,5) rectangle (axis cs:2,0);
+			\addplot[domain=-pi:pi, samples=150, smooth,thick,magenta] ({Wulffx2(deg(x))},{Wulffy2(deg(x))+yshift2});    
+		\end{scope}
+		
+		\begin{scope}
+			% \clip (axis cs: 0,-5) rectangle (axis cs:2,0);
+			\clip (axis cs: 0,0) -- (axis cs: 2,0) -- (axis cs: 2,-2) -- (axis cs: -2,-2) -- (axis cs: -2,2) -- (axis cs: 0,2) -- cycle (axis cs: 0,0) ;
+			\addplot[domain=-pi:pi, samples=150, smooth,magenta,dashed, thin] ({Wulffx2(deg(x))},{Wulffy2(deg(x))+yshift2});    
+		\end{scope}
+		
+		\path coordinate (C1) at (axis cs:0,yshift1);
+		\path coordinate (C2) at (axis cs:0,yshift2);
+		\path coordinate (B1) at (axis cs:-2,0);
+		\path coordinate (B2) at (axis cs:2,0);
+		\path coordinate (B3) at  (axis cs:0,-2);
+		\path coordinate (zz) at  (axis cs:0,0);
+		% \draw[blue] (B1) -- (zz);
+		% \draw[magenta] (B2) -- (zz);
+		\draw[<->,thick,blue] (axis cs:-0.2,0) -- (axis cs:-0.2,yshift1);
+		\draw[<->,thick,magenta] (axis cs:0.2,0) -- (axis cs:0.2,yshift2);
+		
+		\draw[fill,blue] (C1) circle (3pt);
+		\draw[fill,magenta] (C2) circle (3pt);
+		
+		\draw (axis cs:-1.5,0.5) node [circle,draw,minimum size=6] {$\mathit{1}$};
+		\draw (axis cs:-0.5,0.6) node [circle,draw,minimum size=6] {$\mathit{2}$};
+		\draw (axis cs:-1.5,-0.5) node [circle,draw,minimum size=6]  {$\mathit{3}$};
+		\draw (axis cs:1.5,-0.5) node [circle,draw,minimum size=6] {$\mathit{4}$};
+		
+		\draw[thick] (B1) -- (B2);
+		\draw[thick] (zz) -- (B3);
+		\draw[dashed] (zz) -- (axis cs:0,2);
+
+	\end{axis}
+\end{tikzpicture}
 	
 \end{document}
