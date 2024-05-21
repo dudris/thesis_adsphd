@@ -10,10 +10,14 @@ For example, the Structure Zone Model (SZM)~\cite{Barna1998} is often used to de
 
 \begin{figure}
 	\centering
-	\includegraphics[page=4,width=0.45\textwidth]{Winand1992_diagram.png}
+	\begin{tikzpicture}
+		\draw (a) (0,0) node [below left] {\includegraphics[width=0.45\textwidth]{Winand1992_diagram.png}};
+		\draw (b) (a.north east) node [below right] {\includegraphics[width=0.45\textwidth]{Anders2009_SZM_.png}};
+	\end{tikzpicture}
+	
 	%
-	\includegraphics[page=3,width=0.45\textwidth]{sketches_intro.pdf}
-	\caption{Bulk (blue) and interface (red) energy contributions to the Gibbs free energy change $\Delta G$ (black) upon nucleus insertion as function of nucleus radius $R/R_c$. Nucleation barrier $\Delta G_c^*$ indicated. In a) as applicable to 3D geometry, in b) as to 2D geometry (see text for details).}
+	
+	\caption{Simplified empirical diagrams }
 	\label{fig_nucl_barrier}
 \end{figure}
 
