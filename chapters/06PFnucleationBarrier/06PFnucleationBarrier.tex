@@ -10,7 +10,7 @@ In order to find the equilibrium stable shape for arbitrary orientation and wett
 
 The method to obtain the shape factors utilizes that the interface in phase field method is implicitly tracked, i.e. it evolves without any assumption on its position. Additionally, it makes use of the fact, that in the simulated geometry, the total energy of the system is in fact the total particle-liquid interface energy. Advantage of the method is that it does not a-priori assume any shape, it is thus in principle usable for non-analytic cases, where the solution is not known, e.g. a particle on a grain boundary.
 
-The below sections first recall some fundamentals relevant for the subsequently described \textit{domain scaling} methodology. Then follows technical description of how the phase field model was extended to conserve volume and to have control over the inclination of interfaces at the domain boundary. Then, some details about the numerical implementation are included, followed by validations of the implementation in terms of how well the contact angles are reproduced for straight interface and the domain scaling methodology is then validated for circular segments with different contact angles, which is the case of heterogeneous nucleation with isotropic interface energy in 2D. The domain scaling method is then applied to the case with a particle with isotropic interface energy on top of a  grain boundary.
+The below sections first recall some fundamentals relevant for the subsequently described \textit{domain scaling} methodology. Then follows technical description of how the phase field model was extended to conserve volume and to have control over the inclination of interfaces at the domain boundary. Then, some details about the numerical implementation are included, followed by validations of the implementation in terms of how well the contact angles are reproduced for straight interface and the domain scaling methodology is then validated for circular segments with different contact angles, which is the case of heterogeneous nucleation with isotropic interface energy in 2D. The domain scaling method is then applied to the case with a particle with isotropic interface energy on top of a  grain boundary. Limitations and prospects of this approach are assessed based on the results.
 
 %The below procedure assumes a 2D particle sitting on top of a line, the contact angles on the left and right are known. It is assumed that the environment surrounding the particle is liquid and the particle-liquid energy is anisotropic. The contact angles are determined using the Young's equation. 
 %
@@ -18,7 +18,7 @@ The below sections first recall some fundamentals relevant for the subsequently 
 
 
 \section{Fundamentals}
-In 2D, the Gibbs free energy difference upon a nucleus insertion in the system is due to competition between area and line energy contributions (see also Figure \ref{fig_DG_2D_sketch}). Be $A_{hom}$ the nucleus area and its interface be described by a parametric curve $\mathcal{C}$. In the isotropic case, $\mathcal{C}$ is a circle and the interfacial contribution is simply $\sigma L$, where $L=2\pi R$ is the interface length and $\sigma$ the isotropic specific interface energy. The Gibbs free energy difference of a free nucleus is then (with $\Delta G_A$ being supersaturation)
+In 2D, the Gibbs free energy difference upon a nucleus insertion in the system is due to competition between area and line energy contributions (see also Figure \ref{fig_DG_2D_sketch}). Be $A_{hom}$ the nucleus area and its interface be described by a parametric curve $\mathcal{C}$. In the isotropic case, $\mathcal{C}$ is a circle and the interfacial contribution is simply $\sigma L$, where $L=2\pi R$ is the interface length and $\sigma$ the isotropic specific interface energy. The Gibbs free energy difference of a free nucleus is then (with $\Delta G_A$ being the bulk driving force, generally speaking the supersaturation)
 \begin{align}
 	\Delta G_{hom} &= -\Delta G_A A_{hom} + \sigma L \\
 	\label{eq_DG_hom_iso}	&= (-\Delta G_A R^2 + 2R\sigma)\pi \,,
@@ -35,41 +35,12 @@ where the non-dimensional nucleus area is $\hat{A}_{hom}=A_{hom}/R^2=\pi$.
 
 \begin{figure}
 	\centering
-%	\begin{tikzpicture}[scale=1]
-%		\newcommand{\sig}{1}
-%		\newcommand{\dGv}{\sig}
-%		\newcommand{\barr}{0.5*\sig^2/\dGv}
-%		\newcommand{\xlim}{2.5}
-%		\begin{axis}[
-%			small,
-%			clip mode=individual,
-%			xlabel={radius $R/R_c$},
-%			ytick={0},
-%			ylabel={$\Delta G$ (a.u.)},
-%			ylabel near ticks,
-%			ymin=-1.2,
-%			ymax=1.7,
-%			legend entries={$\approx- R^2$,$\approx R$,$\Delta G$},
-%			legend pos = north east,
-%			ymajorgrids = true
-%			]
-%			
-%			\addplot[blue,domain=0:\xlim,samples=50] {-\dGv*x^2/2};
-%			\addplot[red,domain=0:\xlim,samples=50] {\sig*x};
-%			\addplot[black,domain=0:\xlim,samples=50] {-\dGv*x^2/2+\sig*x};
-%			
-%			\draw[stealth-stealth] (axis cs:1,0) -- (axis cs:1,\barr/2)  node [left] {$\Delta G_c^*$} -- (axis cs:1,\barr);
-%			
-%			\draw (rel axis cs: -0.15,1) node [left,inner sep=0] {a)};
-%			%			\draw (rel axis cs: -0.15,1) node [left,inner sep=0] {a)};
-%		\end{axis}
-%	\end{tikzpicture}
 	\includegraphics[width=0.5\textwidth]{DG_vs_radius_2D.pdf}
 	\caption{Schematic dependence of the total energy change on the radius of the inserted nucleus in 2D.}
 	\label{fig_DG_2D_sketch}
 \end{figure}
 
-In heterogeneous nucleation, the shape factor $S(\theta)=A_{het}/A_{hom}$ scales the homogeneous total energy change upon nucleus insertion $\Delta G_{hom}$ as
+In the heterogeneous nucleation, the shape factor $S(\theta)=A_{het}/A_{hom}$ scales the homogeneous total energy change upon nucleus insertion $\Delta G_{hom}$ as
 \begin{equation}\label{eq_DG_het_2D}
 	\Delta G_{het} = S(\theta)\Delta G_{hom} \,,
 \end{equation}
