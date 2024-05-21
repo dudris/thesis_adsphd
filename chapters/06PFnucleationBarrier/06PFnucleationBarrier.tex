@@ -75,33 +75,8 @@ The nucleus radius is equal in both homogeneous and heterogeneous nucleation.
 The simulated system geometry is sketched in Figure~\ref{fig_sketch_domain_scaling_PF}. A two-phase system of a particle in a liquid was described by two phase field variables in Moelans' model, one representing the liquid parent phase ($\eta_1$) and the second ($\eta_2$) representing the particle (possibly with anisotropic interface energy). The bottom domain boundary then represents the substrate and the interface inclination $\vartheta_L,\vartheta_R$ in the two contact points is controlled by the boundary condition as indicated in the figure.
 \begin{figure}
 	\centering
-%	\begin{tikzpicture}[scale=3]
-%		\draw[thick] (-0.22,0) rectangle (1.1,.7); 
-%		\draw[thick] (1/5,0) arc (210:-30:1/3);
-%		\draw[blue] (0.28,0.07) node {$\vartheta_L$};
-%		\draw[magenta] (0.7,0.07) node {$\vartheta_R$};
-%		\draw[gray] (0.59,0) arc (180:60:0.2);
-%		\draw[gray] (0.4,0) arc (0:120:0.2);
-%		\draw[gray] (1/5,0) -- ++(120:0.4);
-%		\draw[gray] (0.79,0) -- ++(60:0.4);
-%		
-%		\draw[stealth-stealth] (0.79,-0.06) -- node[below,midway]{$l_{GB}$} (0.2,-0.06);
-%		
-%		\draw (0.2,0.6) node {$\eta_1$};
-%		\draw (0.5,0.3) node {$\eta_2$};
-%		\draw (0.7,0.55) node {$\sigma_P$};
-%		
-%		\def\vshift{-0.25}
-%		\draw[-stealth] (-0.12,0) -- ++(0,0.2) node[above] {$\bm{n_B}$};
-%		\draw[blue,stealth-stealth] (-0.22,\vshift) -- (0.48,\vshift) node[below left]{$\nabla\eta_2\cdot\bm{n_B}= |\nabla\eta_2|\cos(\theta_L)$}; 
-%		%		\draw[blue,stealth-stealth] (-0.22,-0.1) -- node[below,midway]{$\nabla\eta_2\cdot\bm{n_B}= |\nabla\eta_2|\cos(\theta_L)$}  (0.48,-0.1); 
-%		\draw[blue,thick] (-0.22,-0.03) -- (0.48,-0.03); 
-%		\draw[magenta,thick] (1.1,-0.03) -- (0.52,-0.03); 
-%		%		\draw[magenta, stealth-stealth] (1.1,-0.4) -- node[below,midway]{$\nabla\eta_2\cdot\bm{n_B}= |\nabla\eta_2|\cos(\theta_R)$} (0.52,-0.4);
-%		\draw[magenta, stealth-stealth] (1.1,\vshift) -- (0.52,\vshift) node[below right]{$\nabla\eta_2\cdot\bm{n_B}= |\nabla\eta_2|\cos(\theta_R)$};
-%	\end{tikzpicture}
 	\includegraphics[width=0.8\textwidth]{sketch_geometry_PF_NPA.pdf}
-	\caption{Sketch of the geometry in the phase-filed simulations used in the domain scaling methodology for nucleation barrier assessment. The symbols $\vartheta_L,\vartheta_R$ denote tangent angles in the contact points and $\theta_L,\theta_R$ the normal ones. The intervals on the bottom domain boundary with the different interface inclination imposed are indicated (note that $\eta_1$ has analogous boundary conditions which must be consistent). $l_{GB}$ is the length of the grain boundary interval between the contact points. $\sigma_P$ is the particle-liquid interface energy.}
+	\caption{Sketch of the geometry in the phase-filed simulations used in the domain scaling methodology for nucleation barrier assessment. The symbols $\vartheta_L,\vartheta_R$ denote tangent angles in the contact points and $\theta_L,\theta_R$ the normal ones. The two intervals on the bottom domain boundary with the different interface inclination imposed are indicated  by blue color for the left half of the domain and by purple on the right one (note that $\eta_1$ has analogous boundary conditions which must be consistent). $l_{GB}$ is the length of the grain boundary interval between the contact points. $\sigma_P$ is the particle-liquid interface energy.}
 	\label{fig_sketch_domain_scaling_PF}
 \end{figure}
 
