@@ -240,7 +240,7 @@
 % NUCLEUS_ON_GB_ANNOTATED
 \begin{tikzpicture}[scale=2.7]
 	\def\thl{130}
-	\def\thr{-50}
+	\def\thr{-80}
 	\def\R{0.8}
 %	\tikzmath{ \RL = 0.4/sin(\thl) ; \RR = 0.7/sin(-\thr) ; }
 	\tikzmath{ \cplX = -sin(\thl)*\R ; \cprX = -sin(\thr)*\R ; }
@@ -255,8 +255,8 @@
 	\draw[very thick, magenta] ($(cpr)+(0,-0.04)$) -- node[midway,below] {$\sigma_{GB}^R$} ($(c)+(0,-0.04)$);		
 	\draw[very thick] (al) -| (cb) |- (ar);
 	\draw (cpl) arc (\thl+90:90:\R) node (toppoint) {};
-%	\draw[dashed] (toppoint) -- (c) ;
-	\draw[dashed] (0,1.3) -- (c) ;
+	\draw[dashed] (toppoint) -- (c) ;
+%	\draw[dashed] (0,1.3) -- (c) ;
 	\draw (cpr) arc (90+\thr:90:\R);
 	\draw[gray] (cpl) node[above right] {$\vartheta_L$} -- ++(\thl:0.5);
 	\draw[gray] (cpr) node[above left] {$\vartheta_R$}-- ++(180+\thr:0.5);
