@@ -302,7 +302,7 @@
 		\begin{scope}
 			% \clip (axis cs: -2,-5) rectangle (axis cs:0,0);
 			\clip (axis cs: 0,0) -- (axis cs: 0,2) -- (axis cs: 2,2) -- (axis cs: 2,-2) -- (axis cs: -2,-2) -- (axis cs: -2,0) -- cycle (axis cs: 0,0) ;
-			\addplot[domain=-pi:pi, samples=150, smooth,red,dashed] ({Wulffx1(deg(x))},{Wulffy1(deg(x))+yshift1});
+			\addplot[domain=-pi:pi, samples=150, smooth,red,dashed,thin] ({Wulffx1(deg(x))},{Wulffy1(deg(x))+yshift1});
 		\end{scope}
 		
 		\begin{scope}
@@ -313,7 +313,7 @@
 		\begin{scope}
 			% \clip (axis cs: 0,-5) rectangle (axis cs:2,0);
 			\clip (axis cs: 0,0) -- (axis cs: 2,0) -- (axis cs: 2,-2) -- (axis cs: -2,-2) -- (axis cs: -2,2) -- (axis cs: 0,2) -- cycle (axis cs: 0,0) ;
-			\addplot[domain=-pi:pi, samples=150, smooth,blue,dashed] ({Wulffx2(deg(x))},{Wulffy2(deg(x))+yshift2});    
+			\addplot[domain=-pi:pi, samples=150, smooth,blue,dashed, thin] ({Wulffx2(deg(x))},{Wulffy2(deg(x))+yshift2});    
 		\end{scope}
 		
 		\path coordinate (C1) at (axis cs:0,yshift1);
