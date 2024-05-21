@@ -97,7 +97,7 @@ Note that the free energy functional $F(\eta,\nabla\eta)$ only accounts for the 
 \begin{equation}\label{eq_young_iso}
 	\sigma_S = \sigma_{GB}+\sigma_P\cos(\vartheta) \,,
 \end{equation}
-the grain-boundary-energy term can be thus re-written as $-l_{GB}\sigma_P\cos(\vartheta)$, which allows us to disregard the values of the substrate and grain boundary energy. In the phase field simulation, the distance between the contact points is interpreted as $l_{GB}$ (see Figure~\ref{fig_sketch_domain_scaling_PF}) and the above term is added to the total interface energy change upon the nucleus insertion $\Delta G_\sigma$, hence when denoting the free energy functional as $F(\eta,\nabla\eta)$ it can be written
+the grain-boundary-energy term can be thus re-written as $l_{GB}(\sigma_{GB}-\sigma_S)=-l_{GB}\sigma_P\cos(\vartheta)$, which allows us to disregard the values of the substrate and grain boundary energy. In the phase field simulation, the distance between the contact points is interpreted as $l_{GB}$ (see Figure~\ref{fig_sketch_domain_scaling_PF}) and the above term is added to the total interface energy change upon the nucleus insertion $\Delta G_\sigma$, hence when denoting the free energy functional as $F(\eta,\nabla\eta)$ it can be written
 \begin{equation}
 	\Delta G_\sigma = F(\eta,\nabla\eta) - l_{GB}\sigma_P\cos(\vartheta) \,.
 \end{equation}
