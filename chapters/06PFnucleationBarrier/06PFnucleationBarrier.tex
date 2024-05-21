@@ -335,13 +335,13 @@ The re-computation of the model parameters during the domain scaling was carried
 
 \section{Domain scaling of a particle on a grain boundary (isotropic interface energy)}
 %Here, the equilibrium stable shape is reached in a dynamic simulation. However, in the classical nucleation theory, it is in fact assumed that it stochastically appears due to local energy fluctuations in the nucleation spot. Among all the possible shapes with equal volume, those with lower total interface energy have higher nucleation probability. 
-The present section investigates the theoretical case when the nucleus extends over the grain boundary and thus its wetting condition is unequal on the two sides. 
+The present section investigates the theoretical case when the nucleus extends over the grain boundary and thus its wetting condition is unequal on the two sides. Such a situation was sketched in Figure~\ref{fig_sketch_particle_onGB}. Radius of the particle is given by the particle-liquid interface energy and the bulk driving force (see \eqref{eq_crit_radius_2D}), hence the particle tries to emerge/submerge differently on each side of the grain boundary.
 
-The geometry of the problem is sketched in~Figure~\ref{fig_sketch_particle_onGB}. When the two sides are wetted differently, it implies different contact angles and thus radii of the equilibrium shapes. That necessarily implies also different curvatures $K_{L/R}$. The chemical potential $\mu$ (the driving force, see~\eqref{eq_chempot_constant}) 
+The geometry of the resulting problem is sketched in~Figure~\ref{fig_sketch_particle_onGB}. When the two sides are wetted differently, it implies different contact angles. The curvature $K$ is in principle equal on both sides of the grain boundary, however due to the obvious shape discontinuity it cannot be constant along the whole shape. The chemical potential $\mu_{surf}$ (the capillary driving force, see~\eqref{eq_chempot_constant}) is
 \begin{equation}
-	\mu = \sigma K \,,
+	\mu_{surf} = \sigma K 
 \end{equation}
-over the whole stable shape must be a constant in order to have it in equilibrium. But for a constant $\sigma$ that cannot be achieved when there is a different curvature $K_{L/R}$ imposed on the left and right side.
+and must be constant in order to have the stable shape in equilibrium. But for a constant $\sigma$ that cannot be achieved under these conditions.
 
 Nevertheless, it is known that nucleation may happen on top of grain boundaries. Additionally, the nuclei in classical nucleation theory do not necessarily have the interface-energy minimizing shape, even though that one is the most likely. Hence, even if the shape is not in equilibrium, we assume that it could nucleate. Supposedly, it could survive by sliding to the lower-energy side of the grain boundary. Using the domain scaling procedure, the shape factor of the unknown compound shape can be quantified.
 
@@ -357,7 +357,7 @@ To reduce the simulation time, the initial condition was a shape combined from p
 		\draw[above ] (L.north west) node {(a)};
 		\draw[above ] (R.north west) node {(b)};
 	\end{tikzpicture}
-	\caption{A particle on a grain boundary. In (a) the impact of different wetting on the sides is indicated and in (b) the relevant annotations were added: the specific interface energies $\sigma_S^{L/R}$ belong to the substrate-solution interfaces and $\sigma_{GB}^{L/R}$ to the respective grain boundaries. The grain boundary lengths $l_{GB}^{L/R}$ and $l_{GB}$ are indicated.}
+	\caption{A particle on a grain boundary. In (a) the impact of different wetting on the two sides of the grain boundary is indicated and in (b) the annotations relevant for explanations in text were added: the specific interface energies $\sigma_S^{L/R}$ belong to the substrate-solution interfaces, the grain boundary energies $\sigma_{GB}^{L/R}$ and lengths $l_{GB}^{L/R}$ to the respective grain boundaries and $l_{GB}$ is the total grain boundary length.}
 	\label{fig_sketch_particle_onGB}
 \end{figure}
 
