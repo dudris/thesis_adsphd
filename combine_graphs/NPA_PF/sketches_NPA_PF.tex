@@ -255,7 +255,8 @@
 	\draw[very thick, magenta] ($(cpr)+(0,-0.04)$) -- node[midway,below] {$\sigma_{GB}^R$} ($(c)+(0,-0.04)$);		
 	\draw[very thick] (al) -| (cb) |- (ar);
 	\draw (cpl) arc (\thl+90:90:\R) node (toppoint) {};
-	\draw[dashed] (toppoint) -- (c) ;
+%	\draw[dashed] (toppoint) -- (c) ;
+	\draw[dashed] (0,1.1) -- (c) ;
 	\draw (cpr) arc (90+\thr:90:\R);
 	\draw[gray] (cpl) node[above right] {$\vartheta_L$} -- ++(\thl:0.5);
 	\draw[gray] (cpr) node[above left] {$\vartheta_R$}-- ++(180+\thr:0.5);
