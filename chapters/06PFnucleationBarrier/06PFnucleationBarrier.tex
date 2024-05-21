@@ -160,7 +160,7 @@ Because the Moelans' model with anisotropic interfaces was already extensively i
 	
 	Three conceptually different solutions can be used in a multi-phase field model, which are known to the author: Cahn-Hilliard equation, Lagrange multipliers and fictitious concentrations field. 
 	
-	Given the intended application with anisotropic interface energy and the complicated driving force, a less computationally demanding option than the Cahn-Hilliard equation was seeked, because that one is a partial differential equation of 4-th order in space. In order to bring insight into the impact of interface energy anisotropy in textures formation, a parameter study would be needed involving many simulations, hence less computationally demanding approach was seeked.
+	In order to bring insight into the impact of interface energy anisotropy in textures formation, a parameter study would be needed involving many simulations. Moreover, the intended application with anisotropic interface energy involves complicated driving force terms, hence a less computationally demanding option than the Cahn-Hilliard equation was seeked, because that one is a partial differential equation of 4-th order in space. 
 	
 	The approach using Lagrange multipliers to conserve volume was thoroughly considered, but eventually it was found out that in Moelan's model is not a suitable solution. The reason is that the volume of a single phase/grain is defined using all other phase fields, which introduces excessive computational complexity in application of the principles leading to volume conservation. All related details and explanations can be found in Appendix~\ref{ch_lagrange_multipliers_PF}.
 	
