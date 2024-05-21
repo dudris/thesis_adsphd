@@ -347,78 +347,78 @@
 %	\draw[magenta, stealth-stealth] (1.1,\vshift) -- (0.52,\vshift) node[below right]{$\nabla\eta_2\cdot\bm{n_B}= |\nabla\eta_2|\cos(\theta_R)$};
 %\end{tikzpicture}
 
-%\begin{tikzpicture}
-%	\def\AR{2.5}
-%	\def\tangangle{40}
-%	\def\spce{0.3}
-%	\def\y{1}
-%	\def\yy{0.8}
-%	\def\yyy{0.6}
-%	
-%	\draw[step=0.08,color=gray] (0,0) grid (\AR,\y) ;
-%	\draw (0,0.5) node[left] {$N_y$} ;
-%	\draw (\AR/2,0) node[below] {$N_x$} ;
-%	
-%	\draw node (x1) at (\AR+\spce,0){};
-%	\draw node (x2) at (2*\AR+2*\spce,0){};
-%	\draw node (x3) at (2*\AR+3*\spce+\yy*\AR,0){};
-%	
-%	\tikzmath{
-%		\R 		= 0.35*\AR*\y/sin(\tangangle) ;
-%		\RR 	= 0.35*\AR*\yy/sin(\tangangle) ;
-%		\RRR 	= 0.35*\AR*\yyy/sin(\tangangle);
-%		\w = 2*\R*sin(\tangangle);};
-%	
-%	\draw (x1) rectangle ++(\y*\AR,\y) ;
-%	\draw (x2) rectangle ++(\yy*\AR,\yy) ;
-%	\draw (x3) rectangle ++(\yyy*\AR,\yyy) ;
-%	
-%	\draw ($(x1)+(0.1*\AR,0)$) arc (180-\tangangle:\tangangle:\R);
-%	\draw ($(x2)+(0.1*\AR*\yy,0)$) arc (180-\tangangle:\tangangle:\RR);
-%	\draw ($(x3)+(0.1*\AR*\yyy,0)$) arc (180-\tangangle:\tangangle:\RRR);
-%	
-%	\draw ($(x1)+(0.5*\AR,0)$) node[below] {$A_1, \Delta x_1$} ;
-%	\draw ($(x2)+(0.5*\AR*\yy,0)$) node[below] {$A_2, \Delta x_2$} ;
-%	\draw ($(x3)+(0.5*\AR*\yyy,0)$) node[below] {$A_3, \Delta x_3$} ;
-%%	
-%%	\draw node[below right,inner sep=0] (img) at ($(x1) + (0,-1)$) {\includegraphics[width=0.4\textwidth]{figs\PFbarrier\NPA_calc_DGcrit.png}};
-%%	
-%%	\draw node[inner sep=0] at (-0.7,1) {(a)} ;
-%%	\draw node[left,inner sep=0] at (img.north west) {(b)} ;
-%%	\draw node[inner sep=0] at (img.west) {$\Delta G$} ;
-%%	\draw node[inner sep=0] at (img.south) {$\Delta x$} ;
-%\end{tikzpicture}
-    
-\begin{tikzpicture}[scale=2.7]
-	\def\thl{120}
-	\def\thr{-60}
-	\tikzmath{ \RL = 0.4/sin(\thl) ; \RR = 0.7/sin(-\thr) ; }
-	\path (-1,0) coordinate (al);
-	\path (1,0) coordinate (ar);
-	\path (0,0) coordinate (c);
-	\path (0,-0.4) coordinate (cb);
-	\path (-0.4,0) coordinate (cpl);
-	\path (0.7,0) coordinate (cpr);
+\begin{tikzpicture}
+	\def\AR{2.5}
+	\def\tangangle{40}
+	\def\spce{0.3}
+	\def\y{1}
+	\def\yy{0.8}
+	\def\yyy{0.6}
 	
-	\draw[very thick, blue] ($(cpl)+(0,-0.04)$) -- node[midway,below] {$\sigma_{GB}^L$} ($(c)+(0,-0.04)$);
-	\draw[very thick, magenta] ($(cpr)+(0,-0.04)$) -- node[midway,below] {$\sigma_{GB}^R$} ($(c)+(0,-0.04)$);		
-	\draw[very thick] (al) -| (cb) |- (ar);
-	\draw (cpl) arc (\thl+90:90:\RL) node (toppoint) {};
-	\draw[dashed] (toppoint) -- (c) ;
-	\draw (cpr) arc (90+\thr:90:\RR);
-	\draw[gray] (cpl) node[above right] {$\vartheta_L$} -- ++(\thl:0.5);
-	\draw[gray] (cpr) node[above left] {$\vartheta_R$}-- ++(180+\thr:0.5);
-	\draw[gray] ($(cpl)+(0.3,0)$) arc (0:\thl:0.3);
-	\draw[gray] ($(cpr)+(-0.3,0)$) arc (180:180+\thr:0.3);
-	\draw node[above] at (al) {$\sigma_{S}^L$};
-	\draw node[above] at (ar) {$\sigma_{S}^R$};
-	\draw (-1.2,-0.8) rectangle (1.2,0.8);
+	\draw[step=0.08,color=gray] (0,0) grid (\AR,\y) ;
+	\draw (0,0.5) node[left] {$N_y$} ;
+	\draw (\AR/2,0) node[below] {$N_x$} ;
 	
-	\def\vshift{-0.3}
-	\draw[stealth-stealth] ($(cpr)+(0,\vshift)$) -- node[midway,below] {$l_{GB}^R$} ($(c)+(0.02,\vshift)$);	
-	\draw[stealth-stealth] ($(cpl)+(0,\vshift)$) -- node[midway,below] {$l_{GB}^L$} ($(c)+(-0.02,\vshift)$);	
-	\draw[stealth-stealth] ($(cpl)+(0,-0.55)$) -- node[midway,below] {$l_{GB}$} ($(cpr)+(0,-0.55)$);	
+	\draw node (x1) at (\AR+\spce,0){};
+	\draw node (x2) at (2*\AR+2*\spce,0){};
+	\draw node (x3) at (2*\AR+3*\spce+\yy*\AR,0){};
+	
+	\tikzmath{
+		\R 		= 0.35*\AR*\y/sin(\tangangle) ;
+		\RR 	= 0.35*\AR*\yy/sin(\tangangle) ;
+		\RRR 	= 0.35*\AR*\yyy/sin(\tangangle);
+		\w = 2*\R*sin(\tangangle);};
+	
+	\draw (x1) rectangle ++(\y*\AR,\y) ;
+	\draw (x2) rectangle ++(\yy*\AR,\yy) ;
+	\draw (x3) rectangle ++(\yyy*\AR,\yyy) ;
+	
+	\draw ($(x1)+(0.1*\AR,0)$) arc (180-\tangangle:\tangangle:\R);
+	\draw ($(x2)+(0.1*\AR*\yy,0)$) arc (180-\tangangle:\tangangle:\RR);
+	\draw ($(x3)+(0.1*\AR*\yyy,0)$) arc (180-\tangangle:\tangangle:\RRR);
+	
+	\draw ($(x1)+(0.5*\AR,0)$) node[below] {$A_1, \Delta x_1$} ;
+	\draw ($(x2)+(0.5*\AR*\yy,0)$) node[below] {$A_2, \Delta x_2$} ;
+	\draw ($(x3)+(0.5*\AR*\yyy,0)$) node[below] {$A_3, \Delta x_3$} ;
+%	
+%	\draw node[below right,inner sep=0] (img) at ($(x1) + (0,-1)$) {\includegraphics[width=0.4\textwidth]{figs\PFbarrier\NPA_calc_DGcrit.png}};
+%	
+%	\draw node[inner sep=0] at (-0.7,1) {(a)} ;
+%	\draw node[left,inner sep=0] at (img.north west) {(b)} ;
+%	\draw node[inner sep=0] at (img.west) {$\Delta G$} ;
+%	\draw node[inner sep=0] at (img.south) {$\Delta x$} ;
 \end{tikzpicture}
+    
+%\begin{tikzpicture}[scale=2.7]
+%	\def\thl{120}
+%	\def\thr{-60}
+%	\tikzmath{ \RL = 0.4/sin(\thl) ; \RR = 0.7/sin(-\thr) ; }
+%	\path (-1,0) coordinate (al);
+%	\path (1,0) coordinate (ar);
+%	\path (0,0) coordinate (c);
+%	\path (0,-0.4) coordinate (cb);
+%	\path (-0.4,0) coordinate (cpl);
+%	\path (0.7,0) coordinate (cpr);
+%	
+%	\draw[very thick, blue] ($(cpl)+(0,-0.04)$) -- node[midway,below] {$\sigma_{GB}^L$} ($(c)+(0,-0.04)$);
+%	\draw[very thick, magenta] ($(cpr)+(0,-0.04)$) -- node[midway,below] {$\sigma_{GB}^R$} ($(c)+(0,-0.04)$);		
+%	\draw[very thick] (al) -| (cb) |- (ar);
+%	\draw (cpl) arc (\thl+90:90:\RL) node (toppoint) {};
+%	\draw[dashed] (toppoint) -- (c) ;
+%	\draw (cpr) arc (90+\thr:90:\RR);
+%	\draw[gray] (cpl) node[above right] {$\vartheta_L$} -- ++(\thl:0.5);
+%	\draw[gray] (cpr) node[above left] {$\vartheta_R$}-- ++(180+\thr:0.5);
+%	\draw[gray] ($(cpl)+(0.3,0)$) arc (0:\thl:0.3);
+%	\draw[gray] ($(cpr)+(-0.3,0)$) arc (180:180+\thr:0.3);
+%	\draw node[above] at (al) {$\sigma_{S}^L$};
+%	\draw node[above] at (ar) {$\sigma_{S}^R$};
+%	\draw (-1.2,-0.8) rectangle (1.2,0.8);
+%	
+%	\def\vshift{-0.3}
+%	\draw[stealth-stealth] ($(cpr)+(0,\vshift)$) -- node[midway,below] {$l_{GB}^R$} ($(c)+(0.02,\vshift)$);	
+%	\draw[stealth-stealth] ($(cpl)+(0,\vshift)$) -- node[midway,below] {$l_{GB}^L$} ($(c)+(-0.02,\vshift)$);	
+%	\draw[stealth-stealth] ($(cpl)+(0,-0.55)$) -- node[midway,below] {$l_{GB}$} ($(cpr)+(0,-0.55)$);	
+%\end{tikzpicture}
 
 
 \end{document}
