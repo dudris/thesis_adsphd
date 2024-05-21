@@ -285,56 +285,53 @@ The re-computation of the model parameters during the domain scaling was carried
 		\caption{Results of tilted plane validation. In a) the result with isotropic interface, in b) with anisotropic one. }
 		\label{fig_tilted_plane_validation_results}
 	\end{figure}
+	
+	\subsection{Particle on a plane (isotropic interface energy)}
+	In heterogeneous nucleation with isotropic interface energy in 2D, the equilibrium shape is a circular segment and the shape factor as function of the tangent contact angle (wetting angle) $\vartheta$ (see Figure~\ref{fig_sketch_domain_scaling_PF}) is
+	\begin{equation}
+		S(\vartheta) = \frac{2\vartheta - \sin(2\vartheta)}{2\pi} \,.
+	\end{equation}
+	A series of phase field simulations was run in the geometry as in Figure~\ref{fig_sketch_domain_scaling_PF} with $\vartheta_L=\vartheta_R$ to assess the above dependence of shape factor on the wetting angle. See Table~\ref{tab_PF_NPA_param_particle_onplane} for details on the simulation grid in the respective simulations.
+	\begin{table}
+		\centering
+		\caption{Simulation grid dimensions in individual simulations of a particle with isotropic interface energy on a plane in 2D. The grid aspect ratio was determined based on the expected shape aspect ratio.}
+		\label{tab_PF_NPA_param_particle_onplane}
+		\begin{tabular}{c|c}
+			$\vartheta$ & $N_x\times N_y$ \\ \hline
+			15	&	$546\times 42$	\\
+			30	&	$382\times 51$	\\
+			45	&	$308\times 64$	\\
+			60	&	$261\times 75$	\\
+			75	&	$226\times 87$	\\
+			90	&	$198\times 99$	\\
+			105	&	$176\times 111$	\\
+			120	&	$162\times 121$	\\
+			135	&	$152\times 129$	\\
+			150	&	$145\times 135$	\\
+			165	&	$141\times 139$	
+		\end{tabular}
+	\end{table}
+	It is assumed, that the obtained shape is the equilibrium one, which is assured by conditional stopping of the simulation, when the total interface energy converged (i.e. its change in the new time step was below threshold). 
+	
+	The contact angles were the same as in the tilted plane validation, i.e. from $\vartheta=15$\textdegree~to $\vartheta=165$\textdegree~with a 15\textdegree~step. The initial condition corresponded to the target circle segments to reduce the computation time. Using the equation~\eqref{eq_NPA_PF_formula} and taking into account that the non-dimensional area for a circle is $\hat{A}_{circle}=\pi$, the results in Figure~\ref{fig_result_NPA_PF_S_iso} were obtained.
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}
+			\draw node (1) at (0,0) {\includegraphics[width=0.49\textwidth]{NPA_PF_abserr_iso.pdf}};
+			\draw node[below right] (2) at (1.north east) {\includegraphics[width=0.49\textwidth]{NPA_PF_S_iso.pdf}};
+			\draw node[inner sep =0] at (1.north west) {(a)};
+			\draw node[inner sep =0] at (2.north west) {(b)};
+		\end{tikzpicture}
+		\caption{Results of the phase field simulation for determination of shape factor in heterogeneous nucleation with isotropic interface energy. In (a) the error in observed contact angles at the end of the simulation, in (b) the shape factor as obtained by domain scaling method.}
+		\label{fig_result_NPA_PF_S_iso}
+	\end{figure}
+	
+	Firstly, it is interesting that the observed contact angles $\vartheta_{obs}$ differed from those imposed by the boundary conditions $\vartheta$ significantly more than in the tilted line validation. This can be seen in the Figure~\ref{fig_result_NPA_PF_S_iso}a, where the difference $\vartheta_{obs}-\vartheta$ was plotted. The angle difference was larger than 5\textdegree~for 3 rather inclined angles (i.e. near 0\textdegree~or 180\textdegree). The deviation $\vartheta_{obs}-\vartheta$ did not depend on the phase field interface parameterization. In the base run, the interface width was $l_{IW}=$\qty{1e-9}{\m}, with 7 points through the interface. The compared simulations probed the effect of a) increasing the domain area, while keeping the $l_{IW}$ equal (effectively narrowing the physical interface width relative to the simulation initial condition) and of adding points to the interface (both actions refined the grid below the simulated initial condition) and both might improve phase field simulation accuracy in different regards. That did not happen in terms of the contact angles, though.
+	
+	However, the shape factor determination was not affected heavily, because it turned out that there actually were very few points deviating from the expected circular shape and those were near the boundary. This is confirmed also by the obtained values of shape factor plotted in Figure~\ref{fig_result_NPA_PF_S_iso}, which follow closely the analytic prediction. The different interface parametrization yielded slight improvement in the shape factor values, but not relevant in the current application.
 		
-\section{Results}
-First, the methodology is used to determine the shape factor in isotropic heterogeneous nucleation as a proof-of-concept application.
 
-
-\subsection{Particle on a plane (isotropic interface energy)}
-In heterogeneous nucleation with isotropic interface energy in 2D, the equilibrium shape is a circular segment and the shape factor as function of the tangent contact angle (wetting angle) $\vartheta$ (see Figure~\ref{fig_sketch_domain_scaling_PF}) is
-\begin{equation}
-	S(\vartheta) = \frac{2\vartheta - \sin(2\vartheta)}{2\pi} \,.
-\end{equation}
-A series of phase field simulations was run in the geometry as in Figure~\ref{fig_sketch_domain_scaling_PF} with $\vartheta_L=\vartheta_R$ to assess the above dependence of shape factor on the wetting angle. See Table~\ref{tab_PF_NPA_param_particle_onplane} for details on the simulation grid in the respective simulations.
-\begin{table}
-	\centering
-	\caption{Simulation grid dimensions in individual simulations of a particle with isotropic interface energy on a plane in 2D. The grid aspect ratio was determined based on the expected shape aspect ratio.}
-	\label{tab_PF_NPA_param_particle_onplane}
-	\begin{tabular}{c|c}
-		$\vartheta$ & $N_x\times N_y$ \\ \hline
-	 	15	&	$546\times 42$	\\
-	 	30	&	$382\times 51$	\\
-	 	45	&	$308\times 64$	\\
-	 	60	&	$261\times 75$	\\
-	 	75	&	$226\times 87$	\\
-	 	90	&	$198\times 99$	\\
-	 	105	&	$176\times 111$	\\
-	 	120	&	$162\times 121$	\\
-	 	135	&	$152\times 129$	\\
-	 	150	&	$145\times 135$	\\
-	 	165	&	$141\times 139$	
-	\end{tabular}
-\end{table}
-It is assumed, that the obtained shape is the equilibrium one, which is assured by conditional stopping of the simulation, when the total interface energy converged (i.e. its change in the new time step was below threshold). 
-
-The contact angles were the same as in the tilted plane validation, i.e. from $\vartheta=15$\textdegree~to $\vartheta=165$\textdegree~with a 15\textdegree~step. The initial condition corresponded to the target circle segments to reduce the computation time. Using the equation~\eqref{eq_NPA_PF_formula} and taking into account that the non-dimensional area for a circle is $\hat{A}_{circle}=\pi$, the results in Figure~\ref{fig_result_NPA_PF_S_iso} were obtained.
-\begin{figure}
-	\centering
-	\begin{tikzpicture}
-		\draw node (1) at (0,0) {\includegraphics[width=0.49\textwidth]{NPA_PF_abserr_iso.pdf}};
-		\draw node[below right] (2) at (1.north east) {\includegraphics[width=0.49\textwidth]{NPA_PF_S_iso.pdf}};
-		\draw node[inner sep =0] at (1.north west) {(a)};
-		\draw node[inner sep =0] at (2.north west) {(b)};
-	\end{tikzpicture}
-	\caption{Results of the phase field simulation for determination of shape factor in heterogeneous nucleation with isotropic interface energy. In (a) the error in observed contact angles at the end of the simulation, in (b) the shape factor as obtained by domain scaling method.}
-	\label{fig_result_NPA_PF_S_iso}
-\end{figure}
-
-Firstly, it is interesting that the observed contact angles $\vartheta_{obs}$ differed from those imposed by the boundary conditions $\vartheta$ significantly more than in the tilted line validation. This can be seen in the Figure~\ref{fig_result_NPA_PF_S_iso}a, where the difference $\vartheta_{obs}-\vartheta$ was plotted. The angle difference was larger than 5\textdegree~for 3 rather inclined angles (i.e. near 0\textdegree~or 180\textdegree). The deviation $\vartheta_{obs}-\vartheta$ did not depend on the phase field interface parameterization. In the base run, the interface width was $l_{IW}=$\qty{1e-9}{\m}, with 7 points through the interface. The compared simulations probed the effect of a) increasing the domain area, while keeping the $l_{IW}$ equal (effectively narrowing the physical interface width relative to the simulation initial condition) and of adding points to the interface (both actions refined the grid below the simulated initial condition) and both might improve phase field simulation accuracy in different regards. That did not happen in terms of the contact angles, though.
-
-However, the shape factor determination was not affected heavily, because it turned out that there actually were very few points deviating from the expected circular shape and those were near the boundary. This is confirmed also by the obtained values of shape factor plotted in Figure~\ref{fig_result_NPA_PF_S_iso}, which follow closely the analytic prediction. The different interface parametrization yielded slight improvement in the shape factor values, but not relevant in the current application.
-
-\subsection{Particle on a grain boundary (isotropic interface energy)}
+\section{Domain scaling of a particle on a grain boundary (isotropic interface energy)}
 %Here, the equilibrium stable shape is reached in a dynamic simulation. However, in the classical nucleation theory, it is in fact assumed that it stochastically appears due to local energy fluctuations in the nucleation spot. Among all the possible shapes with equal volume, those with lower total interface energy have higher nucleation probability. 
 The present section investigates the theoretical case when the nucleus extends over the grain boundary and thus its wetting condition is unequal on the two sides. 
 
