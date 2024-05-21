@@ -1,5 +1,5 @@
 % !TeX root = ../../thesis.tex
-\chapter{Nucleation probability assessment - a phase field methodology}
+\chapter{Nucleation probability assessment - a phase field methodology}\label{ch_NPA_PF_methodology}
 
 \section{Introduction}
 This chapter develops a methodology to obtain insight about the nucleation barrier from the stable shapes of particles on a planar support in 2D. The developed multi-phase phase field model is used to obtain the interface-energy-minimizing shapes and the below described \textit{domain scaling} is then used to find the shape factor of the shape. 
@@ -10,7 +10,7 @@ In order to find the equilibrium stable shape for arbitrary orientation and wett
 
 The method to obtain the shape factors utilizes that the interface in phase field method is implicitly tracked, i.e. it evolves without any assumption on its position. Additionally, it makes use of the fact, that in the simulated geometry, the total energy of the system is in fact the total particle-liquid interface energy. Advantage of the method is that it does not a-priori assume any shape, it is thus in principle usable for non-analytic cases, where the solution is not known, e.g. a particle on a grain boundary.
 
-The below sections first recall some fundamentals relevant for the subsequently described \textit{domain scaling} methodology. Then follows technical description of how the phase field model was extended to conserve volume and to have control over the inclination of interfaces at the domain boundary.
+The below sections first recall some fundamentals relevant for the subsequently described \textit{domain scaling} methodology. Then follows technical description of how the phase field model was extended to conserve volume and to have control over the inclination of interfaces at the domain boundary. Then, some details about the numerical implementation are included, followed by validations of the implementation in terms of how well the contact angles are reproduced for straight interface and the domain scaling methodology is then validated for circular segments with different contact angles, which is the case of heterogeneous nucleation with isotropic interface energy in 2D. The domain scaling method is then applied to the case with a particle with isotropic interface energy on top of a  grain boundary.
 
 %The below procedure assumes a 2D particle sitting on top of a line, the contact angles on the left and right are known. It is assumed that the environment surrounding the particle is liquid and the particle-liquid energy is anisotropic. The contact angles are determined using the Young's equation. 
 %
@@ -134,9 +134,9 @@ The simulated system geometry is sketched in Figure~\ref{fig_sketch_domain_scali
 	\label{fig_sketch_domain_scaling_PF}
 \end{figure}
 
-Volume conservation was assured using the fictitious concentration field. 
+Volume conservation was assured using the fictitious concentration field described in the section~\ref{sec_volume_cons_PF_ch_NPA_PF}. 
 
-The particle-liquid interface energy $\sigma_P$ was assumed, together with the contact angles $\vartheta_L, \vartheta_R$. 
+The particle-liquid interface energy $\sigma_P$ was assumed, together with the contact angles $\vartheta_L, \vartheta_R$ between the solid-liquid interface and the bottom domain boundary. How these angles were imposed is described in section~\ref{sec_general_NBC_ch_NPA_PF}.
 
 The domain scaling methodology is in fact a post-processing of the result of phase field simulation. By the result, it is meant the phase fields corresponding to the liquid and to the particle within the simulation grid. Then, the grid spacing is scaled and the model parameters are re-computed accordingly. The particle area fraction $\xi=A_P/A_D$ in the scaled system remains the same, but its area $A_P$ and perimeter are scaled accordingly. Using the (unchanged) phase fields and re-computed parameters, the total interface energy is re-evaluated by the free energy functional for the new scale. The domain scaling is sketched in Figure~\ref{fig_domain_scaling}a. 
 
@@ -209,33 +209,33 @@ Note, that one needs to know the non-dimensional area of the isolated equilibriu
 
 Recall, that the contact angles of the particle with the substrate were the input to the phase field simulation, hence the obtained shape factor $S$ is a function of the particular assumed conditions. 
 
-The domain scaling procedure does not depend on whether the interface energy was isotropic or anisotropic, because the used formulas are equal in the two cases~\cite{Mariaux2011}. Only in the case with inclination-dependent interface energy more steps are required in evaluation of the free energy functional $F(\eta,\nabla\eta)$ because the formulas for model parameters are more complicated than in the isotropic case.
+The domain scaling procedure does not depend on whether the interface energy was isotropic or anisotropic, because the used formulas leading to~\eqref{eq_NPA_PF_formula} are equal in the two cases~\cite{Mariaux2011}. Only in the case with inclination-dependent interface energy more steps are required in evaluation of the free energy functional $F(\eta,\nabla\eta)$ because the formulas for model parameters are more complicated than in the isotropic case.
 
 \section{Model}
 Because the Moelans' model with anisotropic interfaces was already extensively introduced in section~\ref{sec_Models}, this section covers only the necessary extensions to simulate the system as sketched in Figure~\ref{fig_sketch_domain_scaling_PF}, 
 
-	\subsection{General Neumann boundary conditions to control interface inclination at domain boundary}
+	\subsection{General Neumann boundary conditions to control interface inclination at domain boundary}\label{sec_general_NBC_ch_NPA_PF}
 	This model extension was inspired by~\cite{Granasy2007}. It allows to control the interface inclination angle $\phi$ at the boundary, which thus becomes an input parameter. The principle is explained using a single phase field $\eta(\bm{r})$. 
-	First, we remark that the Neumann BCs $\nabla\eta\cdot\bm{n_D}=0$ must be a special case of the general BC ($\bm{n_D}$ is the domain boundary normal). This Neumann BC implies perpendicularity of the phase field gradient to the domain boundary normal. In other words, the interface is perpendicular to the domain boundary. Generally, we can write $\bm{n_D}\cdot \nabla\eta=|\nabla\eta|\cos(\phi)$. In the model by Granasy~\cite{Granasy2007}, the local magnitude of phase field gradient may be expressed using the local phase field value, giving rise to expression of the boundary condition as
+	First, we remark that the standard Neumann boundary conditions $\nabla\eta\cdot\bm{n_D}=0$ must be a special case of the general Neumann boundary conditions ($\bm{n_D}$ is the domain boundary normal). The regular Neumann boundary condition implies perpendicularity of the phase field gradient to the domain boundary normal. In other words, the interface is perpendicular to the domain boundary. Generally, we can write $\bm{n_D}\cdot \nabla\eta=|\nabla\eta|\cos(\phi)$. In the model by Granasy~\cite{Granasy2007}, the local magnitude of phase field gradient may be expressed using the local phase field value, giving rise to expression of the boundary condition as
 	\begin{equation}
 		\bm{n_D}\cdot \nabla\eta=\frac{\cos(\phi)}{\delta\sqrt{2}}\eta(1-\eta)\,,
 	\end{equation}
 	where $\delta$ is the interface width. At the domain boundary, the gradient $\nabla\eta$ is expressed as a polynomial, which allows straightforward implementation of the condition, especially in rectangular simulation domains.\\
 	
-	In Moelan's model, the interface normal between the phase fields $\eta_i,\,\eta_j$ denoted $\bm{n}_{i,j}$ is defined as local difference in neighboring PF gradients (see equation~\ref{eq_def_inclination}). In the spirit of the introductory example we can write
+	In Moelan's model, the interface normal between the phase fields $\eta_i,\,\eta_j$ denoted $\bm{n}_{i,j}$ is defined as local difference in neighboring phase field gradients (see equation~\ref{eq_def_inclination}). In the spirit of the introductory example we can write
 	\begin{equation}
 		\bm{n_D}\cdot\bm{n}_{i,j} = \cos(\phi) \quad \implies \quad \bm{n}\cdot(\nabla\eta_i-\nabla\eta_j) = |\nabla\eta_i-\nabla\eta_j|\cos(\phi) \,.
 	\end{equation}
-	Now we have single BC with the correct physical interpretation (fixed inclination angle at the boundary) but because the governing equations are solved for the phase fields, a set of equivalent boundary conditions (one for each phase field) must be derivable from the above. In these independent BC, it must be possible to express the gradient magnitude (the introductory example finds a polynomial of local PF values equal to the gradient magnitude). \\
-	The first problem (coupling in the BC) would be solved if one gradient could be written as a function of the other and vice versa. However, this dependence is non-analytical for all $\gamma_{i,j}\neq1.5$. For $\gamma_{i,j}=1.5$ it is simply $\eta_i = 1-\eta_j$ and therefore also $\nabla\eta_i=-\nabla\eta_j$.~\cite{Moelans2008} \\
-	The second problem (the expression for gradient magnitude) is also enabled by the choice $\gamma=1.5$, as in such case there were derived analytic expressions for the gradients $\nabla\eta_i,\nabla\eta_j$.~\cite{Moelans2008} In 1D system with 2 phase fields holds
+	Now we have single boundary condition with the correct physical interpretation (fixed inclination angle at the boundary) but because the governing equations are solved for the phase fields, a set of equivalent boundary conditions (one for each phase field) must be derivable from the above. In these independent boundary conditions, it must be possible to express the gradient magnitude (the introductory example finds a polynomial of local phase field values equal to the gradient magnitude). \\
+	The first problem (i.e. coupling in the boundary conditions) would be solved if one gradient could be written as a function of the other and vice versa. However, this dependence is non-analytical for all $\gamma_{i,j}\neq1.5$. For $\gamma_{i,j}=1.5$ it is simply $\eta_i = 1-\eta_j$ and therefore also $\nabla\eta_i=-\nabla\eta_j$.~\cite{Moelans2008} \\
+	The second problem (i.e. the expression for gradient magnitude) is also enabled by the choice $\gamma=1.5$, as in such case there were derived analytic expressions for the gradients $\nabla\eta_i,\nabla\eta_j$~\cite{Moelans2008}. In 1D system with 2 phase fields holds
 	\begin{equation} \label{eq_PFgradient_analytic}
 		\begin{split}
 			\frac{\mathrm{d}\eta_i}{\mathrm{d}x} &= \sqrt{\frac{2m}{\kappa_{i,j}}}\eta_i(1-\eta_i) \overset{\mathrm{2D, 3D}}{=} |\nabla\eta_i| \\
 			\frac{\mathrm{d}\eta_j}{\mathrm{d}x} &= \sqrt{\frac{2m}{\kappa_{i,j}}}\eta_j(1-\eta_j) \overset{\mathrm{2D, 3D}}{=} |\nabla\eta_j| \,.
 		\end{split}
 	\end{equation}
-	Validity of the last equation sign in 2D and 3D (in systems with 2 phase fields) can be checked using the expressions in~\cite{Moelans2008} as follows. Write the equation 7 from~\cite{Moelans2008} for 2D. From it one gets 2D equivalents of equations 8a and 8b, where $\frac{\mathrm{d}\eta}{\mathrm{d}x}$ is replaced by $|\nabla\eta|$. Further, because the equation 19 does not depend on problem dimensionality, we obtain here the expressions in equation~\ref{eq_PFgradient_analytic}. In systems with more than two phase fields the general expression for the gradient magnitude is more complex. However, the same relations are satisfied at a pair-wise interface not close to the triple junction. \\
+	Validity of the last equation sign in 2D and 3D (in systems with 2 phase fields) can be checked using the expressions in~\cite{Moelans2008} as follows. Write the equation 7 from~\cite{Moelans2008} for 2D. From it one gets 2D equivalents of equations 8a and 8b, where $\frac{\mathrm{d}\eta}{\mathrm{d}x}$ is replaced by $|\nabla\eta|$. Further, because the equation 19 does not depend on problem dimensionality, we obtain here the expressions in equation~\ref{eq_PFgradient_analytic}. In systems with more than two phase fields, the general expression for the gradient magnitude is more complex. However, the same relations are satisfied at a pair-wise interface not close to the triple junction. \\
 	With the above and assuming that there is no triple junction near the domain boundary, we can thus write
 	\begin{equation}
 		\begin{split}
@@ -245,7 +245,7 @@ Because the Moelans' model with anisotropic interfaces was already extensively i
 	which provides very similar BC like in the introductory example for each of the two phase fields.\\
 	The only way how to use these relations is to have $\gamma_{i,j}=1.5$. In the case of inclination-dependent interface energy $\sigma_{i,j}(\theta_{i,j})=\sigma_{i,j}^0h_{i,j}^\sigma(\theta_{i,j})$, it is necessary to express the anisotropy fully by the parameter $\kappa_{i,j}(\theta_{i,j})$, i.e. to use the IWvK model.
 	
-	\subsection{Volume conserving multi phase field models}
+	\subsection{Volume conserving multi phase field models}\label{sec_volume_cons_PF_ch_NPA_PF}
 	There are several approaches which accomplish the volume conservation of some species or phases. Each has its drawbacks though. It was not clear which of the possible approaches was the most convenient for coupling with inclination-dependent interface energy in curvature-driven systems.
 	
 	Three conceptually different solutions can be used in a multi-phase field model, which are known to the author: Cahn-Hilliard equation, Lagrange multipliers and fictitious concentrations field. 
@@ -280,7 +280,7 @@ Because the Moelans' model with anisotropic interfaces was already extensively i
 			f_S(c_S) &= A(c_S-c_{S,eq})^2 \\
 			f_L(c_L) &= B(c_L-c_{L,eq})^2 \,.
 		\end{align}
-		An ideal solution approximation is adopted.
+		An ideal solution approximation was adopted.
 		
 		The governing equations for two phase fields are then
 		\begin{align}
@@ -481,13 +481,20 @@ In the computation of the total grain boundary energy (meaning the energy of the
 
 The symbol $F(\eta,\nabla\eta)$ again stands for the total particle-parent phase interface energy. In the general case, the individual segments $l_{GB}^{L}, l_{GB}^{R}$ will have different length, depending on where the grain boundary is positioned below the particle. 
 
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{wulff_on_GB.pdf}
+	\caption{Illustration of the three considered positions of grain boundary below the nucleus.}
+	\label{fig_GB_below_wulff}
+\end{figure}
+
 Because the position of the grain boundary below the particle is chosen here, three shape factors were determined for each single shape, which corresponded to the cases when 
 \begin{enumerate}
+	\item $l_L = l_R = l_{GB}/2$, then $\Delta G_\sigma = F(\eta,\nabla\eta)- 0.5\sigma_Pl_{GB}[\cos(\vartheta_L)+\cos(\vartheta_R)]$
 	\item $l_L = l_{GB}, l_R = 0$, then $\Delta G_\sigma = F(\eta,\nabla\eta)- \sigma_Pl_{GB}\cos(\vartheta_L)$,
 	\item $l_L = 0, l_R = l_{GB}$, then $\Delta G_\sigma = F(\eta,\nabla\eta)- \sigma_Pl_{GB}\cos(\vartheta_R)$ and
-	\item $l_L = l_R = l_{GB}/2$, then $\Delta G_\sigma = F(\eta,\nabla\eta)- 0.5\sigma_Pl_{GB}[\cos(\vartheta_L)+\cos(\vartheta_R)]$
 \end{enumerate}
-The first two are limiting cases, when the contact point is infinitesimally just behind the substrate grains grain boundary, hence the full substrate-particle grain boundary lays on the either higher- or lower-energy grain. In the last case, the substrate grain boundary is just in the middle between the contact points.
+These cases were illustrated in Figure~\ref{fig_GB_below_wulff}. In the first case, the substrate grain boundary is just in the middle between the contact points. The second and third ones are limiting cases, when the contact point is infinitesimally just behind the substrate grains grain boundary, hence the full substrate-particle grain boundary lays on the either higher- or lower-energy grain. 
 
 \alert{See Table~!!!! for details on the simulation} The contact angles $\vartheta_L,\vartheta_R$ were input to the simulation. In the presented results, it was assumed that $\vartheta_L=120$\textdegree and $\vartheta_R$ was varied between 30\textdegree-90\textdegree.
 
