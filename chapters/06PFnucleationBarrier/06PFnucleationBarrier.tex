@@ -348,37 +348,16 @@ Nevertheless, it is known that nucleation may happen on top of grain boundaries.
 To reduce the simulation time, the initial condition was a shape combined from parts of the equilibrium shapes from both sides, connected by a tangent line to prevent dents in the initial shape (the initial condition was very similar to the problem sketch in Figure~\ref{fig_sketch_particle_onGB}, only with the tangent line). The initial condition can be seen in Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_contours}, it is the one with steps (due to discretization in the simulation grid).
 \begin{figure}
 	\centering
-	\begin{tikzpicture}[scale=2.7]
-		\def\thl{120}
-		\def\thr{-60}
-		\tikzmath{ \RL = 0.4/sin(\thl) ; \RR = 0.7/sin(-\thr) ; }
-		\path (-1,0) coordinate (al);
-		\path (1,0) coordinate (ar);
-		\path (0,0) coordinate (c);
-		\path (0,-0.4) coordinate (cb);
-		\path (-0.4,0) coordinate (cpl);
-		\path (0.7,0) coordinate (cpr);
-
-		\draw[very thick, blue] ($(cpl)+(0,-0.04)$) -- node[midway,below] {$\sigma_{GB}^L$} ($(c)+(0,-0.04)$);
-		\draw[very thick, magenta] ($(cpr)+(0,-0.04)$) -- node[midway,below] {$\sigma_{GB}^R$} ($(c)+(0,-0.04)$);		
-		\draw[very thick] (al) -| (cb) |- (ar);
-		\draw (cpl) arc (\thl+90:90:\RL) node (toppoint) {};
-		\draw[dashed] (toppoint) -- (c) ;
-		\draw (cpr) arc (90+\thr:90:\RR);
-		\draw[gray] (cpl) node[above right] {$\vartheta_L$} -- ++(\thl:0.5);
-		\draw[gray] (cpr) node[above left] {$\vartheta_R$}-- ++(180+\thr:0.5);
-		\draw[gray] ($(cpl)+(0.3,0)$) arc (0:\thl:0.3);
-		\draw[gray] ($(cpr)+(-0.3,0)$) arc (180:180+\thr:0.3);
-		\draw node[above] at (al) {$\sigma_{S}^L$};
-		\draw node[above] at (ar) {$\sigma_{S}^R$};
-		\draw (-1.2,-0.8) rectangle (1.2,0.8);
+	\begin{tikzpicture}
+		\node[below right, inner sep=0] (L) at (0,0) {
+			\includegraphics[width=0.48\textwidth]{circles_on_GB.pdf}};
+		\node[below right, inner sep=0] (R) at (L.north east) {
+			\includegraphics[width=0.48\textwidth]{sketch_geometry_PF_NPA_on_GB.pdf}};
 		
-		\def\vshift{-0.3}
-		\draw[stealth-stealth] ($(cpr)+(0,\vshift)$) -- node[midway,below] {$l_{GB}^R$} ($(c)+(0.02,\vshift)$);	
-		\draw[stealth-stealth] ($(cpl)+(0,\vshift)$) -- node[midway,below] {$l_{GB}^L$} ($(c)+(-0.02,\vshift)$);	
-		\draw[stealth-stealth] ($(cpl)+(0,-0.55)$) -- node[midway,below] {$l_{GB}$} ($(cpr)+(0,-0.55)$);	
+		\draw[above ] (L.north west) node {(a)};
+		\draw[above ] (R.north west) node {(b)};
 	\end{tikzpicture}
-	\caption{A particle on a grain boundary. The specific interface energies $\sigma_S^{L/R}$ belong to the substrate-solution interfaces and $\sigma_{GB}^{L/R}$ to the respective grain boundaries. The grain boundary lengths $l_{GB}^{L/R}$ and $l_{GB}$ are indicated.}
+	\caption{A particle on a grain boundary. In (a) the impact of different wetting on the sides is indicated and in (b) the relevant annotations were added: the specific interface energies $\sigma_S^{L/R}$ belong to the substrate-solution interfaces and $\sigma_{GB}^{L/R}$ to the respective grain boundaries. The grain boundary lengths $l_{GB}^{L/R}$ and $l_{GB}$ are indicated.}
 	\label{fig_sketch_particle_onGB}
 \end{figure}
 
