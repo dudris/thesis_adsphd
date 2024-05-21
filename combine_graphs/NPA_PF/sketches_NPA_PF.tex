@@ -193,48 +193,49 @@
 	%	%		\draw[magenta, stealth-stealth] (1.1,-0.4) -- node[below,midway]{$\nabla\eta_2\cdot\bm{n_B}= |\nabla\eta_2|\cos(\theta_R)$} (0.52,-0.4);
 	%	\draw[magenta, stealth-stealth] (1.1,\vshift) -- (0.52,\vshift) node[below right]{$\nabla\eta_2\cdot\bm{n_B}= |\nabla\eta_2|\cos(\theta_R)$};
 	%\end{tikzpicture}
-	
-	\begin{tikzpicture}
-		\def\AR{2.5}
-		\def\tangangle{40}
-		\def\spce{0.3}
-		\def\y{1}
-		\def\yy{0.8}
-		\def\yyy{0.6}
-		
-		\draw[step=0.08,color=gray] (0,0) grid (\AR,\y) ;
-		\draw (0,0.5) node[left] {$N_y$} ;
-		\draw (\AR/2,0) node[below] {$N_x$} ;
-		
-		\draw node (x1) at (\AR+\spce,0){};
-		\draw node (x2) at (2*\AR+2*\spce,0){};
-		\draw node (x3) at (2*\AR+3*\spce+\yy*\AR,0){};
-		
-		\tikzmath{
-			\R 		= 0.35*\AR*\y/sin(\tangangle) ;
-			\RR 	= 0.35*\AR*\yy/sin(\tangangle) ;
-			\RRR 	= 0.35*\AR*\yyy/sin(\tangangle);
-			\w = 2*\R*sin(\tangangle);};
-		
-		\draw (x1) rectangle ++(\y*\AR,\y) ;
-		\draw (x2) rectangle ++(\yy*\AR,\yy) ;
-		\draw (x3) rectangle ++(\yyy*\AR,\yyy) ;
-		
-		\draw ($(x1)+(0.1*\AR,0)$) arc (180-\tangangle:\tangangle:\R);
-		\draw ($(x2)+(0.1*\AR*\yy,0)$) arc (180-\tangangle:\tangangle:\RR);
-		\draw ($(x3)+(0.1*\AR*\yyy,0)$) arc (180-\tangangle:\tangangle:\RRR);
-		
-		\draw ($(x1)+(0.5*\AR,0)$) node[below] {$A_1, \Delta x_1$} ;
-		\draw ($(x2)+(0.5*\AR*\yy,0)$) node[below] {$A_2, \Delta x_2$} ;
-		\draw ($(x3)+(0.5*\AR*\yyy,0)$) node[below] {$A_3, \Delta x_3$} ;
-		%	
-		\draw node[below right,inner sep=0] (img) at ($(x1) + (0,-1)$) {\includegraphics[width=0.4\textwidth]{NPA_calc_DGcrit.png}};
-		
-		\draw node[inner sep=0] at (-0.7,1) {(a)} ;
-		\draw node[left,inner sep=0] at (img.north west) {(b)} ;
-		\draw node[inner sep=0] at (img.west) {$\Delta G$} ;
-		\draw node[inner sep=0] at (img.south) {$\Delta x$} ;
-	\end{tikzpicture}
+
+% DOMAIN SCALING COMBINED SKETCH
+%	\begin{tikzpicture}
+%		\def\AR{2.5}
+%		\def\tangangle{40}
+%		\def\spce{0.3}
+%		\def\y{1}
+%		\def\yy{0.8}
+%		\def\yyy{0.6}
+%		
+%		\draw[step=0.08,color=gray] (0,0) grid (\AR,\y) ;
+%		\draw (0,0.5) node[left] {$N_y$} ;
+%		\draw (\AR/2,0) node[below] {$N_x$} ;
+%		
+%		\draw node (x1) at (\AR+\spce,0){};
+%		\draw node (x2) at (2*\AR+2*\spce,0){};
+%		\draw node (x3) at (2*\AR+3*\spce+\yy*\AR,0){};
+%		
+%		\tikzmath{
+%			\R 		= 0.35*\AR*\y/sin(\tangangle) ;
+%			\RR 	= 0.35*\AR*\yy/sin(\tangangle) ;
+%			\RRR 	= 0.35*\AR*\yyy/sin(\tangangle);
+%			\w = 2*\R*sin(\tangangle);};
+%		
+%		\draw (x1) rectangle ++(\y*\AR,\y) ;
+%		\draw (x2) rectangle ++(\yy*\AR,\yy) ;
+%		\draw (x3) rectangle ++(\yyy*\AR,\yyy) ;
+%		
+%		\draw ($(x1)+(0.1*\AR,0)$) arc (180-\tangangle:\tangangle:\R);
+%		\draw ($(x2)+(0.1*\AR*\yy,0)$) arc (180-\tangangle:\tangangle:\RR);
+%		\draw ($(x3)+(0.1*\AR*\yyy,0)$) arc (180-\tangangle:\tangangle:\RRR);
+%		
+%		\draw ($(x1)+(0.5*\AR,0)$) node[below] {$A_1, \Delta x_1$} ;
+%		\draw ($(x2)+(0.5*\AR*\yy,0)$) node[below] {$A_2, \Delta x_2$} ;
+%		\draw ($(x3)+(0.5*\AR*\yyy,0)$) node[below] {$A_3, \Delta x_3$} ;
+%		%	
+%		\draw node[below right,inner sep=0] (img) at ($(x1) + (0,-1)$) {\includegraphics[width=0.4\textwidth]{NPA_calc_DGcrit.png}};
+%		
+%		\draw node[inner sep=0] at (-0.7,1) {(a)} ;
+%		\draw node[left,inner sep=0] at (img.north west) {(b)} ;
+%		\draw node[inner sep=0] at (img.west) {$\Delta G$} ;
+%		\draw node[inner sep=0] at (img.south) {$\Delta x$} ;
+%	\end{tikzpicture}
 	
 	%\begin{tikzpicture}[scale=2.7]
 	%	\def\thl{120}
@@ -335,7 +336,9 @@
 		\draw (axis cs:1.5,-0.5) node [circle,draw,minimum size=6] {$\mathit{4}$};
 		
 		\draw (B1) -- (B2);
-		\draw[dashed] (zz) -- (B3);
+		\draw (zz) -- (B3);
+		
+		\draw[dashed] (zz) -- (0,2);
 		
 		% \def\dh{0.1};
 		% \def\dw{0.05};
