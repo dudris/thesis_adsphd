@@ -335,7 +335,7 @@ The re-computation of the model parameters during the domain scaling was carried
 
 \section{Domain scaling of a particle on a grain boundary (isotropic interface energy)}
 %Here, the equilibrium stable shape is reached in a dynamic simulation. However, in the classical nucleation theory, it is in fact assumed that it stochastically appears due to local energy fluctuations in the nucleation spot. Among all the possible shapes with equal volume, those with lower total interface energy have higher nucleation probability. 
-The present section investigates the theoretical case when the nucleus extends over the grain boundary and thus its wetting condition is unequal on the two sides. Such a situation was sketched in Figure~\ref{fig_sketch_particle_onGB}. Radius of the particle is given by the particle-liquid interface energy and the bulk driving force (see \eqref{eq_crit_radius_2D}), hence the particle tries to emerge/submerge differently on each side of the grain boundary.
+The present section investigates the theoretical case when the nucleus extends over the grain boundary and thus its wetting condition is unequal on the two sides. Such a situation was sketched in Figure~\ref{fig_sketch_particle_onGB}a. Radius of the particle is given by the particle-liquid interface energy and the bulk driving force (see \eqref{eq_crit_radius_2D}), hence the particle tries to emerge/submerge differently on each side of the grain boundary.
 
 \begin{figure}
 	\centering
@@ -352,7 +352,7 @@ The present section investigates the theoretical case when the nucleus extends o
 	\label{fig_sketch_particle_onGB}
 \end{figure}
 
-The geometry of the resulting problem is sketched in~Figure~\ref{fig_sketch_particle_onGB}. When the two sides are wetted differently, it implies different contact angles. The curvature $K$ is in principle equal on both sides of the grain boundary, however due to the obvious shape discontinuity it cannot be constant along the whole shape. The chemical potential $\mu_{surf}$ (the capillary driving force, see~\eqref{eq_chempot_constant}) is
+The geometry of the resulting problem is sketched in~Figure~\ref{fig_sketch_particle_onGB}b. When the two sides are wetted differently, it implies different contact angles. The curvature $K$ (reciprocal radius) is in principle equal on both sides of the grain boundary, however due to the obvious shape discontinuity it cannot be constant along the whole shape. The chemical potential $\mu_{surf}$ (the capillary driving force, see~\eqref{eq_chempot_constant}) is
 \begin{equation}
 	\mu_{surf} = \sigma K 
 \end{equation}
@@ -360,9 +360,9 @@ and must be constant in order to have the stable shape in equilibrium. But for a
 
 Nevertheless, it is known that nucleation may happen on top of grain boundaries. Additionally, the nuclei in classical nucleation theory do not necessarily have the interface-energy minimizing shape, even though that one is the most likely. Hence, even if the shape is not in equilibrium, we assume that it could nucleate. Supposedly, it could survive by sliding to the lower-energy side of the grain boundary. Using the domain scaling procedure, the shape factor of the unknown compound shape can be quantified. 
 
-To reduce the simulation time, the initial condition was a shape combined from parts of the equilibrium shapes from both sides, connected by a tangent line to prevent dents in the initial shape (the initial condition was very similar to the problem sketch in Figure~\ref{fig_sketch_particle_onGB}, only with the tangent line). The initial condition can be seen in Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_contours}, it is the one with steps (due to discretization in the simulation grid).
+To reduce the simulation time, the initial condition was a shape combined from parts of the equilibrium shapes from both sides, connected by a tangent line to prevent dents in the initial shape (the initial condition was very similar to the problem sketch in Figure~\ref{fig_sketch_particle_onGB}b, only with the tangent line). The initial condition can be seen in Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_contours}, it is the one with steps (due to discretization in the simulation grid).
 
-In the computation of the total grain boundary energy (meaning the energy of the substrate-particle interface), there will be two segments now, one on the left and one on the right side from the grain boundary (see Figure~\ref{fig_sketch_particle_onGB}). These have lengths $l_{GB}^{L}, l_{GB}^{R}$ and specific grain boundary energies $\sigma_{GB}^L=\sigma_{S}^L-\sigma_P\cos(\vartheta_L)$ and $\sigma_{GB}^R=\sigma_{S}^L-\sigma_P\cos(\vartheta_R)$. The symbols $\sigma_{S}^L,\sigma_{S}^R$ stand for the substrate surface energy on either side of the grain boundary and $\sigma_{P}$ is the particle-liquid interface energy. It turns out, that to express the total interface energy change (upon the insertion of the particle on top of the grain boundary) $\Delta G_\sigma$, it is sufficient to assume only $\sigma_P,\vartheta_L,\vartheta_R$, as can be seen below
+In the computation of the total grain boundary energy (meaning the energy of the substrate-particle interface), there will be two segments now, one on the left and one on the right side from the grain boundary (see Figure~\ref{fig_sketch_particle_onGB}b). These have lengths $l_{GB}^{L}, l_{GB}^{R}$ and specific grain boundary energies $\sigma_{GB}^L=\sigma_{S}^L-\sigma_P\cos(\vartheta_L)$ and $\sigma_{GB}^R=\sigma_{S}^L-\sigma_P\cos(\vartheta_R)$. The symbols $\sigma_{S}^L,\sigma_{S}^R$ stand for the substrate surface energy on either side of the grain boundary and $\sigma_{P}$ is the particle-liquid interface energy. It turns out, that to express the total interface energy change (upon the insertion of the particle on top of the grain boundary) $\Delta G_\sigma$, it is sufficient to assume only $\sigma_P,\vartheta_L,\vartheta_R$, as can be seen below
 \begin{align}
 	\Delta G_\sigma &= F(\eta,\nabla\eta) + l_{GB}^{L}(\sigma_{GB}^L-\sigma_{S}^L) + l_{GB}^{R}(\sigma_{GB}^R-\sigma_{S}^R) \\
 	&= F(\eta,\nabla\eta) - \sigma_P[l_{GB}^{L}\cos(\vartheta_L) + l_{GB}^{R}\cos(\vartheta_R)] \,.
@@ -377,13 +377,13 @@ The symbol $F(\eta,\nabla\eta)$ again stands for the total particle-parent phase
 	\label{fig_GB_below_wulff}
 \end{figure}
 
-Because the position of the grain boundary below the particle is chosen here, three shape factors were determined for each single shape, which corresponded to the cases when 
+Because the position of the grain boundary below the particle is chosen here, three scenarios were assumed and illustrated in Figure~\ref{fig_GB_below_wulff}. In each of the scenarios, the grain boundary below the particle is placed in a different spot, hence there will be different total interface energy changes upon the particle insertion $\Delta G_\sigma$, which leads to determination of different shape factors eventually. The three scenarios are below in detail
 \begin{enumerate}
 	\item $l_L = l_R = l_{GB}/2$, then $\Delta G_\sigma = F(\eta,\nabla\eta)- 0.5\sigma_Pl_{GB}[\cos(\vartheta_L)+\cos(\vartheta_R)]$
 	\item $l_L = l_{GB}, l_R = 0$, then $\Delta G_\sigma = F(\eta,\nabla\eta)- \sigma_Pl_{GB}\cos(\vartheta_L)$,
 	\item $l_L = 0, l_R = l_{GB}$, then $\Delta G_\sigma = F(\eta,\nabla\eta)- \sigma_Pl_{GB}\cos(\vartheta_R)$ and
 \end{enumerate}
-These cases were illustrated in Figure~\ref{fig_GB_below_wulff}. In the first case, the substrate grain boundary is just in the middle between the contact points. The second and third ones are limiting cases, when the contact point is infinitesimally just behind the substrate grains grain boundary, hence the full substrate-particle grain boundary lays on the either higher- or lower-energy grain. 
+In the first case, the substrate grain boundary is just in the middle between the contact points. The second and third ones are limiting cases, when the contact point is infinitesimally just behind the substrate grains grain boundary, hence the full substrate-particle grain boundary lays on the either higher- or lower-energy grain. 
 
 \alert{See Table~!!!! for details on the simulation} The contact angles $\vartheta_L,\vartheta_R$ were input to the simulation. In the presented results, it was assumed that $\vartheta_L=120$\textdegree and $\vartheta_R$ was varied between 30\textdegree-90\textdegree.
 
