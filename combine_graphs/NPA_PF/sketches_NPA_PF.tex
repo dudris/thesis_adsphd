@@ -243,7 +243,7 @@
 	\def\thr{-60}
 	\def\R{0.8}
 %	\tikzmath{ \RL = 0.4/sin(\thl) ; \RR = 0.7/sin(-\thr) ; }
-	\tikzmath{ \cplX = -sin(\thl/2) ; \cprX = sin(-\thr/2) ; }
+	\tikzmath{ \cplX = -sin(\thl/2)/\R ; \cprX = sin(-\thr/2)/\R ; }
 	\path (-1,0) coordinate (al);
 	\path (1,0) coordinate (ar);
 	\path (0,0) coordinate (c);
