@@ -1,40 +1,5 @@
 % !TeX root = ../../thesis.tex
-\chapter{Literature review}\label{ch_anisoIEintro}
-
-\section{Microstructure formation in coatings}
-Microstructure here denotes both the morphology on the surface, shape and size of grains and their crystallographic texture.
-
-The experimental investigations of the texture-forming factors in deposits are usually specific for the particular deposition method, like physical vapour deposition (PVD), sputtering or electrodeposition. Despite some obvious differences between the methods, it is natural to expect the textures to be formed by the same mechanisms. These are necessarily altered by the method-specific deposition conditions, thus giving rise to some behaviors which are then considered as standard for that type of deposition. 
-
-For example, the Structure Zone Model (SZM)~\cite{Barna1998, Anders2010} is often used to describe the dependence of microstructure on the relative deposition temperature in PVD and sputtering methods. The Structure-zone model was extended several times to new parameter regions, for an example of a rather recent model see Figure~\ref{fig_SZM_and_Winand}b. On the other hand, in the electrodeposition rather the Winand diagram~\cite{Winand1992} is used instead, having the axes representing degree of chemical surface inhibition and current density, i.e. deposition rate (see Figure~\ref{fig_SZM_and_Winand}a). Both of these can be perceived as state diagrams, where the individual regions qualitatively indicate the one microstructure/morphology which is most likely to be stable for those deposition conditions. Interestingly, in electrodeposition the crystallographic texture of the coating does not necessarily imply a particular deposit morphology~\cite{Winand1992}.
-
-\begin{figure}
-	\centering
-	\begin{tikzpicture}
-		\draw (0,0) node [above left, inner sep =0] {\includegraphics[width=0.55\textwidth]{Winand1992_diagram.png}};
-		\draw (0,0) node [below left, inner sep =0] {\includegraphics[width=0.7\textwidth]{Anders2009_SZM_.png}};
-	\end{tikzpicture}
-	\caption{Simplified empirical diagrams, in a) Winand diagram for electrodeposition~\cite{Winand1992}, in b) Structure-zone model for high-energy deposition from vapor~\cite{Anders2010}.}
-	\label{fig_SZM_and_Winand}
-\end{figure}
-
-Barna~\cite{Barna1998} claims, that the different crystallographic textures observed in PVD or sputter deposition can be correlated to the respective \textit{structure zone}. Specifically, he uses the terms \textit{competitive growth texture} and \textit{restructuration growth texture}, which correspond to the ones where the resulting texture depends on either the anisotropy in growth rate or on the concurrent minimization of surface and grain boundary energy, respectively.
-
-In electrodeposition, the situation is more complicated than in PVD or sputtering by the presence of the double layer on the metal surface and the complex interplay of the electric field and chemical reactions between all the species.  Nevertheless, experimental work largely shows that, as far as three-dimensional nucleation is concerned, the same observations are made in electrocrystallization
-and in physical crystallization~\cite{Winand1992}: increasing the deposition rate and/or increasing the inhibition usually results in increased nucleation rate and thus eventually in the reduction in the deposit grain size.
-
-The inhibition refers to some specific interactions between the deposit and the parent phase. The inhibiting species attaches to low-energy sites where the growth might easily proceed and then the adatoms must find another spot to settle down, having their lifetime before being incorporated into the crystal potentially prolonged and thus increasing the nucleation probability~\cite{Winand1992}. The inhibitor may be a natural constituent of the electrolyte in electrodeposition or simply some impurity. In PVD deposition of Al with variable amounts of oxygen, it was observed that increased oxygen amounts reduced the grain size up to nanocrystalline or even amorphous coating of alumina~\cite{Barna1998}.
-
-A separate field of research involves stress in the deposits~\cite{Thornton1989, Thompson1993, Chason2015, Abadias2018}. Both tensile and compressive stress are observed in the deposits depending on the deposition conditions and deposited material. Generally speaking, higher temperatures and lower deposition rates (i.e. deposition closer to thermodynamic equilibrium) lead to behavior, where a compressive stress develops with increasing thickness of the film, but after the deposition stops, the stress either completely or partly relaxes. This is highly dependent on the material too, where materials with higher self-diffusion coefficient (lower melting point) tend to exhibit such behavior~\cite{Chason2002}. On the other hand, high growth rates and low deposition temperatures (i.e. rather off-equilibrium deposition) lead to tensile stresses, which do not relax after the deposition termination. Materials with lower self-diffusion coefficients (higher melting points) are associated with these. Another source of stress can be interactions with the substrate.
-
-Stress can suppress or promote grain growth~\cite{Thompson1993}. It is then natural to consider stress relaxation as another texture-forming process. As was mentioned in the Introduction, the fundamental texture-forming quantities are interfacial energy, surface diffusivity of adatoms, grain boundary mobility and grain boundary and lattice diffusion~\cite{Szpunar1997, Suwas2014}. However, it is the particular state of the material and the deposition conditions, which then drives the deposit to evolve in particular ways.
-
-Thompson~\cite{Thompson1993} developed an abstracted model of columnar microstructure and expressed its total strain and total interface energy as function of thickness. Because the thickness dependence of these energies was different, the model suggested that the texture could be dominated by minimization of interface energy below certain (temperature-dependent) thickness and above it, the texture would be dominated by the strain energy minimization. Especially in the light of the previous paragraph, it is clear that the stress state of a real deposit does not depend only on the deposit thickness. Nevertheless, the idea of having different mechanisms competing over the course of texture/morphology evolution as the film thickness increases is strongly based in experimental observation. Also, the terms \textit{interface-energy minimization texture} or \textit{strain-energy minimization texture} are used in practice~\cite{Alimadadi2016}.
-
-Specifically in electrodeposition, the inhibition in relation to the morphology and texture was studied extensively~\cite{Winand1992}. Amblard~\cite{Amblard1979} determined the particular species responsible for the texture variation in nickel electrodeposits from Watts electrolyte when varying the pH, current density and adding separately a brightening and leveling agents. These species selectively inhibited the metal surface and thus introduced different textures. A more recent study~\cite{BergenstofNielsen1997} reviewed other hypotheses about the possible texture-forming processes in nickel electrodeposition from Watts electrolyte and after transmission electron microscopy study of one deposit, they concluded that the inhibition was the most likely scenario. 
-
-The same group later proposed~\cite{Rasmussen2001}, that the texture of an electrodeposit could develop from a zone mainly affected by the substrate (epitaxy, chemical reactions), through a zone of mixed control to a zone affected solely by the deposition conditions (selective inhibition, deposition rate). However, in a more recent study~\cite{Alimadadi2016} involving microtexture measurement through thickness of the nickel electrodeposits obtained at different pH and current density, the authors could not confirm the existence of the transition zone as a simple mixture of the substrate- and conditions-affected zones. 
-
+\chapter{Anisotropic interface energy}\label{ch_anisoIEintro}
 \section{Specific surface and interface energy}
 Be there an isothermic isolated thermodynamic system consisting of a block of solid material in a vacuum. When the block is reversibly cleaved, two equal areas $A$ are created on each side of the cleavage, newly facing the vacuum. The total energy change upon cleavage is equal to the reversible work $W$ done on the system. The reversible work thus transforms into \textit{surface energy} (unit \unit{J}) of the cleavage areas $W=2A\sigma$, where the symbol $\sigma$ stands for the \textit{specific surface energy} (unit \unit{J/m^2})~\cite{Milchev2002}. 
 
@@ -43,7 +8,7 @@ Should the system consist of the solid block within a liquid, the specific surfa
 The word \textit{specific} in the \textit{specific surface energy} indicates that the quantity is intensive, i.e. relative to the area in this case. However, especially in phase field literature it is rather common to denote the intensive quantity simply by \textit{surface energy} or \textit{interface energy}. These two are often used interchangeably in this thesis.
 
 
-\section{Anisotropic interface energy}
+\section{Capillary vector formalism}
 Let the interface energy $\sigma$ depend on the local orientation of the interface described by its unit normal $\bm{n}$, i.e. $\sigma=\sigma(\bm{n})=\sigma_0 h(\bm{n})$. The function $h(\bm{n})$ is called anisotropy function and $\sigma_0$  is a scaling parameter with dimensions of interface energy. Formal requirements on the anisotropy function can be found e.g. in~\cite{Kobayashi2001}. A very useful formalism for thermodynamic description of these anisotropic interfaces is so-called capillary vector $\bm{\xi}$ (a.k.a. Cahn-Hoffmann vector or $\xi$-vector), defined as~\cite{Hoffman1972,Cahn1974}
 \begin{equation}
     \bm{\xi} = \mathrm{grad}(r\sigma(\bm{n}))\,,
@@ -149,7 +114,7 @@ where the subscripts now denote interfaces numbered from 1 to 3. $\vartheta_1,\v
 \begin{figure}
 	\centering
 	\includegraphics[width=0.6\textwidth]{Marks2021_sketch_trijunction_stability.png}
-	\caption{Illustration of a triple junction in 2D taken from~\cite{Marks2012}. Infinitesimal translation in x direction and the corresponding change in the triple junction configuration is illustrated. In the figure the tangent angles of  the individual interfaces are denoted $\theta_i$, whereas in the text they are written as $\vartheta_i$.}
+	\caption[Illustration of a triple junction in 2D]{Illustration of a triple junction in 2D taken from~\cite{Marks2012}. Infinitesimal translation in x direction and the corresponding change in the triple junction configuration is illustrated. In the figure the tangent angles of  the individual interfaces are denoted $\theta_i$, whereas in the text they are written as $\vartheta_i$.}
 	\label{fig_Marks2012_sketch_trijun}
 \end{figure}
 However, it was pointed out, that the above equivalent conditions are only \textit{necessary} for the triple junction configuration to be stable, i.e. it does not guarantee the configuration stability. Validity of~\eqref{eq_force_balance_3jun_aniso} assures a stationary point in Gibbs free energy, but in order to have a stable configuration, the energy must be in local minimum. To confirm that, second derivatives of Gibbs free energy with respect to angles $\vartheta_1,\vartheta_2,\vartheta_3$ must be assessed, giving rise to the following two conditions (both of which must hold in stable configuration)
@@ -172,7 +137,7 @@ In the following, only 2D cross section is discussed. See the Figure~\ref{fig_wi
 \begin{figure}
 	\centering
 	\includegraphics[page=1,width=0.6\textwidth]{sketches_intro.pdf}
-	\caption{Illustration of the Winterbottom construction. The symbols $\sigma_1, \sigma_2(\theta), \sigma_3$ denote the interface energiees of the respective interfaces, $\sigma_0$ is the scaling interface energy.  $\alpha_1$ is the orientation of the substrate, $\alpha_2$ of the substrate.}
+	\caption[Illustration of the Winterbottom construction]{Illustration of the Winterbottom construction. The symbols $\sigma_1, \sigma_2(\theta), \sigma_3$ denote the interface energiees of the respective interfaces, $\sigma_0$ is the scaling interface energy.  $\alpha_1$ is the orientation of the substrate, $\alpha_2$ of the substrate.}
 	\label{fig_winterbottom_explained_intro}
 \end{figure}
  It is assumed that the particle-substrate interface (denoted here with index 1) is linear with the substrate-parent phase (index 3), but with anti-parallel normal vector. Let the substrate plane be parallel with x axis. The particle-parent phase interface is denoted by index 2. The normal vectors of the respective interfaces in the contact point are $\hat{\bm{n}}_1=(0,1)^{\mathrm{T}}$, $\hat{\bm{n}}_3=(0,-1)^{\mathrm{T}}$ and $\hat{\bm{n}}_2$ is to be found from~\eqref{eq_trijun_forcebalance_sum_xivec}. Apparently, with the interfaces 1 and 3 fixed at orientations $\theta_1=\pi/2$ and $\theta_3=-\pi/2$, the force balance can be reduced to single equation, when the particle-parent phase capillary vector $\bm{\xi}_2$ is projected to the surface normal $\hat{\bm{n}}_S=\hat{\bm{n}}_3$. But that is merely the y-component of the capillary vector. The force balance can thus be written as
@@ -268,7 +233,7 @@ Below, the different basic cases are introduced, starting with homogeneous nucle
             \includegraphics[page=4,width=0.45\textwidth]{sketches_intro.pdf}
             %
             \includegraphics[page=3,width=0.45\textwidth]{sketches_intro.pdf}
-            \caption{Bulk (blue) and interface (red) energy contributions to the Gibbs free energy change $\Delta G$ (black) upon nucleus insertion as function of nucleus radius $R/R_c$. Nucleation barrier $\Delta G_c^*$ indicated. In a) as applicable to 3D geometry, in b) as to 2D geometry (see text for details).}
+            \caption[Gibbs free energy change upon a particle insertion according to CNT]{Bulk (blue) and interface (red) energy contributions to the Gibbs free energy change $\Delta G$ (black) upon nucleus insertion as function of nucleus radius $R/R_c$. Nucleation barrier $\Delta G_c^*$ indicated. In a) as applicable to 3D geometry, in b) as to 2D geometry (see text for details).}
             \label{fig_nucl_barrier}
         \end{figure}
         
@@ -290,7 +255,7 @@ Below, the different basic cases are introduced, starting with homogeneous nucle
         \begin{figure}
             \centering
             \includegraphics[page=2,width=0.45\textwidth]{sketches_intro.pdf}
-            \caption{Heterogeneous nucleation with isotropic interface energy. Force balance in the contact point during surface of $\mathit{3}$ wetting by a nucleus of $\mathit{2}$ emerging from $\mathit{1}$. Nucleus radius $R$ and equilibrium shape center indicated.}
+            \caption[Sketch - heterogeneous nucleus with isotropic interface energy]{Heterogeneous nucleation with isotropic interface energy. Force balance in the contact point during surface of $\mathit{3}$ wetting by a nucleus of $\mathit{2}$ emerging from $\mathit{1}$. Nucleus radius $R$ and equilibrium shape center indicated.}
             \label{fig_isotropic_wetting}
         \end{figure}
         
@@ -357,7 +322,7 @@ Below, the different basic cases are introduced, starting with homogeneous nucle
     \begin{figure}
     	\centering
     	\includegraphics[page=7,width=0.45\textwidth]{sketches_intro.pdf}
-    	\caption{Anisotorpic nucleus of phase $\mathit{2}$ oriented under direction $\bm{n}_\mathit{2}$ wetting the supporting plane $\mathit{3}$. Generalized radius $X_0$ and center shift indicated.}
+    	\caption[Sketch - heterogeneous nucleus with anisotropic interface energy]]{Anisotorpic nucleus of phase $\mathit{2}$ oriented under direction $\bm{n}_\mathit{2}$ wetting the supporting plane $\mathit{3}$. Generalized radius $X_0$ and center shift indicated.}
     	\label{fig_}
     \end{figure}
     \begin{align}
@@ -409,7 +374,7 @@ In addition to that, it is known that the fundamental crystal forms obtained ass
 \begin{figure}
 	\centering
 	\includegraphics[width=0.6\textwidth]{ECS_vs_KCS_wulff_construction.png}
-	\caption{Illustration of geometric similarity between Equilibrium Crystal Shape (ECS) driven by anisotropy in interface energy and Kinetic Crystal Shape (KCS) obtained by growth with growth rate having the same anisotropy. The top polar plot is the anisotropy function $h(\theta)$. Source:~\cite{Salvalaglio2015}.}
+	\caption[Illustration of geometric similarity between Equilibrium Crystal Shape and Kinetic Crystal Shape]{Illustration of geometric similarity between Equilibrium Crystal Shape (ECS) driven by anisotropy in interface energy and Kinetic Crystal Shape (KCS) obtained by growth with growth rate having the same anisotropy. The top polar plot is the anisotropy function $h(\theta)$. Source:~\cite{Salvalaglio2015}.}
 	\label{fig_ECS_vs_KCS_wulff_construction}
 \end{figure}
 

@@ -322,7 +322,7 @@ For both zero and general NBCs the FD matrices are equal. Because the value at g
 		\draw (0.5,1.5) node {1};
 		\draw (1.5,2.5) node {2};
 	\end{tikzpicture} 
-	\caption{Effect of Neuman BC on the 5pt laplacian stencil on the boundary points. Ghost points are outside the simulation domain but they can be accounted for thanks to knowing their value from equation~\ref{eq_neumanBC_ghost_pts_value}.}
+	\caption[Effect of Neuman BC on the 5pt laplacian stencil on the boundary points]{Effect of Neuman BC on the 5pt laplacian stencil on the boundary points. Ghost points are outside the simulation domain but they can be accounted for thanks to knowing their value from equation~\ref{eq_neumanBC_ghost_pts_value}.}
 	\label{fig_laplacian_NBC}
 \end{figure}
 
@@ -416,7 +416,7 @@ Imagine the system with BCs as indicated in figure~\ref{fig_scheme_mixedBC}.
 	\begin{tikzpicture}[scale=0.5]
 		\draw[thick] (0,0) -- node[midway,left] {PBC} (0,3) -- node[midway,above] {NBC}  (3,3) -- node[midway, right] {PBC} (3,0) -- node[midway,below] {NBC}  cycle; 
 	\end{tikzpicture} 
-	\caption{Layout of the mixed boundaries. NBC and PBC stand for Neumann and periodic boundary conditions, respectively.}
+	\caption[Layout of the mixed boundaries]{Layout of the mixed boundaries. NBC and PBC stand for Neumann and periodic boundary conditions, respectively.}
 	\label{fig_scheme_mixedBC}
 \end{figure}
 The action of the finite difference matrix in the y-direction is given by the structure of the individual block matrices and the x-direction by the arrangement of the blocks in the large matrix.\\

@@ -274,76 +274,117 @@
 	
 
 %% CIRCLE_on_GB
-\begin{tikzpicture}
-	\begin{axis}[
-		axis equal,
-		axis line style={draw=none},
-		xtick=\empty,
-		ytick=\empty,
-		declare function={
-			yshift1=0.2;
-			yshift2=-0.6;
-			n=4;
-			nsoa=0;
-			rot1 = 30;
-			rot2 = rot1;
-			d=nsoa/(n^2-1);
-			aniso1(\t)=1+d*cos(n*(\t-rot1));
-			daniso1(\t)=-n*d*sin(n*(\t-rot1));
-			Wulffx1(\t) = aniso1(\t)*cos(\t) - daniso1(\t)*sin(\t);
-			Wulffy1(\t) = aniso1(\t)*sin(\t) + daniso1(\t)*cos(\t);
-			aniso2(\t)=1+d*cos(n*(\t-rot2));
-			daniso2(\t)=-n*d*sin(n*(\t-rot2));
-			Wulffx2(\t) = aniso2(\t)*cos(\t) - daniso2(\t)*sin(\t);
-			Wulffy2(\t) = aniso2(\t)*sin(\t) + daniso2(\t)*cos(\t);
-		},
-		]
-		\begin{scope}
-			\clip (axis cs: -2,5) rectangle (axis cs:0,0);
-			\addplot[domain=-pi:pi, samples=150, smooth, thick,blue] ({Wulffx1(deg(x))},{Wulffy1(deg(x))+yshift1});
-		\end{scope}
-		
-		\begin{scope}
-			% \clip (axis cs: -2,-5) rectangle (axis cs:0,0);
-			\clip (axis cs: 0,0) -- (axis cs: 0,2) -- (axis cs: 2,2) -- (axis cs: 2,-2) -- (axis cs: -2,-2) -- (axis cs: -2,0) -- cycle (axis cs: 0,0) ;
-			\addplot[domain=-pi:pi, samples=150, smooth,blue,dashed,thin] ({Wulffx1(deg(x))},{Wulffy1(deg(x))+yshift1});
-		\end{scope}
-		
-		\begin{scope}
-			\clip (axis cs: 0,5) rectangle (axis cs:2,0);
-			\addplot[domain=-pi:pi, samples=150, smooth,thick,magenta] ({Wulffx2(deg(x))},{Wulffy2(deg(x))+yshift2});    
-		\end{scope}
-		
-		\begin{scope}
-			% \clip (axis cs: 0,-5) rectangle (axis cs:2,0);
-			\clip (axis cs: 0,0) -- (axis cs: 2,0) -- (axis cs: 2,-2) -- (axis cs: -2,-2) -- (axis cs: -2,2) -- (axis cs: 0,2) -- cycle (axis cs: 0,0) ;
-			\addplot[domain=-pi:pi, samples=150, smooth,magenta,dashed, thin] ({Wulffx2(deg(x))},{Wulffy2(deg(x))+yshift2});    
-		\end{scope}
-		
-		\path coordinate (C1) at (axis cs:0,yshift1);
-		\path coordinate (C2) at (axis cs:0,yshift2);
-		\path coordinate (B1) at (axis cs:-2,0);
-		\path coordinate (B2) at (axis cs:2,0);
-		\path coordinate (B3) at  (axis cs:0,-2);
-		\path coordinate (zz) at  (axis cs:0,0);
-		% \draw[blue] (B1) -- (zz);
-		% \draw[magenta] (B2) -- (zz);
-		\draw[<->,thick,blue] (axis cs:-0.2,0) -- (axis cs:-0.2,yshift1);
-		\draw[<->,thick,magenta] (axis cs:0.2,0) -- (axis cs:0.2,yshift2);
-		
-		\draw[fill,blue] (C1) circle (3pt);
-		\draw[fill,magenta] (C2) circle (3pt);
-		
-		\draw (axis cs:-1.5,0.5) node [circle,draw,minimum size=6] {$\mathit{1}$};
-		\draw (axis cs:-0.5,0.6) node [circle,draw,minimum size=6] {$\mathit{2}$};
-		\draw (axis cs:-1.5,-0.5) node [circle,draw,minimum size=6]  {$\mathit{3}$};
-		\draw (axis cs:1.5,-0.5) node [circle,draw,minimum size=6] {$\mathit{4}$};
-		
-		\draw[thick] (B1) -- (B2);
-		\draw[thick] (zz) -- (B3);
-		\draw[dashed] (zz) -- (axis cs:0,2);
-
-	\end{axis}
-\end{tikzpicture}
+%\begin{tikzpicture}
+%	\begin{axis}[
+%		axis equal,
+%		axis line style={draw=none},
+%		xtick=\empty,
+%		ytick=\empty,
+%		declare function={
+%			yshift1=0.2;
+%			yshift2=-0.6;
+%			n=4;
+%			nsoa=0;
+%			rot1 = 30;
+%			rot2 = rot1;
+%			d=nsoa/(n^2-1);
+%			aniso1(\t)=1+d*cos(n*(\t-rot1));
+%			daniso1(\t)=-n*d*sin(n*(\t-rot1));
+%			Wulffx1(\t) = aniso1(\t)*cos(\t) - daniso1(\t)*sin(\t);
+%			Wulffy1(\t) = aniso1(\t)*sin(\t) + daniso1(\t)*cos(\t);
+%			aniso2(\t)=1+d*cos(n*(\t-rot2));
+%			daniso2(\t)=-n*d*sin(n*(\t-rot2));
+%			Wulffx2(\t) = aniso2(\t)*cos(\t) - daniso2(\t)*sin(\t);
+%			Wulffy2(\t) = aniso2(\t)*sin(\t) + daniso2(\t)*cos(\t);
+%		},
+%		]
+%		\begin{scope}
+%			\clip (axis cs: -2,5) rectangle (axis cs:0,0);
+%			\addplot[domain=-pi:pi, samples=150, smooth, thick,blue] ({Wulffx1(deg(x))},{Wulffy1(deg(x))+yshift1});
+%		\end{scope}
+%		
+%		\begin{scope}
+%			% \clip (axis cs: -2,-5) rectangle (axis cs:0,0);
+%			\clip (axis cs: 0,0) -- (axis cs: 0,2) -- (axis cs: 2,2) -- (axis cs: 2,-2) -- (axis cs: -2,-2) -- (axis cs: -2,0) -- cycle (axis cs: 0,0) ;
+%			\addplot[domain=-pi:pi, samples=150, smooth,blue,dashed,thin] ({Wulffx1(deg(x))},{Wulffy1(deg(x))+yshift1});
+%		\end{scope}
+%		
+%		\begin{scope}
+%			\clip (axis cs: 0,5) rectangle (axis cs:2,0);
+%			\addplot[domain=-pi:pi, samples=150, smooth,thick,magenta] ({Wulffx2(deg(x))},{Wulffy2(deg(x))+yshift2});    
+%		\end{scope}
+%		
+%		\begin{scope}
+%			% \clip (axis cs: 0,-5) rectangle (axis cs:2,0);
+%			\clip (axis cs: 0,0) -- (axis cs: 2,0) -- (axis cs: 2,-2) -- (axis cs: -2,-2) -- (axis cs: -2,2) -- (axis cs: 0,2) -- cycle (axis cs: 0,0) ;
+%			\addplot[domain=-pi:pi, samples=150, smooth,magenta,dashed, thin] ({Wulffx2(deg(x))},{Wulffy2(deg(x))+yshift2});    
+%		\end{scope}
+%		
+%		\path coordinate (C1) at (axis cs:0,yshift1);
+%		\path coordinate (C2) at (axis cs:0,yshift2);
+%		\path coordinate (B1) at (axis cs:-2,0);
+%		\path coordinate (B2) at (axis cs:2,0);
+%		\path coordinate (B3) at  (axis cs:0,-2);
+%		\path coordinate (zz) at  (axis cs:0,0);
+%		% \draw[blue] (B1) -- (zz);
+%		% \draw[magenta] (B2) -- (zz);
+%		\draw[<->,thick,blue] (axis cs:-0.2,0) -- (axis cs:-0.2,yshift1);
+%		\draw[<->,thick,magenta] (axis cs:0.2,0) -- (axis cs:0.2,yshift2);
+%		
+%		\draw[fill,blue] (C1) circle (3pt);
+%		\draw[fill,magenta] (C2) circle (3pt);
+%		
+%		\draw (axis cs:-1.5,0.5) node [circle,draw,minimum size=6] {$\mathit{1}$};
+%		\draw (axis cs:-0.5,0.6) node [circle,draw,minimum size=6] {$\mathit{2}$};
+%		\draw (axis cs:-1.5,-0.5) node [circle,draw,minimum size=6]  {$\mathit{3}$};
+%		\draw (axis cs:1.5,-0.5) node [circle,draw,minimum size=6] {$\mathit{4}$};
+%		
+%		\draw[thick] (B1) -- (B2);
+%		\draw[thick] (zz) -- (B3);
+%		\draw[dashed] (zz) -- (axis cs:0,2);
+%
+%	\end{axis}
+%\end{tikzpicture}
 	
+%% results contour evolution particle on GB
+%\begin{tikzpicture}
+%	\draw node[below right,inner sep=0] (lt) at (0,0) {\includegraphics[width=0.48\textwidth]{PF_nuclbarr_ISO_onGB_contours_120x30.pdf}};
+%	\draw node[below right,inner sep=0] (rt) at (lt.north east) {\includegraphics[width=0.48\textwidth]{PF_nuclbarr_ISO_onGB_contours_120x45.pdf}};
+%	\draw node[below right,inner sep=0] (lb) at (lt.south west) {\includegraphics[width=0.48\textwidth]{PF_nuclbarr_ISO_onGB_contours_120x75.pdf}};
+%	\draw node[below right,inner sep=0] (rb) at (lb.north east) {\includegraphics[width=0.48\textwidth]{PF_nuclbarr_ISO_onGB_contours_120x90.pdf}};
+%	
+%	\draw node[inner sep=0,right] at (lt.north west) {(a) $\vartheta_L=120$\textdegree, $\vartheta_R=-30$\textdegree};
+%	\draw node[inner sep=0,right] at (rt.north west) {(b) $\vartheta_L=120$\textdegree, $\vartheta_R=-45$\textdegree};
+%	\draw node[inner sep=0,right] at (lb.north west) {(c) $\vartheta_L=120$\textdegree, $\vartheta_R=-75$\textdegree};
+%	\draw node[inner sep=0,right] at (rb.north west) {(d) $\vartheta_L=120$\textdegree, $\vartheta_R=-90$\textdegree};
+%	
+%	\draw[-stealth,thick] ($(lt.center)+(-0.5,0) $) -- node[midway,below] {motion} ($(lt.center)+(0.5,0) $);
+%	\draw[-stealth,thick] ($(rt.center)+(-0.5,0) $) -- node[midway,below] {motion} ($(rt.center)+(0.5,0) $);
+%	\draw[-stealth,thick] ($(lb.center)+(-0.5,0) $) -- node[midway,below] {motion} ($(lb.center)+(0.5,0) $);
+%	\draw[-stealth,thick] ($(rb.center)+(-0.5,0) $) -- node[midway,below] {motion} ($(rb.center)+(0.5,0) $);
+%\end{tikzpicture}
+
+%% particle on GB - bezier fit of the contour
+\begin{tikzpicture}
+	\draw node[below right,inner sep=0] (lt) at (0,0) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x30_Bezier3.pdf}};
+	\draw node[below right,inner sep=0] (rt) at (lt.north east) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x90_Bezier3.pdf}};
+	\draw node[below right,inner sep=0] (lb) at (lt.south west) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x30_Bezier4.pdf}};
+	\draw node[below right,inner sep=0] (rb) at (lb.north east) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x90_Bezier4.pdf}};
+	\draw node[below right,inner sep=0] (lbb) at (lb.south west) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x30_Bezier5.pdf}};
+	\draw node[below right,inner sep=0] (rbb) at (lbb.north east) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x90_Bezier5.pdf}};
+	
+	\draw node[inner sep=0,right] at (lt.north west) {(a)};
+	\draw node[inner sep=0,right] at (rt.north west) {(b)};
+	\draw node[inner sep=0,right] at (lb.north west) {(c)};
+	\draw node[inner sep=0,right] at (rb.north west) {(d)};
+	\draw node[inner sep=0,right] at (lbb.north west) {(e)};
+	\draw node[inner sep=0,right] at (rbb.north west) {(f)};
+	
+	\draw node[inner sep=0.5cm,above] at (lt.north) {$\vartheta_L=120$\textdegree, $\vartheta_R=-30$\textdegree};
+	\draw node[inner sep=0.5cm,above] at (rt.north) {$\vartheta_L=120$\textdegree, $\vartheta_R=-90$\textdegree};
+	
+	\draw node[inner sep=-1cm,left] at (lt.west) {Bezier $n=3$};
+	\draw node[inner sep=-1cm,left] at (lb.west) {Bezier $n=4$};
+	\draw node[inner sep=-1cm,left] at (lbb.west) {Bezier $n=5$};
+\end{tikzpicture}
 \end{document}

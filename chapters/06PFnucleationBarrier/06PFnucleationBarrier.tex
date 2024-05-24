@@ -2,7 +2,9 @@
 \chapter{Nucleation probability assessment - a phase field methodology}\label{ch_NPA_PF_methodology}
 
 \section{Introduction}
-This chapter develops a methodology to obtain insight about the nucleation barrier from the stable shapes of particles on a planar support in 2D. The developed multi-phase phase field model is used to obtain the interface-energy-minimizing shapes and the below described \textit{domain scaling} is then used to find the shape factor of the shape. 
+This chapter develops a methodology to obtain insight about the nucleation barrier from the equilibrium stable shapes of particles on a planar support in 2D. The developed multi-phase phase field model is used to obtain the interface-energy-minimizing shapes and the below described \textit{domain scaling} is then used to find the shape factor of the shape. As recalled in the next section, the shape factor $S$ is closely related to the nucleation barrier of the heterogeneous nucleus (having the equilibrium shape), thus to the nucleation probability. 
+
+Even though this method was primarily developed to bring insight into the anisotropy in the nucleation barrier as function of the orientations of both the substrate and nucleus (which is in principle possible), later it was decided to rather use the Winterbottom construction for this purpose (in Chapter~\ref{ch_paper2}), because it was much more efficient. Regardless, the method presented in this chapter retains its usefulness in different regards irrespective or the original intention. 
 
 In order to find the equilibrium stable shape for arbitrary orientation and wetting conditions using the Moelans' multi-phase field model~\cite{Moelans2008} described also in chapter~\ref{ch_paper1}, it was necessary to implement two model extensions: volume conservation and such boundary conditions, which allow control of the interface inclination at the domain boundary. That way, the shape could be simulated in a two-phase system as long as the contact angles were known.
 
@@ -36,7 +38,7 @@ where the non-dimensional nucleus area is $\hat{A}_{hom}=A_{hom}/R^2=\pi$.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\textwidth]{DG_vs_radius_2D.pdf}
-	\caption{Schematic dependence of the total energy change on the radius of the inserted nucleus in 2D.}
+	\caption[Dependence of the total energy change on the radius of the inserted nucleus in 2D]{Schematic dependence of the total energy change on the radius of the inserted nucleus in 2D.}
 	\label{fig_DG_2D_sketch}
 \end{figure}
 
@@ -76,7 +78,7 @@ The simulated system geometry is sketched in Figure~\ref{fig_sketch_domain_scali
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{sketch_geometry_PF_NPA.pdf}
-	\caption{Sketch of the geometry in the phase-filed simulations used in the domain scaling methodology for nucleation barrier assessment. The symbols $\vartheta_L,\vartheta_R$ denote tangent angles in the contact points and $\theta_L,\theta_R$ the normal ones. The two intervals on the bottom domain boundary with the different interface inclination imposed are indicated  by blue color on the left half of the domain and by magenta on the right one (note that $\eta_1$ has analogous boundary conditions which must be consistent). $l_{GB}$ is the length of the grain boundary interval between the contact points. $\sigma_P$ is the particle-liquid interface energy.}
+	\caption[Sketch - PF simulation domain geometry to obtain equilibrium stable shape of a particle on a plane]{Sketch of the geometry in the phase-filed simulations used in the domain scaling methodology for shape factor assessment. The symbols $\vartheta_L,\vartheta_R$ denote tangent angles in the contact points and $\theta_L,\theta_R$ the normal ones. The two intervals on the bottom domain boundary with the different interface inclination imposed are indicated  by blue color on the left half of the domain and by magenta on the right one (note that $\eta_1$ has analogous boundary conditions which must be consistent). $l_{GB}$ is the length of the grain boundary interval between the contact points. $\sigma_P$ is the particle-liquid interface energy.}
 	\label{fig_sketch_domain_scaling_PF}
 \end{figure}
 
@@ -89,7 +91,7 @@ The domain scaling methodology is in fact a post-processing of the result of pha
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{combined_sketch_domain_scaling.pdf}
-	\caption{Nucleation barrier determination using domain scaling. In (a) sketch of domain scaling. The area fraction of the particle is preserved, as well as the number of grid points $N_x, N_y$. $A_i$ are scaled areas of the domain and $\Delta x_i$ is the i-th scaled grid spacing in meters. In (b) the energy contributions were plotted for each $\Delta x_i$, the barrier being denoted by black crosses and the critical nucleation barrier determined by fitting of parabolic function is indicated by red diamond.}
+	\caption[Nucleation barrier determination using domain scaling]{Nucleation barrier determination using domain scaling. In (a) sketch of domain scaling. The area fraction of the particle is preserved, as well as the number of grid points $N_x, N_y$. $A_i$ are scaled areas of the domain and $\Delta x_i$ is the i-th scaled grid spacing in meters. In (b) the energy contributions were plotted for each $\Delta x_i$, the barrier being denoted by black crosses and the critical nucleation barrier determined by fitting of parabolic function is indicated by red diamond.}
 	\label{fig_domain_scaling}
 \end{figure}	
 
@@ -220,7 +222,7 @@ The parameters of the phase field simulations needed to reproduce the results ar
 
 \begin{table}[]
 	\centering
-	\caption{Parameters in the phase field simulation (unless stated otherwise). The parameters in the top part correspond to the Moelans' model, in the bottom one to the diffusion equation used in the fictitious concentration field approach to conserve volume of the simulated particle. The not mentioned parameters $m,\kappa, L$ in Moelans' model can be determined using the dedicated published MATLAB functions~\cite{Minar2022dataset}.}
+	\caption[PF wetting simulation - the model parameters]{Parameters in the phase field simulation (unless stated otherwise). The parameters in the top part correspond to the Moelans' model, in the bottom one to the diffusion equation used in the fictitious concentration field approach to conserve volume of the simulated particle. The not mentioned parameters $m,\kappa, L$ in Moelans' model can be determined using the dedicated published MATLAB functions~\cite{Minar2022dataset}.}
 	\begin{tabular}{c|c|c|c}
 		symbol & parameter & units & values  \\ \hline
 		$l_{IW}$ & interface width & \unit{\m} & \qty{1e-9}{}\\ 
@@ -250,7 +252,7 @@ The re-computation of the model parameters during the domain scaling was carried
 	When validating the same with inclination-dependent interface energy, the methodology had to be modified slightly: the straight line was placed in its imposed position already in the initial condition, i.e. $\vartheta_{init}=\vartheta$. That was because once any curvature appeared in the straight line (which happened when the interface was forced to move by the boundary conditions), it began deforming and there remained no straight line. To assure that the tilted line be the equilibrium state of the system, the anisotropy function was always rotated so that the target inclination angle $\vartheta$ corresponded to the minimal interface energy. Only then the straight line could be immobile and the general Neumann BC could be validated in the same way like with the isotropic interface energy, i.e. simulation until energy convergence and linear fit of the contour. The target angle was observed very accurately in this case as well, as can be seen in Figure~\ref{fig_tilted_plane_validation_results}b.
 	\begin{figure}
 		\centering
-		\begin{tikzpicture}[scale=1.5]
+		\begin{tikzpicture}[scale=2.5]
 			\draw[thick] (0,0) rectangle (2,1);
 			\draw[thick] (1-0.5/0.7,0) -- (1+0.5/0.7,1);
 			\draw (0.8,0.15) node {\footnotesize$\vartheta_{init}$};
@@ -268,7 +270,7 @@ The re-computation of the model parameters during the domain scaling was carried
 			\draw[gray] (3.8,1) arc (180:230:0.6);
 			\draw[gray] (4.2,0) arc (0:50:0.6);
 		\end{tikzpicture}
-		\caption{Validation of the general NBC for control of the inclination angle at the boundary - tilted line simulations (isotropic interface energy). In the simulations with inclination-dependent interface energy there was $\vartheta_{init}=\vartheta$}
+		\caption[Sketch - tilted line validation of the general NBC controlling interface inclination on the domain boundary]{Validation of the general NBC for control of the inclination angle at the boundary - tilted line simulations (isotropic interface energy). In the simulations with inclination-dependent interface energy there was $\vartheta_{init}=\vartheta$}
 		\label{fig_sketch_tilted_plane_validation}
 	\end{figure}
 	\begin{figure}
@@ -282,7 +284,7 @@ The re-computation of the model parameters during the domain scaling was carried
 			\draw[above ] (L.north west) node {(a)};
 			\draw[above ] (R.north west) node {(b)};
 		\end{tikzpicture}
-		\caption{Results of tilted plane validation. In a) the result with isotropic interface, in b) with anisotropic one. }
+		\caption[Results of tilted plane validation]{Results of tilted plane validation. In a) the result with isotropic interface, in b) with anisotropic one. }
 		\label{fig_tilted_plane_validation_results}
 	\end{figure}
 	
@@ -296,7 +298,7 @@ The re-computation of the model parameters during the domain scaling was carried
 	A series of phase field simulations was run in the geometry as in Figure~\ref{fig_sketch_domain_scaling_PF} with $\vartheta_L=\vartheta_R$ to assess the above dependence of shape factor on the wetting angle. See Table~\ref{tab_PF_NPA_param_particle_onplane} for details on the simulation grid in the respective simulations.
 	\begin{table}
 		\centering
-		\caption{Simulation grid dimensions in individual simulations of a particle with isotropic interface energy on a plane in 2D. The grid aspect ratio was determined based on the expected shape aspect ratio.}
+		\caption[PF wetting simulation of a particle with isotropic interface energy - simulation grid dimensions]{Simulation grid dimensions in individual simulations of a particle with isotropic interface energy on a plane in 2D. The grid aspect ratio was determined based on the expected shape aspect ratio.}
 		\label{tab_PF_NPA_param_particle_onplane}
 		\begin{tabular}{c|c}
 			$\vartheta$ & $N_x\times N_y$ \\ \hline
@@ -324,13 +326,23 @@ The re-computation of the model parameters during the domain scaling was carried
 			\draw node[inner sep =0] at (1.north west) {(a)};
 			\draw node[inner sep =0] at (2.north west) {(b)};
 		\end{tikzpicture}
-		\caption{Results of the phase field simulation for determination of shape factor in heterogeneous nucleation with isotropic interface energy. In (a) the error in observed contact angles at the end of the simulation, in (b) the shape factor as obtained by domain scaling method.}
+		\caption[Results - shape factor for isotropic particle determined by domain scaling]{Results of the phase field simulation for determination of shape factor in heterogeneous nucleation with isotropic interface energy. In (a) the error in observed contact angles at the end of the simulation, in (b) the shape factor as obtained by domain scaling method.}
 		\label{fig_result_NPA_PF_S_iso}
 	\end{figure}
 	
 	Firstly, it is interesting that the observed contact angles $\vartheta_{obs}$ differed from those imposed by the boundary conditions $\vartheta$ significantly more than in the tilted line validation. This can be seen in the Figure~\ref{fig_result_NPA_PF_S_iso}a, where the difference $\vartheta_{obs}-\vartheta$ was plotted. The angle difference was larger than 5\textdegree~for 3 rather inclined angles (i.e. near 0\textdegree~or 180\textdegree). The deviation $\vartheta_{obs}-\vartheta$ did not depend on the phase field interface parameterization. In the base run, the interface width was $l_{IW}=$\qty{1e-9}{\m}, with 7 points through the interface. The compared simulations probed the effect of a) increasing the domain area, while keeping the $l_{IW}$ equal (effectively narrowing the physical interface width relative to the simulation initial condition) and of adding points to the interface (both actions refined the grid below the simulated initial condition) and both might improve phase field simulation accuracy in different regards. That did not happen in terms of the contact angles, though.
 	
 	However, the shape factor determination was not affected heavily, because it turned out that there actually were very few points deviating from the expected circular shape and those were near the boundary. This is confirmed also by the obtained values of shape factor plotted in Figure~\ref{fig_result_NPA_PF_S_iso}, which follow closely the analytic prediction. The different interface parametrization yielded slight improvement in the shape factor values, but not relevant in the current application.
+	
+	\subsection{Control over interface inclination with anisotropic particle}
+	The tilted plane validation with interface having inclination-dependent interface energy proved that the implementation is working also in this more complicated case. Nevertheless, for demonstration, in Figure~\ref{fig_demo_aniso_paticle_contangs_controlled} there are shown four particles as they were simulated using the model. All of them have the same anisotropic function, but had different (arbitrary) contact angles imposed on both contact points. It can be seen that the interface inclination is indeed controlled.
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.7\textwidth]{demonstr_contang_aniso_corr_THESIS.png}
+		\caption[Demonstration of control over interface inclination on the domain boundary with anisotropic particle.]{Demonstration of control over interface inclination on the domain boundary with anisotropic particle. All four particles have the anisotropy function $h(\theta)=1+1.625\cos(4(\theta+15))$ and a kind of arbitrary angles were imposed on both sides of the particle, as indicated above each graph.}
+		\label{fig_demo_aniso_paticle_contangs_controlled}
+	\end{figure}
 		
 
 \section{Domain scaling of a particle on a grain boundary (isotropic interface energy)}
@@ -348,7 +360,7 @@ The present section investigates the theoretical case when the nucleus extends o
 		\draw[above ] (L.north west) node {(a)};
 		\draw[above ] (R.north west) node {(b)};
 	\end{tikzpicture}
-	\caption{A particle on a grain boundary. In (a) the impact of different wetting on the two sides of the grain boundary is indicated and in (b) the annotations relevant for explanations in text were added: the specific interface energies $\sigma_S^{L/R}$ belong to the substrate-solution interfaces, the grain boundary energies $\sigma_{GB}^{L/R}$ and lengths $l_{GB}^{L/R}$ to the respective grain boundaries and $l_{GB}$ is the total grain boundary length.}
+	\caption[Sketch - a particle on a grain boundary]{A particle on a grain boundary. In (a) the impact of different wetting on the two sides of the grain boundary is indicated and in (b) the annotations relevant for explanations in text were added: the specific interface energies $\sigma_S^{L/R}$ belong to the substrate-solution interfaces, the grain boundary energies $\sigma_{GB}^{L/R}$ and lengths $l_{GB}^{L/R}$ to the respective grain boundaries and $l_{GB}$ is the total grain boundary length.}
 	\label{fig_sketch_particle_onGB}
 \end{figure}
 
@@ -358,7 +370,7 @@ The geometry of the resulting problem is sketched in~Figure~\ref{fig_sketch_part
 \end{equation}
 and must be constant in order to have the stable shape in equilibrium. But for a constant $\sigma$ that cannot be achieved under these conditions.
 
-Nevertheless, it is known that nucleation may happen on top of grain boundaries. Additionally, the nuclei in classical nucleation theory do not necessarily have the interface-energy minimizing shape, even though that one is the most likely. Hence, even if the shape is not in equilibrium, we assume that it could nucleate. Supposedly, it could survive by sliding to the lower-energy side of the grain boundary. Using the domain scaling procedure, the shape factor of the unknown compound shape can be quantified. 
+Nevertheless, it is known that nucleation may happen on top of grain boundaries. Additionally, the nuclei in classical nucleation theory do not necessarily have the interface-energy minimizing shape, even though that one is the most likely. Hence, even if the shape is not in equilibrium, we assume that it could nucleate. Supposedly, it could survive by sliding to the lower-energy side of the grain boundary (motion of small clusters on a surface was observed in electrodeposition~\cite{Ustarroz2013}). Using the domain scaling procedure, the shape factor of the unknown compound shape can be quantified, which would allow some insight into of how (un)likely occurrence of such shapes might be.
 
 To reduce the simulation time, the initial condition was a shape combined from parts of the equilibrium shapes from both sides, connected by a tangent line to prevent dents in the initial shape (the initial condition was very similar to the problem sketch in Figure~\ref{fig_sketch_particle_onGB}b, only with the tangent line). The initial condition can be seen in Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_contours}, it is the one with steps (due to discretization in the simulation grid).
 
@@ -385,65 +397,106 @@ Because the position of the grain boundary below the particle is chosen here, th
 \end{enumerate}
 In the first case, the substrate grain boundary is just in the middle between the contact points. The second and third ones are limiting cases, when the contact point is infinitesimally just behind the substrate grains grain boundary, hence the full substrate-particle grain boundary lays on the either higher- or lower-energy grain. 
 
-\alert{See Table~!!!! for details on the simulation} The contact angles $\vartheta_L,\vartheta_R$ were input to the simulation. In the presented results, it was assumed that $\vartheta_L=120$\textdegree and $\vartheta_R$ was varied between 30\textdegree-90\textdegree.
+See Table~\ref{tab_ISO_on_GB_angles} for details on the simulation The contact angles $\vartheta_L,\vartheta_R$ were input to the simulation. In the presented results, it was assumed that $\vartheta_L=120$\textdegree and $\vartheta_R$ was varied between 30\textdegree-90\textdegree.
 
-The first observation from the simulations is that the shape evolves, but even when it stops evolving, it moves as a block towards the side which has lower grain boundary energy. For the time evolution of the phase field contours in different cases see Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_contours}. The intuitively correct direction of motion (i.e.e such which lowers the total grain boundary energy) is reproduced by the model, even though the system energy minimized in te phase field simulation does not account for the grain boundary explicitly. The reason is that the curvature driving force acts towards the center of curvature. As can be seen in Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_contours}, the side with greater contact angle (and thus higher grain boundary energy) is more curved. The flatter is the opposite side, the less is the curvature driving force balanced. 
-
-The velocity of the shape centroid in the x direction was obtained from linear fit through the x centroid coordinate in time, see Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_results}a. The result quantifies the above reasoning, as it can be seen that lower $\vartheta_R$ (i.e. flatter right side) were associated with faster translation to the right.
-
-The computed shape factors of the compound shapes were plotted in Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_results}b with error bars indicating the possible span of values depending on the grain boundary position below the particle. The grain boundary energy contribution in the total energy of the particle seems to be a crucial factor for the nucleation probability. When the particle is sufficiently shifted to she lower-energy side, the deviation in shape may not cause dramatic increase in the nucleation barrier. In the opposite case (the particle is rather on the high-energy side), the nucleation can even be less likely than that of an isolated particle (homogeneous nucleation). In the extreme high-energy case for nearly all simulated $\vartheta_R$, the nucleation on top of the boundary was less likely than simply nucleating only on the high-energy part of the substrate. 
+\begin{table}
+	\centering
+	\caption[PF wetting simulation of a particle with isotropic interface energy ona a GB - contact angles and the simulation grid]{Summary of the contact angles and the simulation grid dimensions in grid points for the simulation of a particle on a grain boundary. Other parameters for the simulation are equal as in Table~\ref{tab_parameters_PF_NPA}.}
+	\label{tab_ISO_on_GB_angles}
+	\begin{tabular}{c|c|c}
+		\hline
+		$\vartheta_L$ (\textdegree) & $\vartheta_R$ (\textdegree) & $N_x \times Ny$ \\ \hline
+		120 & -30 & $140\times65$ \\
+		120 & -45 & $130\times65$ \\
+		120 & -60 & $110\times65$ \\
+		120 & -75 & $110\times65$ \\
+		120 & -90 & $110\times65$ 
+	\end{tabular}
+\end{table}
 
 \begin{figure}
 	\centering
-	\begin{tikzpicture}
-		\draw node[below right,inner sep=0] (lt) at (0,0) {\includegraphics[width=0.48\textwidth]{PF_nuclbarr_ISO_onGB_contours_120x30.pdf}};
-		\draw node[below right,inner sep=0] (rt) at (lt.north east) {\includegraphics[width=0.48\textwidth]{PF_nuclbarr_ISO_onGB_contours_120x45.pdf}};
-		\draw node[below right,inner sep=0] (lb) at (lt.south west) {\includegraphics[width=0.48\textwidth]{PF_nuclbarr_ISO_onGB_contours_120x75.pdf}};
-		\draw node[below right,inner sep=0] (rb) at (lb.north east) {\includegraphics[width=0.48\textwidth]{PF_nuclbarr_ISO_onGB_contours_120x90.pdf}};
-		
-		\draw node[inner sep=0,right] at (lt.north west) {(a) $\vartheta_L=120$\textdegree, $\vartheta_R=-30$\textdegree};
-		\draw node[inner sep=0,right] at (rt.north west) {(b) $\vartheta_L=120$\textdegree, $\vartheta_R=-45$\textdegree};
-		\draw node[inner sep=0,right] at (lb.north west) {(c) $\vartheta_L=120$\textdegree, $\vartheta_R=-75$\textdegree};
-		\draw node[inner sep=0,right] at (rb.north west) {(d) $\vartheta_L=120$\textdegree, $\vartheta_R=-90$\textdegree};
-		
-		\draw[-stealth,thick] ($(lt.center)+(-0.5,0) $) -- node[midway,below] {motion} ($(lt.center)+(0.5,0) $);
-		\draw[-stealth,thick] ($(rt.center)+(-0.5,0) $) -- node[midway,below] {motion} ($(rt.center)+(0.5,0) $);
-		\draw[-stealth,thick] ($(lb.center)+(-0.5,0) $) -- node[midway,below] {motion} ($(lb.center)+(0.5,0) $);
-		\draw[-stealth,thick] ($(rb.center)+(-0.5,0) $) -- node[midway,below] {motion} ($(rb.center)+(0.5,0) $);
-	\end{tikzpicture}
-	\caption{Time evolution of phase field contours in the simulation of a particle on a grain boundary. The time evolves from gray to black contours, the last contour in the simulation is red.}
+	\includegraphics[width=\textwidth]{comb_ISO_on_GB_contours_evolution.pdf}
+	\caption[Time evolution of phase field contours in the simulation of a particle on a grain boundary]{Time evolution of phase field contours in the simulation of a particle on a grain boundary. The time evolves from gray to black contours, the last contour in the simulation is red.}
 	\label{fig_PF_nuclbarrier_ISO_onGB_contours}
 \end{figure}
+
+The first observation from the simulations is that the shape evolves, but even when it stops evolving, it moves as a block towards the side which has lower grain boundary energy. For the time evolution of the phase field contours in different cases see Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_contours}. The intuitively correct direction of motion (i.e. such which lowers the total grain boundary energy) is reproduced by the model, even though the system energy minimized in the phase field simulation does not account for the particle-substrate interface explicitly. The reason is that the curvature driving force acts towards the center of curvature and as can be seen in Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_contours}, the side with greater contact angle (and thus higher grain boundary energy) is more curved. The flatter is the opposite side, the less is the curvature driving force balanced. 
+
+The velocity of the shape centroid in the x direction was obtained from linear fit through the x centroid coordinate in time, see Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_results}a. The result quantifies the above reasoning, as it can be seen that lower $\vartheta_R$ (i.e. flatter right side) were associated with faster translation to the right.
 
 \begin{figure}
 	\centering
 	\begin{tikzpicture}
 		\draw node[below right,inner sep=0] (l) at (0,0) {\includegraphics[width=0.48\textwidth]{PF_nuclbarr_ISO_onGB_centroidVx.pdf}};
-		\draw node[below right,inner sep=0] (r) at (lt.north east) {\includegraphics[width=0.48\textwidth]{PF_nuclbarr_ISO_onGB_SFrange.pdf}};
+		\draw node[below right,inner sep=0] (r) at (l.north east) {\includegraphics[width=0.48\textwidth]{PF_nuclbarr_ISO_onGB_SFrange.pdf}};
 		\draw node[inner sep=0,right] at (l.north west) {(a) };
 		\draw node[inner sep=0,right] at (r.north west) {(b)};
 	\end{tikzpicture}
-	\caption{Results from the simulation of a particle on a grain boundary. In (a) the x-direction velocity of the shape centroid as function of the right contact angle $\vartheta_R$ and in (b) the shape factor corresponding to the shape at the end of the simulation (i.e. red contours from Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_contours}).}
+	\caption[Results from the simulation of a particle on a grain boundary - velocity of shape motion and the shape factor]{Results from the simulation of a particle on a grain boundary. In (a) the x-direction velocity of the shape centroid as function of the right contact angle $\vartheta_R$ and in (b) the shape factor corresponding to the shape at the end of the simulation (i.e. red contours from Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_contours}) compared to the shape factors for the equilibrium shapes on either the low-energy (solid black line) or high-energy (dashed black line) side of the grain boundary within the substrate. As explained in the text, position of the substrate grain boundary strongly affects the shape factor, hence it is shown as the red area for the phase field simulation results $S_{PF}$. The red line in the center corresponds to the case when the grain boundary was in the middle of the particle.}
 	\label{fig_PF_nuclbarrier_ISO_onGB_results}
 \end{figure}
 
-\section{Summary and the author's contribution}
-The author extended the multi-phase field model by Moelans~\cite{Moelans2008}. The work~\cite{Moelans2008} promoted usage of the model variant with constant interface width (here denoted IWc) with not-fully-variational formulation and described it in great detail.
+The computed shape factors of the compound shapes were plotted in Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_results}b as red area indicating the possible span of values depending on the grain boundary position below the particle. In the same figure, the shape factors corresponding to the shapes nucleating on either side of the substrate grain boundary were indicated by black dashed line for the high-energy side and solid black line for the lower-energy side. The grain boundary energy contribution in the total energy of the particle (now understand the grain boundary between the particle and substrate) seems to be a crucial factor for the nucleation probability. When the particle is sufficiently shifted to she lower-energy side, the deviation in shape may not cause dramatic increase in the nucleation barrier. In the opposite case (the particle is rather on the high-energy side), the nucleation can even be less likely than that of an isolated particle (homogeneous nucleation, $S=1$). In the extreme high-energy case for nearly all simulated $\vartheta_R$, the nucleation on top of the boundary was less likely than simply nucleating only on the high-energy part of the substrate. 
 
-At the beginning of the author's work, it was already known that IWc was not reliably reproducing the angles in triple junctions of interfaces with different interface energies~\cite{Moelans2010_thinfilm} (i.e. in pair-wise isotropic systems). The model variant with variable interface width and all anisotropy in the parameter $\gamma$ (here IWvG) was used in one grain growth study~\cite{Ravash2017}, but its better reliability in triple junction angles had not been documented yet.
+An effort was made to characterize the obtained shapes using Bézier polynomials, which are often used in computer graphics and for description of both smooth curves and those with corners. The used method minimized the sum of squared differences between the contour and points on Bézier curve by optimization of the Bézier polynomial control points (the blue circles connected by dashed blue line in Figure~\ref{fig_ISO_on_GB_Bezier_fit}). The used method was linear, hence the handles could be obtained in a single computational step and represent the best match of the chosen order of polynomial to the data.
 
-As provided below with all details, the model extensions included
-\begin{enumerate}
-	\item Description of another model variant with all anisotropy in the parameter $\kappa$ and variable interface width (IWvK)
-	\item Derivation of the governing equation for all the three model variants in both 2D and 3D for the case of inclination-dependent interface energy
-	\item The model behavior depends heavily on proper parametrization of the equations. Best practices in parameters determination were  developed and described (different in each model variant) in order to assure control over both the local interface width and local interface energy. 
-	\item In the IWvK model variant such boundary conditions were incorporated, which allowed to control the angle under which the interface intersecting the domain boundary will align.
-\end{enumerate}
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{comb_ISO_on_GB_Bezier_fit.pdf}
+	\caption[Fit of the final PF contours using Bézier polynomials]{Using Bézier polynomials of various orders to fit the contours of particle on top of a grain boundary. In (a), (c), (e) the contours from simulation with contact angles $\vartheta_L=120$\textdegree and $\vartheta_L=-30$\textdegree fitted using the Bezier polynomial of order $n=3,4,5$, respectively. In (b), (d), (f) the same orders of Bezier polynomials were applied to contours with contact angles $\vartheta_L=120$\textdegree and $\vartheta_L=-90$\textdegree.}
+	\label{fig_ISO_on_GB_Bezier_fit}
+\end{figure}
 
-Besides the listed model extensions, the author also implemented two approaches adding the volume conservation to the system based on Allen-Cahn type of equations, namely one using Lagrange multipliers to conserve the volume and pne using fictitious concentration field. Volume conservation would be necessary in simulations, where the nucleus interacted dynamically with its surroundings, but these simulations were not needed eventually. Regardless, the model modifications including volume conservation were described in Appendix.
+\begin{table}
+	\centering
+	\caption[PF wetting simulation of a particle with isotropic interface energy ona a GB - comparison of measured contact angles]{Comparison of the contact angles in the two simulations which are shown fitted by Bézier polynomials in Figure~\ref{fig_ISO_on_GB_Bezier_fit}. All values are shown in degrees~\textdegree. In column BC the angles are as imposed by the boundary condition, in OBS how they were observed based on the slope between the last two points on the contour on either end, and then based on the control points of the Bézier polynomial od degree $n$.}
+	\label{tab_ISO_on_GB_angles_measured}
+	\begin{tabular}{c|c|c|c|c|c}
+		angle & BC  & OBS & $n=3$ & $n=4$ & $n=5$\\ \hline \hline
+		$\vartheta_L$ & 120 & 118.0 & 91.6 & 116.5 & 129.3 \\
+		$\vartheta_R$ & -30 & -30.4 & -51.7 & -13.8 & -34   \\ \hline \hline
+		$\vartheta_L$ & 120 & 118.0 & 110.7 & 128.1 & 125.7 \\
+		$\vartheta_R$ & -90 & -89.4  & -102.0 &-96.8 & -85.0 \\ \hline \hline
+	\end{tabular}
+\end{table}
 
-\section{TODO Conclusion}
- 
+The shapes seem rather simple so it was expected that the cubic Bézier polynomial ($n=3$) might suffice for their description, but the match was in fact not very good (see examples in Figure~\ref{fig_ISO_on_GB_Bezier_fit}a and \ref{fig_ISO_on_GB_Bezier_fit}b). Especially the contact points were notably off. The contours were then fitted by Bézier polynomials of orders 4 and 5 to confirm, whether an improvement was possible this way. The polynomials of order 5 provided qualitatively good match to the contours, even though some minor inaccuracy still remained (see Figure~\ref{fig_ISO_on_GB_Bezier_fit}e and \ref{fig_ISO_on_GB_Bezier_fit}f). 
+
+The inaccuracy in Bézier polynomial fit to the contours can be noted on the contact angles the fitted curve had, see Table~\ref{tab_ISO_on_GB_angles_measured}. For all the used orders it can be seen that there is some discrepancy.
+
+Because the Bézier polynomials do not have any physical interpretation in this context, the particular relation of the polynomial control points to the simulation input parameters was not investigated further. However, it can certainly be concluded that the shapes minimizing the isotropic solid-liquid interface energy resting on top of a grain boundary intersecting a planar surface can at least be approximated by Bézier curves of fifth order.
+
+\section{Discussion}
+The domain scaling methodology was used to provide shape factor for the hypothetical case of a particle on top of a grain boundary within otherwise planar surface. As mentioned before, such shape is not the equilibrium one, because for the isotropic particle-solution interface energy $\sigma_P$ it cannot achieve constant curvature, hence in this context a constant chemical potential along the particle surface. 
+
+Given sufficiently large local energy fluctuation, such shapes which do not minimize the interface energy may occur in nucleation. Within the context of classical nucleation theory, the particle is assumed to appear at once. Once it occurs on the grain boundary as presented here, it is unstable and thus should either dissolve, separate into two smaller pieces on either side of the grain boundary (and then probably dissolve due to being of too small to overcome the nucleation barrier) or slide to the lower-energy side of the boundary and attain the energy minimizing shape there. The splitting and/or sliding scenario would occur with liquids but is apparently questionable with solids.
+
+The taken approach is in fact not convenient for description of a solid phase nucleation on top of a grain boundary. Even though the exact mechanisms of the nucleation in grain boundaries during deposition are not known, it is more meaningful to imagine such growth rather on the atomic level than assuming the continuum-like nuclei, the more because the grain boundary width in reality may be of comparable size like the nucleus. That implies that i) the assumption of infinitesimally narrow jump in surface properties is too simplistic and ii) that the grain boundary itself must interact with the particle in come way. Possibly by enabling nucleation in place of some local defect in the grain boundary. Additionally, given the assumed continuum aspect of the particle and its solid state, the only viable resolution of the shape instability is to dissolve straight away.
+
+However, should the nucleating phase be liquid, the present study has shown that nucleation of the shape which mostly rests on the low-energy side of the substrate surface (while still being in contact with the high-energy side) is comparably probable like nucleation on the low-energy side alone. This can be seen on proximity of the lower edge of the red area in Figure~\ref{fig_PF_nuclbarrier_ISO_onGB_results}b to the solid black line indicating the shape factor the shape nucleating straight on the low-energy side of the substrate. 
+
+\section{Limitations of the presented methodology}
+One of the methodology limitations is that sharp angles of the interface inclination require finer grids, because the interface width is finite in the phase field simulation and its projection to the domain boundary can be long with the sharp angles. In fact, the sharpest simulated contact angle in this study was 15\textdegree. That may suffice in many applications with isotropic interface energy, but should a Wulff shape be simulated in arbitrary configuration, easily even sharper angle might be needed depending on the particle orientation. Finer grid should solve the related problems, but the validations have not been carried out and the method already is rather computationally intensive, especially when compared to the Winterbottom construction.
+
+One of reasons to use the multi-phase field model is that in principle multiple grains or particles could be simulated. However, the interface-inclination-controlling boundary condition assumes that no triple junction is near the interface-boundary contact point. Therefore, until this is somehow resolved, the advantage of using multi-phase field model for this purpose is limited. 
+
+A remark is due towards the original intended application of the methodology, i.e. to bring insight into the nucleation barrier anisotropy. As presented in the next chapter, the basis for that is an analytic model relating the local interface energetics to the local crystallographic orientations of the particle and the substrate. Then it is possible to say how the shape wets the surface and what are the contact angles, hence the equilibrium shape could be obtained using this methodology. However, the insight may only be obtained by probing the substrate and particle orientation space, which implies large number of simulations at similar, yet unequal conditions. The domain scaling methodology would in principle be usable for the purpose, but at some points it would probably hit its limits, because it may not be so accurate in delivering minute details and it is not clear how well it would handle the cases with the contact points close to each other and other scenarios. Additionally, for a single pair of substrate-particle orientations there may be multiple stable solutions, each of which would have to be simulated in order to select the most likely one. 
+
+It is reasoned, that the Key objective KO2 is met ("\textit{Develop a methodology based on the multi-phase-field model~\cite{Moelans2008} capable of determining the nucleation barrier anisotropy}"), because the phase field model was validated and demonstrated control over the inclination angles also when the interface had the inclination-dependent interface energy. Also, it was demonstrated that no assumption on the resulting shape is needed for determination of the shape factor. Hence, the phase field model in conjunction with the domain scaling method is capable of determining the shape factors for the anisotropic particles which was the objective.
+
+\section{Conclusion}
+In this chapter, the author developed and implemented a novel method for determination of a shape factor of a heterogeneous nucleus seen within the framework of classical nucleation theory. This Domain scaling method takes as input the contour of the shape on a plane. In combination with the phase-field model which implicitly tracks the interface it is possible to determine shapes of particles on a plane, where the equilibrium stable shape is not a-priori known from the Winterbottom construction. The case of a particle with isotropic interface energy on a grain boundary where the analytical solution was not known was analyzed. This fulfilled the Key objective KO2 "\textit{Develop a methodology based on the multi-phase-field model~\cite{Moelans2008} capable of determining the nucleation barrier anisotropy}".
+
+In order to deliver the contours to the Domain scaling method, the existing multi-phase field model~\cite{Moelans2008, Minar2022} was extended in several regards to allow such simulation. Importantly, volume conservation and general Neumann boundary conditions for control of interface inclination on the domain boundary were added. The model was systematically validated in several benchmarks.
+
+The main results of the investigation of the particle with isotropic interface energy on top of the grain boundary within the substrate are the following:
+\begin{itemize}
+	\item position of the substrate grain boundary below the particle strongly determines the shape factor, hence the nucleation probability,
+	\item when most of the particle rests on the low-energy side, the shape factor is comparable to the isolated nucleation on the lower-energy side,
+	\item the shapes which minimized the particle-liquid interface energy could be well approximated by Bézier polynomials of 5th order, but no physical interpretation was provided. The match could be probably improved by further increasing order of the polynomial, but no added value was seen in that
+	\item the simulated contours moved towards the lower-energy side of the simulated domain, but it was explained that it is only due to the shape of the contour together with the curvature driving force, not because the simulation would work with the particle-substrate energetics (only the contact angles are the input to the simulation)
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Keep the following \cleardoublepage at the end of this file, 

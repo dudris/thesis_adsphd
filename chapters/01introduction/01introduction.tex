@@ -8,12 +8,9 @@
 \newglossaryentry{md}{name={MD},description={molecular dynamics}}
 
 \section{General introduction}
-Electrodeposition is a highly industrially relevant process used for many applications like metal deposition for the fabrication of integrated circuits, deposition for magnetic recording devices (heads, disks), and deposition
-of multilayer structures~\cite{Schlesinger2006}, to name a few. Usually, the electrodeposits are polycrystalline and exhibit pronounced crystallographic texture, which is affected by many factors. 
+Crystallographic texture has a marked influence on the properties of polycrystalline coatings. Seemingly unrelated parameters (properties) such as corrosion resistance, hardness, magnetic properties, porosity, and contact resistance are all texture dependent~\cite{Schlesinger2010}. Some properties such as macroscopic magnetic anisotropy do not even exist if the sample is not textured~\cite{Dinnebier2008}.
 
-Texture has a marked influence on the properties of a given deposit. Seemingly unrelated parameters (properties) such as corrosion resistance, hardness, magnetic properties, porosity, and contact resistance are all texture dependent~\cite{Schlesinger2010}. Some properties such as macroscopic magnetic anisotropy do not even exist if the sample is not textured~\cite{Dinnebier2008}.
-
-Every deposition method has its specific parameters used to control the process. These are used to optimize the resulting textures, but the relation to the fundamental texture-forming quantities (i.e. the local conditions on the deposited material surface) is usually missing. The problem is that they are inaccessibile after the deposition and it is not clear how they could be measured during the deposition. 
+Every deposition method has its specific parameters used to control the process. These are used to optimize the resulting textures, but the relation to the fundamental texture-forming quantities (i.e. the local conditions on the deposited material surface) is usually missing. The problem is that they are inaccessible after the deposition and it is not clear how they could be measured during the deposition. 
 
 Irrespective of which type of deposition technique is used, texture formation is controlled by interfacial energy, surface diffusivity of adatoms, grain boundary mobility and grain boundary and lattice diffusion~\cite{Szpunar1997, Suwas2014}. These properties together then affect the fundamental processes: nucleation, crystal growth and grain boundary motion~\cite{Barna1998}. Understanding how the texture in films is formed and how it can be controlled during the deposition process, is beneficial for the development of methods of texture optimization~\cite{Szpunar1997}. 
 
@@ -21,51 +18,159 @@ The anisotropy in crystal growth in general must originate from the anisotropy o
 
 In such situations, mathematical models of the process are useful to suggest some interpretation to the observed behaviors to gain better insight. This thesis elaborates on the possible impact of anisotropy in interface energy on the orientation selection during repeated nucleation on the course of the film growth. 
 
+Of the deposition methods, the electrodeposition is particularly interesting, because
+\begin{itemize}
+	\item the (anisotropic) surface conditions are highly adjustable by additives and deposition conditions,
+	\item the current or voltage transients provide valuable integral feedback on the surface processes in-situ, so there is more information available than in other methods,
+	%	\item it can be carried out in a highly localized way (e.g. during electrochemical scanning microscopy), which allows higher control ???!,
+	%	\item the direction of the deposition reaction is controlled by the sign of applied voltage, which allows pulsed regime, where deposition and stripping are repeated in rather short cycles. This adds completely new dynamics to the deposition process and provides additional perspective to tune the deposit properties, 
+	\item it is industrially relevant.
+\end{itemize}
+For these reasons, this thesis focuses more on electrodeposition than on other deposition methods. However, the interface energy is relevant for all the others as well, hence the implications of its anisotropy are in principle applicable to any other deposition method. 
+
+Electrodeposition is a highly industrially relevant process used for many applications like metal deposition for the fabrication of integrated circuits, deposition for magnetic recording devices (heads, disks), and deposition
+of multilayer structures~\cite{Schlesinger2006}, to name a few. Similarly like in other methods, the electrodeposits are usually polycrystalline and exhibit pronounced crystallographic texture, which is affected by many factors. 
+
+
 %This highlights the utility of simulation tools, which allow to set the anisotropy in interface energy and kinetic coefficient independently, because in practice the individual effects may be hard or impossible to distinguish. Among such tools is (multi-)phase field method.
 
 The interface energy is particularly important for the nucleation, which is in turn the main process of how grains with new orientations are introduced during the film growth. To the best of author's knowledge, the relation between the interface energy anisotropy and the anisotropy in nucleation barrier as function of local crystallographic orientation has not been fundamentally investigated. This work intends to bring more insight into this relation using different simulation approaches.
 
 %The following sections provide some fundamental information about the deposition process and as-deposited mictrostructures - Structure-Zone model, Winand diagrams and how the calssical nucleation theory is modified by the presence of anisotropy in interface energy.
 
-Of the deposition methods, the electrodeposition is particularly interesting, because
-\begin{itemize}
-	\item the (anisotropic) surface conditions are highly adjustable by additives and deposition conditions,
-	\item the current or voltage transients provide valuable integral feedback on the surface processes in-situ, so there is more information available than in other methods,
-%	\item it can be carried out in a highly localized way (e.g. during electrochemical scanning microscopy), which allows higher control ???!,
-%	\item the direction of the deposition reaction is controlled by the sign of applied voltage, which allows pulsed regime, where deposition and stripping are repeated in rather short cycles. This adds completely new dynamics to the deposition process and provides additional perspective to tune the deposit properties, 
-	\item it is industrially relevant.
-\end{itemize}
-For these reasons, this thesis focuses more on electrodeposition than on other deposition methods. However, the interface energy is also relevant for all the others, hence the implications of its anisotropy are in principle applicable to any other deposition method as well. 
+
+\section{Goals of the thesis}
+
+\noindent\fbox{%
+	\parbox{\textwidth}{%
+		There are two main goal of this thesis:
+		\begin{enumerate}
+			\item Develop a methodology based on the multi-phase-field model~\cite{Moelans2008} capable of determining the nucleation barrier anisotropy 
+			\item Bring insight into the role of anisotropy in interface energy for nucleation during polycrystalline film growth and the possible impact on texture evolution.			
+		\end{enumerate}
+	}%
+}
 
 
-\section{TODO Goals of the thesis}
-This thesis explores the effect of anisotropic interface energy on nucleation and growth of polycrystalline deposits in various simulation concepts. It is known that the anisotropy in interface energy affects the equilibrium stable shape of a particle (on a plane). Also, it is known that the nucleation probability is proportional to the particle area (in 3d to its volume).
+The following \textbf{key objectives (KO)} were set to accomplish the main goals:
+\begin{description}
+	\item[KO1] To develop and benchmark the multi-phase field model~\cite{Moelans2008} including the anisotropic interface energy.
+	\begin{description}
+%		\item[KO1.1] Implement the multi-phase field model~\cite{Moelans2008} with inclination-dependent interface energy and validate the implementation
+		\item[KO1.1] Derive the governing equations for all the compared model variants.
+		\item[KO1.2] Define quantitative benchmark problems to validate both the implementation and the model variants in terms of the anisotropic curvature driving force.
+		\item[KO1.3] Implement own numerical solver.
+		\item[KO1.4] Compare the model variants and draw conclusions.
+	\end{description}
+\end{description}
+\noindent\textbf{Comment:} there exist multiple variants of the model~\cite{Moelans2008}, but not all of them were used with inclination-dependent interface energy, hence the governing equations for these must be derived. Additionally, no systematic comparison was made, hence it was not obvious which model variant would be suited the best for the current application.
 
-The goals of the thesis are:
-\begin{enumerate}
-	\item Develop a methodology which would allow comparison of nucleation probability of differently oriented nuclei on an arbitrarily oriented substrate in 2D
-	\item Create a program which will 
-\end{enumerate}
+\begin{description}
+	\item[KO2] Develop a methodology based on the multi-phase-field model~\cite{Moelans2008} capable of determining the nucleation barrier anisotropy.
+	\begin{description}
+		\item[KO2.1] Work out the concept of the whole methodology. Specify the requirements on the model, the simulation geometry and if necessary carry extend the model further.
+		\item[KO2.2] Implement the model and validate its key aspects 
+		\item[KO2.3] Validate the methodology on some problem with known solution.
+		\item[KO2.4] Demonstrate usability of the developed methodology on a problem without known solution.
+	\end{description}
+	\item[KO3] Determine how anisotropy of the nucleation barrier (different for differently oriented nuclei) relates to interface energy anisotropy and local crystallography
+	\begin{description}
+		\item[KO3.1] Analyze and specify the problem
+		\item[KO3.2] Implement a solver which is able to return the nucleation barrier for each pair of the substrate and particle orientations
+		\item[KO3.3] Using the solver investigate how the nucleation barrier depends on the orientations
+	\end{description}
+	\item[KO4] Demonstrate in a 2D Monte Carlo simulation of growing polycrystalline film how such anisotropy in nucleation barrier may affect texture evolution
+	\begin{description}
+		\item[KO4.1] Develop an orientation-sampling algorithm based on the anisotropic nucleation probability
+		\item[KO4.2] Develop and validate the 2D Monte Carlo simulation algorithm incorporating nucleation with the orientation sampling
+		\item[KO4.3] Carry out a parameter study to showcase the impact of nucleation with isotropic or anisotropic interface energy on texture evolution under different conditions
+	\end{description}
+	\item[KO5] Apply the novel theoretical insights to some real-world practical system
+	\item[KO6] Synthesize the findings and propose future directions of the research
+\end{description}
 
-\begin{enumerate}
-	\item Develop a methodology to simulate the equilibrium stable shapes of particles with anisotropic interface energy on a plane using	the multi-phase field method 
-	\item 
-\end{enumerate}
+%The development of methodology to determine anisotropy of nucleation barrier based on phase-field method (KO1.2) is challenging and required further breakdown of this Key Objective. For better comprehensibility, these were listed separately
+%
+%\begin{description}
+%	\item[KO1.2] Develop methodology based on phase-field method
+%	\begin{description}
+%		\item[KO1.2.1] Propose the methodology and review phase-field method
+%		\item[KO1.2.2] Specify requirements on the model and simulated system geometry
+%		\item[KO1.2.3] Work out the necessary extensions of an existing phase field model including anisotropy of interface energy and kinetic coefficient
+%		\item[KO1.2.4] Implement the phase field model 
+%		\item[KO1.2.5] Develop well defined benchmark problems to validate the implementation
+%		\item[KO1.2.6] Demonstrate usability of the developed methodology
+%	\end{description}
+%\end{description}
+
+%This thesis explores the effect of anisotropic interface energy on nucleation and growth of polycrystalline deposits in various simulation concepts. It is known that the anisotropy in interface energy affects the equilibrium stable shape of a particle (on a plane). Also, it is known that the nucleation probability is proportional to the particle area (in 3d to its volume).
 
 
-\section{INTRO}
+%The anisotropic nature of monocrystals implies anisotropy of the interfaces they have with their surroundings. This translates into anisotropy of both thermodynamic and kinetic properties which are tied with the interface, especially the specific interface energy and the kinetic coefficient of the deposition/dissolution reaction. Even though it is natural to expect that both are manifestations of a single surface condition, because both quantities are used 
+
+\section{Thesis overview} \label{sec_Thesis_overview}
+This thesis explores how anisotropy in surface energy affects the course of crystallographic texture evolution in polycrystalline coatings, with emphasis on orientation selection in repeated nucleation seen within the framework of classical nucleation theory. 
+
+%In order to bring insight in this matter, the problem was first analyzed (KO1.1) \colorbox{red}{IN CHAPTER} and two different approaches to determine anisotropy in interface energy were developed (KO1.2 and KO1.3). 
+
+The Chapters~\ref{ch_anisoIEintro} and~\ref{ch_introPF} provide the necessary fundamentals and relevant literature review. The subsequent chapters contain the original research carried out by the author.
+
+%The Chapters~\ref{ch_paper1} and~\ref{ch_paper2} contain the results published as~\cite{Minar2022} and~\cite{Minar2024}, respectively. The Chapter~\ref{ch_NPA_PF_methodology} contains unpublished results on the phase-field methodology to obtain so-called shape factor of a heterogeneous nucleus. The shape factor can be related to the nucleation probability for the particular shape.
+
+The Chapter~\ref{ch_anisoIEintro} provides fundamentals related to the surface energy, like the capillary vector formalism used to describe its anisotropy, interface stiffness, the Wulff shapes, the force balance in triple junctions and Winterbottom construction to obtain equilibrium stable shapes on a plane. Fundamentals of classical nucleation theory are provided as well.
+
+The Chapter~\ref{ch_introPF} introduces the phase-field method. In a step-wise manner, the fundamentals of the method are covered. First, the Allen-Cahn equation is described, which represents phase evolution under the effect of isotropic curvature driving force. Then, the standard ways of adding a) anisotropy in interface energy, b) multiple phase-fields in the simulation domain (and both) are reviewed. Challenges and limitations of the various phase-field models are discussed. Also, a section was included, commenting on the importance of benchmarking the performance of applied multi-physics phase-field models and the current practice of their usage and presentation within the scientific community.
+
+In the Chapter~\ref{ch_paper1}, there is a comprehensive description of an existing multi-phase field model and how and why it was extended. Three different variants of the same model were obtained. Two different benchmark problems to quantitatively test how the models reproduced the anisotropic curvature driving force were developed. A thorough parameter study was conducted to provide exhausting information on the model behavior in different settings. Only in a third benchmark problem involving triple junctions showed, that there was in fact a significant difference in the behavior of the model variants. Results in this chapter were published in~\cite{Minar2022}. The Key Objective KO1 and all its sub-objectives are fulfilled in this chapter.
+
+The Chapter~\ref{ch_NPA_PF_methodology} presents the \textit{domain scaling} methodology, which was developed to determine so-called shape factor of a heterogeneous nucleus. That quantity is closely tied with nucleation barrier and thus the nucleation probability. The multi-phase field model was used to obtain the equilibrium stable shape of nucleus needed for \textit{domain scaling} to work. Because the model extensions carried out in Chapter~\ref{ch_paper1} were still not sufficient to realize the developed methodology, additional extensions were introduced, building on top of the knowledge and implementation in Chapter~\ref{ch_paper1}. The methodology was validated and showcased on an example of a nucleus on top of a grain boundary within a substrate, which is a case where the shape does not have analytic solution. The Key Objective KO2 and all its sub-objectives are resolved in this chapter.
+
+Then follows the Chapter~\ref{ch_paper2}, which employs the so-called Winterbottom construction to obtain the equilibrium stable shape of the nucleus. Because this method is very computationally efficient, the nucleation barrier as function of the substrate and nucleus orientation could be determined with great resolution. The obtained \textit{shape-factor-orientation maps} are a visualization of the nucleation barrier orientation dependence (orientation of both the substrate and nucleus with anisotropic interface energy). These were then used as an input to a custom orientation-sampling algorithm for the nuclei. Using this, the orientation of nuclei introduced during a Monte Carlo simulation of 2D polycrystalline film growth was determined. A parametric study was conducted to identify the impact of the anisotropy in interface energy on the texture evolution, when compared to the isotropic interface energy. The obtained insights were used to qualitatively explain an abrupt change in texture which observed in electrodeposited nickel~\cite{Alimadadi2016}. Results in this chapter were published in~\cite{Minar2024}. The Key objectives KO3, KO4 and KO5 are accomplished in this chapter
+
+The Chapter~\ref{ch_conclusion} summarizes the work and its main contributions and proposes directions for future research, which fulfills the Key Objective KO6.
+
+A number of appendices was included in the work to provide relevant information, which was not essential for understanding the results in the main text. These were mostly used for mathematical derivations, details on implementation of numerical methods or other supplementary information improving transparency and reproducibility of this research. In order to achieve even higher reproducibility, all the source MATLAB code used to deliver the results in the published works was made available in online repositories~\cite{Minar2022dataset} and~\cite{Minar2023dataset} together with usage instructions.
+
+\section{Microstructure formation in coatings}
+This section contains review of literature related to formation of textures in polycrystalline coatings with emphasis on the underlying processes which are common to all the deposition methods, like electrodeposition, physical vapor deposition or sputtering. 
+
+Microstructure here denotes both the morphology on the surface, shape and size of grains and their crystallographic texture.
+
+The experimental investigations of the texture-forming factors in deposits are usually specific for the particular deposition method, like physical vapour deposition (PVD), sputtering or electrodeposition. Despite some obvious differences between the methods, it is natural to expect the textures to be formed by the same mechanisms. These are necessarily altered by the method-specific deposition conditions, thus giving rise to some behaviors which are then considered as standard for that type of deposition. 
+
+For example, the Structure Zone Model (SZM)~\cite{Barna1998, Anders2010} is often used to describe the dependence of microstructure on the relative deposition temperature in PVD and sputtering methods. The Structure-zone model was extended several times to new parameter regions, for an example of a rather recent model see Figure~\ref{fig_SZM_and_Winand}b. On the other hand, in the electrodeposition rather the Winand diagram~\cite{Winand1992} is used instead, having the axes representing degree of chemical surface inhibition and current density, i.e. deposition rate (see Figure~\ref{fig_SZM_and_Winand}a). Both of these can be perceived as state diagrams, where the individual regions qualitatively indicate the one microstructure/morphology which is most likely to be stable for those deposition conditions. Interestingly, in electrodeposition the crystallographic texture of the coating does not necessarily imply a particular deposit morphology~\cite{Winand1992}.
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+		\draw (0,0) node [above left, inner sep =0] {\includegraphics[width=0.55\textwidth]{Winand1992_diagram.png}};
+		\draw (0,0) node [below left, inner sep =0] {\includegraphics[width=0.7\textwidth]{Anders2009_SZM_.png}};
+	\end{tikzpicture}
+	\caption[Examples of Structure Zone Model and Winand diagram]{Simplified empirical diagrams, in a) Winand diagram for electrodeposition~\cite{Winand1992}, in b) Structure-zone model for high-energy deposition from vapor~\cite{Anders2010}.}
+	\label{fig_SZM_and_Winand}
+\end{figure}
+
+Barna~\cite{Barna1998} claims, that the different crystallographic textures observed in PVD or sputter deposition can be correlated to the respective \textit{structure zone}. Specifically, he uses the terms \textit{competitive growth texture} and \textit{restructuration growth texture}, which correspond to the ones where the resulting texture depends on either the anisotropy in growth rate or on the concurrent minimization of surface and grain boundary energy, respectively.
+
+In electrodeposition, the situation is more complicated than in PVD or sputtering by the presence of the double layer on the metal surface and the complex interplay of the electric field and chemical reactions between all the species.  Nevertheless, experimental work largely shows that, as far as three-dimensional nucleation is concerned, the same observations are made in electrocrystallization
+and in physical crystallization~\cite{Winand1992}: increasing the deposition rate and/or increasing the inhibition usually results in increased nucleation rate and thus eventually in the reduction in the deposit grain size.
+
+The inhibition refers to some specific interactions between the deposit and the parent phase. The inhibiting species attaches to low-energy sites where the growth might easily proceed and then the adatoms must find another spot to settle down, having their lifetime before being incorporated into the crystal potentially prolonged and thus increasing the nucleation probability~\cite{Winand1992}. The inhibitor may be a natural constituent of the electrolyte in electrodeposition or simply some impurity. In PVD deposition of Al with variable amounts of oxygen, it was observed that increased oxygen amounts reduced the grain size up to nanocrystalline or even amorphous coating of alumina~\cite{Barna1998}.
+
+A separate field of research involves stress in the deposits~\cite{Thornton1989, Thompson1993, Chason2015, Abadias2018}. Both tensile and compressive stress are observed in the deposits depending on the deposition conditions and deposited material. Generally speaking, higher temperatures and lower deposition rates (i.e. deposition closer to thermodynamic equilibrium) lead to behavior, where a compressive stress develops with increasing thickness of the film, but after the deposition stops, the stress either completely or partly relaxes. This is highly dependent on the material too, where materials with higher self-diffusion coefficient (lower melting point) tend to exhibit such behavior~\cite{Chason2002}. On the other hand, high growth rates and low deposition temperatures (i.e. rather off-equilibrium deposition) lead to tensile stresses, which do not relax after the deposition termination. Materials with lower self-diffusion coefficients (higher melting points) are associated with these. Another source of stress can be interactions with the substrate.
+
+Stress can suppress or promote grain growth~\cite{Thompson1993}. It is then natural to consider stress relaxation as another texture-forming process. As was mentioned in the Introduction, the fundamental texture-forming quantities are interfacial energy, surface diffusivity of adatoms, grain boundary mobility and grain boundary and lattice diffusion~\cite{Szpunar1997, Suwas2014}. However, it is the particular state of the material and the deposition conditions, which then drives the deposit to evolve in particular ways.
+
+Thompson~\cite{Thompson1993} developed an abstracted model of columnar microstructure and expressed its total strain and total interface energy as function of thickness. Because the thickness dependence of these energies was different, the model suggested that the texture could be dominated by minimization of interface energy below certain (temperature-dependent) thickness and above it, the texture would be dominated by the strain energy minimization. Especially in the light of the previous paragraph, it is clear that the stress state of a real deposit does not depend only on the deposit thickness. Nevertheless, the idea of having different mechanisms competing over the course of texture/morphology evolution as the film thickness increases is strongly based in experimental observation. Also, the terms \textit{interface-energy minimization texture} or \textit{strain-energy minimization texture} are used in practice~\cite{Alimadadi2016}.
+
+Specifically in electrodeposition, the inhibition in relation to the morphology and texture was studied extensively~\cite{Winand1992}. Amblard~\cite{Amblard1979} determined the particular species responsible for the texture variation in nickel electrodeposits from Watts electrolyte when varying the pH, current density and adding separately a brightening and leveling agents. These species selectively inhibited the metal surface and thus introduced different textures. A more recent study~\cite{BergenstofNielsen1997} reviewed other hypotheses about the possible texture-forming processes in nickel electrodeposition from Watts electrolyte and after transmission electron microscopy study of one deposit, they concluded that the inhibition was the most likely scenario. 
+
+The same group later proposed~\cite{Rasmussen2001}, that the texture of an electrodeposit could develop from a zone mainly affected by the substrate (epitaxy, chemical reactions), through a zone of mixed control to a zone affected solely by the deposition conditions (selective inhibition, deposition rate). However, in a more recent study~\cite{Alimadadi2016} involving microtexture measurement through thickness of the nickel electrodeposits obtained at different pH and current density, the authors could not confirm the existence of the transition zone as a simple mixture of the substrate- and conditions-affected zones. 
 
 
-
-
-
-
-The anisotropic nature of monocrystals implies anisotropy of the interfaces they have with their surroundings. This translates into anisotropy of both thermodynamic and kinetic properties which are tied with the interface, especially the specific interface energy and the kinetic coefficient of the deposition/dissolution reaction. Even though it is natural to expect that both are manifestations of a single surface condition, because both quantities are used 
-
-
-
-\section{TODO Thesis overview}
-This thesis explores how anisotropy in surface energy affects the course of crystallographic texture evolution in polycrystalline coatings, with emphasis on orientation selection in repeated nucleation. The textures in as-deposited coatings are always affected by the deposition conditions, especially by the deposition method and further the temperature, deposition rate, materials of the deposit and substrate and other method-specific conditions. 
+%Additionally, in the thesis were made relevant contribution to the scientific community developing and implementing mathematical models driven by anisotropic curvature driving force (e.g. multi-phase field method applied to grain growth) by providing two benchmark problems to measure physical accuracy of the models in this regard. At the same time, an existing multi-phase field model was extended to include inclination-dependent dependent interface energy via different combination of parameters than it was implemented before.
+%
+%The textures in as-deposited coatings are always affected by the deposition conditions, especially by the deposition method and further the temperature, deposition rate, materials of the deposit and substrate and other method-specific conditions. 
 
 %
 %A perspective approach for simulation of a growing film including nucleation is multi-phase field method, which allows inclusion of anisotropic interface energy, but also anisotropy of the kinetic coefficient (deposition rate).
@@ -86,224 +191,6 @@ This thesis explores how anisotropy in surface energy affects the course of crys
 %
 %The interfacial conditions including anisotropy vary significantly depending on the deposition method and the method-specific deposition conditions. 
 %Because the interface energy anisotropy cannot be measured in-situ during deposition and
-
-
-
-
-%
-%\section{Classical nucleation theory}
-%\begin{itemize}
-%    \item probability $\approx$ exp(nucleation barrier)
-%    \item nucleation barrier $\approx$ non-dimensional volume of shape
-%    \item heterogeneous nucleus - truncated homogeneous nucleus
-%    \item shape factor relates volumes, hence non-dimensional volumes, hence nucleation barriers (homog. vs. heterog.)
-%    \item with anisotropic interface energy the same holds
-%    \item the truncation is given by the nucleus orientation relative to the substrate plane and by the wetting condition, i.e. by the force balance at the contact point.
-%    \begin{itemize}
-%        \item this determines the nucleus volume/nucleation barrier the most
-%        \item truncated Wulff in heterogeneous nucleation (Cahn-Hoffmann vector formalism)
-%    \end{itemize}
-%\end{itemize}
-%Great majority of phase transformations in metals occurs by nucleation and growth [Porter2009]. Nucleation is the physical process in which tiny crystals or clusters of a new phase $\mathit{2}$ appear at certain sites within the matrix of a metastable parent phase $\mathit{1}$. Once formed, these nuclei can grow on the expense of $\mathit{1}$. The nucleation rate and nuclei spatial distribution strongly affect the resulting microstructure. The above described process corresponds to homogeneous nucleation. Heterogeneous nucleation, on the other hand, involves one phase more, denoted $\mathit{3}$, on the surface of which the nucleus appears. 
-%
-%Heterogeneous nucleation is closely related to film deposition. There here are three different types of film growth (termed Volmer-Weber, Frank Van der Merve and Stranski-Krastanov), which are based on two growth mechanisms, termed simply 2D and 3D nucleation. In the 3D nucleation, nuclei appear on the surface of the support as localized 3D clusters and further grow in all directions. In 2D nucleation, monoatomic layers are successively deposited on top of the surface. Volmer-Weber type of growth occurs via the 3D nucleation mechanism, the Frank Van der Merve type via the 2D nucleation and Stranski-Krastanov starts with 2D nucleation but then switches to 3D nucleation. The factor deciding the nucleation mechanism  are the wetting conditions, as will be described farther below.  \\
-%
-%During nucleation, the bulk atoms in the parent phase $\mathit{1}$ must locally redistribute and assemble a cluster of phase $\mathit{2}$, which is associated with a new $\mathit{1}$-$\mathit{2}$ interface formation (and in the case of heterogeneous nucleation also new $\mathit{2}$-$\mathit{3}$ interface replacing the former $\mathit{1}$-$\mathit{3}$). In the nucleation site at the instant of nucleation, there must be enough energy to "pay" for the new interface creation. The energy comes from a) reduction in the bulk free energy due to the $\mathit{1}$-$\mathit{2}$ phase transition and from b) thermal fluctuations. The reduction in the bulk free energy is given by the magnitude of driving force to transform from $\mathit{1}$ to $\mathit{2}$ (called undercooling in solidification and supersaturation in general) and by the nucleus volume. Due to thermal fluctuations, the atoms may locally cluster together and if the cluster has larger than critical volume $V_c$, the created interface is stable, i.e. the system energy will be decreased by further nucleus growth. On the other hand, a subcritical cluster will lower the system energy when dissolved.
-%
-%Because nucleation is a thermally activated process, the probability $P$ of finding the nucleus at a certain spot follows the Arrhenius relation
-%\begin{equation}
-%    P \approx \exp\left(-\frac{\Delta G_c^*}{RT}\right) \,,
-%\end{equation}
-%where $R$ is the universal gas constant, $T$ absolute temperature and $\Delta G_c^*$ is a \textit{critical nucleation barrier}, which is to be overcome by the thermal fluctuations in order to form a stable nucleus. Nucleus with the critical volume $V_c$ is metastable. The nucleation barrier $\Delta G_c^*$ is the \textit{nucleation work} [Milchev2002], the maximal positive change in Gibbs free energy associated with the nucleus insertion.
-%
-%% There is homogeneous and heterogeneous nucleation, the homogeneous proceeding exactly as described above and the heterogeneous one involving foreign substrates on which the nucleation barrier is lower. For this reason the heterogeneous nucleation is much more common. 
-%
-%Shape of the nucleus is strongly determined by the interface energy anisotropy. More specifically, shape of the critical nucleus is such, which minimizes the interface energy, because any other shape would give rise to larger surface energy contribution. The equilibrium shape with isotropic interface energy is a sphere, with an anisotropic one it is a Wulff shape.
-%
-%
-%% These equilibrium shapes are called Wulff shapes when the interface energy is anisotropic. Equilibrium shape of interface with isotropic interface energy is a sphere.
-%    \subsection{Nucleation with isotropic interface energy}
-%        \subsubsection{Homogeneous nucleation}
-%        Let the difference of Gibbs free energies per unit volume in phases $\mathit{1}$ and $\mathit{2}$ be $\Delta G_v=G_v^\mathit{1}-G_v^\mathit{2}$ and the interface energy $\mathit{1}$-$\mathit{2}$ be $\sigma$. The equilibrium shape is a sphere with radius $R$, surface area $A=4\pi R^2$ and volume $V_{hom}=(4/3)\pi R^3$. The change in Gibbs free energy $\Delta G_{hom}$ is
-%        \begin{align}
-%            \Delta G_{hom} &= -\Delta G_v V_{hom} + \sigma A  \\
-%                &= \frac{4}{3}\pi(-\Delta G_v R^3 + 3\sigma R^2)\,, \label{eq_DG_homog_nucl}
-%        \end{align}
-%        and was visualized in Figure~\ref{fig_nucl_barrier}a. From~\eqref{eq_DG_homog_nucl} the expression for the critical radius $R_c$ is found as stationary point $\mathrm{d}(\Delta G_{hom})/\mathrm{d}R=0$, giving the classical result
-%        \begin{equation} \label{eq_crit_radius}
-%            R_c = \frac{2\sigma}{\Delta G_v}
-%        \end{equation}
-%        and the nucleation barrier is the energy difference value $\Delta G_{hom}(R_c)$ (as can be seen in Figure~\ref{fig_nucl_barrier}a)
-%        \begin{align}
-%            \Delta G_{hom}(R_c) = \Delta G_c^* &= \frac{4}{3}\pi\frac{4\sigma^3}{\Delta G_v^2}    \\
-%                &= \hat{V}_{hom}\frac{4\sigma^3}{\Delta G_v^2} \,,\label{eq_crit_nucl_barrier_hom_iso}
-%        \end{align}
-%        where in the second line there was introduced a non-dimensional volume of homogeneous nucleus $\hat{V}_{hom}=V/R^3$.
-%        
-%%        \begin{figure}
-%%            \centering
-%%            \includegraphics[page=5]{thesis_figures.pdf}
-%%            %
-%%            \includegraphics[page=4]{thesis_figures.pdf}
-%%            % \input{sketches/nucleation_barrier_3D}
-%%            % %
-%%            % \input{sketches/nucleation_barrier_2D}
-%%            \caption{Bulk (blue) and interface (red) energy contributions to the Gibbs free energy change $\Delta G$ (black) upon nucleus insertion as function of nucleus radius $R/R_c$. Nucleation barrier $\Delta G_c^*$ indicated. In a) as applicable to 3D geometry, in b) as to 2D geometry (see text for details).}
-%%            \label{fig_nucl_barrier}
-%%        \end{figure}
-%        
-%        \subsubsection{Heterogeneous nucleation}
-%        In Figure~\ref{fig_isotropic_wetting} there is illustrated a 2D section through a hemispherical cap on a plane. The three different phases or grains are $\mathit{1}$, $\mathit{2}$ and $\mathit{3}$. Interfaces $\mathit{1}$-$\mathit{3}$ and $\mathit{2}$-$\mathit{3}$ form the substrate plane and are assumed to be immobile. The equilibrium angle $\alpha$ must establish a balance of the tractions due to surface energies of the three distinct interfaces. When the three tractions are projected to the substrate plane, the Young's equation is obtained
-%        % From equation~\ref{eq_general_trijunction_force_balance} it can be deduced that the force balance in triple junctions of interfaces with isotropic interface energies must satisfy 
-%        \begin{equation}
-%            \sigma_{1,3} = \sigma_{2,3} + \sigma_{1,2}\cos(\alpha) \,,
-%        \end{equation}
-%        which allows to find the wetting angle $\alpha$ 
-%        \begin{equation}
-%            \alpha = \mathrm{acos}\left(\frac{\sigma_{2,3}-\sigma_{1,3}}{\sigma_{1,2}}\right) \,.
-%        \end{equation}
-%        The distance of the sphere center to the substrate plane is $R\cos(\alpha)$, which implies
-%        \begin{equation}
-%            \Gamma = \cos(\alpha) = \frac{\sigma_{2,3}-\sigma_{1,3}}{\sigma_{1,2}} \,.
-%        \end{equation}
-%        
-%%        \begin{figure}
-%%            \centering
-%%            \includegraphics[page=3]{thesis_figures.pdf}
-%%            % \input{sketches/isotropic_wetting}
-%%            \caption{Heterogeneous nucleation with isotropic interface energy. Force balance in the contact point during surface of $\mathit{3}$ wetting by a nucleus of $\mathit{2}$ emerging from $\mathit{1}$. Nucleus radius $R$ and equilibrium shape center indicated.}
-%%            \label{fig_isotropic_wetting}
-%%        \end{figure}
-%        
-%        Upon the nucleus $\mathit{2}$ insertion, the change in Gibbs free energy is
-%        \begin{align}
-%            \Delta G_{het} &= -\Delta G_v V_{het} + (\sigma_{2,3}-\sigma_{1,3})A_{2,3} + \sigma_{1,2}A_{1,2} \\
-%                &= \frac{4}{3}\pi(-\Delta G_v R^3 + 3\sigma R^2) S(\theta) \,, \label{eq_DG_heterog_nucl}
-%        \end{align}
-%        where $S(\theta)=(2+\cos\theta)(1-\cos\theta)^2/4$ is the so-called shape factor. The second equation was obtained by using the expressions for the spherical cap volume\footnote{$V_{het}=\pi R^3(2+\cos\theta)(1-\cos\theta)^2/3$}, area\footnote{$A_{1,2}=2\pi R^2(1-\cos\theta)$} and with $A_{2,3}$ being a disc\footnote{$A_{2,3}=\pi(R\sin\theta)^2$}. Two features of~\eqref{eq_DG_heterog_nucl} are to be noted. First, the heterogeneous $\Delta G_{het}$ is equal as in \eqref{eq_DG_homog_nucl} except for $S(\theta)$, and second, the $S(\theta)=V_{het}/(\frac{4}{3}\pi R^3)=V_{het}/V_{hom}$. The shape factor is thus the ratio of the equilibrium volumes of the heterogeneous and homogeneous nuclei of the same interface energy $\sigma_{1,2}$.
-%        
-%        Because the $R$-dependence in $\Delta G_{het}(R)$ is equal as in $\Delta G_{hom}(R)$, the critical radius is as in~\eqref{eq_crit_radius}, hence the critical nucleation barrier is 
-%        \begin{align}
-%            (\Delta G^*_c)_{het} &= \hat{V}_{hom}S(\theta)\frac{4\sigma^2}{\Delta G_v} \\
-%                &= (\Delta G^*_c)_{hom}S(\theta)
-%        \end{align}
-%            
-%        Shape factor $S(\theta)$ is thus not only ratio of the equilibrium nuclei volumes, but also of the nucleation barriers. The shape factor is always $0\leq S(\theta)\leq1$. The balance of forces along the contact point of the three phases determines wetting of the surface by the nucleus $\mathit{2}$ which in turn decides about the shape factor and thus the nucleation barrierand also the nucleation mechanism. 
-%        
-%        Should the wetting parameter $\Gamma$ be close to or larger than 1, then (nearly) nothing remains of the nucleus \textit{above} the support plane, the shape factor is (nearly) $S=0$ and the 2D nucleation occurs. 
-%    
-%    \subsection{Nucleation with anisotropic interface energy}
-%    When the $\mathit{1}$-$\mathit{2}$ interface energy is anisotropic, the mathematical formalism gets more complicated, but the underlying principles are identical with those in the isotropic case. The Gibbs free energy change is again due to competition between the volumetric and interface energy contributions, but now the interface energy is a function of the interface normal $\bm{n}$, i.e. $\sigma=\sigma(\bm{n})=\sigma_0f(\bm{n})$, with $\sigma_0$ being a scalar and $f(\bm{n})$ an anisotropy function. The nucleus volume is $V_{hom}^{ani}$ and its interface with parent phase is a parameteric surface $\mathcal{S}$. Due to the anisotropy, the interface energy contribution is obtained as a surface integral of $\sigma(\bm{n})$ over $\mathcal{S}$, giving (in homogeneous nucleation) the Gibbs free energy difference
-%    \begin{equation}
-%        \Delta G_{hom}^{ani} = -\Delta G_v V_{hom}^{ani} + \int_{\mathcal{S}}\sigma(\bm{n}) \mathrm{d}A \,.
-%    \end{equation}
-%    In [Mariaus2010] it was shown, how this can be worked out using the Cahn-Hoffmann $\xi$-vector formalism to reach the familiar expression
-%    \begin{equation} \label{eq_DG_hom_aniso}
-%        \Delta G_{hom}^{ani} = (-\Delta G_v X_0^3 + 3\sigma_0 X_0^2)\hat{V}_{hom}^{ani} \,.
-%    \end{equation}
-%    where $X_0$ is a scaling parameter for the nucleus size and $\hat{V}_{hom}^{ani}$ the non-dimensional volume $\hat{V}_{hom}^{ani}=V_{hom}^{ani}/X_0^3$.
-%    As can be seen, the formulas for isotropic critical radius~\eqref{eq_crit_radius} and critical nucleation barrier~\eqref{eq_crit_nucl_barrier_hom_iso} can be generalized for the anisotropic case as
-%    \begin{equation}
-%        X_c=\frac{2\sigma_0}{\Delta G_v}
-%    \end{equation}
-%    and
-%    \begin{equation}
-%        (\Delta G^*_c)_{hom}^{ani} = \hat{V}_{hom}^{ani}\frac{4\sigma_0^2}{\Delta G_v} \,.
-%    \end{equation}
-%    
-%    Also the anisotropic heterogeneous nucleation shows many similarities to the isotropic case. Already Cahn [Cahn,1974] showed, that when the contact line of the substrate and particle is a closed planar curve, the equilibrium heterogeneous nucleus is obtained by truncation of the Wulff shape (in the isotropic case a sphere was truncated). The wetting conditions develop from the force balance along the contact line. That decides how the Wulff shape should be truncated. The force balance includes some extra terms compared to the isotropic case, which will be discussed in the next section. Sketch of the problem is in 
-%    
-%%    \begin{figure}
-%%        \centering
-%%        \includegraphics[page=6]{thesis_figures.pdf}
-%%        % \include{sketches/wulff_on_plane}
-%%        \caption{Anisotorpic nucleus of phase $\mathit{2}$ oriented under direction $\bm{n}_\mathit{2}$ wetting the supporting plane $\mathit{3}$. Generalized radius $X_0$ and center shift indicated.}
-%%        \label{fig:my_label}
-%%    \end{figure}
-%    
-%    The shape factor $S(\Gamma,\bm{n}_\beta)=V_{het}^{ani}/V_{hom}^{ani}$ represents the ratio of volume of the truncated portion of the Wulff shape relative to volume of the untruncated one. It depends on the wetting condition, described by parameter
-%    \begin{equation}
-%        \Gamma=(\sigma_{2,3}-\sigma_{1,3})/\sigma_{0}
-%    \end{equation}
-%    and on the nucleus orientation relative to the supporting plane $\bm{n}_\mathit{2}$. As in the isotropic case, 
-%    \begin{equation}
-%        \Delta G_{het}^{ani} = \Delta G_{hom}^{ani} S(\Gamma,\bm{n}_\beta) \,,
-%    \end{equation}
-%    which together with~\eqref{eq_DG_hom_aniso} implies that also in the anisotropic case the shape factor relates the nucleation barriers as
-%    \begin{equation}
-%        (\Delta G^*_c)_{het}^{ani} = (\Delta G^*_c)_{hom}^{ani} S(\Gamma,\bm{n}_\beta) \,.
-%    \end{equation}
-%    
-%    % shape of a critical heterogeneous nucleus resting on a perfect plane must be a sector of the Wulff shape. Whether the shape is rather emerged above or submerged below the plane is decided by the force balance along the contact line, just as in the isotropic case.  
-%    
-%    % Mariaux in~[Mariaus2010] also showed that in the anisotropic heterogeneous nucleation, there is also a strong analogy with the isotropic case. Let the ratio , specifically that
-%    % \begin{equation}
-%    %     \Delta G_{het}^{ani} = \Delta G_{hom}^{ani} S(\Gamma,\bm{n}_\beta)
-%    % \end{equation}
-%    
-%    \subsection{Nucleation in 2D}
-%    Not to be confused with 2D nucleation. 2D nucleation is a process occurring in 3D space, while this section discusses the ideas from the above sections in two-dimensional space. The ideas are equally valid in 2D, but the removed dimension has its consequences on the formulas. Importantly, the volumes are replaced by areas and the surfaces by lines. The Gibbs free energy difference upon a nucleus insertion in the system is then due to competition between area and line energy contributions (see also Figure \ref{fig_nucl_barrier}b). Be $A_{hom}$ the nucleus area and its interface be described by a parametric curve $\mathcal{C}$. In the isotropic case $\mathcal{C}$ is a circle and the interfacial contribution is simply $\sigma L$, where $L=2\pi R$ is the interface length. The Gibbs free energy difference of a free nucleus is then (with $\Delta G_A$ being supersaturation)
-%    \begin{align}
-%        \Delta G_{hom} &= -\Delta G_A A_{hom} + \sigma L \\
-%            &= (-\Delta G_A R^2 + 2R\sigma)\pi \,,
-%    \end{align}
-%    which implies the critical radius
-%    \begin{equation} \label{eq_crit_radius_2D}
-%        R_c = \frac{\sigma}{\Delta G_A}
-%    \end{equation}
-%    and critical nucleation barrier
-%    \begin{equation} 
-%        (\Delta G_c^*)_{hom} = \hat{A}_{hom}\frac{2\sigma^2}{\Delta G_A}\,,
-%    \end{equation}
-%    where the non-dimensional nucleus area is $\hat{A}_{hom}=A_{hom}/R^2=\pi$.
-%    
-%    In heterogeneous nucleation, the shape factor $S(\theta)=A_{het}/A_{hom}$ has equal role as in the 3D space, implying
-%    \begin{equation}\label{eq_DG_het_2D}
-%        \Delta G_{het} = S(\theta)\Delta G_{hom}
-%    \end{equation}
-%    similarly as for the nucleation barrier
-%    \begin{equation}\label{eq_nucl_barr_het_2D}
-%        (\Delta G_c^*)_{het} = S(\theta)(\Delta G_c^*)_{hom}\,.
-%    \end{equation}
-%    
-%    When the interface energy is inclination-dependent $\sigma(\theta)=\sigma_0 f(\theta)$, the interface energy contribution is a line integral $\int_\mathcal{C} \sigma(\theta) \mathrm{d}l$, which can be expressed in analogy with the 3D case~[Mariaux2010] as ($X_0$ being the generalized radius of the Wulff shape with area $A_{hom}^{ani}$)
-%    \begin{equation}
-%        \int_\mathcal{C} \sigma(\theta) \mathrm{d}l = \frac{2\sigma_0}{X_0}A_{hom}^{ani} \,,    
-%    \end{equation}
-%    which eventually allows to write the Gibbs free energy difference of a free nucleus
-%    \begin{equation}\label{eq_DG_hom_aniso}
-%        \Delta G_{hom}^{ani} = (-\Delta G_A X_0^2 + 2\sigma_0 X_0)\hat{A}_{hom}^{ani} 
-%    \end{equation}
-%    and further its nucleation barrier
-%    \begin{equation} 
-%        (\Delta G_c^*)_{hom} = \hat{A}_{hom}^{ani}\frac{2\sigma^2}{\Delta G_A}\,.
-%    \end{equation}
-%    In the heterogeneous anisotropic nucleation the difference in Gibbs free energy is like in equation~\eqref{eq_DG_het_2D}, having $\Delta G_{hom}^{ani}$ as in~\eqref{eq_DG_hom_aniso} and the nucleation barrier like in~\eqref{eq_nucl_barr_het_2D}, only with modified shape factor correspondingly to the Wulff shape.
-%    
-%    \subsection{Heterogeneous nucleation on a grain boundary in 2D}
-%    
-%%    \begin{figure}
-%%        \centering
-%%        \includegraphics[page=7]{thesis_figures.pdf}
-%%        \caption{Caption}
-%%        \label{fig:my_label}
-%%    \end{figure}
-%    
-%    Center of sphere center shift with isotropic interface energy during wetting
-%    \begin{equation}
-%        h = R\cos(\mathrm{acos(\frac{\Delta\sigma}{\sigma_{}})})=R\frac{\Delta\sigma}{\sigma_{}}
-%    \end{equation}
-%
-%\section{Phase field method}
-%Phase field method is a meso-scale diffuse-interface approach to solving moving-boundary problems. It has numerous applications such as solidification, grain growth, Ostwald ripening, solid-solid phase transitions (martensitic, precipitation, spinodal...), two-phase flow, nucleation and more. 
-%
-%A phase (or phases) in an inhomogeneous system is described by a continuous function (called phase field), having different constant values in the bulk of the phases (typically 1 and 0 or 1 and -1). At the interface between phases, the phase field varies smoothly between the values and the interface region is thus characterized by a certain width. This interface width is an important input parameter in phase field models. In quantitative phase field models, the model behavior is in principle not affected by the particular value of interface width chosen, which allows to make quantitative simulations at mesoscale (the real interface width would require unfeasibly fine simulation grids).
-%
-%Usually, the phases evolve in concentration, temperature or other physical fields, which also contribute to the energy of the system. The total energy is defined as a functional on a space of the phase fields and the physical fields describing the system. The coupled governing equations describing evolution of each of the fields can be derived from the free energy functional using principles of variational calculus. Specifically, the equations are constructed in such a way, that the system evolves along the 'direction of steepest descent' towards equilibrium. That is the reason for high versatility of phase field method, because as long as there is an expression for free energy of the phase as function of the fields of interest, their evolution can in principle be simulated with this approach.
-%
-%Due to the thermodynamic nature of the method, the interface energy is naturally included as an input parameter. Multigrain or multiphase systems with interfaces of various properties can be simulated with multi phase field models. Some of these allow to include also inclination dependence of interface energy. In fact, it was phase field simulation which revealed the paramount importance of interface energy anisotropy in pattern formation during dendritic solidification.
-
-
 
 
 

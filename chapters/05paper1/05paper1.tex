@@ -97,7 +97,7 @@ with $\partial_x,\partial_y,\partial_z$ being operators for unidirectional deriv
 	
 	\begin{table}[h]
 		\centering
-		\caption{Characterization of the three parameter assignment strategies: the one with constant interface width (IWc), with variable interface width and all anisotropy in $\gamma$ (IWvG) and with variable interface width and all anisotropy in $\kappa$ (IWvK). In the latter, it is inconvenient to choose other value of $\gamma$ than $\gamma=1.5$. IW stands for interface width, other symbols have meaning as in the text.}
+		\caption[PF model - characterization of the three parameter assignment strategies]{Characterization of the three parameter assignment strategies: the one with constant interface width (IWc), with variable interface width and all anisotropy in $\gamma$ (IWvG) and with variable interface width and all anisotropy in $\kappa$ (IWvK). In the latter, it is inconvenient to choose other value of $\gamma$ than $\gamma=1.5$. IW stands for interface width, other symbols have meaning as in the text.}
 		\label{tab_models_comparison}
 		\begin{tabular}{l|c|c|c|}\footnotesize
 			& IWc & IWvG & IWvK \\ \hline
@@ -145,7 +145,7 @@ with $\partial_x,\partial_y,\partial_z$ being operators for unidirectional deriv
 		\subsubsection{Systems with inclination-dependent interface energy} \label{sec_model_incldepIE}
 		\begin{sidewaystable}[]
 			\centering
-			\caption{Inclination dependence of the variable parameters in the respective models. The interface energy is $\sigma_{i,j}(\theta_{i,j})=\sigma_{i,j}^0h_{i,j}(\theta_{i,j})$. Symbols $\kappa_{i,j}^0, \gamma_{i,j}^0$ stand for scalar values of the parameters determined from $\sigma_{i,j}^0$ (see~\ref{sec_suppl_param_det} in~\cite{Minar2021suppl}). Expressions for $\gamma_{i,j}(\theta_{i,j})$ follow the so called \textit{weak anisotropy approximation}~\cite{Moelans2008}, i.e. they assume that the values of $\gamma_{i,j}(\theta_{i,j})$ do not diverge far from 1.5, so that the approximation $g^2[\gamma_{i,j}(\theta_{i,j})]\approx16[2\gamma_{i,j}(\theta_{i,j})-1]/9[2\gamma_{i,j}(\theta_{i,j}) +1]$ is applicable (see~\cite{Moelans2008} for details). Second row contains expressions used in equations~\ref{eq_dkppijdGp} and \ref{eq_dgmmijdGp}.}
+			\caption[PF model - inclination dependence of the variable model parameters in the respective models]{Inclination dependence of the variable parameters in the respective models. The interface energy is $\sigma_{i,j}(\theta_{i,j})=\sigma_{i,j}^0h_{i,j}(\theta_{i,j})$. Symbols $\kappa_{i,j}^0, \gamma_{i,j}^0$ stand for scalar values of the parameters determined from $\sigma_{i,j}^0$ (see~\ref{sec_suppl_param_det} in~\cite{Minar2021suppl}). Expressions for $\gamma_{i,j}(\theta_{i,j})$ follow the so called \textit{weak anisotropy approximation}~\cite{Moelans2008}, i.e. they assume that the values of $\gamma_{i,j}(\theta_{i,j})$ do not diverge far from 1.5, so that the approximation $g^2[\gamma_{i,j}(\theta_{i,j})]\approx16[2\gamma_{i,j}(\theta_{i,j})-1]/9[2\gamma_{i,j}(\theta_{i,j}) +1]$ is applicable (see~\cite{Moelans2008} for details). Second row contains expressions used in equations~\ref{eq_dkppijdGp} and \ref{eq_dgmmijdGp}.}
 			\label{tab_models_comp__par_incldep}
 			\begin{tabular}{p{2cm}|>{\centering\arraybackslash}p{5cm}>{\centering\arraybackslash}p{5cm}>{\centering\arraybackslash}p{4.2cm}}
 				\toprule
@@ -298,7 +298,7 @@ The Table~\ref{tab_Courant_nr_wulff} contains the values of $a,b$ in the respect
 
 \begin{table}[]
 	\centering
-	\caption{Parameters from equation~\eqref{eq_Courant_nr_wulff} describing anisotropic dependence of the Courant number $C$ in simulations with inclination-dependent interface energy and strong anisotropy $\Omega>1$.}
+	\caption[Parameters from equation~\eqref{eq_Courant_nr_wulff} describing anisotropic dependence of the Courant number $C$]{Parameters from equation~\eqref{eq_Courant_nr_wulff} describing anisotropic dependence of the Courant number $C$ in simulations with inclination-dependent interface energy and strong anisotropy $\Omega>1$.}
 	\label{tab_Courant_nr_wulff}
 	\begin{tabular}{c|c|c|c}
 		& IWc & IWvG & IWvK \\ \hline
@@ -318,7 +318,7 @@ When the interface energy is inclination-dependent, it can be seen in equations~
 \begin{figure}[]
 	\centering
 	\includegraphics[width=0.345\textwidth]{drawing_near_interf_regions.pdf}
-	\caption{Illustration of the near-interface regions $\Gamma_{out},\Gamma_{inn}$, defined by absolute values of difference in phase fields between neighbouring points.}
+	\caption[PF model implementation - the near-interface regions $\Gamma_{out},\Gamma_{inn}$]{Illustration of the near-interface regions $\Gamma_{out},\Gamma_{inn}$, defined by absolute values of difference in phase fields between neighbouring points.}
 	\label{fig_sketch_near_interf_regions}
 \end{figure}
 
@@ -331,14 +331,14 @@ Three different simulation experiments were performed: a shrinking Wulff shape, 
 	\centering
 	% \includegraphics[page=8]{combine_graphs_v2.pdf}
 	\includegraphics{fig1.pdf}
-	\caption{Initial conditions in the different numeric experiments with indicated interface energies. In a) Wulff shape shrinkage, b) kinetically compensated anisotropic curvature-driven circle shrinkage and c)  measurement of triple junction angle.  Grid dimensions correspond to the base run and 1000IW run (see text for details). All interfaces have equal mobilities.}
+	\caption[PF model benchmarking, sketch - initial conditions in the different numeric experiments]{Initial conditions in the different numeric experiments with indicated interface energies. In a) Wulff shape shrinkage, b) kinetically compensated anisotropic curvature-driven circle shrinkage and c)  measurement of triple junction angle.  Grid dimensions correspond to the base run and 1000IW run (see text for details). All interfaces have equal mobilities.}
 	\label{fig_IC_sketch}
 \end{figure} 
 Except for the shrinking circles simulation, a parametric study was carried out in every experiment in order to validate the model behavior. Table~\ref{tab_overview_simulations} summarizes the variable parameters in every experiment.
 % \squeezetable
-\begin{table*}[]
+\begin{table}[]
 	\centering
-	\caption{Overview of the simulations carried out in every simulation experiment. Note that these were carried out in every model modification (i.e. IWc, IWvG and IWvK) and simulation run (see Table~\ref{tab_IW_settings}). Number of simulations in every experiment is provided in the column Count. See text for more details.}
+	\caption[PF model benchmarking - overview of the simulations carried out in every simulation experiment]{Overview of the simulations carried out in every simulation experiment. Note that these were carried out in every model modification (i.e. IWc, IWvG and IWvK) and simulation run (see Table~\ref{tab_IW_settings}). Number of simulations in every experiment is provided in the column Count. See text for more details.}
 	\label{tab_overview_simulations}
 	\begin{tabular}{lc|p{3.2cm}|l}
 		\toprule
@@ -349,7 +349,7 @@ Except for the shrinking circles simulation, a parametric study was carried out 
 		Triple junction     & $\sigma_1/\sigma_2$ (-)       & 0.13, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0  & 20 \\
 		\bottomrule
 	\end{tabular}
-\end{table*}
+\end{table}
 
 Each of the experiments was simulated using all the three model modifications (IWc, IWvG and IWvK) successively and the results were quantitatively compared. 
 
@@ -359,7 +359,7 @@ Results of four runs are presented in this paper, the basic settings of which ar
 
 \begin{table}[]
 	\centering
-	\caption{Numeric settings of different simulation runs (for each simulation experiment and model). $l_{min}$ is the minimal interface width. $N_x$ and $N_y$ are grid dimensions in the base run as shown in Figure~\ref{fig_IC_sketch}}
+	\caption[PF simulation - numeric settings of different simulation runs]{Numeric settings of different simulation runs (for each simulation experiment and model). $l_{min}$ is the minimal interface width. $N_x$ and $N_y$ are grid dimensions in the base run as shown in Figure~\ref{fig_IC_sketch}}
 	\label{tab_IW_settings}
 	\begin{tabular}{c|c|c|c|c}
 		\toprule
@@ -472,7 +472,7 @@ Accuracy of the lines fitting is affected especially by the width of the above i
 	\centering
 	% \includegraphics[page=4]{combine_graphs_v2.pdf}
 	\includegraphics{fig2.pdf}
-	\caption{Demonstration of the simulated Wulff shapes for strengths of anisotropy $\Omega$ with the different models (base run). The white line is the analytic Wulff shape and the colored ones are the extracted phase field contours.}
+	\caption[Demonstration of the simulated Wulff shapes]{Demonstration of the simulated Wulff shapes for strengths of anisotropy $\Omega$ with the different models (base run). The white line is the analytic Wulff shape and the colored ones are the extracted phase field contours.}
 	\label{fig_wulff_demo_shapes}
 \end{figure}
 
@@ -480,7 +480,7 @@ Accuracy of the lines fitting is affected especially by the width of the above i
 	\centering
 	% \includegraphics[page=5]{combine_graphs_v2.pdf}
 	\includegraphics{fig3.pdf}
-	\caption{In (a) the match to Wulff shape for the model modifications in the base run as function of normalized strength of anisotropy $\Omega$. In (b) a detail of the phase field contours near  the Wulff shape corner for simulation with $\Omega=7.5$.}
+	\caption[Quantified match to the Wulff shape for the model modifications in the base run]{In (a) the match to Wulff shape for the model modifications in the base run as function of normalized strength of anisotropy $\Omega$. In (b) a detail of the phase field contours near  the Wulff shape corner for simulation with $\Omega=7.5$.}
 	\label{fig_wulff_match}
 \end{figure}
 
@@ -488,7 +488,7 @@ Accuracy of the lines fitting is affected especially by the width of the above i
 	\centering
 	% \includegraphics[page=6]{combine_graphs_v2.pdf}
 	\includegraphics{fig4.pdf}
-	\caption{Wulff shape shrinkage rate results. In (a) the mean shrinkage rate in the base run as function of normalized strength of anisotropy $\Omega$, in (b) and (c) there is time evolution of shrinkage rate for $\Omega=7.5$ in the base and IW/2 runs, respectively. The shaded areas in b) and c) indicate the time interval from which the mean shrinkage rate was computed.}
+	\caption[Wulff shape shrinkage rate results]{Wulff shape shrinkage rate results. In (a) the mean shrinkage rate in the base run as function of normalized strength of anisotropy $\Omega$, in (b) and (c) there is time evolution of shrinkage rate for $\Omega=7.5$ in the base and IW/2 runs, respectively. The shaded areas in b) and c) indicate the time interval from which the mean shrinkage rate was computed.}
 	\label{fig_wulff_shrrate}
 \end{figure}
 
@@ -511,7 +511,7 @@ No significant effect of interface width scaling in the run 1000IW was found.
 	\centering
 	% \includegraphics[page=7]{combine_graphs_v2.pdf}
 	\includegraphics{fig5.pdf}
-	\caption{Results for kinetically compensated anisotropic shrinkage. In (a) the match to circle for the base run, in (b) the mean shrinkage rate for 14IWpts run, in (c) and (d) the shrinkage rate time evolution in simulation with $\Omega=0.9$ in the base run and 14IWpts runs, respectively.}
+	\caption[Results for kinetically compensated anisotropic shrinkage]{Results for kinetically compensated anisotropic shrinkage. In (a) the match to circle for the base run, in (b) the mean shrinkage rate for 14IWpts run, in (c) and (d) the shrinkage rate time evolution in simulation with $\Omega=0.9$ in the base run and 14IWpts runs, respectively.}
 	\label{fig_companiso}
 \end{figure}
 
@@ -524,13 +524,13 @@ Apparently, optimal results would be obtained here with more points than 7 in th
 There was no significant difference between the results of base and 1000IW runs.
 
 
-\begin{figure*}[]
+\begin{figure}[]
 	\centering
 	% \includegraphics[page=3]{combine_graphs_v2.pdf}
-	\includegraphics[width=\textwidth]{fig6.pdf}
-	\caption{Triple junction angles. In a) the two methods for angles determination are illustrated (points fitted by straight lines in red and those fitted by circular arc in green). Subfigures b)-d) show the simulation results for different models, these being: in b) IWc, in c) IWvG and in d) IWvK. The hollow symbols correspond to the the angles determined by arc fitting and crosses to the lines fitting.}
+	\includegraphics[width=\textwidth]{paper1_trijun_results.pdf}
+	\caption[Results - models comparison in triple junction angles benchmark]{Triple junction angles. In a) the two methods for angles determination are illustrated (points fitted by straight lines in red and those fitted by circular arc in green). Subfigures b)-d) show the simulation results for different models, these being: in b) IWc, in c) IWvG and in d) IWvK. The hollow symbols correspond to the the angles determined by arc fitting and crosses to the lines fitting.}
 	\label{fig_trijunang_results}
-\end{figure*}
+\end{figure}
 
 
 \subsection{Equilibrium triple junction angles}\label{subsec_paper1_results_trijun}

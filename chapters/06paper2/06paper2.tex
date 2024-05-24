@@ -1,5 +1,5 @@
 % !TeX root = ../../thesis.tex
-\chapter{Analytic nucleation probability assessment and Monte Carlo simulations}
+\chapter{Analytic nucleation probability assessment and Monte Carlo simulations}\label{ch_paper2}
 \section{Introduction}
 \label{sec_Intro}
 Irrespective of the deposition method, it is known that the process parameters often have pronounced effect on crystallographic texture and microstructure of polycrystalline deposits. Evaporation, sputtering, chemical vapour deposition or electrodeposition are just examples of these methods. Each is tied with a unique combination of physical and chemical interactions at the interface between the deposit and parent phase. The as-deposited texture is the result of synergy of many factors. However, the anisotropy on the deposit/parent phase interface during the film growth certainly plays an important role. 
@@ -53,7 +53,7 @@ The paper is organized in five main parts. Firstly, the necessary fundamentals a
 	\begin{figure}[t]
 		\centering
 		\includegraphics[page=1]{combine_graphs.pdf}
-		\caption{Examples of full Wulff plots (i.e. $-\pi\leq\theta\leq\pi$) of 4-fold symmetry with indicated strengths of anisotropy. The dotted segments are the forbidden orientations, solid lines are the allowed ones. The "ears" in b) do not contribute to the isolated particle shape. However, at even stronger anisotropy in c) another intersection occurs among the branches, which introduces new solutions to the equilibrium shape.}
+		\caption[Examples of full Wulff plots with 4-fold symmetry]{Examples of full Wulff plots (i.e. $-\pi\leq\theta\leq\pi$) of 4-fold symmetry with indicated strengths of anisotropy. The dotted segments are the forbidden orientations, solid lines are the allowed ones. The "ears" in b) do not contribute to the isolated particle shape. However, at even stronger anisotropy in c) another intersection occurs among the branches, which introduces new solutions to the equilibrium shape.}
 		\label{fig_wulff_intro}
 	\end{figure}
 	
@@ -61,17 +61,19 @@ The paper is organized in five main parts. Firstly, the necessary fundamentals a
 	
 	For $\Omega>1$, the equations~\eqref{eq_wulff_parametrically_x}-\eqref{eq_wulff_parametrically_y} must be understood in a piece-wise fashion for the intervals of allowed $\theta$s. Each of these allowed-angles interval produces a single branch in the Wulff curve. The discontinuity in allowed angles causes that the Wulff shape is no longer a smooth and continuous closed curve (like in Figure~\ref{fig_wulff_intro}a). Instead, it is a piece-wise continuous and self-intersecting curve (Figure~\ref{fig_wulff_intro}b-c), where the individual branches enclose a polygon-like closed curve with corners. In the case of Figure~\ref{fig_wulff_intro}b, the outer parts of the shape (so-called ears) cannot contribute to the (isolated) crystal shape, but for strong enough anisotropy (like in Figure~\ref{fig_wulff_intro}c) the ears cross again, giving rise to a multitude of other stable equilibrium solutions. That is because every single of the four spikes can be part of the solution but does not need to be. This repeated crossing of the ears and its implications for the equilibrium shapes have not been reported in any work known to the author, hence it will be elaborated on in detail. 
 	
-	\begin{figure*}[h]
+	\begin{figure}[h]
 		\centering
 		\includegraphics[width=\textwidth, page=2]{combine_graphs.pdf}
-		\caption{Orders of corners, defined by the branches intersections, shown for 6-fold anisotropy and $\delta=0.7$. In a) there are all the allowed angles, in b)-d) are the stable equilibrium shapes defined by the b) first order, c) second order and d) third order of the corners. Any closed curve is a stable equilibrium shape, which connects these corners along the allowed-angles branches and has the interface normals pointing outwards in every point.}
+		\caption[Orders of Wulff shape corners, defined by the branches intersections, shown for 6-fold anisotropy and $\delta=0.7$]{Orders of corners, defined by the branches intersections, shown for 6-fold anisotropy and $\delta=0.7$. In a) there are all the allowed angles, in b)-d) are the stable equilibrium shapes defined by the b) first order, c) second order and d) third order of the corners. Any closed curve is a stable equilibrium shape, which connects these corners along the allowed-angles branches and has the interface normals pointing outwards in every point.}
 		\label{fig_wulff_cross_orders}
-	\end{figure*}
+	\end{figure}
 	
 	To emphasize the general features of this "crossed-ears" type of solutions, the Figure~\ref{fig_wulff_cross_orders}a provides another example of very strong, but 6-fold anisotropy, where the ears cross even twice behind the polygon-like isolated Wulff shape. Then, Figures~\ref{fig_wulff_cross_orders}b-d show the different possible shapes, where the outer corners always correspond to branch intersection of the same type. The type of intersection can be characterized by the radial distance from the center, based on which they can be ordered. Practically, the corner of the first order is a corner on the polygon-like shape, where two branches forming adjacent sides of the polygon-like shape cross (Figure~\ref{fig_wulff_cross_orders}b). A corner of the second order is farther from the center and is the intersection of two branches forming two polygon sides separated by a single side (Figure~\ref{fig_wulff_cross_orders}c). A corner of the third order (Figure~\ref{fig_wulff_cross_orders}d) is the intersection of two branches separated by two sides etc.
 	
 	\begin{table}[b]
 		\centering
+		\caption[The approximate minimal strengths of anisotropy at which the corners of indicated order appear on the Wulff shapes in 4-fold and 6-fold anisotropy]{The approximate minimal strengths of anisotropy at which the corners of indicated order appear on the Wulff shapes in 4-fold and 6-fold anisotropy. The first number is the strength of anisotropy $\delta$ and in parenthesis is the corresponding normalized strength of anisotropy $\Omega=\delta(n^2-1)$.}
+		\label{tab_soa_ears_crossing}
 		\begin{tabular}{c|c|c|c}
 			\hline
 			& \multicolumn{3}{c}{order of corner}      \\ 
@@ -82,8 +84,6 @@ The paper is organized in five main parts. Firstly, the necessary fundamentals a
 			& (1.00000) & (5.74773) & (21.74773)\\
 			\hline
 		\end{tabular}
-		\caption{The approximate minimal strengths of anisotropy at which the corners of indicated order appear on the Wulff shapes in 4-fold and 6-fold anisotropy. The first number is the strength of anisotropy $\delta$ and in parenthesis is the corresponding normalized strength of anisotropy $\Omega=\delta(n^2-1)$.}
-		\label{tab_soa_ears_crossing}
 	\end{table}
 	
 	For convenience, the shapes in Figures~\ref{fig_wulff_cross_orders}b-d will be called isolated Wulff shapes of first, second and third order, respectively.
@@ -101,12 +101,12 @@ The paper is organized in five main parts. Firstly, the necessary fundamentals a
 	In Table~\ref{tab_soa_ears_crossing}, there are provided the minimal strengths of anisotropy at which the corners of indicated order appear on the Wulff shape in 4-fold and 6-fold anisotropy. Of these, only the first-order corners have an analytic expression, the higher-order corners were obtained numerically and thus are only approximate.
 	
 	\subsection{Particle with anisotropic interface energy on a plane (Winterbottom construction)}
-	\begin{figure*}[h]
+	\begin{figure}[h]
 		\centering
 		\includegraphics[width=\textwidth]{Wulff_on_plane_stronganiso.pdf}
-		\caption{Complete list of non-trivial equilibrium shapes of a particle with anisotropic interface energy on a plane (right part of the sketches) as derived from full Wulff shapes (left part of the sketches) using generalized Winterbottom construction. In a) for strength of anisotropy $\delta=0.3$, in b) with $\delta=0.7$. The horizontal dotted lines indicate different truncating lines for the Wulff shape and at the same time the substrate for the equilibrium shapes. The scale of the equilibrium shapes relative to the full Wulff shapes on the left is provided on the right on every respective line. Inverted shape solutions of first order are indicated by asterisk *, of the second order by **. The dashed lines within some of the the equilibrium shapes show the segments on the Wulff shape which were enclosed by the equilibrium shape. The dotted lines above the equilibrium shapes in b) indicate the crossed-ears solutions, which either may be present both, separately or both be absent. The new solutions can be seen in b).}
+		\caption[Complete list of non-trivial equilibrium shapes of a particle with anisotropic interface energy on a plane]{Complete list of non-trivial equilibrium shapes of a particle with anisotropic interface energy on a plane (right part of the sketches) as derived from full Wulff shapes (left part of the sketches) using generalized Winterbottom construction. In a) for strength of anisotropy $\delta=0.3$, in b) with $\delta=0.7$. The horizontal dotted lines indicate different truncating lines for the Wulff shape and at the same time the substrate for the equilibrium shapes. The scale of the equilibrium shapes relative to the full Wulff shapes on the left is provided on the right on every respective line. Inverted shape solutions of first order are indicated by asterisk *, of the second order by **. The dashed lines within some of the the equilibrium shapes show the segments on the Wulff shape which were enclosed by the equilibrium shape. The dotted lines above the equilibrium shapes in b) indicate the crossed-ears solutions, which either may be present both, separately or both be absent. The new solutions can be seen in b).}
 		\label{fig_wulffonplane_solutions_sketches}
-	\end{figure*}
+	\end{figure}
 	The problem of equilibrium shape of a particle with anisotropic interface energy on a planar substrate was treated in various works. It can either be derived from variational principles by total interface energy minimization~\cite{Winterbottom1967, Mariaux2011} or by the Cahn-Hoffman vector formalism~\cite{Cahn1974}. 
 	
 	The shape is strongly determined by the force balance of the three meeting interfaces: substrate-parent phase ($\sigma_1$), particle-parent phase ($\sigma_2$) and particle-substrate ($\sigma_3$). There are two such contact points in 2D (in 3D it is a triple line) and both must be in force balance in order to sustain a stable equilibrium shape. 
@@ -140,7 +140,7 @@ The paper is organized in five main parts. Firstly, the necessary fundamentals a
 	\begin{figure}[]
 	\centering
 		\includegraphics[width=0.6\textwidth]{fig_inverted_sol.pdf}
-		\caption{Illustration of the inverted Winterbottom construction. In (a) explained in 4 steps and in (b) illustration of inverted solutions of higher orders. In (a) the plane normal points from the substrate to the parent phase, the solid lines of the Wulff plot are thus above the substrate plane and the dashed ones are below. Interface normals in the contact points are indicated as well. In 1 is the initial state, in 2 after center inversion, in 3 after the curve orientation flip and in 4 is the resulting shape next to the original part of the Wulff plot. In (b) the dashed black line indicates inverted shape of the first order, the solid line that of second order.}
+		\caption[Illustration of the inverted Winterbottom construction]{Illustration of the inverted Winterbottom construction. In (a) explained in 4 steps and in (b) illustration of inverted solutions of higher orders. In (a) the plane normal points from the substrate to the parent phase, the solid lines of the Wulff plot are thus above the substrate plane and the dashed ones are below. Interface normals in the contact points are indicated as well. In 1 is the initial state, in 2 after center inversion, in 3 after the curve orientation flip and in 4 is the resulting shape next to the original part of the Wulff plot. In (b) the dashed black line indicates inverted shape of the first order, the solid line that of second order.}
 		\label{fig_inverted_explained}
 	\end{figure}
 	
@@ -245,7 +245,7 @@ The paper is organized in five main parts. Firstly, the necessary fundamentals a
 	\begin{figure}
 		\centering
 		\includegraphics[page=4]{combine_graphs.pdf}
-		\caption{Winterbottom construction on a weak-anisotropy Wulff shape with indication of the distinct types of interfaces: red and dash-dotted line is the anisotropic solid-liquid interface and the blue and dotted line is the Read-Shockley grain boundary (independent on interface inclination). }
+		\caption[Winterbottom construction on a weak-anisotropy Wulff]{Winterbottom construction on a weak-anisotropy Wulff shape with indication of the distinct types of interfaces: red and dash-dotted line is the anisotropic solid-liquid interface and the blue and dotted line is the Read-Shockley grain boundary (independent on interface inclination). }
 		\label{fig_NPA_sketch_of_problem}
 	\end{figure}
 	A polycrystalline film grows from a liquid parent phase. Nucleation during the film growth is expected, which then occurs on the same material, as is being deposited. In this system there are two distinct types of interfaces: the solid-liquid interface with inclination-dependent interface energy; and the grain boundary following the Read-Shockley dependence on misorientation (inclination-independent, though). Every grain has a particular crystallographic orientation (in 2D characterized by a single angle $\alpha$). The grain orientation $\alpha$ coincides with the rotation of the solid-liquid interface energy anisotropy function~\eqref{eq_anisofun}.
@@ -306,12 +306,12 @@ The paper is organized in five main parts. Firstly, the necessary fundamentals a
 	\subsection{Shape factor-orientation maps}
 	Here, the shape factor-orientation map is the 2D plot of the shape factor as function of the top and bottom grain orientation, i.e. $S(\alpha_1,\alpha_2)$. For isotropic nucleation, the solid-liquid interface had constant interface energy $\sigma_{SL}^0$ and the grain boundary followed the Read-Shockley dependence~\eqref{eq_GBE_read_shockley}. In anisotropic nucleation, the shape factor $S(\alpha_1,\alpha_2)$ was obtained from the generalized Winterbottom construction, with the wetting parameter $\Gamma(\alpha_1,\alpha_2)$ from~\eqref{eq_wetting_param_Gamma}. A solver was programmed in MATLAB, which found the possible solutions in the generalized Winterbottom construction and selected the one with the minimal area. It included all types of solutions discussed in this paper and it is available in Mendeley Data repository~\cite{Minar2023dataset}. This solver was used to find $S(\alpha_1,\alpha_2)$ for all intended pairs of bottom and top grain orientations $(\alpha_1,\alpha_2)$.
 	
-	\begin{figure*}
+	\begin{figure}
 		\centering        
 		\includegraphics[width=0.8\textwidth, page=5]{combine_graphs.pdf}
-		\caption{Shape factor-orientation maps for four different strengths of anisotropy in 4-fold symmetry (180x180 points). In (a) is the isotropic case, in (b)-(c) the anisotropic ones, the strength of anisotropy $\delta$ is indicated above. The white regions indicate the unstable orientations as by the condition~\eqref{eq_3jun_stabcond_applied}. The levels are drawn with the increment of 0.25, like the colorbar spacing.}
+		\caption[Shape factor-orientation maps for four different strengths of anisotropy in 4-fold symmetry (180x180 points)]{Shape factor-orientation maps for four different strengths of anisotropy in 4-fold symmetry (180x180 points). In (a) is the isotropic case, in (b)-(c) the anisotropic ones, the strength of anisotropy $\delta$ is indicated above. The white regions indicate the unstable orientations as by the condition~\eqref{eq_3jun_stabcond_applied}. The levels are drawn with the increment of 0.25, like the colorbar spacing.}
 		\label{fig_SFori_maps}
-	\end{figure*}
+	\end{figure}
 	
 	Examples of the shape factor-orientation maps $S(\alpha_1,\alpha_2)$ for four different strengths of anisotropy in 4-fold symmetry are shown in Figure~\ref{fig_SFori_maps}.
 	
@@ -351,7 +351,7 @@ In the following subsections are subsequently described: the Monte Carlo method 
 	\centering
 	% \includegraphics[page=6]{combine_graphs.pdf}
 	\includegraphics[height=0.9\textheight]{MC_scheme_vertical.pdf}
-	\caption{Process map of the Monte Carlo simulation with nucleation including anisotropic solid-liquid interface energy. In the model variant with no nucleation, the nucleation branch is omitted. In the model variant with isotropic nucleation, only $\xi_3$ is sampled and should the nucleation take place, the orientation is selected randomly.}
+	\caption[Process map of the Monte Carlo simulation with nucleation including anisotropic solid-liquid interface energy]{Process map of the Monte Carlo simulation with nucleation including anisotropic solid-liquid interface energy. In the model variant with no nucleation, the nucleation branch is omitted. In the model variant with isotropic nucleation, only $\xi_3$ is sampled and should the nucleation take place, the orientation is selected randomly.}
 	\label{fig_MCscheme}
 \end{figure}
 
@@ -359,12 +359,12 @@ The Monte Carlo model was inspired by~\cite{Li1997_1,Li1997_2}, but significantl
 
 The simulation was carried out on a fixed square grid, where every node (or pixel, abbreviated px) had a value between 0-50. The value 0 represented the parent solution and 1-50 represented the crystalline solid of different crystallographic orientations from the interval $\langle0,2\pi/n)$. Each pixel could interact with its nearest and second nearest neighbors. The growth took place in the bottom-up direction, starting with a solid seed row, where random orientations were assigned to each pixel. In every column, there was one \textit{growth site}, which was a liquid site having a solid neighbor on its bottom side, i.e. the first liquid site just above the deposit.
 
-\begin{figure*}
+\begin{figure}
 	\centering
 	\includegraphics[width=\textwidth, page=7]{combine_graphs.pdf}
-	\caption{Single iteration of orientation selection algorithm. In (a) is the nucleation probability map $P(\alpha_1,\alpha_2)=\exp[(-10S(\alpha_1,\alpha_2)]$ for $n=4$, $\delta=0.7$. A slice at bottom grain orientation $\alpha_1=67$\textdegree~was indicated as the initial $\alpha_1$. In (b) there is the respective slice of the probability map, from which the probability distribution function (pdf) and then the cumulative distribution function (cdf) of the top grain orientation are computed. The uniformly sampled $\xi_3$ is used in specification of the pdf (see text), here $\xi_3=0.5$ was used. Then, $\xi_4$ is used for sampling of the cdf to obtain the top grain orientation. The top grain orientation reached in this sampling is $\alpha_2=70$\textdegree.}
+	\caption[Single iteration of orientation selection algorithm]{Single iteration of orientation selection algorithm. In (a) is the nucleation probability map $P(\alpha_1,\alpha_2)=\exp[(-10S(\alpha_1,\alpha_2)]$ for $n=4$, $\delta=0.7$. A slice at bottom grain orientation $\alpha_1=67$\textdegree~was indicated as the initial $\alpha_1$. In (b) there is the respective slice of the probability map, from which the probability distribution function (pdf) and then the cumulative distribution function (cdf) of the top grain orientation are computed. The uniformly sampled $\xi_3$ is used in specification of the pdf (see text), here $\xi_3=0.5$ was used. Then, $\xi_4$ is used for sampling of the cdf to obtain the top grain orientation. The top grain orientation reached in this sampling is $\alpha_2=70$\textdegree.}
 	\label{fig_MC_orientation_selection}
-\end{figure*}
+\end{figure}
 
 The simulation proceeded in iterations, one of which is described in a process chart in Figure~\ref{fig_MCscheme}. Essentially, a growth site was first selected, its neighborhood analyzed and then it was decided whether either some neighbor value would be inserted to the growth site (the \textit{growth} branch in the scheme) or whether a nucleation attempt would take place (the \textit{nucleation} branch). The latter could be omitted to produce only anisotropic growth without nucleation.
 
@@ -418,7 +418,7 @@ The simulations were carried out for a range of strengths of anisotropy $\delta$
 \begin{figure}
 	\centering
 	\includegraphics[width = 0.6\textwidth]{twograins_mean_trajectory_4fold_resind428.pdf}
-	\caption{Mean trajectory of a triple point on the bicrystal surface during simulated growth for different strengths of anisotropy $\delta$. The mean was taken from 30 runs in a system 100x200 px. The inset shows the slope of the trajectories and demonstrates that the greater was the anisotropy, the greater was he drag.}
+	\caption[MC algorithm validation - mean trajectory of a triple point on the bicrystal surface]{Mean trajectory of a triple point on the bicrystal surface during simulated growth for different strengths of anisotropy $\delta$. The mean was taken from 30 runs in a system 100x200 px. The inset shows the slope of the trajectories and demonstrates that the greater was the anisotropy, the greater was he drag.}
 	\label{fig_MC_bicrystal_validation}
 \end{figure}
 
@@ -439,6 +439,8 @@ The individual pixels in the seed layer were sampled independently, i.e. the int
 
 \begin{table}[t]
 	\begin{center}
+		\caption[MC simulation - parameters included in this parameter study]{Simulation conditions included in this study. Simulations at all combinations of the above parameters were run (except for those in parenthesis, which were combined only with some). In total, there were 116 simulation runs differing in these parameter combinations.}
+		\label{tab_sim_conditions}
 		\begin{tabular}{lll}
 			\hline
 			Parameter                       & Values              & Total \\ \hline
@@ -447,8 +449,6 @@ The individual pixels in the seed layer were sampled independently, i.e. the int
 			strength of anisotropy $\delta$ & 0.1, 0.3, 0.5, 0.7  & 4     \\
 			non-dim. nucl. barrier $\beta$  & 10, (30), 50, 90          & 3 (4)    \\ \hline
 		\end{tabular}
-		\caption{Simulation conditions included in this study. Simulations at all combinations of the above parameters were run (except for those in parenthesis, which were combined only with some). In total, there were 116 simulation runs differing in these parameter combinations.}
-		\label{tab_sim_conditions}
 	\end{center}
 \end{table}
 
@@ -457,31 +457,31 @@ Additionally, the strength of anisotropy $\delta$ and the non-dimensional nuclea
 A single simulation run took place in a rectangular system on a grid 1500x200. In order to gain better statistics on the through-thickness orientation evolution and the nucleation behavior, 10 repetitions were carried out and the results were either averaged or interpreted from one pseudo system 15000x200.
 
 \subsection{Results}
-\begin{figure*}
+\begin{figure}
 	\centering
 	\includegraphics[page=8,trim={0, 0, 0, 1.5cm},clip,width=0.8\textwidth]{combine_graphs.pdf}
-	\caption{Mean number of nucleation events per single simulation run in the system 1500x200 for different initial conditions. The legend is common to all graphs, which all correspond to $n=4\,,\delta=0.5$. IC\_A, IC\_L and IC\_H are the initial conditions (all orientations, low-energy orientations only and high-energy orientations only, respectively). IN and AN stand for the nucleation with isotropic and anisotropic solid-liquid interface energy, respectively.}
+	\caption[MC simulation results - mean number of nucleation events for different initial conditions]{Mean number of nucleation events per single simulation run in the system 1500x200 for different initial conditions. The legend is common to all graphs, which all correspond to $n=4\,,\delta=0.5$. IC\_A, IC\_L and IC\_H are the initial conditions (all orientations, low-energy orientations only and high-energy orientations only, respectively). IN and AN stand for the nucleation with isotropic and anisotropic solid-liquid interface energy, respectively.}
 	\label{fig_MC_mean_events}
-\end{figure*}
+\end{figure}
 
-\begin{figure*}
+\begin{figure}
 	\centering
 	\includegraphics[page=9,width=\textwidth]{combine_graphs.pdf}
-	\caption{Deposits and their texture evolution in different nucleation scenarios and the initial condition IC\_A, $\delta=0.5$, $n=4$ and $\beta=30$. In (a), (b) is the no-nucleation scenario, in (c), (d) is isotropic nucleation and in (e), (f) is the anisotropic nucleation. In (a), (c) and (e) are the deposits, with the nucleation events indicated by black dots, and in (b), (d), (f) are the histograms of orientations in the indicated rows of the deposits. Light gray always corresponds to the low-energy orientations in both the deposits and histograms and the high-energy orientations are correspondingly color-coded in both plots of the same scenario.}
+	\caption[MC simulation results - deposits and their texture evolution in different nucleation scenarios in the case IC\_A, $\delta=0.5$, $n=4$ and $\beta=30$ (rather fast deposition)]{Deposits and their texture evolution in different nucleation scenarios and the initial condition IC\_A, $\delta=0.5$, $n=4$ and $\beta=30$. In (a), (b) is the no-nucleation scenario, in (c), (d) is isotropic nucleation and in (e), (f) is the anisotropic nucleation. In (a), (c) and (e) are the deposits, with the nucleation events indicated by black dots, and in (b), (d), (f) are the histograms of orientations in the indicated rows of the deposits. Light gray always corresponds to the low-energy orientations in both the deposits and histograms and the high-energy orientations are correspondingly color-coded in both plots of the same scenario.}
 	\label{fig_MC_deposits_ori_ev_1}
-\end{figure*}
-\begin{figure*}
+\end{figure}
+\begin{figure}
 	\centering
 	\includegraphics[page=11,width=\textwidth]{combine_graphs.pdf}
-	\caption{Deposits and their texture evolution in different nucleation scenarios and initial condition IC\_H, $\delta=0.5$ and $\beta=10$. In (a), (b) is the isotropic nucleation scenario, in (c), (d) is anisotropic nucleation. The nucleation events are not shown, because they were too many. See caption of Figure~\ref{fig_MC_deposits_ori_ev_1} and the text for more details.}
+	\caption[MC simulation results - deposits and their texture evolution in different nucleation scenarios in the case IC\_H, $\delta=0.5$ and $\beta=10$ (fast deposition)]{Deposits and their texture evolution in different nucleation scenarios and initial condition IC\_H, $\delta=0.5$ and $\beta=10$. In (a), (b) is the isotropic nucleation scenario, in (c), (d) is anisotropic nucleation. The nucleation events are not shown, because they were too many. See caption of Figure~\ref{fig_MC_deposits_ori_ev_1} and the text for more details.}
 	\label{fig_MC_deposits_ori_ev_2}
-\end{figure*}
-\begin{figure*}
+\end{figure}
+\begin{figure}
 	\centering
 	\includegraphics[page=10,width=\textwidth]{combine_graphs.pdf}
-	\caption{Deposits and their texture evolution in different nucleation scenarios and initial condition IC\_H, $\delta=0.5, n=4$ and $\beta=90$. In (a), (b) is the no-nucleation scenario, in (c), (d) is anisotropic nucleation. See caption of Figure~\ref{fig_MC_deposits_ori_ev_1} and the text for more details.}
+	\caption[MC simulation results - deposits and their texture evolution in different nucleation scenarios in the case IC\_H, $\delta=0.5, n=4$ and $\beta=90$ (very slow deposition)]{Deposits and their texture evolution in different nucleation scenarios and initial condition IC\_H, $\delta=0.5, n=4$ and $\beta=90$. In (a), (b) is the no-nucleation scenario, in (c), (d) is anisotropic nucleation. See caption of Figure~\ref{fig_MC_deposits_ori_ev_1} and the text for more details.}
 	\label{fig_MC_deposits_ori_ev_3}
-\end{figure*}
+\end{figure}
 The presented results are based on analysis of 116 simulation runs, differing in the parameter combinations from Table~\ref{tab_sim_conditions}.
 
 In Figure~\ref{fig_MC_mean_events}, there is the mean of nucleation events (averaged over ten 1500x200 simulations) as a function of strength of anisotropy $\delta$ in series of nucleation barrier $\beta$ and at different initial conditions. Figure~\ref{fig_MC_mean_events}a shows the result at initial condition IC\_A, isotropic nucleation. In isotropic nucleation, the number of nucleation events was only dependent on the nucleation barrier $\beta$, not on the strength of anisotropy nor on the initial condition. Figure~\ref{fig_MC_mean_events}b shows the same initial condition (IC\_A), but anisotropic nucleation. There, the number of nucleation events depends on both the strength of anisotropy $\delta$ and the nucleation barrier $\beta$. At small anisotropy, the dependence of mean events on $\beta$ is similar to the isotropic nucleation. With increasing the strength of anisotropy, there is weaker dependence on $\beta$. It was observed, that even at otherwise prohibitively small nucleation barrier $\beta=90$, hundreds of nucleation events occurred in the 1500x200 system for $\delta\geq 0.5$ and remained rather constant after increase to $\delta=0.7$. On the other hand, at very low nucleation barrier $\beta=10$, the mean events were decreasing when $\delta$ rose, approaching the same order of magnitude like in large nucleation barriers $\beta$. In Figure~\ref{fig_MC_mean_events}c, again the anisotropic nucleation is shown, now in the initial condition IC\_L. With the seed layer bias towards low-energy orientations, the results are very similar to those in Figure~\ref{fig_MC_mean_events}b, only the numbers are slightly smaller. Larger difference was observed in Figure~\ref{fig_MC_mean_events}d, initial condition IC\_H, anisotropic nucleation. With the seed layer centered around high-energy orientations, $10^3-10^4$ of events were observed even at very high nucleation barrier $\beta=90$ for $\delta \geq 0.5$.
@@ -512,7 +512,7 @@ Figure~\ref{fig_MC_deposits_ori_ev_3} presents the case of very high nucleation 
 	\begin{figure}[]
 		\centering
 		\includegraphics[width=0.8\textwidth]{Alimadadi.jpg}
-		\caption{Experimental results of Ni electrodeposited on an amorphous substrate, adapted from~\cite{Alimadadi2016}. On the right, an EBSD map of the deposit cross-section is shown, the inverse pole figure is in the top-right inset. The axis indicates the deposit thickness in \unit{\um}. The pole figures on the left correspond to the indicated regions, their colorbar of MRD (Multiples of Random Distribution) is provided.}
+		\caption[Experimental results of Ni electrodeposited on an amorphous substrat]{Experimental results of Ni electrodeposited on an amorphous substrate, adapted from~\cite{Alimadadi2016}. On the right, an EBSD map of the deposit cross-section is shown, the inverse pole figure is in the top-right inset. The axis indicates the deposit thickness in \unit{\um}. The pole figures on the left correspond to the indicated regions, their colorbar of MRD (Multiples of Random Distribution) is provided.}
 		\label{fig_Alimadadi_results}
 	\end{figure}
 	
