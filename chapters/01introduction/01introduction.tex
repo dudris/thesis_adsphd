@@ -40,7 +40,6 @@ The interface energy is particularly important for the nucleation, which is in t
 
 
 \section{Goals of the thesis}
-<<<<<<< HEAD
 
 \noindent\fbox{%
 	\parbox{\textwidth}{%
@@ -105,61 +104,7 @@ The following \textbf{key objectives (KO)} were set to accomplish the main goals
 %\end{description}
 
 %This thesis explores the effect of anisotropic interface energy on nucleation and growth of polycrystalline deposits in various simulation concepts. It is known that the anisotropy in interface energy affects the equilibrium stable shape of a particle (on a plane). Also, it is known that the nucleation probability is proportional to the particle area (in 3d to its volume).
-=======
-The main goal of this thesis is\\
-\begin{tabular}{|p{\textwidth}|}
-	\hline
-	To bring insight into the role of anisotropy in interface energy for nucleation during polycrystalline film growth and the possible impact on texture evolution.\\
-	\hline
-\end{tabular}
 
-The following key objectives (KO) were set to accomplish the main goal:
-\begin{description}
-	\item[KO1] Determine how anisotropy of the nucleation barrier (different for differently oriented nuclei) relates to interface energy anisotropy and local crystallography
-	\begin{description}
-		\item[KO1.1] Analyze and specify the problem
-		\item[KO1.2] Develop methodology based on phase-field method
-		\item[KO1.3] Develop analytic methodology
-	\end{description}
-	\item[KO2] Demonstrate in a 2D Monte Carlo simulation of growing polycrystalline film how such anisotropy in nucleation barrier may affect texture evolution
-	\begin{description}
-		\item[KO2.1] Develop an orientation-sampling algorithm based on the anisotropic nucleation probability
-		\item[KO2.2] Develop and validate the 2D Monte Carlo simulation algorithm incorporating nucleation with the orientation sampling
-		\item[KO2.3] Carry out a parameter study to showcase the impact of nucleation with isotropic or anisotropic interface energy on texture evolution under different conditions
-	\end{description}
-	\item[KO3] Apply the novel theoretical insights to some real-world practical system
-	\item[KO4] Synthesize the findings and propose future directions of the research
-\end{description}
-
-The development of methodology to determine anisotropy of nucleation barrier based on phase-field method (KO1.2) is challenging and required further breakdown of this Key Objective. For better comprehensibility, these were listed separately
-
-\begin{description}
-	\item[KO1.2] Develop methodology based on phase-field method
-	\begin{description}
-		\item[KO1.2.1] Propose the methodology and review phase-field method
-		\item[KO1.2.2] Specify requirements on the model and simulated system geometry
-		\item[KO1.2.3] Work out the necessary extensions of an existing phase field model including anisotropy of interface energy and kinetic coefficient
-		\item[KO1.2.4] Implement the phase field model 
-		\item[KO1.2.5] Develop well defined benchmark problems to validate the implementation
-		\item[KO1.2.6] Demonstrate usability of the developed methodology
-	\end{description}
-\end{description}
-
-%This thesis explores the effect of anisotropic interface energy on nucleation and growth of polycrystalline deposits in various simulation concepts. It is known that the anisotropy in interface energy affects the equilibrium stable shape of a particle (on a plane). Also, it is known that the nucleation probability is proportional to the particle area (in 3d to its volume).
-
-
-%The anisotropic nature of monocrystals implies anisotropy of the interfaces they have with their surroundings. This translates into anisotropy of both thermodynamic and kinetic properties which are tied with the interface, especially the specific interface energy and the kinetic coefficient of the deposition/dissolution reaction. Even though it is natural to expect that both are manifestations of a single surface condition, because both quantities are used 
-
-\section{Thesis overview}
-This thesis explores how anisotropy in surface energy affects the course of crystallographic texture evolution in polycrystalline coatings, with emphasis on orientation selection in repeated nucleation seen within the framework of classical nucleation theory. 
-
-In order to bring insight in this matter, the problem was first analyzed (KO1.1) \colorbox{red}{IN CHAPTER} and two different approaches to determine anisotropy in interface energy were developed (KO1.2 and KO1.3). 
->>>>>>> f81659821d08f1c992ebfe73aaa1031f9d4e1b03
-
-The Chapters~\ref{ch_anisoIEintro} and~\ref{ch_introPF} provide the necessary fundamentals and relevant literature review. The subsequent chapters contain the original research carried out by the author. The Chapters~\ref{ch_paper1} and~\ref{ch_paper2} contain the results published as~\cite{Minar2022} and~\cite{Minar2024}, respectively. The Chapter~\ref{ch_NPA_PF_methodology} contains unpublished results on the phase-field methodology to obtain the anisotropy in nucleation barrier (KO1.2). A number of appendices was included in the work to provide relevant information, which was not essential for understanding the results in the main text. These were mostly used for mathematical derivations, details on implementation of numerical methods or other supplementary information improving transparency and reproducibility of this research. In order to achieve even higher reproducibility, all the source MATLAB code used to deliver the results in the published works was made available in an online repository~\cite{Minar2022dataset} and~\cite{Minar2023dataset} together with usage instructions.
-
-<<<<<<< HEAD
-%The anisotropic nature of monocrystals implies anisotropy of the interfaces they have with their surroundings. This translates into anisotropy of both thermodynamic and kinetic properties which are tied with the interface, especially the specific interface energy and the kinetic coefficient of the deposition/dissolution reaction. Even though it is natural to expect that both are manifestations of a single surface condition, because both quantities are used 
 
 \section{Thesis overview} \label{sec_Thesis_overview}
 This thesis explores how anisotropy in surface energy affects the course of crystallographic texture evolution in polycrystalline coatings, with emphasis on orientation selection in repeated nucleation seen within the framework of classical nucleation theory. 
@@ -224,26 +169,7 @@ The same group later proposed~\cite{Rasmussen2001}, that the texture of an elect
 %Additionally, in the thesis were made relevant contribution to the scientific community developing and implementing mathematical models driven by anisotropic curvature driving force (e.g. multi-phase field method applied to grain growth) by providing two benchmark problems to measure physical accuracy of the models in this regard. At the same time, an existing multi-phase field model was extended to include inclination-dependent dependent interface energy via different combination of parameters than it was implemented before.
 %
 %The textures in as-deposited coatings are always affected by the deposition conditions, especially by the deposition method and further the temperature, deposition rate, materials of the deposit and substrate and other method-specific conditions. 
-=======
-The Chapter~\ref{ch_anisoIEintro} contains review of literature related to formation of textures in polycrystalline coatings with emphasis on the underlying processes which are common to all the deposition methods, like electrodeposition, physical vapour deposition or sputtering. The role of surface energy anisotropy (more precisely, the anisotropy of deposit-parent phase interface energy) for the growth of polycrystalline deposit is reviewed as well, together with the classical nucleation theory involving this interface energy anisotropy.
 
-The Chapter~\ref{ch_introPF} introduces the phase-field method. In a step-wise manner, the fundamentals of the method are covered. First, the Allen-Cahn equation is described, which represents phase evolution under the effect of isotropic curvature driving force. Then, the standard ways of adding a) anisotropy in interface energy, b) multiple phase-fields in the simulation domain (and both) are reviewed. Challenges and limitations of the various phase-field models are discussed. Also, a section was included, commenting on the importance of benchmarking the performance of applied multi-physics phase-field models and the current practice of their usage and presentation within the scientific community.
-
-In the Chapter~\ref{ch_paper1}, there is a comprehensive description of an existing multi-phase field model and how and why it was extended. Three different variants of the same model were obtained. Two different benchmark problems to quantitatively test how the models reproduced the anisotropic curvature driving force were developed. A thorough parameter study was conducted to provide exhausting information on the model behavior in different settings. Only in a third benchmark problem involving triple junctions showed, that there was in fact a significant difference in the behavior of the model variants. 
-
-The Chapter~\ref{ch_NPA_PF_methodology} presents the Domain scaling methodology, which was developed to determine anisotropy in the nucleation barrier as function of the orientations of both the substrate and nucleus. The multi-phase field model was used to obtain the equilibrium stable shape of nucleus needed for this method to work. Because the model extensions carried out in Chapter~\ref{ch_paper1} were still not sufficient to realize the developed methodology, additional extensions were introduced, building on top of the knowledge obtained in Chapter~\ref{ch_paper1}. 
-
-Then follows the Chapter~\ref{ch_paper2}, which employs the so-called Winterbottom construction to obtain the equilibrium stable shape of the nucleus. Because this method is very computationally efficient, the nucleation barrier as function of the substrate and nucleus orientation could be determined with great resolution. The obtained \textit{shape-factor-orientation maps} are a visualization of the nucleation barrier orientation dependence. These were then used as an input to a custom orientation-sampling algorithm for the nuclei. Using this, the orientation of nuclei introduced during a Monte Carlo simulation of 2D polycrystalline film growth was determined. A parametric study was conducted to identify the impact of the anisotropy in interface energy on the texture evolution, when compared to the isotropic interface energy. The obtained insights were used to qualitatively explain an abrupt change in texture which observed in electrodeposited nickel~\cite{Alimadadi2016}.
-
-The Chapter~\ref{ch_conclusion} contains conclusion of the work and proposes directions of future research.
-
-
-
-
-Additionally, in the thesis were made relevant contribution to the scientific community developing and implementing mathematical models driven by anisotropic curvature driving force (e.g. multi-phase field method applied to grain growth) by providing two benchmark problems to measure physical accuracy of the models in this regard. At the same time, an existing multi-phase field model was extended to include inclination-dependent dependent interface energy via different combination of parameters than it was implemented before.
-
-The textures in as-deposited coatings are always affected by the deposition conditions, especially by the deposition method and further the temperature, deposition rate, materials of the deposit and substrate and other method-specific conditions. 
->>>>>>> f81659821d08f1c992ebfe73aaa1031f9d4e1b03
 
 %
 %A perspective approach for simulation of a growing film including nucleation is multi-phase field method, which allows inclusion of anisotropic interface energy, but also anisotropy of the kinetic coefficient (deposition rate).

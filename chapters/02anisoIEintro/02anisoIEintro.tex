@@ -5,27 +5,19 @@ Be there an isothermic isolated thermodynamic system consisting of a block of so
 
 Should the system consist of the solid block within a liquid, the specific surface energy would be lower due to interactions between the liquid and solid (e.g. specific interactions of the molecules within the liquid with the surface or double layer formation in case of electrified surface). The same in fact holds for blocks of two different materials joined together by an \textit{interface}, meaning that the \textit{interface energy} will be lower than the sum of the individual surface energies (by \textit{adhesion energy}). The interface is then characterized by \textit{specific interface energy}. Even though some sources strictly distinguish the \textit{interface} to occur between two solid phases and use the word \textit{surface} for the solid in both vacuum or liquid~\cite{Milchev2002}, it as valid to see the \textit{interface} between two dissimilar phases (e.g. solid and liquid) and reserve the term surface energy strictly for the solid in vacuum. This thesis rather sees what separates the liquid from solid as \textit{interface}, but care was taken to be always explicit enough to make it clear what is the particular quantity in question.
 
-<<<<<<< HEAD
 The word \textit{specific} in the \textit{specific surface energy} indicates that the quantity is intensive, i.e. relative to the area in this case. However, especially in phase field literature it is rather common to denote the intensive quantity simply by \textit{surface energy} or \textit{interface energy}. These two are often used interchangeably in this thesis.
-=======
-The experimental investigations of the texture-forming factors in deposits are usually specific for the particular deposition method, like physical vapour deposition (PVD), sputtering or electrodeposition. Despite some obvious differences between the methods, it is natural to expect the textures to be formed by the same mechanisms. These are necessarily altered by the method-specific deposition conditions, thus giving rise to some behaviors which are then considered as standard for that type of deposition. 
->>>>>>> f81659821d08f1c992ebfe73aaa1031f9d4e1b03
 
 
-<<<<<<< HEAD
+
 \section{Capillary vector formalism}
 Let the interface energy $\sigma$ depend on the local orientation of the interface described by its unit normal $\bm{n}$, i.e. $\sigma=\sigma(\bm{n})=\sigma_0 h(\bm{n})$. The function $h(\bm{n})$ is called anisotropy function and $\sigma_0$  is a scaling parameter with dimensions of interface energy. Formal requirements on the anisotropy function can be found e.g. in~\cite{Kobayashi2001}. A very useful formalism for thermodynamic description of these anisotropic interfaces is so-called capillary vector $\bm{\xi}$ (a.k.a. Cahn-Hoffmann vector or $\xi$-vector), defined as~\cite{Hoffman1972,Cahn1974}
 \begin{equation}
     \bm{\xi} = \mathrm{grad}(r\sigma(\bm{n}))\,,
 \end{equation}
 where $r$ is radial distance from origin, which can be also seen as magnitude of scaled normal vector $\bm{r}=r\bm{n}$. Level sets of the scalar function $r\sigma(\bm{n})$ are geometrically similar to the anisotropy function $h(\bm{n})$, which is continuously scaled by the radius $r$.
-=======
-Barna~\cite{Barna1998} claims, that the different crystallographic textures observed in PVD or sputter deposition can be correlated to the respective \textit{structure zone}. Specifically, he uses the terms \textit{competitive growth texture} and \textit{restructuration growth texture}, which correspond to the ones where the resulting texture depends on either the anisotropy in growth rate or on the concurrent minimization of surface and grain boundary energy, respectively.
->>>>>>> f81659821d08f1c992ebfe73aaa1031f9d4e1b03
 
 Capillary vector was introduced and investigated by Hoffman and Cahn in~\cite{Hoffman1972,Cahn1974}, who showed that this formalism is consistent with major laws governing behavior of (anisotropic) interfaces like Gibbs-Thompson equation (relating chemical potential and isotropic surface curvature), Herring's equation (chemical potential on anisotropic curved surface), Wulff shape construction, force balance at multi-junctions and others. 
 
-<<<<<<< HEAD
 A defining property of capillary vector is that its component normal to the surface $\xi_\perp$ is in magnitude equal to the local value of the interface energy and the surface-tangent component points in the direction of steepest change in interface energy and is proportional to the change. More specifically  
 \begin{align}
     \xi_\perp &= \bm{\xi}\cdot\bm{n}=\sigma(\bm{n}) \\
@@ -49,9 +41,6 @@ which is only function of the polar and azimuthal angle $\theta,\phi$, respectiv
           \cos(\theta)  
      \end{bmatrix} \,.
 \end{equation}
-=======
-The inhibition refers to some specific interactions between the deposit and the parent phase. The inhibiting species attaches to low-energy sites where the growth might easily proceed and then the adatoms must find another spot to settle down, having their lifetime before being incorporated into the crystal potentially prolonged and thus increasing the nucleation probability~\cite{Winand1992}. The inhibitor may be a natural constituent of the electrolyte in electrodeposition or simply some impurity. In PVD deposition of aluminium with variable amounts of oxygen, it was observed that increased oxygen amounts reduced the grain size up to nanocrystalline or even amorphous coating of alumina~\cite{Barna1998}.
->>>>>>> f81659821d08f1c992ebfe73aaa1031f9d4e1b03
 
 \section{Interface stiffness}
 The interface stiﬀness is the coeﬃcient of the interface curvature in the description of the capillarity contribution to the chemical potential. In curvature-driven interface migration, the interface velocity is proportional to the interface stiﬀness, mobility and curvature.~\cite{Du2007} The so-called Herring's equation originally published in 1951 and reprinted in~\cite{Herring1999} states the chemical potential of atoms on a curved surface $\mu_{surf}$ due to the capillarity in a point P
