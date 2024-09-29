@@ -133,7 +133,7 @@
         ylabel near ticks,
         ymin=-1.2,
         ymax=1.7,
-        legend entries={$\approx- R^2$,$\approx R$,$\Delta G$},
+        legend entries={area,line,$\Delta G$},
         legend pos = north east,
         ymajorgrids = true
         ]
@@ -143,6 +143,8 @@
         \addplot[black,domain=0:\xlim,samples=50] {-\dGv*x^2/2+\sig*x};
         
         \draw[stealth-stealth] (axis cs:1,0) -- (axis cs:1,\barr/2)  node [left] {$\Delta G_c^*$} -- (axis cs:1,\barr);
+        \draw[blue] (axis cs:0.25,-1.4*\barr) node [right] {$\approx -R^2$};
+        \draw[red] (axis cs:0.25,1.8*\barr) node [right] {$\approx R$};
         
         \draw (rel axis cs: -0.15,1) node [left,inner sep=0] {b)};
     \end{axis}
@@ -164,7 +166,7 @@
         ylabel near ticks,
         ymin=-0.8,
         ymax=1.7,
-        legend entries={$\approx- R^3$,$\approx R^2$,$\Delta G$},
+        legend entries={bulk,surface,$\Delta G$},
         legend pos = north west,
         ymajorgrids = true
         ]
@@ -175,6 +177,8 @@
         
         % \draw[stealth-stealth] (axis cs:1,0) -- (axis cs:1,\barr)  node [above right] {$\Delta G_c^*$};
         \draw[stealth-stealth] (axis cs:1,0) -- (axis cs:1,\barr/2.8)  node [left] {$\Delta G_c^*$} -- (axis cs:1,\barr);
+        \draw[blue] (axis cs:0.17,-\barr) node [right] {$\approx -R^3$};
+        \draw[red] (axis cs:1.15,3*\barr) node [right] {$\approx R^2$};
         
         \draw (rel axis cs: -0.15,1) node [left,inner sep=0] {a)};
         %\draw (rel axis cs: -0.15,0) -- (rel axis cs: -0.15,1);
