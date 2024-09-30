@@ -380,7 +380,21 @@ The below subsections describe in detail the analytic solutions of the problems 
 \subsection{Used anisotropy function and its Wulff shape}
 The anisotropy function $h(\theta)=1+\delta\cos(n\theta)$ was used, together with the normalized strength of anisotropy $\Omega=\delta(n^2-1)$. $\Omega$ easily distinguishes weak from strong anisotropy, because for $0<\Omega<1$ the Wulff shape is smooth, whereas for $1\leq\Omega<n^2-1$ it has corners. Section~\ref{sec_appendix_anisofun_props} provides more details about this anisotropy function. Fourfold symmetry was assumed (i.e. $n=4$).
 
-Ill-posedness of the governing equations for forbidden orientations on Wulff shapes for strong anisotropies ($\Omega>1$) was treated by regularization of the anisotropy function as in~\cite{Eggleston2001}.
+Ill-posedness of the governing equations for forbidden orientations on Wulff shapes for strong anisotropies ($\Omega>1$) was treated by regularization of the anisotropy function as in~\cite{Eggleston2001}. This procedure identifies intervals of angles $\theta_{nc}$, where the function $1/h(\theta)$ (so-called Frank plot) is non-convex. Not every of these angles $\theta_{nc}$ is forbidden (i.e. exhibiting negative interface stiffness), but every forbidden angle belongs to $\theta_{nc}$. Regularization of $h(\theta)$ is equivalent to convexification of $1/h(\theta)$, where the latter means to replace the non-convex parts by straight lines. This is illustrated in Figure~\ref{fig_regularization_of_IE_Fleck2011}b. The procedure is farther described below for one of the $n$ symmetric intervals,  $ \langle -\pi/n,pi/n )$ (note that in this case $n=4$). Let $h_{reg}(\theta)$ be the regularized anisotropy function and $0<\theta_{nc}^{edge}<\pi/n$ be the largest angle of the non-convex interval (i.e. on its edge). In the current case, the interval of angles with non-convexity in the Frank's plot is $ \langle -\theta_{nc}^{edge},\theta_{nc}^{edge} \rangle$. 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{Fleck2011_IE_regularization.png}
+	\caption[Regularization of anisotropy function]{Regularization of the anisotropy function $h(\theta)=1+\delta\cos(n\theta)$ (in the figure denoted as $\alpha(\theta)$). In (a) the anisotropy function, regularized anisotropy function and Wulff plot, in (b) the Frank's plot of the anisotropy function and regularized anisotropy function. Taken from~\cite{Fleck2011}.}
+	\label{fig_regularization_of_IE_Fleck2011}
+\end{figure}
+
+\begin{equation}
+	\begin{split}
+		h_{reg}(\theta) &= \frac{h(\theta_{nc}^{edge})}{\cos(\theta_{nc}^{edge})}\cos(\theta)  \qquad \mathrm{for} \, |\theta| <= \theta_{nc}^{edge} \\
+		h_{reg}(\theta) &= h(\theta) \qquad \mathrm{for} \, \theta_{nc}^{edge}< |\theta| < 2\pi/n \,.\\
+	\end{split}
+\end{equation}
+In Figure~\ref{fig_regularization_of_IE_Fleck2011}a can be seen, that the straight line in $1/h(\theta)$ polar plot shows in the $h_reg(\theta)$ as a circular arc spanning between the points $h(-\theta_{nc}^{edge})$ and $h(-)\theta_{nc}^{edge})$. The $n$-fold rotation provides the $\theta_{nc}^{edge}$ angles in the other $n-1$, symmetrically equivalent intervals.
 
 For validation of the kinetics of shrinkage, an analytic expression for Wulff shape shrinkage rate was derived in~\ref{sec_appendix_wulff_shrrate}. Measurement of area/volume occupied by a grain/phase is trivial in phase field method, hence the rate of its change (i.e. the shrinkage rate) can be easily used for validation or benchmark. The derivation in~\cite{Minar2021suppl} delivers the expression
 \begin{equation}\label{eq_wulff_shrrate}
