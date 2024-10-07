@@ -17,23 +17,24 @@
 % !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 %%% COVER: Settings %%%
-\title{Simulations of polycrystals with anisotropic interfaces}
+\title{Effect of Anisotropy in Interface Energy on Nucleation During Film Growth and its Impact on Texture Evolution}
 %\subtitle{Multiscale computing for Dummies}
 
 \author{Martin}{Minar}
 
 \supervisor{Prof.~dr.~ir.~Nele~Moelans}{}
-\president{Prof.~dr.~ir.~The~Chairman}{}
+\president{Prof.~dr.~ir.~Prof.~Lucie~Vandewalle}{}
 \jurymember{Prof.~dr.~ir.~Marc~Seefeldt}{}
 \jurymember{Prof.~dr.~ir.~Kim~Vanmeensel}{}
-\jurymember{Prof.~dr.~ir.~Joris~Proost}{}
-\externaljurymember{Prof.~dr.~External~Jurymember}{Far Away}
+\externaljurymember{Prof.~dr.~ir.~Joris~Proost}{UCLouvain, BE}
+\externaljurymember{Dr.~Tamás~Pusztai}{Wigner Research Centre for Physics, HU}
+\externaljurymember{Dr.-Ing.~Daniel~Schneider}{Karlsruhe Institute of Technology, DE}
 
 % Your research group within the department
 % e.g. iMinds-DistriNet, Scientific Computing Group, ...
 \researchgroup{SolMiCS}
-\website{http://www.XXXXX.cs.kuleuven.be} % Leave empty to hide
-\email{first.last@cs.kuleuven.be} % Leave empty to hide
+\website{} % Leave empty to hide
+\email{} % Leave empty to hide
 
 \address{Celestijnenlaan 200A box 2402}
 % \addresscity{B-3001 Leuven} % This is the default value. Note
@@ -131,7 +132,7 @@
 %\frontmatter % to get \pagenumbering{roman}
 
 %\includepreface{preface}
-\includeabstract{abstract}
+%\includeabstract{abstract}
 %\includeabstractnl{abstractnl}
 
 % To create a list of abbreviations, there are 2 options
@@ -143,14 +144,15 @@
 
 % To create a list of symbols, there are 2 options
 % 1. include a manually created nomenclature as a chapter
-%    \includenomenclature{nomenclaturechapter}
+%    \includenomenclature{nomenclature}
 % 2. automatic generation via the nomencl package
 %    \nomenclature[cB]{$c_B(\vec{x})$}{Characteristic function of $B$}
-%\myprintnomenclature
+\input{nomenclature}
+\myprintnomenclature
 
-\tableofcontents
-\listoffigures
-\listoftables
+%\tableofcontents
+%\listoffigures
+%\listoftables
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter % to get \pagenumbering{arabic}
@@ -158,14 +160,14 @@
 % Show instructions on a separate page
 %\instructionschapters\cleardoublepage
 
-\includechapter{01introduction}
-\includechapter{02anisoIEintro}
+%\includechapter{01introduction}
+%\includechapter{02anisoIEintro}
 \includechapter{03PFintro} 
 %%%%\includechapter{04PFMoelans} % EMPTY
-\includechapter{05paper1} 
-\includechapter{06PFnucleationBarrier} 
-\includechapter{06paper2} 
-\includechapter{90conclusion}
+%\includechapter{05paper1} 
+%\includechapter{06PFnucleationBarrier} 
+%\includechapter{06paper2} 
+%\includechapter{90conclusion}
 
 
 
@@ -173,12 +175,13 @@
 
 \appendix
 
-\includeappendix{91functionalDerivative} 
+%\includeappendix{91functionalDerivative} 
 %%%%%\includeappendix{92PFderivations} 
-\includeappendix{93PFparametersDetermination} 
-\includeappendix{94NumericalImplementation} 
-\includeappendix{95LagrangeMultipliersPF} 
-\includeappendix{96WulffProperties} 
+
+%\includeappendix{93PFparametersDetermination} 
+%\includeappendix{94NumericalImplementation} 
+%\includeappendix{95LagrangeMultipliersPF} 
+%\includeappendix{96WulffProperties} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\backmatter

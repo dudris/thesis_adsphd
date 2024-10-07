@@ -325,17 +325,17 @@ Below, the different basic cases are introduced, starting with homogeneous nucle
         Upon the nucleus $\mathit{2}$ insertion, the change in Gibbs free energy is
         \begin{align}
             \Delta G_{het} &= -\Delta G_v V_{het} + (\sigma_{2,3}-\sigma_{1,3})A_{2,3} + \sigma_{1,2}A_{1,2} \\
-                &= \frac{4}{3}\pi(-\Delta G_v R^3 + 3\sigma R^2) S(\theta) \,, \label{eq_DG_heterog_nucl}
+                &= \frac{4}{3}\pi(-\Delta G_v R^3 + 3\sigma R^2) S(\alpha) \,, \label{eq_DG_heterog_nucl}
         \end{align}
-        where $S(\theta)=(2+\cos\theta)(1-\cos\theta)^2/4$ is the so-called shape factor. The second equation was obtained by using the expressions for the spherical cap volume\footnote{$V_{het}=\pi R^3(2+\cos\theta)(1-\cos\theta)^2/3$}, area\footnote{$A_{1,2}=2\pi R^2(1-\cos\theta)$} and with $A_{2,3}$ being a disc\footnote{$A_{2,3}=\pi(R\sin\theta)^2$}. Two features of~\eqref{eq_DG_heterog_nucl} are to be noted. First, the heterogeneous $\Delta G_{het}$ is equal as in \eqref{eq_DG_homog_nucl} except for the factor $S(\theta)$, and second, the $S(\theta)=V_{het}/(\frac{4}{3}\pi R^3)=V_{het}/V_{hom}$. The shape factor is thus the ratio of the equilibrium volumes of the heterogeneous and homogeneous nuclei of the same interface energy $\sigma_{1,2}$.
+        where $S(\alpha)=(2+\cos\alpha)(1-\cos\alpha)^2/4$ is the so-called shape factor. The second equation was obtained by using the expressions for the spherical cap volume\footnote{$V_{het}=\pi R^3(2+\cos\alpha)(1-\cos\alpha)^2/3$}, area\footnote{$A_{1,2}=2\pi R^2(1-\cos\alpha)$} and with $A_{2,3}$ being a disc\footnote{$A_{2,3}=\pi(R\sin\alpha)^2$}. Two features of~\eqref{eq_DG_heterog_nucl} are to be noted. First, the heterogeneous $\Delta G_{het}$ is equal as in \eqref{eq_DG_homog_nucl} except for the factor $S(\alpha)$, and second, the $S(\alpha)=V_{het}/(\frac{4}{3}\pi R^3)=V_{het}/V_{hom}$. The shape factor is thus the ratio of the equilibrium volumes of the heterogeneous and homogeneous nuclei of the same interface energy $\sigma_{1,2}$.
         
         Because the $R$-dependence in $\Delta G_{het}(R)$ is equal as in $\Delta G_{hom}(R)$, the critical radius is as in~\eqref{eq_crit_radius}, hence the critical nucleation barrier is 
         \begin{align}
-            (\Delta G^*_c)_{het} &= \hat{V}_{hom}S(\theta)\frac{4\sigma^2}{\Delta G_v} \\
-                &= (\Delta G^*_c)_{hom}S(\theta)
+            (\Delta G^*_c)_{het} &= \hat{V}_{hom}S(\alpha)\frac{4\sigma^2}{\Delta G_v} \\
+                &= (\Delta G^*_c)_{hom}S(\alpha)
         \end{align}
-            
-        Shape factor $S(\theta)$ is thus not only ratio of the equilibrium nuclei volumes, but also of the nucleation barriers. The shape factor with isotropic interface energy is always $0\leq S(\theta)\leq1$. The balance of forces along the contact point of the three phases determines wetting of the surface by the nucleus $\mathit{2}$ which in turn decides about the shape factor and thus the nucleation barrier and also the nucleation mechanism. 
+        
+        Shape factor $S(\alpha)$ is thus not only ratio of the equilibrium nuclei volumes, but also of the nucleation barriers. The shape factor with isotropic interface energy is always $0\leq S(\alpha)\leq1$. The balance of forces along the contact point of the three phases determines wetting of the surface by the nucleus $\mathit{2}$ which in turn decides about the shape factor and thus the nucleation barrier and also the nucleation mechanism. 
         
         Should the wetting parameter $\Gamma$ be close to or larger than 1, then (nearly) nothing remains of the nucleus \textit{above} the support plane, the shape factor is (nearly) $S=0$ and the 2D nucleation occurs. 
     
@@ -360,7 +360,7 @@ Below, the different basic cases are introduced, starting with homogeneous nucle
     
     Also the anisotropic heterogeneous nucleation shows many similarities to the isotropic case. It was already shown by Cahn~\cite{Cahn1974}, that when the contact line of the substrate and particle is a closed planar curve, the equilibrium heterogeneous nucleus is obtained by truncation of the Wulff shape (in the isotropic case a sphere was truncated). The wetting conditions develop from the force balance along the contact line. That decides how the Wulff shape should be truncated. The force balance includes some extra terms compared to the isotropic case, which will be discussed in the next section.
     
-    The shape factor $S(\Gamma,\bm{n}_\beta)=V_{het}^{ani}/V_{hom}^{ani}$ represents the ratio of volume of the truncated portion of the Wulff shape relative to volume of the untruncated one. It depends on the wetting condition, described by parameter
+    The shape factor $S(\Gamma,\bm{n}_symbols)=V_{het}^{ani}/V_{hom}^{ani}$ represents the ratio of volume of the truncated portion of the Wulff shape relative to volume of the untruncated one. It depends on the wetting condition, described by parameter
     \begin{equation}
         \Gamma=(\sigma_{2,3}-\sigma_{1,3})/\sigma_{0}
     \end{equation}
@@ -402,13 +402,13 @@ Below, the different basic cases are introduced, starting with homogeneous nucle
     \end{equation}
     where the non-dimensional nucleus area is $\hat{A}_{hom}=A_{hom}/R^2=\pi$.
     
-    In heterogeneous nucleation, the shape factor $S(\theta)=A_{het}/A_{hom}$ has equal role as in the 3D space, implying
+    In heterogeneous nucleation, the shape factor $S(\alpha)=A_{het}/A_{hom}$ has equal role as in the 3D space, implying
     \begin{equation}\label{eq_DG_het_2D}
-        \Delta G_{het} = S(\theta)\Delta G_{hom}
+        \Delta G_{het} = S(\alpha)\Delta G_{hom}
     \end{equation}
     similarly as for the nucleation barrier
     \begin{equation}\label{eq_nucl_barr_het_2D}
-        (\Delta G_c^*)_{het} = S(\theta)(\Delta G_c^*)_{hom}\,.
+        (\Delta G_c^*)_{het} = S(\alpha)(\Delta G_c^*)_{hom}\,.
     \end{equation}
     
     When the interface energy is inclination-dependent $\sigma(\theta)=\sigma_0 h(\theta)$, the interface energy contribution is a line integral $\int_\mathcal{C} \sigma(\theta) \mathrm{d}l$, which can be expressed in analogy with the 3D case~\cite{Mariaux2011} as ($X_0$ being the generalized radius of the Wulff shape with area $A_{hom}^{ani}$)

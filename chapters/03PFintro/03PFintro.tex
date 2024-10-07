@@ -22,10 +22,10 @@ A phase (or phases) in an inhomogeneous system is described by a continuous func
 The governing equations for the phase fields are typically either conservative (Cahn-Hilliard type of equation, conserving volume) or non-conservative (Allen-Cahn type of equation). The latter is more relevant for this work. In the following, no coupling to other physical fields is assumed.
 
 \section{Allen-Cahn equation for two-phase system}
-It was shown that the Allen-Cahn equation is a diffuse-interface approximation of a curvature-driven system (even for anisotropic interface energy~\cite{Elliott1996}). It represents evolution of a non-conserved field $\eta(\mathbf{r})$ in a domain $\Omega\in\mathbb{R}^3$ with boundary $\partial\Omega$ and can be written as
+It was shown that the Allen-Cahn equation is a diffuse-interface approximation of a curvature-driven system (even for anisotropic interface energy~\cite{Elliott1996}). It represents evolution of a non-conserved field $\eta(\mathbf{r})$ in a domain $\Phi\in\mathbb{R}^3$ with boundary $\partial\Phi$ and can be written as
 \begin{align}
-	\frac{\partial \eta}{\partial t} = -L\frac{\delta F}{\delta \eta} \quad &\mathrm{in \,\Omega}\\
-	\nabla\eta\cdot\bm{n} = 0 \quad &\mathrm{at \, \partial\Omega}\,,
+	\frac{\partial \eta}{\partial t} = -L\frac{\delta F}{\delta \eta} \quad &\mathrm{in \,\Phi}\\
+	\nabla\eta\cdot\bm{n} = 0 \quad &\mathrm{at \, \partial\Phi}\,,
 \end{align}
 where $L$ is a positive constant and the function $\frac{\delta F}{\delta \eta}$ stands for functional derivative of the free energy functional $F$. The functional is an integral with free energy density $f(\eta,\nabla\eta)=f_{hom}(\eta)+f_{int}(\nabla\eta)$ comprising of the homogeneous and interfacial free energy densities
 \begin{align}
@@ -87,13 +87,13 @@ In practice, the model is parameterized by the interface width $l_{int}$ and int
 
 The $l_{int}$ is chosen depending on the scale of the problem, disregarding the real physical interface width. 
 
-As shown in~\cite{Moelans2008}, the following equality between the model parameters and the interface mobility $\mu$ holds
+As shown in~\cite{Moelans2008}, the following equality between the model parameters and the interface mobility $M$ holds
 \begin{equation}
-	\mu\sigma = L\kappa \,,
+	M\sigma = L\kappa \,,
 \end{equation}
 which allows to express the phase field kinetic coefficient as
 \begin{equation}\label{eq_def_L_fund_formula}
-	L = \frac{2}{3}\frac{\mu}{l_{int}}\,,
+	L = \frac{2}{3}\frac{M}{l_{int}}\,,
 \end{equation}
 where the equation~\eqref{eq_def_kappa_fund_formula} was used.
 

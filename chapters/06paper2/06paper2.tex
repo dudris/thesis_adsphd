@@ -36,7 +36,7 @@ The paper is organized in five main parts. Firstly, the necessary fundamentals a
 	\end{equation}
 	where $\sigma_0$ is a constant with physical dimensions of interface energy (i.e. $\mathrm{J/m^2}$). In this chapter it is assumed, that the anisotropy function takes the following form 
 	\begin{equation} \label{eq_anisofun}
-		f(\theta -\alpha) = 1+\delta\cos(n(\theta-\alpha)) \,,
+		h(\theta -\alpha) = 1+\delta\cos(n(\theta-\alpha)) \,,
 	\end{equation}
 	where $0\leq\delta<1$ is the strength of anisotropy, $n$ the order of symmetry and $\alpha$ the angle rotating the anisotropy function, representing the 2D crystal orientation. A normalized strength of anisotropy $0\leq \Omega < (n^2-1)$ can be defined as $\Omega=\delta(n^2-1)$. In this paper, weak anisotropy will specifically refer to $\Omega<1$ and strong anisotropy to $\Omega\geq1$.
 	
@@ -125,7 +125,14 @@ The paper is organized in five main parts. Firstly, the necessary fundamentals a
 	\begin{equation} \label{eq_nondim_aniso_young}
 		\Gamma = h(\theta_2)\sin(\theta_2) + h'(\theta_2)\cos(\theta_2) \,,
 	\end{equation}
-	where $\Gamma = [\sigma_{1}-\sigma_3 ]/\sigma_2^0$ will be denoted \textit{wetting parameter} in this paper. It can be both positive or negative. 
+	where $\Gamma = [\sigma_{1}-\sigma_3 ]/\sigma_2^0$ will be denoted \textit{wetting parameter} in this paper. It can be both positive or negative. For the numbering of the interfaces in this context, please refer to the sketch of a left contact point in Figure~\ref{fig_sketch_Lcontact_point}.
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.7\textwidth, page=3]{combine_graphs.pdf}
+		\caption[Sketch of left contact point configuration]{Sketch of left contact point configuration. Tangent angles of the three interfaces are indicated.}
+		\label{fig_sketch_Lcontact_point}
+	\end{figure}
 	
 	The solutions are from the ranges $3\pi/2>\theta_c^L>\pi/2$ and $\pi/2>\theta_c^R\geq-\pi/2$ and must be allowed angles. When~\eqref{eq_nondim_aniso_young} is compared to~\eqref{eq_wulff_parametrically_y}, it is obvious that the solutions $\theta_c^L,\theta_c^R$ are found as normal angles in points with y coordinate equal to $\Gamma$ on an unit-radius Wulff shape.  Thus, the resulting particle shape is a segment of the isolated shape, where the position of the sectioning plane $\Gamma$ is determined by the force balance. That is the Winterbottom construction. Originally, it served to find the shape of the least interface energy, but Bao~\cite{Bao2017} generalized it for any stable equilibrium shape. For illustration of the generalized Winterbottom construction depending on the position of the truncating line see Figure~\ref{fig_wulffonplane_solutions_sketches}.
 	
@@ -361,13 +368,6 @@ The Monte Carlo model was inspired by~\cite{Li1997_1,Li1997_2}, but significantl
 
 The simulation was carried out on a fixed square grid, where every node (or pixel, abbreviated px) had a value between 0-50. The value 0 represented the parent solution and 1-50 represented the crystalline solid of different crystallographic orientations from the interval $\langle0,2\pi/n)$. Each pixel could interact with its nearest and second nearest neighbors. The growth took place in the bottom-up direction, starting with a solid seed row, where random orientations were assigned to each pixel. In every column, there was one \textit{growth site}, which was a liquid site having a solid neighbor on its bottom side, i.e. the first liquid site just above the deposit.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth, page=7]{combine_graphs.pdf}
-	\caption[Single iteration of orientation selection algorithm]{Single iteration of orientation selection algorithm. In (a) is the nucleation probability map $P(\alpha_1,\alpha_2)=\exp[(-10S(\alpha_1,\alpha_2)]$ for $n=4$, $\delta=0.7$. A slice at bottom grain orientation $\alpha_1=67$\textdegree~was indicated as the initial $\alpha_1$. In (b) there is the respective slice of the probability map, from which the probability distribution function (pdf) and then the cumulative distribution function (cdf) of the top grain orientation are computed. The uniformly sampled $\xi_3$ is used in specification of the pdf (see text), here $\xi_3=0.5$ was used. Then, $\xi_4$ is used for sampling of the cdf to obtain the top grain orientation. The top grain orientation reached in this sampling is $\alpha_2=70$\textdegree.}
-	\label{fig_MC_orientation_selection}
-\end{figure}
-
 The simulation proceeded in iterations, one of which is described in a process chart in Figure~\ref{fig_MCscheme}. Essentially, a growth site was first selected, its neighborhood analyzed and then it was decided whether either some neighbor value would be inserted to the growth site (the \textit{growth} branch in the scheme) or whether a nucleation attempt would take place (the \textit{nucleation} branch). The latter could be omitted to produce only anisotropic growth without nucleation.
 
 In the neighborhood analysis, the site interface energy $E_0$ was first computed for the initial case (when the growth site was occupied by the liquid) as
@@ -395,6 +395,13 @@ In absolute value, they were so small, that they did not affect the result of lo
 	\nu(\xi_2) = a(\xi_2-b) \,,
 \end{equation}
 where $a=0.001\sigma_0$, $b=0.25$ and $0<\xi_2<1$ was sampled from the uniform distribution. Effectively, the parameter $b$ controlled the density of nucleation attempts. With this particular parametrization, statistically every fourth growth site not adjacent to the grain boundary attempted to nucleate.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth, page=7]{combine_graphs.pdf}
+	\caption[Single iteration of orientation selection algorithm]{Single iteration of orientation selection algorithm. In (a) is the nucleation probability map $P(\alpha_1,\alpha_2)=\exp[(-10S(\alpha_1,\alpha_2)]$ for $n=4$, $\delta=0.7$. A slice at bottom grain orientation $\alpha_1=67$\textdegree~was indicated as the initial $\alpha_1$. In (b) there is the respective slice of the probability map, from which the probability distribution function (pdf) and then the cumulative distribution function (cdf) of the top grain orientation are computed. The uniformly sampled $\xi_3$ is used in specification of the pdf (see text), here $\xi_3=0.5$ was used. Then, $\xi_4$ is used for sampling of the cdf to obtain the top grain orientation. The top grain orientation reached in this sampling is $\alpha_2=70$\textdegree.}
+	\label{fig_MC_orientation_selection}
+\end{figure}
 
 One nucleation attempt within the orientation selection algorithm is illustrated in Figure~\ref{fig_MC_orientation_selection}a-b. The orientation selection algorithm determined two things: i) whether anything nucleated and ii) with which orientation. Depending on the bottom grain orientation, there is a certain probability distribution for the top grain (nucleus) orientations, which derives from the nucleation probability map (see Figure~\ref{fig_MC_orientation_selection}a)
 \begin{equation}

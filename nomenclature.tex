@@ -1,0 +1,120 @@
+% !TeX root = ../../thesis.tex
+
+%% This code creates the groups
+% -----------------------------------------
+\renewcommand\nomgroup[1]{%
+  \item[\bfseries
+  \ifstrequal{#1}{P}{Symbols related to phase-field method}{%
+  \ifstrequal{#1}{A}{Anisotropy-related symbols}{%
+  \ifstrequal{#1}{N}{Nucleation-related symbols}{%
+  \ifstrequal{#1}{NPAPF}{Nucleation probability assessment - phase field}{%
+  \ifstrequal{#1}{NPAMC}{Analytic nucleation probability assessment and Monte Carlo simulations}{%
+  \ifstrequal{#1}{O}{Other symbols}{}}}}}}%
+]}
+% -----------------------------------------
+
+% Anisotropy-related symbols
+\nomenclature[A]{$\theta$}{inclination angle, i.e. angle between interface normal $\bm{n}$ and x axis in 2D}
+\nomenclature[A]{$\vartheta$}{tangent inclination angle, i.e. angle between interface tangent $\bm{t}$ and x axis in 2D}
+\nomenclature[A]{$\bm{n}$}{interface normal in 2D or 3D space}
+\nomenclature[A]{$(r,\theta,\phi)$}{polar coordinate system}
+\nomenclature[A]{$(r,\theta)$}{polar coordinate system}
+\nomenclature[A]{$h(\theta)$, $h(\bm{n})$}{anisotropy function in 2D and in 2D or 3D, respectively}
+\nomenclature[A]{$n$}{order of symmetry in the anisotropy function $h(\theta) = 1 + \delta\cos(n\theta)$}
+\nomenclature[A]{$\delta$}{strength of anisotropy in the anisotropy function $h(\theta) = 1 + \delta\cos(n\theta)$}
+\nomenclature[A]{$\Omega$}{normalized strength of anisotropy in the anisotropy function $h(\theta) = 1 + \delta\cos(n\theta)$}
+\nomenclature[A]{$\sigma$, $\sigma(\theta)$, $\sigma(\bm{n})$}{interface energy and inclination-dependent interface energy in 2D and in 2D or 3D, respectively (unit $\mathrm{J/m^2}$)}
+\nomenclature[A]{$\hat{\sigma}$}{interface stiffness}
+\nomenclature[O]{$W$}{reversible work; Wulff shape}
+\nomenclature[O]{$A$}{area}
+\nomenclature[O]{$V_m$}{molar volume}
+\nomenclature[A]{$\bm{\xi}$, $\bm{\xi}(\theta)$, $\bm{\xi}(\bm{n})$}{capillary vector, a.k.a. Cahn-Hoffmann vector or $\xi$-vector}
+\nomenclature[A]{$\xi_\|, \xi_\perp$}{components of capillary vector $\bm{\xi}$, which are tangent and perpendicular to the anisotropic surface}
+\nomenclature[A]{$\mu_{surf}$}{chemical potential of atoms on a solid surface}
+\nomenclature[A]{$R_1, R_2$}{principal radii of curvature of a surface}
+\nomenclature[A]{$\kappa_1, \kappa_2$}{principal curvatures of a surface}
+\nomenclature[A]{$n_1, n_2$}{orthogonal projections of unit normal vetcor to surface tangent plane passing}
+\nomenclature[A]{$v_\sigma$}{interface velocity due to capillary driving force}
+\nomenclature[A]{$M$}{interface mobility}
+\nomenclature[O]{$P$}{point on a surface; nucleation probability}
+\nomenclature[A]{$\sigma_0$}{scalar factor with dimension of interface energy}
+
+% Nucleation-related symbols
+\nomenclature[N]{$P$}{nucleation probability}
+\nomenclature[N]{$\mathit{1,2,3 \dots}$}{phases}
+\nomenclature[N]{$\Delta G_c^*$}{critical nucleation barrier}
+\nomenclature[N]{$\Delta G_{hom/het}$}{nucleation barrier in homogeneous/heterogeneous nucleation}
+\nomenclature[N]{$\Delta G_{hom/het}^{ani}$}{nucleation barrier in homogeneous/heterogeneous nucleation with anisotropic particle-liquid interface energy}
+\nomenclature[N]{$\Delta G_{v}$}{free energy difference between the parent phase and nucleated phase}
+\nomenclature[N]{$R$}{universal gas constant; radius of a nucleus}
+\nomenclature[N]{$R_c$}{radius of a critical nucleus}
+\nomenclature[N]{$T$}{absolute temperature}
+\nomenclature[N]{$V_{hom/het}$}{volume of the nucleus created in homogeneous/heterogeneous nucleation}
+\nomenclature[N]{$V_{hom/het}^{ani}$}{volume of the nucleus created in homogeneous/heterogeneous nucleation, anisotropic interface energy}
+\nomenclature[N]{$\hat{V}_{hom/het}$}{non-dimensional volume of the nucleus created in homogeneous/heterogeneous nucleation}
+\nomenclature[N]{$\hat{V}_{hom/het}^{ani}$}{non-dimensional volume of the nucleus created in homogeneous/heterogeneous nucleation, anisotropic interface energy}
+\nomenclature[N]{$X_0$}{generalized radius of a nucleus (of nuclei with anisotropic interface energy)}
+%\nomenclature[N]{$\alpha$}{the angle between the substrate plane and particle interface}
+\nomenclature[N]{$S$}{shape factor}
+\nomenclature[N]{$\Gamma$}{wetting parameter}
+\nomenclature[N]{$\sigma_{1,2}, \sigma_{2,3}, \sigma_{1,3}$}{interface energies of the interfaces in a triple junction separating phases $\mathit{1,2,3}$}
+\nomenclature[N]{$L$}{length of a curve}
+
+
+
+
+% Phase-field method related symbols
+\nomenclature[P]{$\bm{r}$}{position vector in either 2D or 3D  Euclidean space}
+\nomenclature[P]{$\eta_i$, $\eta_i(\bm{r})$}{$i$-th phase field variable}
+\nomenclature[P]{$\kappa$}{a constant, gradient energy coefficient}
+\nomenclature[P]{$\kappa_{i,j}$}{gradient energy coefficient associated with interface $i$-$j$ (i.e. between $\eta_i$, $\eta_j$  (a constant)}
+\nomenclature[P]{$\kappa(\bm{r})$}{spatially-dependent gradient energy coefficient}
+\nomenclature[P]{$\gamma$}{a constant, obstacle potential barrier}
+\nomenclature[P]{$\gamma_{i,j}$}{obstacle potential barrier associated with interface $i$-$j$ (a constant)}
+\nomenclature[P]{$\gamma(\bm{r})$}{spatially-dependent obstacle potential barrier}
+\nomenclature[P]{$m$}{homogeneous energy barrier}
+\nomenclature[P]{$L$}{kinetic coefficient (a constant)}
+\nomenclature[P]{$L_{i,j}$}{kinetic coefficient associated with interface $i$-$j$ (a constant)}
+\nomenclature[P]{$L(\bm{r})$}{spatially-dependent kinetic coefficient}
+\nomenclature[P]{$\Phi$, $\partial\Phi$}{simulation domain in $\mathbb{R}^n$ and its boundary, respectively}
+\nomenclature[P]{$\delta F/\delta \eta$}{functional derivative of a functional $F$ with respect to independent field $\eta(\bm{r})$}
+\nomenclature[P]{$f_{hom}$}{homogeneous free energy density}
+\nomenclature[P]{$f_{int}$}{interface free energy density}
+\nomenclature[P]{$l_{int}$}{interface width (model parameter)}
+\nomenclature[P]{$l_{i,j}$}{interface width associated with interface $i$-$j$}
+\nomenclature[P]{$\sigma$}{interface energy}
+\nomenclature[P]{$\sigma_{i,j}$}{interface energy associated with interface $i$-$j$}
+\nomenclature[P]{$M$}{interface mobility}
+\nomenclature[P]{$M_{i,j}$}{interface mobility associated with interface $i$-$j$}
+\nomenclature[P]{$C_W(\Omega,n)$}{anisotropic factor}
+\nomenclature[P]{$d_H$}{hausdorff distance}
+\nomenclature[P]{$\theta_{i,j}$}{interface normal angle at the interface $i$-$j$}
+\nomenclature[P]{$\psi$}{dihedral angle in a triple junction }
+
+
+% Analytic nucleation probability assessment and Monte Carlo simulations
+\nomenclature[NPAMC]{$\hat{A}_{hom}$}{non-dimensional area of the nucleus created in homogeneous nucleation in 2D space}
+\nomenclature[NPAMC]{$\alpha_1, \alpha_2$}{crystallographic orientation of the substrate and nucleus, respectively (in 2D)}
+\nomenclature[NPAMC]{$\beta$}{non-dimensional nucleation barrier}
+\nomenclature[NPAMC]{$\theta_c^L, \theta_c^R$}{left and right contact point, respectively}
+\nomenclature[NPAMC]{$\sigma_1, \sigma_2, \sigma_3$}{interface energies of the three interfaces in the Winterbottom construction}
+\nomenclature[NPAMC]{$\Delta\alpha(\alpha_1,\alpha_2)$}{disorientation between the particle and substrate}
+\nomenclature[NPAMC]{$\sigma_{SL}, \sigma_{GB}$}{solid-liquid interface energy and grain boundary energy}
+\nomenclature[NPAMC]{$\sigma_{SL}^0, \sigma_{GB}^0$}{scalar factor in solid-liquid interface energy and grain boundary energy}
+\nomenclature[NPAMC]{$\sigma_{SL}^0, \sigma_{GB}^0$}{scalar factor in solid-liquid interface energy and grain boundary energy}
+\nomenclature[NPAMC]{$E_0$}{nucleation site interface energy before any particle was inserted}
+\nomenclature[NPAMC]{$E_{m''}$}{nucleation site total interface energy after insertion of neighboring orientation $m'' $}
+\nomenclature[NPAMC]{$\Delta E$}{minimal possible energy change during growth in a nucleation site}
+\nomenclature[NPAMC]{$\xi_1, \xi_2, \xi_3$}{random numbers drawn during the orientation sampling algorithm}
+
+
+% Nucleation probability assessment - phase field
+%\nomenclature[NPA-PF]{?}{??}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Keep the following \cleardoublepage at the end of this file, 
+% otherwise \includeonly includes empty pages.
+\cleardoublepage
+
+% vim: tw=70 nocindent expandtab foldmethod=marker foldmarker={{{}{,}{}}}

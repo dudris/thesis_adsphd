@@ -1,11 +1,9 @@
 % !TeX root = ../../thesis.tex
 \chapter{Introduction} \label{ch_introduction}
 
-% Some dummy code to get at least 1 entry in the nomenclature.
-\nomenclature{$\Theta$}{A nice symbol}
-% Some dummy code to get at least 1 entry in the list of
-% abbreviations.
 \newglossaryentry{md}{name={MD},description={molecular dynamics}}
+
+
 
 \section{General introduction}
 Crystallographic texture has a marked influence on the properties of polycrystalline coatings. Seemingly unrelated properties such as corrosion resistance, hardness, magnetic properties, porosity, and contact resistance are all texture dependent~\cite{Schlesinger2010}. Some properties such as macroscopic magnetic anisotropy do not even exist if the sample is not textured~\cite{Dinnebier2008}.
@@ -31,12 +29,9 @@ For these reasons, this thesis focuses more on electrodeposition than on other d
 Electrodeposition is a highly industrially relevant process used for many applications like metal deposition for the fabrication of integrated circuits, deposition for magnetic recording devices (heads, disks), and deposition
 of multilayer structures~\cite{Schlesinger2006}, to name a few. Similarly like in other methods, the electrodeposits are usually polycrystalline and exhibit pronounced crystallographic texture, which is affected by many factors. 
 
-
-%This highlights the utility of simulation tools, which allow to set the anisotropy in interface energy and kinetic coefficient independently, because in practice the individual effects may be hard or impossible to distinguish. Among such tools is (multi-)phase field method.
-
 The interface energy is particularly important for the nucleation, which is in turn the main process of how grains with new orientations are introduced during the film growth. To the best of author's knowledge, the relation between the interface energy anisotropy and the anisotropy in nucleation barrier as function of local crystallographic orientation has not been fundamentally investigated. This work intends to bring more insight into this relation using different simulation approaches.
 
-%The following sections provide some fundamental information about the deposition process and as-deposited mictrostructures - Structure-Zone model, Winand diagrams and how the calssical nucleation theory is modified by the presence of anisotropy in interface energy.
+
 
 
 \section{Goals of the thesis}
@@ -51,42 +46,6 @@ The interface energy is particularly important for the nucleation, which is in t
 	}%
 }
 
-%The following \textbf{key objectives (KO)} were set to accomplish the main goals:
-%\begin{description}
-%	\item[KO1] To develop and benchmark the multi-phase field model~\cite{Moelans2008} including the anisotropic interface energy.
-%	\begin{description}
-%%		\item[KO1.1] Implement the multi-phase field model~\cite{Moelans2008} with inclination-dependent interface energy and validate the implementation
-%		\item[KO1.1] Derive the governing equations for all the compared model variants.
-%		\item[KO1.2] Define quantitative benchmark problems to validate both the implementation and the model variants in terms of the anisotropic curvature driving force.
-%		\item[KO1.3] Implement own numerical solver.
-%		\item[KO1.4] Compare the model variants and draw conclusions.
-%	\end{description}
-%\end{description}
-%\noindent\textbf{Comment:} there exist multiple variants of the model~\cite{Moelans2008}, but not all of them were used with inclination-dependent interface energy, hence the governing equations for these must be derived. Additionally, no systematic comparison was made, hence it was not obvious which model variant would be suited the best for the current application.
-%
-%\begin{description}
-%	\item[KO2] Develop a methodology based on the multi-phase-field model~\cite{Moelans2008} capable of determining the nucleation barrier anisotropy.
-%	\begin{description}
-%		\item[KO2.1] Work out the concept of the whole methodology. Specify the requirements on the model, the simulation geometry and if necessary carry extend the model further.
-%		\item[KO2.2] Implement the model and validate its key aspects 
-%		\item[KO2.3] Validate the methodology on some problem with known solution.
-%		\item[KO2.4] Demonstrate usability of the developed methodology on a problem without known solution.
-%	\end{description}
-%	\item[KO3] Determine how anisotropy of the nucleation barrier (different for differently oriented nuclei) relates to interface energy anisotropy and local crystallography
-%	\begin{description}
-%		\item[KO3.1] Analyze and specify the problem
-%		\item[KO3.2] Implement a solver which is able to return the nucleation barrier for each pair of the substrate and particle orientations
-%		\item[KO3.3] Using the solver investigate how the nucleation barrier depends on the orientations
-%	\end{description}
-%	\item[KO4] Demonstrate in a 2D Monte Carlo simulation of growing polycrystalline film how such anisotropy in nucleation barrier may affect texture evolution
-%	\begin{description}
-%		\item[KO4.1] Develop an orientation-sampling algorithm based on the anisotropic nucleation probability
-%		\item[KO4.2] Develop and validate the 2D Monte Carlo simulation algorithm incorporating nucleation with the orientation sampling
-%		\item[KO4.3] Carry out a parameter study to showcase the impact of nucleation with isotropic or anisotropic interface energy on texture evolution under different conditions
-%	\end{description}
-%	\item[KO5] Apply the novel theoretical insights to some real-world practical system
-%	\item[KO6] Synthesize the findings and propose future directions of the research
-%\end{description}
 
 %% REFORMULATED USING CHAT GPT
 %The primary aims of this thesis are twofold: first, to develop a methodology based on the multi-phase-field model proposed by Moelans et al. (2008) that is capable of determining nucleation barrier anisotropy; and second, to provide insights into the influence of anisotropy in interface energy on nucleation during polycrystalline film growth, with a focus on its potential effects on texture evolution.
