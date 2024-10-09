@@ -22,17 +22,17 @@
 
 \author{Martin}{Minar}
 
-\supervisor{Prof.~dr.~ir.~Nele~Moelans}{}
-\president{Prof.~dr.~ir.~Prof.~Lucie~Vandewalle}{}
-\jurymember{Prof.~dr.~ir.~Marc~Seefeldt}{}
-\jurymember{Prof.~dr.~ir.~Kim~Vanmeensel}{}
-\externaljurymember{Prof.~dr.~ir.~Joris~Proost}{UCLouvain, BE}
-\externaljurymember{Dr.~Tamás~Pusztai}{Wigner Research Centre for Physics, HU}
+\supervisor{Prof.~Dr.~Ir.~Nele~Moelans}{}
+\president{Prof.~Dr.~Ir.~Lucie~Vandewalle}{}
+\jurymember{Prof.~Dr.~Marc~Seefeldt}{}
+\jurymember{Prof.~Dr.~Ir.~Kim~Vanmeensel}{}
+\externaljurymember{Prof.~Dr.~Ir.~Joris~Proost}{UCLouvain, BE}
+\externaljurymember{DSc.~Tamás~Pusztai, Ph.D.}{Wigner Research Centre for Physics, HU}
 \externaljurymember{Dr.-Ing.~Daniel~Schneider}{Karlsruhe Institute of Technology, DE}
 
 % Your research group within the department
 % e.g. iMinds-DistriNet, Scientific Computing Group, ...
-\researchgroup{SolMiCS}
+\researchgroup{NMDM}
 \website{} % Leave empty to hide
 \email{} % Leave empty to hide
 
@@ -41,7 +41,7 @@
                               % that 'B-3001 Heverlee' is _incorrect_!!
                               % /[https://www.kuleuven.be/communicatie/marketing/intranet/huisstijl/taalgebruik.html]
 
-\date{January 2024}
+\date{October 2024}
 \copyyear{2024}
 %\udc{XXX.XX}            % UDC, deposit number and ISBN are no longer necessary.
 %\depot{XXXX/XXXX/XX}    % Leave out the initial D/ (it is added
@@ -78,7 +78,7 @@
 \newcommand{\myprintglossary}{%
   \renewcommand{\glossaryname}{\glossname}
   \cleardoublepage%
-  \printglossary[title=\glossname]
+  \printglossary[title=List of Abbreviations]
   \chaptermark{\glossname}
   \addcontentsline{toc}{chapter}{\glossname} %% comment to exclude from TOC
 }
@@ -125,21 +125,22 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\makefrontcoverXII
+\makefrontcoverXII
 
-%\maketitle
+\maketitle
 
-%\frontmatter % to get \pagenumbering{roman}
+\frontmatter % to get \pagenumbering{roman}
 
-%\includepreface{preface}
-%\includeabstract{abstract}
-%\includeabstractnl{abstractnl}
+\includepreface{preface}
+\includeabstract{abstract}
+\includeabstractnl{abstractnl}
 
 % To create a list of abbreviations, there are 2 options
 % 1. manual creation of list of abbreviations and inclusion as a chapter
 %    \includeabbreviations{abbreviations}
 % 2. automatic generation via the glossary package
-%    \glossary{name=MD,description=molecular dynamics}
+    
+\input{abbreviations}
 %\myprintglossary
 
 % To create a list of symbols, there are 2 options
@@ -150,9 +151,9 @@
 \input{nomenclature}
 \myprintnomenclature
 
-%\tableofcontents
-%\listoffigures
-%\listoftables
+\tableofcontents
+\listoffigures
+\listoftables
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter % to get \pagenumbering{arabic}
@@ -162,7 +163,7 @@
 
 %\includechapter{01introduction}
 %\includechapter{02anisoIEintro}
-\includechapter{03PFintro} 
+%\includechapter{03PFintro} 
 %%%%\includechapter{04PFMoelans} % EMPTY
 %\includechapter{05paper1} 
 %\includechapter{06PFnucleationBarrier} 
@@ -195,11 +196,11 @@
 %\printbibliography[title=allpapers]
 %\instructionsbibliography
 
-%\includecv{curriculum}
+\includecv{curriculum}
 
 \includepublications{publications}
 
-%\makebackcoverXII
+\makebackcoverXII
 
 \end{document}
 

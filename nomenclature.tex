@@ -7,7 +7,7 @@
   \ifstrequal{#1}{P}{Symbols related to phase-field method}{%
   \ifstrequal{#1}{A}{Anisotropy-related symbols}{%
   \ifstrequal{#1}{N}{Nucleation-related symbols}{%
-  \ifstrequal{#1}{H}{Nucleation probability assessment - phase field}{%
+  \ifstrequal{#1}{H}{Nucleation probability assessment - phase field methodology}{%
   \ifstrequal{#1}{G}{Analytic nucleation probability assessment and Monte Carlo simulations}{%
   \ifstrequal{#1}{O}{Other symbols}{}}}}}}%
 ]}
@@ -91,6 +91,20 @@
 \nomenclature[P]{$\theta_{i,j}$}{interface normal angle at the interface $i$-$j$}
 \nomenclature[P]{$\psi$}{dihedral angle in a triple junction }
 
+%Nucleation probability assessment - phase field methodology
+\nomenclature[H]{$\sigma_P$}{particle-liquid interface energy}
+\nomenclature[H]{$\sigma_S, \sigma_S^{L/R}$}{substrate-liquid interface energy (on Left or Right from a grain boundary on substrate surface)}
+\nomenclature[H]{$\sigma_{GB}, \sigma_{GB}^{L/R}$}{particle-substrate grain boundary energy (on Left or Right from a grain boundary on substrate surface)}
+\nomenclature[H]{$l_{GB}, l_{GB}^{L/R}$}{length of the particle-substrate grain boundary (on Left or Right from a grain boundary on substrate surface)}
+\nomenclature[H]{$\Delta G_{\sigma}$}{total interface energy change upon the nucleus insertion}
+\nomenclature[H]{$\Delta G_B$}{bulk energy change upon the nucleus insertion}
+\nomenclature[H]{$\vartheta, \vartheta_{L/R}$}{tangent contact angle (on Left or Right from a grain boundary on substrate surface)}
+\nomenclature[H]{$\Delta G_A$}{difference in the Gibbs free energies between liquid and particle (driving force)}
+\nomenclature[H]{$F(\eta,\nabla\eta)$}{phase field free energy functional (absolute solid-liquid interface energy)}
+\nomenclature[H]{$h_S(\vec{\eta}), h_L(\vec{\eta})$}{interpolation function of the solid and liquid phase, respectively}
+
+
+\nomenclature[H]{$\Delta G_B$}{bulk energy change upon the nucleus insertion}
 
 % Analytic nucleation probability assessment and Monte Carlo simulations
 \nomenclature[G]{$\hat{A}_{hom}$}{non-dimensional area of the nucleus created in homogeneous nucleation in 2D space}
