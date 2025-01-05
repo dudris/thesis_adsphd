@@ -123,7 +123,7 @@ Two different types of singularities may occur in Wulff shapes, which must be tr
 		\draw node[inner sep=0,below] at ($(a.north west) + (0.8\textwidth/2/4,0.5) + 2*(0.8\textwidth/4,0) $) {$\vec{\xi}(\theta)$};
 		\draw node[inner sep=0,below] at ($(a.north west) + (0.8\textwidth/2/4,0.5) + 3*(0.8\textwidth/4,0) $) {Wulff};
 	\end{tikzpicture}
-	\caption[Various types of anisotropy functions in 2D]{Illustration of various anisotropy functions and their singularities, taken from~\cite{Kobayashi2001}. In every column there are, respectively: anisotropy function $h(\theta)$, its Frank's plot  $1/h(\theta)$, its $\xi$-plot and the Wulff shape with indication of the straight lines used in its construction. The rows correspond to different anisotropy functions: in (a) $h(\theta) = 1+\delta\cos(4\theta)$ with $\delta=0.05$ (convex, twice differentiable in $\theta$), in (b) $h(\theta) = 1+\delta\cos(4\theta)$ with $\delta=0.25$ (non-convex, twice differentiable in $\theta$), in (c) thick lines indicate regularized anisotropy function from (b), which is dashed in the respective graphs (convexified, twice differentiable in $\theta$). In (d) there is $h(\theta) = 1+\alpha(|\cos(2\theta)|-1/2)$ with $\alpha=0.25$ (non-convex, not twice differentiable in $\theta$).}
+	\caption[Various types of anisotropy functions in 2D]{Illustration of various anisotropy functions and their singularities, taken from~\cite{Kobayashi2001}. In every column there are, respectively: anisotropy function $h(\theta)$, its Frank's plot  $1/h(\theta)$, its $\xi$-plot and the Wulff shape with indication of the straight lines used in its construction. The rows correspond to different anisotropy functions: in (a) $h(\theta) = 1-\delta\cos(4\theta)$ with $\delta=0.05$ (convex, twice differentiable in $\theta$), in (b) $h(\theta) = 1-\delta\cos(4\theta)$ with $\delta=0.25$ (non-convex, twice differentiable in $\theta$), in (c) thick lines indicate regularized anisotropy function from (b), which is dashed in the respective graphs (convexified, twice differentiable in $\theta$). In (d) there is $h(\theta) = 1+\alpha(|\cos(2\theta)|-1/2)$ with $\alpha=0.25$ (non-convex, not twice differentiable in $\theta$).}
 	\label{fig_types_anisofun}
 \end{figure}
 
@@ -176,10 +176,10 @@ In the following, only 2D cross section is discussed. See the Figure~\ref{fig_wi
 \begin{figure}
 	\centering
 	\includegraphics[page=1,width=0.6\textwidth]{sketches_intro.pdf}
-	\caption[Illustration of the Winterbottom construction]{Illustration of the Winterbottom construction. The symbols $\sigma_1, \sigma_2(\theta), \sigma_3$ denote the interface energiees of the respective interfaces, $\sigma_0$ is the scaling interface energy.  $\alpha_1$ is the orientation of the substrate, $\alpha_2$ of the substrate.}
+	\caption[Illustration of the Winterbottom construction]{Illustration of the Winterbottom construction. The symbols $\sigma_1, \sigma_2(\theta), \sigma_3$ denote the interface energiees of the respective interfaces, $\sigma_0$ is the scaling interface energy.  $\alpha_1$ is the orientation of the substrate, $\alpha_2$ of the particle.}
 	\label{fig_winterbottom_explained_intro}
 \end{figure}
- It is assumed that the particle-substrate interface (denoted here with index 1) is linear with the substrate-parent phase (index 3), but with anti-parallel normal vector. Let the substrate plane be parallel with x axis. The particle-parent phase interface is denoted by index 2. The normal vectors of the respective interfaces in the contact point are $\hat{\bm{n}}_1=(0,1)^{\mathrm{T}}$, $\hat{\bm{n}}_3=(0,-1)^{\mathrm{T}}$ and $\hat{\bm{n}}_2$ is to be found from~\eqref{eq_trijun_forcebalance_sum_xivec}. Apparently, with the interfaces 1 and 3 fixed at orientations $\theta_1=\pi/2$ and $\theta_3=-\pi/2$, the force balance can be reduced to a single equation, when the particle-parent phase capillary vector $\bm{\xi}_2$ is projected to the surface normal $\hat{\bm{n}}_S=\hat{\bm{n}}_3$. But that is merely the y-component of the capillary vector. The force balance can thus be written as
+ It is assumed that the particle-substrate interface (denoted here with index 1) is colinear with the substrate-parent phase (index 3), but with anti-parallel normal vector. Let the substrate plane be parallel with x axis. The particle-parent phase interface is denoted by index 2. The normal vectors of the respective interfaces in the contact point are $\hat{\bm{n}}_1=(0,1)^{\mathrm{T}}$, $\hat{\bm{n}}_3=(0,-1)^{\mathrm{T}}$ and $\hat{\bm{n}}_2$ is to be found from~\eqref{eq_trijun_forcebalance_sum_xivec}. Apparently, with the interfaces 1 and 3 fixed at orientations $\theta_1=\pi/2$ and $\theta_3=-\pi/2$, the force balance can be reduced to a single equation, when the particle-parent phase capillary vector $\bm{\xi}_2$ is projected to the surface normal $\hat{\bm{n}}_S=\hat{\bm{n}}_3$. But that is merely the y-component of the capillary vector. The force balance can thus be written as
 \begin{equation}\label{eq_youngs_eq_aniso}
     \sigma_{3}(\pi/2)-\sigma_1(-\pi/2)  
       = \sigma_2(\theta_2)\sin(\theta_2) + \sigma_2'(\theta_2)\cos(\theta_2) \,.
@@ -195,7 +195,7 @@ When all the three interfaces are isotropic, the well known Young's equation is 
 \end{align}
 where in the second equation it was used that $\vartheta_2=\theta_2-\pi/2$.
 
-\section{Other types of Wulff-shape-related constructions}
+\section{Other types of Wulff-shape-related constructions}\label{sec_types_of_Wulff_constructions}
 There is a whole range of Wulff-shape-related constructions~\cite{Boukouvala2021}. This section will briefly discuss the following three, which apply to supported particles: double Winterbottom construction~\cite{Zucker2012}, Summertop construction~\cite{Zia1988} and generalized Winterbottom construction~\cite{Bao2017}.
 
 The double Winterbottom construction does not assume planar interface between the particle and the substrate. This applies to systems with soft substrates or where sufficient time and temperature were provided for such capillarity-induced shape modification. First, the the Winterbottom construction is applied to the supported particle (above the substrate) and then the second time for a hypothetical particle of a substrate material in the supported particle environment (below the substrate plane). The resulting shape is obtained as an intersection of the particles. See Figure~\ref{fig_double_Winterbottom} for illustration.
@@ -213,7 +213,7 @@ The generalized Winterbottom construction applies to anisotropy function of the 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\textwidth]{Bao2017_generalized_Winterbottom.png}
-	\caption[Generalized Winterbottom construction]{The principle of Generalized Winterbottom construction, taken from~\cite{Bao2017}. In (a) the anisotropy function and Wulff shape with "ears", in (b) the forbidden angles were disregarded from the Wulff shape, in (c) the solution given by regular Winterbottom construction and in (c1)-(c3) the new solutions enabled by inclusion of the allowed parts of the "ears".}
+	\caption[Generalized Winterbottom construction]{The principle of Generalized Winterbottom construction, taken from~\cite{Bao2017}. In (a) the anisotropy function and Wulff shape with "ears", in (b) the forbidden angles were disregarded from the Wulff shape, in (c1) the solution given by regular Winterbottom construction and in (c2)-(c4) the new solutions enabled by inclusion of the allowed parts of the "ears".}
 	\label{fig_generalized_Winterbottom}
 \end{figure}
 
@@ -246,7 +246,7 @@ The generalized Winterbottom construction applies to anisotropy function of the 
 %
 %The condition~\eqref{eq_3jun_stabcond_onplane2} is surely fulfilled when both interfaces 1 and 3 have positive interface stiffness in their orientations. That holds automatically, when the Wulff shapes of the interfaces 1 and 3 do not contain any corners. When both of them do contain corners, it means that there are normal angles where the interface stiffness is negative. Apparently, in such situation, the condition~~\eqref{eq_3jun_stabcond_onplane2} may be violated.
 
-\section{Nucleation fundamentals}
+\section{Nucleation fundamentals} \label{sec_Nucleation_fundamentals}
 Great majority of phase transformations in metals occurs by nucleation and growth~\cite{Porter2009}. Nucleation is the physical process in which tiny crystals or clusters of a new phase appear at certain sites within the matrix of a metastable parent phase. Once formed, these nuclei can grow on the expense of the parent phase. The nucleation rate and nuclei spatial distribution strongly affect the resulting microstructure. The above described process corresponds to homogeneous nucleation. Heterogeneous nucleation, on the other hand, involves a surface of which the nucleus appears. 
 
 Heterogeneous nucleation is closely related to film deposition. There here are three different types of film growth (termed Volmer-Weber, Frank Van der Merve and Stranski-Krastanov), which are based on two growth mechanisms, termed simply 2D and 3D nucleation. In the 3D nucleation, nuclei appear on the surface of the support as localized 3D clusters and further grow in all directions. In 2D nucleation, monoatomic layers are successively deposited on top of the surface. Volmer-Weber type of growth occurs via the 3D nucleation mechanism, the Frank Van der Merve type via the 2D nucleation and Stranski-Krastanov starts with 2D nucleation but then switches to 3D nucleation. The factor deciding the nucleation mechanism  are the wetting conditions, as will be described farther below. 
@@ -255,7 +255,7 @@ Nucleation is a thermally activated process, hence the probability $P$ of findin
 \begin{equation}
 	P \approx \exp\left(-\frac{\Delta G_c^*}{RT}\right) \,,
 \end{equation}
-where $R$ is the universal gas constant, $T$ absolute temperature and $\Delta G_c^*$ is a \textit{critical nucleation barrier}, which is to be overcome by the thermal fluctuations in order to form a stable nucleus. Nucleus with the critical volume $V_c$ is metastable. The nucleation barrier $\Delta G_c^*$ is the \textit{nucleation work}~\cite{Milchev2002}, the maximal positive change in Gibbs free energy associated with the nucleus insertion.
+where $R$ is the universal gas constant, $T$ absolute temperature and $\Delta G_c^*$ is a \textit{critical nucleation barrier}, which is to be overcome by the thermal fluctuations in order to form a spontaneously growing nucleus. Nucleus with the critical volume $V_c$ is unstable, but further addition of atoms will make it spontaneously grow, whether atoms subtraction to spontaneously dissolve. The nucleation barrier $\Delta G_c^*$ is the \textit{nucleation work}~\cite{Milchev2002}, the maximal positive change in Gibbs free energy associated with the nucleus insertion.
 
 The Classical Nucleation Theory poses several fundamental assumptions. In the first place, it assumes that the nuclei are large enough to have defined volume and surface, i.e. that they consist of such number of atoms that is not inadequate to assume continuum-like properties. With nuclei consisting of only a few atoms, these and the derived quantities (e.g. specific surface energy) cannot be defined. Additionally, for the purpose of nucleation probability it assumes that the creation of a nucleus is an instantaneous process, where the necessary number of thermally vibrating atoms suddenly occur mutually close enough to overcame the critical nucleation barrier and became a stable growing nucleus. 
 
@@ -331,7 +331,7 @@ Below, the different basic cases are introduced, starting with homogeneous nucle
         
         Because the $R$-dependence in $\Delta G_{het}(R)$ is equal as in $\Delta G_{hom}(R)$, the critical radius is as in~\eqref{eq_crit_radius}, hence the critical nucleation barrier is 
         \begin{align}
-            (\Delta G^*_c)_{het} &= \hat{V}_{hom}S(\alpha)\frac{4\sigma^2}{\Delta G_v} \\
+            (\Delta G^*_c)_{het} &= \hat{V}_{hom}S(\alpha)\frac{4\sigma^3}{\Delta G_v^2} \\
                 &= (\Delta G^*_c)_{hom}S(\alpha)
         \end{align}
         
@@ -355,22 +355,22 @@ Below, the different basic cases are introduced, starting with homogeneous nucle
     \end{equation}
     and
     \begin{equation}
-        (\Delta G^*_c)_{hom}^{ani} = \hat{V}_{hom}^{ani}\frac{4\sigma_0^2}{\Delta G_v} \,.
+        (\Delta G^*_c)_{hom}^{ani} = \hat{V}_{hom}^{ani}\frac{4\sigma_0^3}{\Delta G_v^2} \,.
     \end{equation}
     
     Also the anisotropic heterogeneous nucleation shows many similarities to the isotropic case. It was already shown by Cahn~\cite{Cahn1974}, that when the contact line of the substrate and particle is a closed planar curve, the equilibrium heterogeneous nucleus is obtained by truncation of the Wulff shape (in the isotropic case a sphere was truncated). The wetting conditions develop from the force balance along the contact line. That decides how the Wulff shape should be truncated. The force balance includes some extra terms compared to the isotropic case, which will be discussed in the next section.
     
-    The shape factor $S(\Gamma,\bm{n}_symbols)=V_{het}^{ani}/V_{hom}^{ani}$ represents the ratio of volume of the truncated portion of the Wulff shape relative to volume of the untruncated one. It depends on the wetting condition, described by parameter
+    The shape factor $S(\Gamma,\bm{n}_{\mathit{2}})=V_{het}^{ani}/V_{hom}^{ani}$ represents the ratio of volume of the truncated portion of the Wulff shape relative to volume of the untruncated one. It depends on the wetting condition, described by parameter
     \begin{equation}
         \Gamma=(\sigma_{2,3}-\sigma_{1,3})/\sigma_{0}
     \end{equation}
     and on the nucleus orientation relative to the supporting plane $\bm{n}_\mathit{2}$. As in the isotropic case, 
     \begin{equation}
-        \Delta G_{het}^{ani} = \Delta G_{hom}^{ani} S(\Gamma,\bm{n}_\beta) \,,
+        \Delta G_{het}^{ani} = \Delta G_{hom}^{ani} S(\Gamma,\bm{n}_{\mathit{2}}) \,,
     \end{equation}
     which together with~\eqref{eq_DG_hom_aniso} implies that also in the anisotropic case the shape factor relates the nucleation barriers as
     \begin{equation}
-        (\Delta G^*_c)_{het}^{ani} = (\Delta G^*_c)_{hom}^{ani} S(\Gamma,\bm{n}_\beta) \,.
+        (\Delta G^*_c)_{het}^{ani} = (\Delta G^*_c)_{hom}^{ani} S(\Gamma,\bm{n}_{\mathit{2}}) \,.
     \end{equation}
     
     % shape of a critical heterogeneous nucleus resting on a perfect plane must be a sector of the Wulff shape. Whether the shape is rather emerged above or submerged below the plane is decided by the force balance along the contact line, just as in the isotropic case.  
@@ -398,7 +398,7 @@ Below, the different basic cases are introduced, starting with homogeneous nucle
     \end{equation}
     and critical nucleation barrier
     \begin{equation} 
-        (\Delta G_c^*)_{hom} = \hat{A}_{hom}\frac{2\sigma^2}{\Delta G_A}\,,
+        (\Delta G_c^*)_{hom} = \hat{A}_{hom}\frac{\sigma^2}{\Delta G_A}\,,
     \end{equation}
     where the non-dimensional nucleus area is $\hat{A}_{hom}=A_{hom}/R^2=\pi$.
     
@@ -421,7 +421,7 @@ Below, the different basic cases are introduced, starting with homogeneous nucle
     \end{equation}
     and further its nucleation barrier
     \begin{equation} 
-        (\Delta G_c^*)_{hom} = \hat{A}_{hom}^{ani}\frac{2\sigma^2}{\Delta G_A}\,.
+        (\Delta G_c^*)_{hom} = \hat{A}_{hom}^{ani}\frac{\sigma^2}{\Delta G_A}\,.
     \end{equation}
     In the heterogeneous anisotropic nucleation the difference in Gibbs free energy is like in equation~\eqref{eq_DG_het_2D}, having $\Delta G_{hom}^{ani}$ as in~\eqref{eq_DG_hom_aniso} and the nucleation barrier like in~\eqref{eq_nucl_barr_het_2D}, only with modified shape factor correspondingly to the Wulff shape.
     
@@ -451,7 +451,7 @@ This interchangeability makes the experimental determination of these properties
 
 In the light of previous paragraphs, it is clear that while in some simulations it may not be a big problem to neglect anisotropy in either kinetic coefficient or interface energy as long as it is preserved in the other quantity. However, in the processes where these quantities are not interchangeable (e.g. anisotropic interface energy in nucleation barrier), neglecting the implications of anisotropy results in incomplete representation of the process.
 
-\section{Microstructure formation in coatings}
+\section{Microstructure formation in coatings}\label{sec_microstructure_formation}
 This section contains review of literature related to formation of textures in polycrystalline coatings with emphasis on the underlying processes which are common to all the deposition methods, like electrodeposition, physical vapor deposition or sputtering. 
 
 Microstructure here denotes both the morphology on the surface, shape and size of grains and their crystallographic texture.

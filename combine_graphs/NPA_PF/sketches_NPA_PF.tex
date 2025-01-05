@@ -9,8 +9,8 @@
 \usepackage{bm}
 \usepackage{color}
 \usepackage[unicode]{hyperref}
-\usepackage{multirow}
-\usepackage{multicol}
+%\usepackage{multirow}
+%\usepackage{multicol}
 \usepackage{tikz}
 \usepackage{hyperref} % this is for url links
 \usepackage{textcomp}
@@ -231,10 +231,15 @@
 %		%	
 %		\draw node[below right,inner sep=0] (img) at ($(x1) + (0,-1)$) {\includegraphics[width=0.4\textwidth]{NPA_calc_DGcrit.png}};
 %		
+%		% delete ytick labels
+%		\draw[fill=white, white] ($(x1) + (0.2,-1)$) rectangle ++(0.4,-3.1) ;
+%		\draw[fill=white, white] ($(x1) + (0.2,-1)$) rectangle ++(1,-0.3) ;
+%		
 %		\draw node[inner sep=0] at (-0.7,1) {(a)} ;
 %		\draw node[left,inner sep=0] at (img.north west) {(b)} ;
-%		\draw node[inner sep=0] at (img.west) {$\Delta G$} ;
-%		\draw node[inner sep=0] at (img.south) {$\Delta x$} ;
+%		\draw node[inner sep=0, rotate=90] at (img.west) {$\Delta G$ (a.u.)} ;
+%		\draw node[inner sep=0] at (img.south) {$\Delta x$ (m)} ;
+%		
 %	\end{tikzpicture}
 	
 % NUCLEUS_ON_GB_ANNOTATED
@@ -365,26 +370,47 @@
 %\end{tikzpicture}
 
 %% particle on GB - bezier fit of the contour
+%\begin{tikzpicture}
+%	\draw node[below right,inner sep=0] (lt) at (0,0) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x30_Bezier3.pdf}};
+%	\draw node[below right,inner sep=0] (rt) at (lt.north east) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x90_Bezier3.pdf}};
+%	\draw node[below right,inner sep=0] (lb) at (lt.south west) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x30_Bezier4.pdf}};
+%	\draw node[below right,inner sep=0] (rb) at (lb.north east) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x90_Bezier4.pdf}};
+%	\draw node[below right,inner sep=0] (lbb) at (lb.south west) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x30_Bezier5.pdf}};
+%	\draw node[below right,inner sep=0] (rbb) at (lbb.north east) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x90_Bezier5.pdf}};
+%	
+%	\draw node[inner sep=0,right] at (lt.north west) {(a)};
+%	\draw node[inner sep=0,right] at (rt.north west) {(b)};
+%	\draw node[inner sep=0,right] at (lb.north west) {(c)};
+%	\draw node[inner sep=0,right] at (rb.north west) {(d)};
+%	\draw node[inner sep=0,right] at (lbb.north west) {(e)};
+%	\draw node[inner sep=0,right] at (rbb.north west) {(f)};
+%	
+%	\draw node[inner sep=0.5cm,above] at (lt.north) {$\vartheta_L=120$\textdegree, $\vartheta_R=-30$\textdegree};
+%	\draw node[inner sep=0.5cm,above] at (rt.north) {$\vartheta_L=120$\textdegree, $\vartheta_R=-90$\textdegree};
+%	
+%	\draw node[inner sep=-1cm,left] at (lt.west) {Bezier $n=3$};
+%	\draw node[inner sep=-1cm,left] at (lb.west) {Bezier $n=4$};
+%	\draw node[inner sep=-1cm,left] at (lbb.west) {Bezier $n=5$};
+%\end{tikzpicture}
+
+%% demonstration of Wulff on plane in PF simulation
 \begin{tikzpicture}
-	\draw node[below right,inner sep=0] (lt) at (0,0) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x30_Bezier3.pdf}};
-	\draw node[below right,inner sep=0] (rt) at (lt.north east) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x90_Bezier3.pdf}};
-	\draw node[below right,inner sep=0] (lb) at (lt.south west) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x30_Bezier4.pdf}};
-	\draw node[below right,inner sep=0] (rb) at (lb.north east) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x90_Bezier4.pdf}};
-	\draw node[below right,inner sep=0] (lbb) at (lb.south west) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x30_Bezier5.pdf}};
-	\draw node[below right,inner sep=0] (rbb) at (lbb.north east) {\includegraphics[width=0.45\textwidth]{ISO_onGB_120x90_Bezier5.pdf}};
+%	[trim={left bottom right top},clip]
+	\def\trimh{1cm}
+	\draw node[below right,inner sep=0] (lt) at (0,0) {\includegraphics[width=0.45\textwidth, trim={0 0 0 \trimh}, clip]{demo_Wulff_on_plane_Lang77_Rang-48_snapshot01.pdf}};
+	\draw node[below right,inner sep=0] (rt) at (lt.north east) {\includegraphics[width=0.45\textwidth, trim={0 0 0 \trimh}, clip]{demo_Wulff_on_plane_Lang105_Rang-139_snapshot01.pdf}};
+	\draw node[below right,inner sep=0] (lb) at (lt.south west) {\includegraphics[width=0.45\textwidth, trim={0 0 0 \trimh}, clip]{demo_Wulff_on_plane_Lang77_Rang48_snapshot10.pdf}};
+	\draw node[below right,inner sep=0] (rb) at (lb.north east) {\includegraphics[width=0.45\textwidth, trim={0 0 0 \trimh}, clip]{demo_Wulff_on_plane_Lang105_Rang-139_snapshot10.pdf}};
 	
 	\draw node[inner sep=0,right] at (lt.north west) {(a)};
 	\draw node[inner sep=0,right] at (rt.north west) {(b)};
 	\draw node[inner sep=0,right] at (lb.north west) {(c)};
 	\draw node[inner sep=0,right] at (rb.north west) {(d)};
-	\draw node[inner sep=0,right] at (lbb.north west) {(e)};
-	\draw node[inner sep=0,right] at (rbb.north west) {(f)};
 	
-	\draw node[inner sep=0.5cm,above] at (lt.north) {$\vartheta_L=120$\textdegree, $\vartheta_R=-30$\textdegree};
-	\draw node[inner sep=0.5cm,above] at (rt.north) {$\vartheta_L=120$\textdegree, $\vartheta_R=-90$\textdegree};
 	
-	\draw node[inner sep=-1cm,left] at (lt.west) {Bezier $n=3$};
-	\draw node[inner sep=-1cm,left] at (lb.west) {Bezier $n=4$};
-	\draw node[inner sep=-1cm,left] at (lbb.west) {Bezier $n=5$};
+	\draw node[inner sep=0.6cm,above] at (lt.north) {$\vartheta_L=77$\textdegree, $\vartheta_R=-48$\textdegree};
+	\draw node[inner sep=0.6cm,above] at (rt.north) {$\vartheta_L=105$\textdegree, $\vartheta_R=-139$\textdegree};
+	\draw node[inner sep=0.2cm,above] at (lt.north) {\small $h(\theta)=1+0.6\cos(3(\theta-105.6))$};
+	\draw node[inner sep=0.2cm,above] at (rt.north) {\small $h(\theta)=1+0.6\cos(3(\theta-12))$};
 \end{tikzpicture}
 \end{document}
